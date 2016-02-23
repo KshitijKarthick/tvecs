@@ -37,7 +37,12 @@ class Server():
     def _recommend(self, word, limit):
         try:
             vec_list = self.model.most_similar(word, topn=limit)
-            data = json.dumps([tup[0] for tup in vec_list])
+            data = json.dumps([
+                {
+                    'word': tup[0],
+                    'weight': tup[1]
+                } for tup in vec_list
+            ])
         except KeyError:
             data = json.dumps([])
         return data
