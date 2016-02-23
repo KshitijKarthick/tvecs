@@ -19,6 +19,28 @@ class Server():
         self.language = None
         self.model = None
 
+    @cherrypy.expose
+    def retrieve_recommendations(self, language, word, limit=10):
+        """ Render the index page """
+
+        if self.language is None or self.language != language:
+            try:
+                self.model = Word2Vec.load('./models/t-vex-%s-model' %(language))
+                self.language = language
+                data = self._recommend(word, int(limit))
+            except IOError:
+                data = json.dumps(None)
+        else:
+            data = self._recommend(word, int(limit))
+        return data
+
+    def _recommend(self, word, limit):
+        try:
+            vec_list = self.model.most_similar(word, topn=limit)
+            data = json.dumps([tup[0] for tup in vec_list])
+        except KeyError:
+            data = json.dumps([])
+        return data
 
 if __name__ == '__main__':
     ''' Setting up the Server with Specified Configuration'''
