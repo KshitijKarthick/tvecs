@@ -23,6 +23,7 @@ class Server():
     def retrieve_recommendations(self, language, word, limit=10):
         """ Render the index page """
 
+        cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
         if self.language is None or self.language != language:
             try:
                 self.model = Word2Vec.load('./models/t-vex-%s-model' %(language))
