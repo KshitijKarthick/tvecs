@@ -9,19 +9,29 @@ from jinja2 import Environment, FileSystemLoader
 
 class Server():
     '''
-        Server Configuration:
+        Server Configuration for t-vex
     '''
 
 
     def __init__(self):
-        """ Initialization the URL of the comic and transcript """
+        """ Initialization the Language and Model """
 
         self.language = None
         self.model = None
 
+
+    @cherrypy.expose
+    def index(self):
+        """ Index page setup """
+        return "<center><h1>Welcome to t-vex</h1></center>"
+
+
     @cherrypy.expose
     def retrieve_recommendations(self, language, word, limit=10):
-        """ Render the index page """
+        """ 
+            Retrieve limit number of recommendations
+            for specified word in the given language 
+        """
 
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
         if self.language is None or self.language != language:
