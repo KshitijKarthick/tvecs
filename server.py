@@ -22,8 +22,10 @@ class Server():
 
     @cherrypy.expose
     def index(self):
-        """ Index page setup """
-        return "<center><h1>Welcome to t-vex</h1></center>"
+        """ Index page returns static index.html """
+
+        template = env.get_template('index.html')
+        return template.render()
 
 
     @cherrypy.expose
@@ -45,6 +47,7 @@ class Server():
             data = self._recommend(word, int(limit))
         return data
 
+
     def _recommend(self, word, limit):
         try:
             vec_list = self.model.most_similar(word, topn=limit)
@@ -58,14 +61,23 @@ class Server():
             data = json.dumps([])
         return data
 
+
 if __name__ == '__main__':
     ''' Setting up the Server with Specified Configuration'''
 
     server_config = ConfigParser.RawConfigParser()
-    env = Environment(loader=FileSystemLoader(''))
+    env = Environment(loader=FileSystemLoader('static'))
     conf = {
         '/': {
             'tools.staticdir.root': os.path.abspath(os.getcwd())
+        },
+        '/js': {
+            'tools.staticdir.on': True,
+            'tools.staticdir.dir': './static/js'
+        },
+        '/css': {
+            'tools.staticdir.on': True,
+            'tools.staticdir.dir': './static/css'
         }
     }
     server_config.read('server.conf')
