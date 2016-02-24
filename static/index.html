@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Final Year Project</title>
+    <script type="text/javascript" src="js/dist/vivagraph.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript">
+      var language="hindi";
+      var rootWords = {
+        "english" : "hello",
+        "hindi" : "\u0907\u0932\u093e\u0915\u094b\u0902",
+        "kannada" : "\u0cb9\u0cb0\u0cbf\u0ca6\u0cc1",
+        "tamil" : "\u0b85\u0ba4\u0bbf\u0bae\u0bc1\u0b95\u0bb5\u0bc1\u0bae\u0bcd"
+      }
+        function main () {
+
+          var graph = Viva.Graph.graph();
+
+             graph.addNode(rootWords[language]);
+
+               // Step 2. Add graph content.
+               //  graph.addNode(nodeId, yourCustomData) method lets you add new
+               //  nodes to the graph and associate them with custom data. In this
+               //  case we are associating GitHub user profiles with their Gravatar's images:
+               // graph.addNode('anvaka', '91bad8ceeec43ae303790f8fe238164b');
+               // graph.addNode('indexzero', 'd43e8ea63b61e7669ded5b9d3c2e980f');
+
+
+               // Step 3. Customize node appearance.
+               //  Vivagraph can present graph in multiple ways. svgGraphics() - is
+               //  the way to render graph in SVG format:
+               var graphics = Viva.Graph.View.svgGraphics();
+
+               // This function let us override default node appearance and create
+               // something better than blue dots:
+               graphics.node(function(node) {
+                   // node.data holds custom object passed to graph.addNode():
+                   var text = Viva.Graph.svg('text')
+                     .attr('fill', 'black')
+                     .text(node.id)
+                     .attr('height', 24)
+                     .attr('y',10)
+                     .attr('x', 20);
+                   var circle = Viva.Graph.svg('circle')
+                     .attr("r", 5)
+                     .attr("cx",12.5)
+                     .attr("cy",12.5);
+
+
+                   var ui = Viva.Graph.svg('svg');
+                   ui.appendChild(circle);
+                   ui.appendChild(text);
+
+                   ui.addEventListener("click", function(){
+                     var item = node.id;
+                     var links = graph.getLinks(node.id);
+                     var addNode = function(data){
+                       if(data == null)
+                         alert("Sorry! Related words not found!!");
+                       else {
+                         for(var i=0;i<data.length;i++){
+                           var flag = true;
+                           for(var j=0;j<links.length; j++){
+                             if(links[j].toId == data[i].word || links[j].fromId == data[i].word){
+                               flag = false;
+                               break;
+                             }
+                           }
+                           if(flag === true){
+                             graph.addLink(item, data[i].word, {connectionStrength: data[i].weight});
+                           }
+                         }
+                       }
+                     }
+                     $.ajax({
+                       url: 'http://0.0.0.0:5000/retrieve_recommendations',
+                       data: {
+                         'language': language,
+                         'word': node.id
+                       },
+                       success: addNode,
+                       dataType: 'json'
+                     });
+                   })
+                   return ui;
+               });
+
+               // Usually when you have custom look for nodes, you might want to
+               // set their position in a new way too. placeNode() method serves
+               // this goal:
+               graphics.placeNode(function(nodeUI, pos) {
+                   // nodeUI - is exactly the same object that we returned from
+                   //   node() callback above.
+                   // pos - is calculated position for this node.
+                   nodeUI.attr('x', pos.x - 12).attr('y', pos.y - 12);
+               });
+
+               var idealLength = 90;
+               var layout = Viva.Graph.Layout.forceDirected(graph, {
+                   springLength: idealLength,
+                   springCoeff : 0.0001,
+                   gravity : -100,
+                   theta : 0,
+                   // This is the main part of this example. We are telling force directed
+                   // layout, that we want to change length of each physical spring
+                   // by overriding `springTransform` method:
+                   springTransform: function (link, spring) {
+                     spring.length = idealLength * (1 - link.data.connectionStrength);
+                   }
+               });
+
+               // Step 4. Render the graph with our customized graphics object:
+               var renderer = Viva.Graph.View.renderer(graph, {
+                       graphics : graphics,
+                       layout: layout,
+                       container: document.getElementById('svg-container')
+                   });
+               renderer.run();
+
+            $("input[name='language']").on("change", function () {
+              language = this.value;
+              graphNode = document.getElementById('svg-container');
+              graphNode.removeChild(graphNode.firstChild);
+              main();
+              console.log(language);
+            });
+        }
+
+    </script>
+</head>
+<body onload='main()'>
+  <div id="main-container">
+    <div id="svg-container"></div>
+    <div id="option-menu">
+      <div id="language-menu">
+        <input type="radio" name="language" value="english">English</input><br />
+        <input type="radio" name="language" value="hindi" checked>Hindi</input><br />
+        <input type="radio" name="language" value="kannada">Kannada</input><br />
+        <input type="radio" name="language" value="tamil">Tamil</input><br />
+      </div>
+    </div>
+  </div>
+</body>
+</html>
