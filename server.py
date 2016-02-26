@@ -30,9 +30,9 @@ class Server():
 
     @cherrypy.expose
     def retrieve_recommendations(self, language, word, limit=10):
-        """ 
+        """
             Retrieve limit number of recommendations
-            for specified word in the given language 
+            for specified word in the given language
         """
 
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
@@ -78,6 +78,10 @@ if __name__ == '__main__':
         '/css': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': './static/css'
+        },
+        '/images': {
+            'tools.staticdir.on': True,
+            'tools.staticdir.dir': './static/images'
         }
     }
     server_config.read('server.conf')
