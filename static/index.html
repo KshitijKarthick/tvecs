@@ -4,7 +4,10 @@
     <title>Final Year Project</title>
     <script type="text/javascript" src="js/dist/vivagraph.min.js"></script>
     <script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css'>
     <script type="text/javascript">
       var language="hindi";
       var rootWords = {
@@ -40,10 +43,10 @@
                      .attr('fill', 'black')
                      .text(node.id)
                      .attr('height', 24)
-                     .attr('y',10)
+                     .attr('text-anchor', 'middle')
                      .attr('x', 20);
                    var circle = Viva.Graph.svg('circle')
-                     .attr("r", 5)
+                     .attr("r", 7)
                      .attr("cx",12.5)
                      .attr("cy",12.5);
 
@@ -127,17 +130,31 @@
             });
         }
 
+        function resetWindow() {
+          window.location.reload();
+        }
+
     </script>
 </head>
 <body onload='main()'>
-  <div id="main-container">
-    <div id="svg-container"></div>
-    <div id="option-menu">
+  <div id="main-container" class="container row">
+    <div id="svg-container" class="col-sm-10"></div>
+    <div id="option-menu" class="col-sm-2">
       <div id="language-menu">
-        <input type="radio" name="language" value="english">English</input><br />
-        <input type="radio" name="language" value="hindi" checked>Hindi</input><br />
-        <input type="radio" name="language" value="kannada">Kannada</input><br />
-        <input type="radio" name="language" value="tamil">Tamil</input><br />
+        <div class="menu-heading">Languages</div>
+        <input type="radio" name="language" value="english" id="r1"/><label for="r1"><span></span>English</label><br />
+        <input type="radio" name="language" value="hindi" id="r2" checked /><label for="r2"><span></span>Hindi</label><br />
+        <input type="radio" name="language" value="kannada" id="r3"/><label for="r3"><span></span>Kannada</label><br />
+        <input type="radio" name="language" value="tamil" id="r4" /><label for="r4"><span></span>Tamil</label><br />
+      </div>
+      <!--Themes functionlity-Coming Soon-->
+      <!-- <div id="theme-menu">
+        <div class="menu-heading">Themes</div>
+        <input type="radio" name="theme" value="black" id="r5"></input><label for="r5"><span></span>Eerie Black</label><br />
+        <input type="radio" name="theme" value="white" id="r6"></input><label for="r6"><span></span>White</label><br />
+      </div> -->
+      <div id="bottom-menu">
+        <button id="reset-btn" onclick="resetWindow()">Reset</button>
       </div>
     </div>
   </div>
