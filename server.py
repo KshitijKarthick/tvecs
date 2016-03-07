@@ -1,4 +1,6 @@
-#! /usr/bin/env python3
+#! /usr/bin/env python2
+"""CherryPy Server to provide recommendations of semantic similarity."""
+
 import cherrypy
 import os
 import ConfigParser
@@ -8,37 +10,32 @@ from jinja2 import Environment, FileSystemLoader
 
 
 class Server():
-    '''
-        Server Configuration for t-vex
-    '''
-
+    """Server Configuration for t-vex."""
 
     def __init__(self):
-        """ Initialization the Language and Model """
-
+        """Initialization the Language and Model."""
         self.language = None
         self.model = None
 
-
     @cherrypy.expose
     def index(self):
-        """ Index page returns static index.html """
-
+        """Index page returns static index.html."""
         template = env.get_template('index.html')
         return template.render()
-
 
     @cherrypy.expose
     def retrieve_recommendations(self, language, word, limit=10):
         """
-            Retrieve limit number of recommendations
-            for specified word in the given language
-        """
+        Retrieve number of semantically similar recommendations.
 
+        For specified word in the given language retrieve limit recommendations
+        """
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
         if self.language is None or self.language != language:
             try:
-                self.model = Word2Vec.load('./models/t-vex-%s-model' %(language))
+                self.model = Word2Vec.load(
+                    './models/t-vex-%s-model' % (language)
+                )
                 self.language = language
                 data = self._recommend(word, int(limit))
             except IOError:
@@ -46,7 +43,6 @@ class Server():
         else:
             data = self._recommend(word, int(limit))
         return data
-
 
     def _recommend(self, word, limit):
         try:
