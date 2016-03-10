@@ -1,8 +1,8 @@
 """HC Corpus Preprocessor which inherits from BasePreprocessor."""
 
-import re
-import string
-from string import maketrans
+import sys
+import regex as re
+import unicodedata
 from base_preprocessor import BasePreprocessor
 from nltk.tokenize import sent_tokenize
 
@@ -43,19 +43,11 @@ class HcCorpusPreprocessor(BasePreprocessor):
         * Bring to lowercase.
         * Remove punctuations.
         """
-        processed_word = re.sub(
-            pattern='(\'s)|(\')|(([a-zA-Z0-9]*).(com|net|org|in).?)|()',
+        return re.sub(
+            pattern=ur"(([a-zA-Z0-9]*).(com|net|org|in).?)|(\p{P}+)",
             repl='',
             string=word.lower().strip()
         )
-        tab = maketrans(
-            string.punctuation,
-            ''.zfill(len(string.punctuation)).replace('0', ' ')
-        )
-        return string.translate(
-            processed_word.encode('utf-8'),
-            tab
-        ).decode('utf-8').strip().lower()
 
     def _tokenize_sentences(self, data):
         """
@@ -64,18 +56,15 @@ class HcCorpusPreprocessor(BasePreprocessor):
         * Sentence Tokenize the corpus using NLTK.
         * Remove punctuations [ except space ] from each individual sentences.
         """
-        punct_except_space = string.punctuation.replace('.', '')
-        tab = maketrans(
-            punct_except_space,
-            ''.zfill(len(punct_except_space)).replace('0', ' ')
-        )
+        # tbl = dict.fromkeys(
+        #     i for i in xrange(sys.maxunicode)
+        #     if unicodedata.category(unichr(i)).startswith('P')
+        # )
+        # return (
+        #     sentence.translate(tbl) for sentence in sent_tokenize(data)
+        # )
         return (
-            (
-                string.translate(
-                    sentence.encode('utf-8'),
-                    tab
-                )
-            ).decode('utf-8') for sentence in sent_tokenize(data)
+            sentence for sentence in sent_tokenize(data)
         )
 
     def _tokenize_words(self, sentence):
