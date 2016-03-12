@@ -47,27 +47,27 @@ def generate_model(
 
 
 if __name__ == '__main__':
-    generate_model(
-        language='hindi',
-        corpus_fname='all.txt',
-        corpus_dir_path='./corpus/Hindi',
-        need_preprocessing=True,
-        iter=5
-    )
-    generate_model(
-        language='kannada',
-        corpus_fname='all.txt',
-        corpus_dir_path='./corpus/Kannada',
-        need_preprocessing=True,
-        iter=5,
-    )
-    generate_model(
-        language='tamil',
-        corpus_fname='all.txt',
-        corpus_dir_path='./corpus/Tamil',
-        need_preprocessing=True,
-        iter=5
-    )
+    # generate_model(
+    #     language='hindi',
+    #     corpus_fname='all.txt',
+    #     corpus_dir_path='./corpus/Hindi',
+    #     need_preprocessing=True,
+    #     iter=5
+    # )
+    # generate_model(
+    #     language='kannada',
+    #     corpus_fname='all.txt',
+    #     corpus_dir_path='./corpus/Kannada',
+    #     need_preprocessing=True,
+    #     iter=5,
+    # )
+    # generate_model(
+    #     language='tamil',
+    #     corpus_fname='all.txt',
+    #     corpus_dir_path='./corpus/Tamil',
+    #     need_preprocessing=True,
+    #     iter=5
+    # )
     generate_model(
         language='english',
         corpus_fname='all.txt',
