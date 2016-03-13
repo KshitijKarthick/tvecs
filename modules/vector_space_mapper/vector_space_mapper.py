@@ -1,5 +1,6 @@
 """Module to map two Vector Spaces using a bilingual dictionary."""
 
+import os
 import logging
 import codecs
 from gensim.models import Word2Vec
@@ -108,12 +109,14 @@ class VectorSpaceMapper(object):
 if __name__ == '__main__':
 
     model_1 = Word2Vec.load(
-        './models/t-vex-english-model'
+        os.path.join('data', 'models', 't-vex-english-model')
     )
     model_2 = Word2Vec.load(
-        './models/t-vex-hindi-model'
+        os.path.join('data', 'models', 't-vex-hindi-model')
     )
-    with codecs.open('bilingual_dictionary', 'r', encoding='utf-8') as file:
+    with codecs.open(
+        os.path.join('data', 'bilingual_dictionary'), 'r', encoding='utf-8'
+    ) as file:
         data = file.read().split('\n')
         bilingual_dict = [
             (line.split(' ')[0], line.split(' ')[1])
