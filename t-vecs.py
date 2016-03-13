@@ -33,7 +33,9 @@ def bilingual_generator():
     """test."""
     bilingual_dict = []
     with codecs.open(
-        './modules/bilingual_generator/bilingual_dictionary', 'r',
+        os.path.join(
+            'data', 'bilingual_dictionary'
+        ), 'r',
         encoding='utf-8'
     ) as file:
         data = file.read().split('\n')
