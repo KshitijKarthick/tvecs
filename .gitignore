@@ -1,2 +1,4 @@
-/corpus/
-/models/
+/data/corpus/
+/data/models/
+/data/vectors/
+*.pyc
