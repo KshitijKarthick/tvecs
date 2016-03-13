@@ -16,7 +16,7 @@ def generate_model(
     language,
     corpus_fname,
     corpus_dir_path='.',
-    output_dir_path='../data/models',
+    output_dir_path=os.path.join('data', 'models'),
     need_preprocessing=True,
     iter=5
 ):
@@ -58,28 +58,28 @@ if __name__ == '__main__':
     generate_model(
         language='hindi',
         corpus_fname='all.txt',
-        corpus_dir_path='../data/corpus/Hindi',
+        corpus_dir_path=os.path.join('data', 'corpus', 'Hindi'),
         need_preprocessing=True,
         iter=5
     )
     generate_model(
         language='kannada',
         corpus_fname='all.txt',
-        corpus_dir_path='../data/corpus/Kannada',
+        corpus_dir_path=os.path.join('data', 'corpus', 'Kannada'),
         need_preprocessing=True,
         iter=5,
     )
     generate_model(
         language='tamil',
         corpus_fname='all.txt',
-        corpus_dir_path='../data/corpus/Tamil',
+        corpus_dir_path=os.path.join('data', 'corpus', 'Tamil'),
         need_preprocessing=True,
         iter=5
     )
     generate_model(
         language='english',
         corpus_fname='all.txt',
-        corpus_dir_path='../data/corpus/English',
+        corpus_dir_path=os.path.join('data', 'corpus', 'English'),
         need_preprocessing=True,
         iter=5
     )
