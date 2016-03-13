@@ -34,7 +34,9 @@ class Server():
         if self.language is None or self.language != language:
             try:
                 self.model = Word2Vec.load(
-                    './models/t-vex-%s-model' % (language)
+                    os.path.join(
+                        '..', 'data', 'models', 't-vex-%s-model' % (language)
+                    )
                 )
                 self.language = language
                 data = self._recommend(word, int(limit))
