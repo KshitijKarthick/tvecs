@@ -9,6 +9,14 @@ pip install -r requirements.txt
 # Only Model needs to be downloaded and extracted in the t-vex directory
 ```
 
+### Prerequisites
+* Python 2.7 setup and installed
+* Pip setup and installed
+* Ensure all dependencies of requirements.txt are satisfied
+* Download nltk_data using nltk.download() -> only tokenizers required
+* Download corpus and extract in specified directory
+
+
 ### Download Corpus
 
 ##### Corpus Download details
@@ -21,26 +29,20 @@ other possible prospects we could look into Kannada, Tamil languages
 
 * data/corpus -> corpus
 * data/models -> models
-  
-### Visualisation of vector space
 
-```
-cd visualization
-python2 server.py
-[ Open browser to localhost:5000 for visualization ]
-[ Ensure model generation is completed before running visualization ]
-```
 
 ### Execution
 
 ```
-* Preprocessing, Model Generation, Bilingual Generation, Vector Space Mapping between two languages english hindi from the corpus
+  # Preprocessing, Model Generation, Bilingual Generation, Vector Space Mapping between two languages english hindi from the corpus
 	
 	python2 -im t-vecs -l1 kannada -l2 tamil -t1 ./data/corpus/English/all.txt -t2 ./data/corpus/Hindi/all.txt
+  # [ utilise the dictionary tvex_calls which contains results of every step performed ]
 
-* Bilingual generation, Vector space mapping between two languages english hindi providing the models
+  # Bilingual generation, Vector space mapping between two languages english hindi providing the models
 
 	python2 -im t-vecs -l1 english -l2 hindi -m1 ./data/models/t-vex-english-model -m2 ./data/models/t-vex-hindi-model
+  # [ utilise the dictionary tvex_calls which contains results of every step performed ]
 ```
 
 ### Usage Details
@@ -72,9 +74,26 @@ optional arguments:
                         text corpus for model generation
 ```
 
-### Prerequisites
-* Python 2.7 setup and installed
-* Pip setup and installed
-* Ensure all dependencies of requirements.txt are satisfied
-* Download nltk_data using nltk.download() -> only tokenizers required
-* Download corpus and extract in specified directory
+
+### Visualisation of vector space
+
+```
+cd visualization
+python2 server.py
+[ Open browser to localhost:5000 for visualization ]
+[ Ensure model generation is completed before running visualization ]
+```
+
+### Execution of Individual Modules [ For the GEEKS out there ]
+```
+
+  # bilingual dictionary generation -> clustering vectors from trained model
+  python2 -m modules.bilingual_generator.clustering
+
+  # model generation
+  python2 -m modules.model_generator.model_generation
+
+  #vector space mapping [ utilise the object vm to obtain recommendations ]
+  python2 -im modules.vector_space_mapper.vector_space_mapper
+
+```
