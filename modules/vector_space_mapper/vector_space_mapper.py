@@ -65,7 +65,7 @@ class VectorSpaceMapper(object):
         self.lt.fit(self.vector_1_list, self.vector_2_list)
 
     def _predict_vec_from_word(self, word):
-        return self._predict_vec_from_vec(self.model_1[word])[0]
+        return self._predict_vec_from_vec(self.model_1[word])
 
     def _predict_vec_from_vec(self, vector):
         return self.lt.predict(vector)[0]
