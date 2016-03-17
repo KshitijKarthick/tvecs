@@ -199,13 +199,13 @@ def evaluate(logger, args):
                     corpus_fname=fname_1,
                     corpus_dir_path=ntpath.split(args.corpus1)[0],
                     encoding='utf-8',
-                    need_preprocessing=False
+                    need_preprocessing=True
                 ),
                 func(
                     corpus_fname=fname_2,
                     corpus_dir_path=ntpath.split(args.corpus2)[0],
                     encoding='utf-8',
-                    need_preprocessing=False
+                    need_preprocessing=True
                 )
             )
         elif func_name is "model_generator":
