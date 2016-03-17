@@ -4,6 +4,7 @@ import os
 import logging
 import codecs
 from gensim.models import Word2Vec
+import scipy.spatial.distance as dist
 from sklearn.linear_model import LinearRegression
 
 
@@ -106,6 +107,34 @@ class VectorSpaceMapper(object):
             data = None
         return data
 
+    def obtain_cosine_similarity(self, word_1, word_2):
+        """Test."""
+        vec_1 = self._predict_vec_from_word(word_1)
+        vec_2 = self.model_2[word_2]
+        return 1 - dist.cosine(vec_1, vec_2)
+
+    def obtain_avg_similarity_from_test(self, test_path):
+        """Test."""
+        with codecs.open(test_path, 'r', encoding='utf-8') as file:
+            data = file.read().split('\n')
+            bilingual_dict = [
+                (line.split(' ')[0], line.split(' ')[1])
+                for line in data
+            ]
+            avg = 0
+            count = 0
+            for tup in bilingual_dict:
+                word_1 = tup[0]
+                word_2 = tup[1]
+                try:
+                    similarity = self.obtain_cosine_similarity(word_1, word_2)
+                    count += 1
+                    avg += similarity
+                except KeyError:
+                    pass
+            return avg / count
+
+
 if __name__ == '__main__':
 
     model_1 = Word2Vec.load(
@@ -115,7 +144,9 @@ if __name__ == '__main__':
         os.path.join('data', 'models', 't-vex-hindi-model')
     )
     with codecs.open(
-        os.path.join('data', 'bilingual_dictionary'), 'r', encoding='utf-8'
+        os.path.join(
+            'data', 'bilingual_dictionary'
+        ), 'r', encoding='utf-8'
     ) as file:
         data = file.read().split('\n')
         bilingual_dict = [
@@ -123,3 +154,4 @@ if __name__ == '__main__':
             for line in data
         ]
         vm = VectorSpaceMapper(model_1, model_2, bilingual_dict)
+        vm.map_vector_spaces()
