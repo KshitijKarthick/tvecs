@@ -27,12 +27,14 @@ class HcCorpusPreprocessor(BasePreprocessor):
 
     def _extract_corpus_data(self, data):
         """Extract 4th column of corpus which contains the body."""
-        tab_split_list = data.split('\t')
-        return ". ".join(
-            tab_split_list[x] for x in range(
-                len(tab_split_list)
-            ) if x % 4 == 0 and x != 0
-        )
+        line_split_list=data.split('\n')
+        corpus_data = []
+        for i in range(len(line_split_list)):
+            tab_split_list=line_split_list[i].split('\t')
+            for j in range(len(tab_split_list)):
+                if j % 4 == 0 and j != 0:
+                    corpus_data.append(tab_split_list[j].strip())
+        return ".".join(corpus_data)
 
     def _clean_word(self, word):
         """
@@ -44,9 +46,9 @@ class HcCorpusPreprocessor(BasePreprocessor):
         * Remove punctuations.
         """
         return re.sub(
-            pattern=ur"(([a-zA-Z0-9]*).(com|net|org|in).?)|(\p{P}+)",
+            pattern=ur"((\p{P}+[a-zA-Z]*)|(\p{S}))",
             repl='',
-            string=word.lower().strip()
+            string=word.lower()
         )
 
     def _tokenize_sentences(self, data):
