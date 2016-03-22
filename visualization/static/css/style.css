@@ -57,13 +57,17 @@ svg {
   width: 100%;
 }
 
-#reset-btn {
+.bottom-btns {
   width: 100%;
   height: 35px;
   font-size: 20px;
   border: none;
   color: #ffeeee;
   background: #3A3026;
+}
+
+#word-text-btn {
+  border-bottom: 1px solid #222;
 }
 
 #reset-btn:active {
