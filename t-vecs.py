@@ -29,12 +29,12 @@ def model_generator(
     )
 
 
-def bilingual_generator():
+def bilingual_generator(lang1, lang2):
     """test."""
     bilingual_dict = []
     with codecs.open(
         os.path.join(
-            'data', 'bilingual_dictionary'
+            'data', 'bilingual_dictionary', '%s_%s_train_bd' %(lang1, lang2)
         ), 'r',
         encoding='utf-8'
     ) as file:
@@ -228,7 +228,9 @@ def evaluate(logger, args):
             )
         elif func_name is "bilingual_generator":
             logger.info("Running Bilingual Generator")
-            tvex_calls[func_name]['result'] = func()
+            tvex_calls[func_name]['result'] = func(
+                lang1=args.language1, lang2=args.language2
+            )
         elif func_name is "vector_space_mapper":
             logger.info("Mapping Vector Spaces Together")
             tvex_calls[func_name]['result'] = func(

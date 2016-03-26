@@ -145,7 +145,7 @@ if __name__ == '__main__':
     )
     with codecs.open(
         os.path.join(
-            'data', 'bilingual_dictionary'
+            'data', 'bilingual_dictionary', 'english_hindi_train_bd'
         ), 'r', encoding='utf-8'
     ) as file:
         data = file.read().split('\n')
@@ -155,3 +155,6 @@ if __name__ == '__main__':
         ]
         vm = VectorSpaceMapper(model_1, model_2, bilingual_dict)
         vm.map_vector_spaces()
+        print vm.obtain_avg_similarity_from_test(test_path=os.path.join(
+            'data', 'bilingual_dictionary', 'english_hindi_test_bd'
+        ))
