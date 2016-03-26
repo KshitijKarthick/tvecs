@@ -2,12 +2,14 @@
 """CherryPy Server to provide recommendations of semantic similarity."""
 
 import cherrypy
+import codecs
 import os
 import ConfigParser
 import json
 import cPickle
 from gensim.models import Word2Vec
 from jinja2 import Environment, FileSystemLoader
+from modules.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
 
 
 class Server():
@@ -66,6 +68,36 @@ class Server():
         else:
             data = self._recommend(word, int(topn), fn=self.vm.get_recommendations_from_word)
         return data
+
+    @cherrypy.expose
+    def create_vector_space_mapper(self, lang1, lang2):
+
+        cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
+        if os.path.exists('%s_%s' %(lang1, lang2)) is False:
+            model_1 = Word2Vec.load(
+                os.path.join('data', 'models', 't-vex-%s-model' % lang1)
+            )
+            model_2 = Word2Vec.load(
+                os.path.join('data', 'models', 't-vex-%s-model' % lang2)
+            )
+            with codecs.open(
+                os.path.join(
+                    'data', 'bilingual_dictionary', '%s_%s_train_bd' %(lang1, lang2)
+                ), 'r', encoding='utf-8'
+            ) as file:
+                data = file.read().split('\n')
+                bilingual_dict = [
+                    (line.split(' ')[0], line.split(' ')[1])
+                    for line in data
+                ]
+                vm = VectorSpaceMapper(model_1, model_2, bilingual_dict)
+                vm.map_vector_spaces()
+                with open('%s_%s' %(lang1, lang2), "w") as file:
+                    cPickle.dump(vm, file)
+                    return json.dumps({'msg': 'Success'})
+                return json.dumps({'msg': 'Failure'})
+        else:
+            return json.dumps({'msg': 'Success'})
 
 
     def _recommend(self, word, limit, fn):
