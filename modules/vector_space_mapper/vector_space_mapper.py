@@ -89,7 +89,7 @@ class VectorSpaceMapper(object):
             data = None
         return data
 
-    def get_recommendations_from_word(self, word, topn=10):
+    def get_recommendations_from_word(self, word, topn=10, pretty_print=False):
         """
         Get topn most similar words from model-2 [language 2].
 
@@ -105,6 +105,11 @@ class VectorSpaceMapper(object):
         else:
             logging.error('First Map Vector Spaces')
             data = None
+        if pretty_print is True:
+            print "\n%s\t=>\t%s" %("Word", "Score")
+            for prediction in data:
+                print "%s\t=>\t%s" %(prediction[0], prediction[1])
+            print ""
         return data
 
     def obtain_cosine_similarity(self, word_1, word_2):
