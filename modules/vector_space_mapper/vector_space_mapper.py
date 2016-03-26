@@ -5,7 +5,7 @@ import logging
 import codecs
 from gensim.models import Word2Vec
 import scipy.spatial.distance as dist
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import RidgeCV
 
 
 class VectorSpaceMapper(object):
@@ -62,7 +62,7 @@ class VectorSpaceMapper(object):
         Semantic embeddings obtained from vector space of corresponding
         bilingual words of the same language
         """
-        self.lt = LinearRegression()
+        self.lt = RidgeCV()
         self.lt.fit(self.vector_1_list, self.vector_2_list)
 
     def _predict_vec_from_word(self, word):
