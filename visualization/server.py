@@ -26,7 +26,7 @@ class Server():
     @cherrypy.expose
     def index(self):
         """Index page returns static index.html."""
-        
+
         return file(os.path.join('visualization','static', 'index.html'))
 
     @cherrypy.expose
@@ -46,7 +46,7 @@ class Server():
                 )
                 self.language = language
                 data = self._recommend(word, int(limit), fn=self.model.most_similar)
-            except IOError:
+            except (IOError, OSError):
                 data = json.dumps(None)
         else:
             data = self._recommend(word, int(limit), fn=self.model.most_similar)
@@ -58,12 +58,14 @@ class Server():
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
         if self.cross_lang1 is not lang1 and self.cross_lang2 is not lang2:
             try:
-                f = open('%s_%s' %(lang1, lang2), "r")
+                f = open(os.path.join(
+                    'visualization', 'vector_space_mapper', '%s_%s' %(lang1, lang2)
+                ), "r")
                 self.vm = cPickle.load(f)
                 self.cross_lang1 = lang1
                 self.cross_lang2 = lang2
                 data = self._recommend(word, int(topn), fn=self.vm.get_recommendations_from_word)
-            except IOError:
+            except (IOError, OSError):
                 data = json.dumps(None)
         else:
             data = self._recommend(word, int(topn), fn=self.vm.get_recommendations_from_word)
@@ -73,28 +75,34 @@ class Server():
     def create_vector_space_mapper(self, lang1, lang2):
 
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
-        if os.path.exists('%s_%s' %(lang1, lang2)) is False:
-            model_1 = Word2Vec.load(
-                os.path.join('data', 'models', 't-vex-%s-model' % lang1)
-            )
-            model_2 = Word2Vec.load(
-                os.path.join('data', 'models', 't-vex-%s-model' % lang2)
-            )
-            with codecs.open(
-                os.path.join(
-                    'data', 'bilingual_dictionary', '%s_%s_train_bd' %(lang1, lang2)
-                ), 'r', encoding='utf-8'
-            ) as file:
-                data = file.read().split('\n')
-                bilingual_dict = [
-                    (line.split(' ')[0], line.split(' ')[1])
-                    for line in data
-                ]
-                vm = VectorSpaceMapper(model_1, model_2, bilingual_dict)
-                vm.map_vector_spaces()
-                with open('%s_%s' %(lang1, lang2), "w") as file:
-                    cPickle.dump(vm, file)
-                    return json.dumps({'msg': 'Success'})
+        if os.path.exists(os.path.join(
+            'visualization', 'vector_space_mapper', '%s_%s' %(lang1, lang2)
+        )) is False:
+            try:
+                model_1 = Word2Vec.load(
+                    os.path.join('data', 'models', 't-vex-%s-model' % lang1)
+                )
+                model_2 = Word2Vec.load(
+                    os.path.join('data', 'models', 't-vex-%s-model' % lang2)
+                )
+                with codecs.open(
+                    os.path.join(
+                        'data', 'bilingual_dictionary', '%s_%s_train_bd' %(lang1, lang2)
+                    ), 'r', encoding='utf-8'
+                ) as file:
+                    data = file.read().split('\n')
+                    bilingual_dict = [
+                        (line.split(' ')[0], line.split(' ')[1])
+                        for line in data
+                    ]
+                    vm = VectorSpaceMapper(model_1, model_2, bilingual_dict)
+                    vm.map_vector_spaces()
+                    with open(os.path.join(
+                        'visualization', 'vector_space_mapper','%s_%s' %(lang1, lang2)
+                    ), "w") as file:
+                        cPickle.dump(vm, file)
+                        return json.dumps({'msg': 'Success'})
+            except (IOError, OSError):
                 return json.dumps({'msg': 'Failure'})
         else:
             return json.dumps({'msg': 'Success'})
