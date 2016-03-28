@@ -1,4 +1,9 @@
-"""Test."""
+"""
+Utilise Yandex Translation Service.
+
+Obtain bilingual semantic human score.
+"""
+
 import os
 import json
 import codecs
@@ -7,26 +12,27 @@ from gensim.models import Word2Vec
 import modules.vector_space_mapper.vector_space_mapper as vsm
 
 
-def yandex_api():
-    """Test."""
+def yandex_api(lang_translate, input_score_path, output_score_path):
+    """
+    Utilise Yandex Translation Service, obtain bilingual semantic human score.
+
+    WordSim score, translated on one column using Yandex.
+    Yandex Api Key, lang for translation needs to be provided
+    """
     vm = load_vector_space_mapper()
     base_url = 'https://translate.yandex.net/api/v1.5/tr.json/translate'
     options = {
-        'lang': 'en-hi',
+        'lang': lang_translate,
         'key': '<Enter Key Here>'
     }
-    with codecs.open(os.path.join(
-        'data', 'wordsim_relatedness_goldstandard.txt'
-    ), 'r', encoding='utf-8') as file:
-        with codecs.open(os.path.join(
-            'data', 'wordsim_relatedness_translate.txt'
-        ), 'w', encoding='utf-8') as outfile:
+    with codecs.open(input_score_path, 'r', encoding='utf-8') as file:
+        with codecs.open(output_score_path, 'w', encoding='utf-8') as outfile:
             for line in file:
                 word_1, word_2, score = line.split()
-                options['text'] = word_1
-                tr_word_1 = json.loads(requests.get(base_url, params=options).text)["text"][0]
                 options['text'] = word_2
-                tr_word_2 = json.loads(requests.get(base_url, params=options).text)["text"][0]
+                tr_word_2 = json.loads(
+                    requests.get(base_url, params=options).text
+                )["text"][0]
                 try:
                     outfile.write("%s %s %s %s\n" % (
                         word_1,
@@ -36,18 +42,10 @@ def yandex_api():
                     ))
                 except KeyError:
                     pass
-                try:
-                    outfile.write("%s %s %s %s\n" % (
-                        word_2,
-                        tr_word_1,
-                        score,
-                        vm.obtain_cosine_similarity(tr_word_1, word_2)
-                    ))
-                except KeyError:
-                    pass
+
 
 def load_vector_space_mapper():
-    """Test."""
+    """Generate Vector Space Mapper."""
     model_1 = Word2Vec.load(
         os.path.join('data', 'models', 't-vex-english-model')
     )
@@ -56,7 +54,7 @@ def load_vector_space_mapper():
     )
     with codecs.open(
         os.path.join(
-            'data', 'bilingual_dictionary'
+            'data', 'bilingual_dictionary', 'english_hindi_train_bd'
         ), 'r', encoding='utf-8'
     ) as file:
         data = file.read().split('\n')
@@ -68,4 +66,14 @@ def load_vector_space_mapper():
         vm.map_vector_spaces()
     return vm
 
-yandex_api()
+if __name__ == '__main__':
+
+    yandex_api(
+        lang_translate='en-hi',
+        input_score_path=os.path.join(
+            'data', 'evaluate', 'wordsim_relatedness_goldstandard.txt'
+        ),
+        output_score_path=os.path.join(
+            'data', 'evaluate', 'wordsim_relatedness_translate.txt'
+        )
+    )
