@@ -78,12 +78,15 @@ class VectorSpaceMapper(object):
         vector for the word in model-1 [language 1] should be provided
         """
         if self.lt is not None:
-            data = self.model_2.most_similar(
-                positive=[
-                    self._predict_vec_from_vec(vector)
-                ],
-                topn=topn
-            )
+            try:
+                data = self.model_2.most_similar(
+                    positive=[
+                        self._predict_vec_from_vec(vector)
+                    ],
+                    topn=topn
+                )
+            except KeyError:
+                data = None
         else:
             logging.error('First Map Vector Spaces')
             data = None
@@ -96,30 +99,44 @@ class VectorSpaceMapper(object):
         word from model-1 [language 1] should be provided
         """
         if self.lt is not None:
-            data = self.model_2.most_similar(
-                positive=[
-                    self._predict_vec_from_word(word)
-                ],
-                topn=topn
-            )
+            try:
+                data = self.model_2.most_similar(
+                    positive=[
+                        self._predict_vec_from_word(word)
+                    ],
+                    topn=topn
+                )
+            except KeyError:
+                data = None
         else:
             logging.error('First Map Vector Spaces')
             data = None
         if pretty_print is True:
-            print "\n%s\t=>\t%s" %("Word", "Score")
+            print "\n%s\t=>\t%s" % ("Word", "Score")
             for prediction in data:
-                print "%s\t=>\t%s" %(prediction[0], prediction[1])
+                print "%s\t=>\t%s" % (prediction[0], prediction[1])
             print ""
         return data
 
     def obtain_cosine_similarity(self, word_1, word_2):
-        """Test."""
-        vec_1 = self._predict_vec_from_word(word_1)
-        vec_2 = self.model_2[word_2]
-        return 1 - dist.cosine(vec_1, vec_2)
+        """
+        Obtain cosine similarity.
+
+        Cosine Similarity between word_2 and predicted word using word_1
+        """
+        try:
+            vec_1 = self._predict_vec_from_word(word_1)
+            vec_2 = self.model_2[word_2]
+            return 1 - dist.cosine(vec_1, vec_2)
+        except KeyError:
+            return None
 
     def obtain_avg_similarity_from_test(self, test_path):
-        """Test."""
+        """
+        Obtain Avg Similarity from testing dataset.
+
+        Testing bilingual dictionary utilised to obtain avg cosine similiarity
+        """
         with codecs.open(test_path, 'r', encoding='utf-8') as file:
             data = file.read().split('\n')
             bilingual_dict = [
