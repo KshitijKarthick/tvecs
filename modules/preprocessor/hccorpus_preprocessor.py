@@ -41,15 +41,16 @@ class HcCorpusPreprocessor(BasePreprocessor):
         Preprocess words after tokenizing words from sentences.
 
         * Remove apostrophes ['s, s'].
-        * Remove website urls [wordpress.com, blogspot.com].
         * Bring to lowercase.
         * Remove punctuations.
         """
+     
+        # 
         return re.sub(
-            pattern=ur"((\p{P}+[a-zA-Z]*)|(\p{S}))",
+            pattern=ur"((\p{P}+)|(\p{S}))",
             repl='',
             string=word.lower()
-        )
+        ).strip()
 
     def _tokenize_sentences(self, data):
         """
