@@ -22,7 +22,8 @@ class BasePreprocessor(object):
         corpus_fname,
         corpus_dir_path='.',
         encoding='utf-8',
-        need_preprocessing=False
+        need_preprocessing=False,
+        limit=None
     ):
         """
         Constructor initialization for BasePreprocessor.
@@ -40,6 +41,7 @@ class BasePreprocessor(object):
                                             in seperate lines ]
         """
         logging.basicConfig(level=logging.INFO)
+        self.limit = limit
         self.corpus_fname = corpus_fname
         self.corpus_path = os.path.join(
             corpus_dir_path, self.corpus_fname
@@ -127,13 +129,16 @@ class BasePreprocessor(object):
             "Base Class _tokenize_words() not implemented"
         )
 
-    def __iter__(self):
+    def get_preprocessed_text(self, limit=None):
         """
-        Iterator returns preprocessed list of tokenized words on every call.
+        Generator generates preprocessed list of tokenized words on every call.
 
         * Read Sentence tokenized intermediate preprocessed file.
         * Tokenize and preprocess words, return list of words from a sentence.
         """
+        count = 0
+        if limit is None:
+            limit = self.limit
         for sentence in fileinput.input(
             files=[self.preprocessed_corpus_path],
             openhook=fileinput.hook_encoded(self.encoding)
@@ -143,6 +148,17 @@ class BasePreprocessor(object):
                     word
                 ) for word in self._tokenize_words(sentence)
             )
-            yield [
+            word_list = [
                 word for word in word_list if len(word) is not 0
             ]
+            count += len(word_list)
+            if limit is not None and count >= limit:
+                fileinput.close()
+                raise StopIteration
+            else:
+                yield word_list
+
+    def __iter__(self):
+        """Iterator provided for get_preprocessed_text."""
+        for tokenized_sentence in self.get_preprocessed_text():
+            yield tokenized_sentence
