@@ -77,9 +77,10 @@
                        }
                      }
                      $.ajax({
-                       url: 'http://0.0.0.0:5000/retrieve_recommendations',
+                       url: 'http://0.0.0.0:5000/get_cross_lingual_recommendations',
                        data: {
-                         'language': language,
+                         'lang1': language,
+                         'lang2': "hindi",
                          'word': node.id
                        },
                        success: addNode,
@@ -134,6 +135,14 @@
           window.location.reload();
         }
 
+        function getWord() {
+          var newWord = prompt("Please enter a new word","");
+          rootWords["english"] = newWord;
+          graphNode = document.getElementById('svg-container');
+          graphNode.removeChild(graphNode.firstChild);
+          main();
+        }
+
     </script>
 </head>
 <body onload='main()'>
@@ -154,7 +163,8 @@
         <input type="radio" name="theme" value="white" id="r6"></input><label for="r6"><span></span>White</label><br />
       </div> -->
       <div id="bottom-menu">
-        <button id="reset-btn" onclick="resetWindow()">Reset</button>
+        <button id="word-text-btn" class="bottom-btns" onclick="getWord()">Enter Word</button>
+        <button id="reset-btn" class="bottom-btns" onclick="resetWindow()">Reset</button>
       </div>
     </div>
   </div>

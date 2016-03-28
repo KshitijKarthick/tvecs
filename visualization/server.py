@@ -2,11 +2,14 @@
 """CherryPy Server to provide recommendations of semantic similarity."""
 
 import cherrypy
+import codecs
 import os
 import ConfigParser
 import json
+import cPickle
 from gensim.models import Word2Vec
 from jinja2 import Environment, FileSystemLoader
+from modules.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
 
 
 class Server():
@@ -15,13 +18,16 @@ class Server():
     def __init__(self):
         """Initialization the Language and Model."""
         self.language = None
+        self.cross_lang1 = None
+        self.cross_lang2 = None
+        self.vm = None
         self.model = None
 
     @cherrypy.expose
     def index(self):
         """Index page returns static index.html."""
-        template = env.get_template('index.html')
-        return template.render()
+
+        return file(os.path.join('visualization','static', 'index.html'))
 
     @cherrypy.expose
     def retrieve_recommendations(self, language, word, limit=10):
@@ -35,20 +41,76 @@ class Server():
             try:
                 self.model = Word2Vec.load(
                     os.path.join(
-                        '..', 'data', 'models', 't-vex-%s-model' % (language)
+                        'data', 'models', 't-vex-%s-model' % (language)
                     )
                 )
                 self.language = language
-                data = self._recommend(word, int(limit))
-            except IOError:
+                data = self._recommend(word, int(limit), fn=self.model.most_similar)
+            except (IOError, OSError):
                 data = json.dumps(None)
         else:
-            data = self._recommend(word, int(limit))
+            data = self._recommend(word, int(limit), fn=self.model.most_similar)
         return data
 
-    def _recommend(self, word, limit):
+    @cherrypy.expose
+    def get_cross_lingual_recommendations(self, lang1, lang2, word, topn=10):
+
+        cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
+        if self.cross_lang1 is not lang1 and self.cross_lang2 is not lang2:
+            try:
+                f = open(os.path.join(
+                    'visualization', 'vector_space_mapper', '%s_%s' %(lang1, lang2)
+                ), "r")
+                self.vm = cPickle.load(f)
+                self.cross_lang1 = lang1
+                self.cross_lang2 = lang2
+                data = self._recommend(word, int(topn), fn=self.vm.get_recommendations_from_word)
+            except (IOError, OSError):
+                data = json.dumps(None)
+        else:
+            data = self._recommend(word, int(topn), fn=self.vm.get_recommendations_from_word)
+        return data
+
+    @cherrypy.expose
+    def create_vector_space_mapper(self, lang1, lang2):
+
+        cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
+        if os.path.exists(os.path.join(
+            'visualization', 'vector_space_mapper', '%s_%s' %(lang1, lang2)
+        )) is False:
+            try:
+                model_1 = Word2Vec.load(
+                    os.path.join('data', 'models', 't-vex-%s-model' % lang1)
+                )
+                model_2 = Word2Vec.load(
+                    os.path.join('data', 'models', 't-vex-%s-model' % lang2)
+                )
+                with codecs.open(
+                    os.path.join(
+                        'data', 'bilingual_dictionary', '%s_%s_train_bd' %(lang1, lang2)
+                    ), 'r', encoding='utf-8'
+                ) as file:
+                    data = file.read().split('\n')
+                    bilingual_dict = [
+                        (line.split(' ')[0], line.split(' ')[1])
+                        for line in data
+                    ]
+                    vm = VectorSpaceMapper(model_1, model_2, bilingual_dict)
+                    vm.map_vector_spaces()
+                    with open(os.path.join(
+                        'visualization', 'vector_space_mapper','%s_%s' %(lang1, lang2)
+                    ), "w") as file:
+                        cPickle.dump(vm, file)
+                        return json.dumps({'msg': 'Success'})
+            except (IOError, OSError):
+                return json.dumps({'msg': 'Failure'})
+        else:
+            return json.dumps({'msg': 'Success'})
+
+
+    def _recommend(self, word, limit, fn):
         try:
-            vec_list = self.model.most_similar(word, topn=limit)
+            vec_list = fn(word, topn=limit)
             data = json.dumps([
                 {
                     'word': tup[0],
@@ -56,7 +118,7 @@ class Server():
                 } for tup in vec_list
             ])
         except KeyError:
-            data = json.dumps([])
+            data = json.dumps(None)
         return data
 
 
@@ -71,18 +133,18 @@ if __name__ == '__main__':
         },
         '/js': {
             'tools.staticdir.on': True,
-            'tools.staticdir.dir': './static/js'
+            'tools.staticdir.dir': os.path.join('visualization', 'static', 'js')
         },
         '/css': {
             'tools.staticdir.on': True,
-            'tools.staticdir.dir': './static/css'
+            'tools.staticdir.dir': os.path.join('visualization', 'static', 'css')
         },
         '/images': {
             'tools.staticdir.on': True,
-            'tools.staticdir.dir': './static/images'
+            'tools.staticdir.dir': os.path.join('visualization', 'static', 'images')
         }
     }
-    server_config.read('server.conf')
+    server_config.read(os.path.join('visualization', 'server.conf'))
     server_port = server_config.get('Server', 'port')
     server_host = server_config.get('Server', 'host')
     thread_pool = server_config.get('Server', 'thread_pool')

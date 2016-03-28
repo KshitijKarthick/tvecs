@@ -5,7 +5,7 @@ import logging
 import codecs
 from gensim.models import Word2Vec
 import scipy.spatial.distance as dist
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import RidgeCV
 
 
 class VectorSpaceMapper(object):
@@ -62,7 +62,7 @@ class VectorSpaceMapper(object):
         Semantic embeddings obtained from vector space of corresponding
         bilingual words of the same language
         """
-        self.lt = LinearRegression()
+        self.lt = RidgeCV()
         self.lt.fit(self.vector_1_list, self.vector_2_list)
 
     def _predict_vec_from_word(self, word):
@@ -89,7 +89,7 @@ class VectorSpaceMapper(object):
             data = None
         return data
 
-    def get_recommendations_from_word(self, word, topn=10):
+    def get_recommendations_from_word(self, word, topn=10, pretty_print=False):
         """
         Get topn most similar words from model-2 [language 2].
 
@@ -105,6 +105,11 @@ class VectorSpaceMapper(object):
         else:
             logging.error('First Map Vector Spaces')
             data = None
+        if pretty_print is True:
+            print "\n%s\t=>\t%s" %("Word", "Score")
+            for prediction in data:
+                print "%s\t=>\t%s" %(prediction[0], prediction[1])
+            print ""
         return data
 
     def obtain_cosine_similarity(self, word_1, word_2):
@@ -145,7 +150,7 @@ if __name__ == '__main__':
     )
     with codecs.open(
         os.path.join(
-            'data', 'bilingual_dictionary'
+            'data', 'bilingual_dictionary', 'english_hindi_train_bd'
         ), 'r', encoding='utf-8'
     ) as file:
         data = file.read().split('\n')
@@ -155,3 +160,6 @@ if __name__ == '__main__':
         ]
         vm = VectorSpaceMapper(model_1, model_2, bilingual_dict)
         vm.map_vector_spaces()
+        print vm.obtain_avg_similarity_from_test(test_path=os.path.join(
+            'data', 'bilingual_dictionary', 'english_hindi_test_bd'
+        ))
