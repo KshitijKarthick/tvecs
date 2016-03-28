@@ -44,13 +44,33 @@ def generate_model(
 
 
 def construct_model(
-    preprocessed_corpus, language, output_dir_path=".", iter=5
+    preprocessed_corpus,
+    language,
+    output_dir_path=".",
+    output_fname=None,
+    iter=5
 ):
-    """Test."""
+    """
+    Construct Model given the preprocessed corpus.
+
+    Function Parameters:
+    * preprocessed_corpus- (object)  - Instance of SubClass of BasePreprocessor
+    * language           - (string)  - Language for which model is generated
+                                       [ Used for model filename ]
+    * output_dir_path    - (string)  - Output Dir Path where model is stored
+    * need_preprocessing - (boolean) - Runs Preprocess with the same flag
+                                       [ Default True ]
+    * iter               - (number)  - Number of iterations for Word2Vec
+    """
     model = gensim.models.Word2Vec(preprocessed_corpus, iter=iter)
-    output_fname = os.path.join(output_dir_path, 't-vex-%s-model' % (language))
-    model.save(output_fname)
-    print("Model saved at %s" % (output_fname))
+    if output_fname is None:
+        output_path = os.path.join(
+            output_dir_path, 't-vex-%s-model' % (language)
+        )
+    else:
+        output_path = os.path.join(output_dir_path, output_fname)
+    model.save(output_path)
+    print("Model saved at %s" % (output_path))
     return model
 
 
