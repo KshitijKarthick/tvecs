@@ -114,7 +114,7 @@ def multivariate_analyse():
                     vsm = VectorSpaceMapper(
                         model_1=model_1,
                         model_2=model_2,
-                        bilingual_dict=bilingual_dict
+                        bilingual_dict=bilingual_dict[:bilingual]
                     )
                     vsm.map_vector_spaces()
                     new_time = time.time()
