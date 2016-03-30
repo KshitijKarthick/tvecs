@@ -27,7 +27,15 @@ class Server():
     def index(self):
         """Index page returns static index.html."""
 
-        return file(os.path.join('visualization','static', 'index.html'))
+        return file(os.path.join('visualization', 'static', 'index.html'))
+
+    @cherrypy.expose
+    def multivariate_analysis(self):
+        """Index page returns static index.html."""
+
+        return file(os.path.join(
+            'visualization', 'static', 'multivariate.html')
+        )
 
     @cherrypy.expose
     def retrieve_recommendations(self, language, word, limit=10):
@@ -133,15 +141,27 @@ if __name__ == '__main__':
         },
         '/js': {
             'tools.staticdir.on': True,
-            'tools.staticdir.dir': os.path.join('visualization', 'static', 'js')
+            'tools.staticdir.dir': os.path.join(
+                'visualization', 'static', 'js'
+            )
         },
         '/css': {
             'tools.staticdir.on': True,
-            'tools.staticdir.dir': os.path.join('visualization', 'static', 'css')
+            'tools.staticdir.dir': os.path.join(
+                'visualization', 'static', 'css'
+            )
         },
         '/images': {
             'tools.staticdir.on': True,
-            'tools.staticdir.dir': os.path.join('visualization', 'static', 'images')
+            'tools.staticdir.dir': os.path.join(
+                'visualization', 'static', 'images'
+            )
+        },
+        '/resources': {
+            'tools.staticdir.on': True,
+            'tools.staticdir.dir': os.path.join(
+                'visualization', 'static', 'resources'
+            )
         }
     }
     server_config.read(os.path.join('visualization', 'server.conf'))
