@@ -25,16 +25,21 @@ class Server():
 
     @cherrypy.expose
     def index(self):
-        """Index page returns static index.html."""
-
+        """Semantic spac visualization html returned."""
         return file(os.path.join('visualization', 'static', 'index.html'))
 
     @cherrypy.expose
     def multivariate_analysis(self):
-        """Index page returns static index.html."""
-
+        """Parallel Coordinates for multivariate analysis html page return."""
         return file(os.path.join(
             'visualization', 'static', 'multivariate.html')
+        )
+
+    @cherrypy.expose
+    def cross_lingual(self):
+        """Cross Lingual recommender html returned."""
+        return file(os.path.join(
+            'visualization', 'static', 'cross_lingual.html')
         )
 
     @cherrypy.expose
@@ -53,38 +58,54 @@ class Server():
                     )
                 )
                 self.language = language
-                data = self._recommend(word, int(limit), fn=self.model.most_similar)
+                data = self._recommend(
+                    word, int(limit), fn=self.model.most_similar
+                )
             except (IOError, OSError):
                 data = json.dumps(None)
         else:
-            data = self._recommend(word, int(limit), fn=self.model.most_similar)
+            data = self._recommend(
+                word, int(limit), fn=self.model.most_similar
+            )
         return data
 
     @cherrypy.expose
-    def get_cross_lingual_recommendations(self, lang1, lang2, word, topn=10):
-
+    def get_cross_lingual_recommendations(
+        self,
+        lang1,
+        lang2,
+        word,
+        topn=10
+    ):
+        """Provide cross lingual recommendations."""
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
         if self.cross_lang1 is not lang1 and self.cross_lang2 is not lang2:
             try:
                 f = open(os.path.join(
-                    'visualization', 'vector_space_mapper', '%s_%s' %(lang1, lang2)
+                    'visualization', 'vector_space_mapper', '%s_%s' % (
+                        lang1, lang2
+                    )
                 ), "r")
                 self.vm = cPickle.load(f)
                 self.cross_lang1 = lang1
                 self.cross_lang2 = lang2
-                data = self._recommend(word, int(topn), fn=self.vm.get_recommendations_from_word)
+                data = self._recommend(
+                    word, int(topn), fn=self.vm.get_recommendations_from_word
+                )
             except (IOError, OSError):
                 data = json.dumps(None)
         else:
-            data = self._recommend(word, int(topn), fn=self.vm.get_recommendations_from_word)
+            data = self._recommend(
+                word, int(topn), fn=self.vm.get_recommendations_from_word
+            )
         return data
 
     @cherrypy.expose
     def create_vector_space_mapper(self, lang1, lang2):
-
+        """Create Vector Space Mapper between Languages."""
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
         if os.path.exists(os.path.join(
-            'visualization', 'vector_space_mapper', '%s_%s' %(lang1, lang2)
+            'visualization', 'vector_space_mapper', '%s_%s' % (lang1, lang2)
         )) is False:
             try:
                 model_1 = Word2Vec.load(
@@ -95,7 +116,9 @@ class Server():
                 )
                 with codecs.open(
                     os.path.join(
-                        'data', 'bilingual_dictionary', '%s_%s_train_bd' %(lang1, lang2)
+                        'data', 'bilingual_dictionary', '%s_%s_train_bd' % (
+                            lang1, lang2
+                        )
                     ), 'r', encoding='utf-8'
                 ) as file:
                     data = file.read().split('\n')
@@ -106,7 +129,9 @@ class Server():
                     vm = VectorSpaceMapper(model_1, model_2, bilingual_dict)
                     vm.map_vector_spaces()
                     with open(os.path.join(
-                        'visualization', 'vector_space_mapper','%s_%s' %(lang1, lang2)
+                        'visualization', 'vector_space_mapper', '%s_%s' % (
+                            lang1, lang2
+                        )
                     ), "w") as file:
                         cPickle.dump(vm, file)
                         return json.dumps({'msg': 'Success'})
@@ -115,8 +140,8 @@ class Server():
         else:
             return json.dumps({'msg': 'Success'})
 
-
     def _recommend(self, word, limit, fn):
+        """Vector Space Mapper recommend functionality."""
         try:
             vec_list = fn(word, topn=limit)
             data = json.dumps([
