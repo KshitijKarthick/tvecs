@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Final Year Project</title>
+    <title>T-Vecs Semantic Space Visualization</title>
     <script type="text/javascript" src="js/dist/vivagraph.min.js"></script>
     <script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -77,10 +77,9 @@
                        }
                      }
                      $.ajax({
-                       url: 'http://0.0.0.0:5000/get_cross_lingual_recommendations',
+                       url: 'http://0.0.0.0:5000/retrieve_recommendations',
                        data: {
-                         'lang1': language,
-                         'lang2': "hindi",
+                         'language': language,
                          'word': node.id
                        },
                        success: addNode,
