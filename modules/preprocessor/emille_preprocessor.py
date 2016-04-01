@@ -33,15 +33,12 @@ class EmilleCorpusPreprocessor(BasePreprocessor):
         ptags = soup.find_all('p')
         content =[]
         for index in range(len(ptags)):
-            content.append(td[index].string)
+            content.append(ptags[index].string)
         return content
 
     def _clean_word(self, word):
         """
         Preprocess words after tokenizing words from sentences.
-
-        * Remove apostrophes ['s, s'].
-        * Bring to lowercase.
         * Remove punctuations.
         """
      
