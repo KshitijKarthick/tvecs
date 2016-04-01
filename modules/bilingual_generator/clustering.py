@@ -9,12 +9,12 @@ import logging
 import json
 
 
-def cluster(vec_list, word_list, num_clusters=1000):
+def cluster(language, vec_list, word_list, num_clusters=1000, n_jobs=3):
     """Test."""
     kmeans_clust = KMeans(
         n_clusters=num_clusters,
         precompute_distances=True,
-        n_jobs=3,
+        n_jobs=n_jobs,
     )
     idx = kmeans_clust.fit_predict(vec_list)
     k = [[] for _ in xrange(num_clusters)]
@@ -22,13 +22,15 @@ def cluster(vec_list, word_list, num_clusters=1000):
     for word in word_centroid_map.keys():
         k[word_centroid_map[word]].append(word)
     with codecs.open(os.path.join(
-        'data', 'clustering.json'
+        'data', 'vectors', '%s-%s-clustering.json' % (language, num_clusters)
     ), 'w', encoding='utf-8') as file:
         file.write(
             json.dumps(k)
         )
 
 if __name__ == '__main__':
+    language = 'english'
+    num_clusters = 2
     logging.basicConfig(level=logging.DEBUG)
     model = Word2Vec.load(
         os.path.join('data', 'models', 't-vex-english-model')
@@ -37,7 +39,9 @@ if __name__ == '__main__':
     vec_list = [model[word] for word in word_list]
     del(model)
     with codecs.open(
-        os.path.join('data', 'vectors.json'), 'w'
+        os.path.join(
+            'data', 'vectors', '%s-%s-vectors' % (language, num_clusters)
+        ), 'w'
     ) as file:
         file.write(
             cPickle.dumps({
@@ -45,4 +49,9 @@ if __name__ == '__main__':
                 'word_list': word_list,
             })
         )
-    cluster(vec_list, word_list)
+    cluster(
+        language=language,
+        vec_list=vec_list,
+        word_list=word_list,
+        num_clusters=num_clusters
+    )

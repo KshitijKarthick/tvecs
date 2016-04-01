@@ -45,7 +45,7 @@ def multivariate_analyse():
     bilingual_size = [706, 1060, 1413, 1766]
     with open(os.path.join(
         'data', 'multivariate', 'multivariate.csv'
-    ), 'w') as csvfile:
+    ), 'w+') as csvfile:
         fieldnames = [
             'corpus_size', 'bilingual_size',
             'correlation_score', 'p_value', 'execution_time'
@@ -64,11 +64,12 @@ def multivariate_analyse():
             ]
 
             for corpus in corpus_size:
-                for bilingual in bilingual_size:
-                    print("Corpus: %s Bilingual Size: %s" % (
-                        corpus, bilingual
-                    ))
-                    old_time = time.time()
+                m_old_time = time.time()
+                m_1_fname = "%s-%s-models" % ('english', corpus)
+                m_1_path = os.path.join('data', 'multivariate', 'models')
+                m_2_fname = "%s-%s-models" % ('hindi', corpus)
+                m_2_path = os.path.join('data', 'multivariate', 'models')
+                if not os.path.exists(os.path.join(m_1_path, m_1_fname)):
                     model_1 = model_generation.construct_model(
                         HcCorpusPreprocessor(
                             corpus_fname='all.txt',
@@ -79,11 +80,14 @@ def multivariate_analyse():
                             limit=corpus
                         ),
                         language='english',
-                        output_dir_path=os.path.join(
-                            'data', 'multivariate', 'models'
-                        ),
-                        output_fname="%s-%s-models" % ('english', corpus)
+                        output_dir_path=m_1_path,
+                        output_fname=m_1_fname
                     )
+                else:
+                    model_1 =  model_generation.gensim.models.Word2Vec.load(
+                        os.path.join(m_1_path, m_1_fname)
+                    )
+                if not os.path.exists(os.path.join(m_2_path, m_2_fname)):
                     model_2 = model_generation.construct_model(
                         HcCorpusPreprocessor(
                             corpus_fname='all.txt',
@@ -94,15 +98,23 @@ def multivariate_analyse():
                             limit=corpus
                         ),
                         language='hindi',
-                        output_dir_path=os.path.join(
-                            'data', 'multivariate', 'models'
-                        ),
-                        output_fname="%s-%s-models" % ('hindi', corpus)
+                        output_dir_path=m_2_path,
+                        output_fname=m_2_fname
                     )
+                else:
+                    model_2 =  model_generation.gensim.models.Word2Vec.load(
+                        os.path.join(m_2_path, m_2_fname)
+                    )
+                m_exec_time = time.time() - m_old_time
+                for bilingual in bilingual_size:
+                    print("Corpus: %s Bilingual Size: %s" % (
+                        corpus, bilingual
+                    ))
+                    old_time = time.time()
                     vsm = VectorSpaceMapper(
                         model_1=model_1,
                         model_2=model_2,
-                        bilingual_dict=bilingual_dict
+                        bilingual_dict=bilingual_dict[:bilingual]
                     )
                     vsm.map_vector_spaces()
                     new_time = time.time()
@@ -112,7 +124,7 @@ def multivariate_analyse():
                         'bilingual_size': bilingual,
                         'correlation_score': correlation_score,
                         'p_value': p_value,
-                        'execution_time': new_time - old_time
+                        'execution_time': (new_time - old_time) + m_exec_time
                     })
 
 

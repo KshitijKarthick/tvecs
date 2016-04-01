@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>T-Vecs Semantic Space Visualization</title>
+    <title>T-Vecs Cross Lingual Mapping</title>
     <script type="text/javascript" src="js/dist/vivagraph.min.js"></script>
     <script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -12,9 +12,11 @@
       var language="hindi";
       var rootWords = {
         "english" : "weather",
-        "hindi" : "\u0907\u0932\u093e\u0915\u094b\u0902",
-        "kannada" : "\u0cb9\u0cb0\u0cbf\u0ca6\u0cc1",
-        "tamil" : "\u0b85\u0ba4\u0bbf\u0bae\u0bc1\u0b95\u0bb5\u0bc1\u0bae\u0bcd"
+        "hindi" : "\u0907\u0932\u093e\u0915\u094b\u0902"
+      }
+      var alternate = {
+        "english" : "hindi",
+        "hindi" : "english"
       }
         function main () {
 
@@ -77,9 +79,10 @@
                        }
                      }
                      $.ajax({
-                       url: 'http://0.0.0.0:5000/retrieve_recommendations',
+                       url: 'http://0.0.0.0:5000/get_cross_lingual_recommendations',
                        data: {
-                         'language': language,
+                         'lang1': language,
+                         'lang2': alternate[language],
                          'word': node.id
                        },
                        success: addNode,
@@ -152,8 +155,6 @@
         <div class="menu-heading">Languages</div>
         <input type="radio" name="language" value="english" id="r1"/><label for="r1"><span></span>English</label><br />
         <input type="radio" name="language" value="hindi" id="r2" checked /><label for="r2"><span></span>Hindi</label><br />
-        <input type="radio" name="language" value="kannada" id="r3"/><label for="r3"><span></span>Kannada</label><br />
-        <input type="radio" name="language" value="tamil" id="r4" /><label for="r4"><span></span>Tamil</label><br />
       </div>
       <!--Themes functionlity-Coming Soon-->
       <!-- <div id="theme-menu">
