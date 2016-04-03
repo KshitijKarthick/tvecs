@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
 """HC Corpus Preprocessor which inherits from BasePreprocessor."""
 
@@ -74,15 +74,11 @@ class HcCorpusPreprocessor(BasePreprocessor):
         * Remove punctuations [ except space ] from each individual sentences.
         """
         lang_specific_split_pattern = self.lang_split_sent[self.language]
-        tbl = dict.fromkeys(
-          i for i in xrange(sys.maxunicode)
-          if unicodedata.category(unichr(i)).startswith('P')
-        )
         for generic_sentence_split in sent_tokenize(data):
             for sentence in re.split(
                 lang_specific_split_pattern, generic_sentence_split
             ):
-                clean_sentence = sentence.translate(tbl).expandtabs().strip()
+                clean_sentence = sentence.expandtabs().strip()
                 if len(clean_sentence) > 0:
                     yield clean_sentence
 

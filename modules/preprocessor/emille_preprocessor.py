@@ -1,3 +1,5 @@
+#!/usr/bin/env python2.7
+# -*- coding: utf-8 -*-
 """EMILLE Corpus Preprocessor which inherits from BasePreprocessor."""
 
 import regex as re
@@ -41,8 +43,8 @@ class EmilleCorpusPreprocessor(BasePreprocessor):
         Preprocess words after tokenizing words from sentences.
         * Remove punctuations.
         """
-     
-        # 
+
+        #
         return re.sub(
             pattern=ur"((\p{P}+)|(\p{S}))",
             repl='',

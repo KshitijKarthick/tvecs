@@ -1,4 +1,5 @@
-#! /usr/bin/env python2
+#!/usr/bin/env python2.7
+# -*- coding: utf-8 -*-
 """CherryPy Server to provide recommendations of semantic similarity."""
 
 import cherrypy

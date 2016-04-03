@@ -1,9 +1,11 @@
+#!/usr/bin/env python2.7
+# -*- coding: utf-8 -*-
 import itertools
 import codecs
 
 d=[]
 for entry in a.findall("ar"):
-    
+
     foo = [x.text.split(";") for x in entry if x.text]
     if len(foo) == 2:
         english,hindi = foo

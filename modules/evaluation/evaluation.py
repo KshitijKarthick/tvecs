@@ -1,3 +1,5 @@
+#!/usr/bin/env python2.7
+# -*- coding: utf-8 -*-
 """Module to Evaluate T-Vecs model against Human Semantic Similarity Score."""
 
 import os
