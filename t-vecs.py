@@ -25,7 +25,10 @@ def model_generator(
 ):
     """test."""
     return model.construct_model(
-        preprocessed_corpus, language, output_dir_path, iter
+        preprocessed_corpus=preprocessed_corpus,
+        language=language,
+        output_dir_path=output_dir_path,
+        iter=iter
     )
 
 
@@ -199,13 +202,15 @@ def evaluate(logger, args):
                     corpus_fname=fname_1,
                     corpus_dir_path=ntpath.split(args.corpus1)[0],
                     encoding='utf-8',
-                    need_preprocessing=True
+                    need_preprocessing=True,
+                    language=args.language1
                 ),
                 func(
                     corpus_fname=fname_2,
                     corpus_dir_path=ntpath.split(args.corpus2)[0],
                     encoding='utf-8',
-                    need_preprocessing=True
+                    need_preprocessing=True,
+                    language=args.language2
                 )
             )
         elif func_name is "model_generator":

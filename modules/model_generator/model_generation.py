@@ -38,7 +38,8 @@ def generate_model(
     preprocessor_obj = pre.HcCorpusPreprocessor(
         corpus_fname=corpus_fname,
         corpus_dir_path=corpus_dir_path,
-        need_preprocessing=True
+        need_preprocessing=True,
+        language=language
     )
     return construct_model(preprocessor_obj, iter)
 

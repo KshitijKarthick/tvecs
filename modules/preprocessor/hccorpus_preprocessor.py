@@ -1,6 +1,11 @@
+#!/usr/bin/python2.7
+# -*- coding: utf-8 -*-
 """HC Corpus Preprocessor which inherits from BasePreprocessor."""
 
+import sys
+import unicodedata
 import regex as re
+from collections import defaultdict
 from base_preprocessor import BasePreprocessor
 from nltk.tokenize import sent_tokenize
 
@@ -14,9 +19,20 @@ class HcCorpusPreprocessor(BasePreprocessor):
         corpus_dir_path='.',
         encoding='utf-8',
         need_preprocessing=False,
+        language=None,
         limit=None
     ):
         """Constructor which initializes the BasePreprocessor constructor."""
+        self.language = language
+        # If language is not specified, regex pattern for split is default ''
+        self.lang_split_sent = defaultdict(lambda : u'')
+        # Specify language specific split regex pattern
+        lang_split_sent = [
+            ('hindi', u'[।]'),
+        ]
+        # Store language specific regex pattern in the defaultdict
+        for k,v in lang_split_sent:
+            self.lang_split_sent[k] = v
         super(HcCorpusPreprocessor, self).__init__(
             corpus_fname,
             corpus_dir_path=corpus_dir_path,
@@ -57,16 +73,18 @@ class HcCorpusPreprocessor(BasePreprocessor):
         * Sentence Tokenize the corpus using NLTK.
         * Remove punctuations [ except space ] from each individual sentences.
         """
-        # tbl = dict.fromkeys(
-        #     i for i in xrange(sys.maxunicode)
-        #     if unicodedata.category(unichr(i)).startswith('P')
-        # )
-        # return (
-        #     sentence.translate(tbl) for sentence in sent_tokenize(data)
-        # )
-        return (
-            sentence for sentence in sent_tokenize(data)
+        lang_specific_split_pattern = self.lang_split_sent[self.language]
+        tbl = dict.fromkeys(
+          i for i in xrange(sys.maxunicode)
+          if unicodedata.category(unichr(i)).startswith('P')
         )
+        for generic_sentence_split in sent_tokenize(data):
+            for sentence in re.split(
+                lang_specific_split_pattern, generic_sentence_split
+            ):
+                clean_sentence = sentence.translate(tbl).expandtabs().strip()
+                if len(clean_sentence) > 0:
+                    yield clean_sentence
 
     def _tokenize_words(self, sentence):
         """Tokenize Words from sentences."""

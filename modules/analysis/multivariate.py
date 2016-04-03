@@ -97,6 +97,7 @@ def multivariate_analyse():
                                 'data', 'corpus', 'Hindi'
                             ),
                             need_preprocessing=True,
+                            language='hindi',
                             limit=corpus
                         ),
                         language='hindi',
