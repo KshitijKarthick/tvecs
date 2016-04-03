@@ -143,17 +143,15 @@ class VectorSpaceMapper(object):
                 (line.split(' ')[0], line.split(' ')[1])
                 for line in data
             ]
-            avg = 0
-            count = 0
+            avg = 0.0
+            count = 0.0
             for tup in bilingual_dict:
                 word_1 = tup[0]
                 word_2 = tup[1]
-                try:
-                    similarity = self.obtain_cosine_similarity(word_1, word_2)
+                similarity = self.obtain_cosine_similarity(word_1, word_2)
+                if similarity is not None:
                     count += 1
                     avg += similarity
-                except KeyError:
-                    pass
             return avg / count
 
 
