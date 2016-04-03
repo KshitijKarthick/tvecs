@@ -34,7 +34,7 @@ class HcCorpusPreprocessor(BasePreprocessor):
             for j in range(len(tab_split_list)):
                 if j % 4 == 0 and j != 0:
                     corpus_data.append(tab_split_list[j].strip())
-        return ".".join(corpus_data)
+        return ". ".join(corpus_data)
 
     def _clean_word(self, word):
         """
@@ -44,8 +44,6 @@ class HcCorpusPreprocessor(BasePreprocessor):
         * Bring to lowercase.
         * Remove punctuations.
         """
-     
-        # 
         return re.sub(
             pattern=ur"((\p{P}+)|(\p{S}))",
             repl='',
