@@ -21,22 +21,13 @@ from modules.evaluation import evaluation
 
 def evaluate(vsm):
     """Extract Correlation, P-Value for specified vector space mapper."""
-    with codecs.open(os.path.join(
+    dir_path = os.path.join(
         'data', 'evaluate', 'wordsim_relatedness_translate.txt'
-    ), 'r', encoding='utf-8') as file:
-            human_score, calculated_score = zip(*[
-                [data.split()[2], vsm.obtain_cosine_similarity(
-                    data.split()[0], data.split()[1])]
-                for data in file.readlines()
-            ])
-            human_score, calculated_score = zip(*[[
-                float(hs), float(cs)
-            ] for hs, cs in zip(
-                human_score, calculated_score
-            ) if hs is not None and cs is not None])
-            return evaluation.get_correlation_coefficient(
-                list(human_score), list(calculated_score)
-            )
+    )
+    return evaluation.extract_correlation_coefficient(
+            score_data_path=dir_path,
+            vsm=vsm
+    )
 
 
 def multivariate_analyse():
