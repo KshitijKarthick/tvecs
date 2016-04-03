@@ -104,8 +104,13 @@ class Server():
     def create_vector_space_mapper(self, lang1, lang2):
         """Create Vector Space Mapper between Languages."""
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
+        dir_path = os.path.join(
+            'visualization', 'vector_space_mapper'
+        )
+        if not os.path.exists(dir_path):
+            os.makedirs(dir_path)
         if os.path.exists(os.path.join(
-            'visualization', 'vector_space_mapper', '%s_%s' % (lang1, lang2)
+            dir_path, '%s_%s' % (lang1, lang2)
         )) is False:
             try:
                 model_1 = Word2Vec.load(
