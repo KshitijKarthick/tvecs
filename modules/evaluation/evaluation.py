@@ -76,8 +76,8 @@ if __name__ == '__main__':
             'data', 'evaluate', 'wordsim_relatedness_translate.txt'
         ),
         vsm=_load_vector_space_mapper(
-            model_1_path=os.path.join('data', 'models', 'old_models', 't-vex-english-model'),
-            model_2_path=os.path.join('data', 'models', 'old_models', 't-vex-hindi-model'),
+            model_1_path=os.path.join('data', 'models', 't-vex-english-model'),
+            model_2_path=os.path.join('data', 'models', 't-vex-hindi-model'),
             bilingual_path=os.path.join(
                 'data', 'bilingual_dictionary', 'english_hindi_train_bd'
             )
