@@ -1,6 +1,14 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
-"""Test."""
+"""
+T-Vecs Driver Module.
+
+Module used to control and coordinate all other modules for T-Vecs.
+* Preprocessor
+* Model Generation
+* Bilingual Generation
+* Vector Space Mapping
+"""
 
 import os
 import time
@@ -15,7 +23,7 @@ from modules.vector_space_mapper import vector_space_mapper as vm
 
 
 def preprocess_corpus(*args, **kwargs):
-    """Test."""
+    """Wrapper function for preprocessing module."""
     return prep.HcCorpusPreprocessor(*args, **kwargs)
 
 
@@ -25,7 +33,15 @@ def model_generator(
     output_dir_path=os.path.join(".", "data", "models"),
     iter=5
 ):
-    """test."""
+    """
+    Wrapper function for model_generator module.
+
+    Function Arguments:
+    * preprocessed_corpus - (HcCorpusPreprocessor) - Preprocessed corpus
+    * language            - (string) - Language of Preprocessed corpus
+    * output_dir_path     - (string) - Directory to store model [ Def: '.' ]
+    * iter                - (int)    - No of iterations for model [ Def: 5 ]
+    """
     return model.construct_model(
         preprocessed_corpus=preprocessed_corpus,
         language=language,
@@ -35,7 +51,7 @@ def model_generator(
 
 
 def bilingual_generator(lang1, lang2):
-    """test."""
+    """Loads & returns previously generated bilingual dictionary."""
     bilingual_dict = []
     with codecs.open(
         os.path.join(
@@ -52,7 +68,7 @@ def bilingual_generator(lang1, lang2):
 
 
 def map_vector_spaces(*args, **kwargs):
-    """test."""
+    """Generates & return VectorSpaceMapper Instance and maps vectors spaces."""
     vector_mapper_obj = vm.VectorSpaceMapper(*args, **kwargs)
     vector_mapper_obj.map_vector_spaces()
     return vector_mapper_obj
@@ -83,7 +99,7 @@ order_of_evaluation = order_of_tvex_calls[:]
 
 
 def args_parser():
-    """Initialise the format and level of the logging."""
+    """Utilised for cmdline arguments parsing."""
     global order_of_tvex_calls, order_of_evaluation
     parser = argparse.ArgumentParser(
         description='Script used to generate models'
@@ -191,7 +207,7 @@ def init_logger(args):
 
 
 def evaluate(logger, args):
-    """test."""
+    """Evaluate and run sequence of operations based on user specs."""
     global tvex_calls, order_of_evaluation
     for func_name in order_of_evaluation:
         func = tvex_calls[func_name]['func']
