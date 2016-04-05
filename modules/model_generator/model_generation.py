@@ -66,6 +66,8 @@ def construct_model(
     * iter               - (number)  - Number of iterations for Word2Vec
     """
     model = gensim.models.Word2Vec(preprocessed_corpus, iter=iter)
+    if os.path.exists(output_dir_path) is False:
+        os.makedirs(output_dir_path)
     if output_fname is None:
         output_path = os.path.join(
             output_dir_path, 't-vex-%s-model' % (language)
