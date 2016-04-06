@@ -6,6 +6,10 @@ import regex as re
 from base_preprocessor import BasePreprocessor
 from nltk.tokenize import sent_tokenize
 from bs4 import BeautifulSoup
+import sys
+import unicodedata
+from collections import defaultdict
+
 
 
 class EmilleCorpusPreprocessor(BasePreprocessor):
@@ -16,10 +20,23 @@ class EmilleCorpusPreprocessor(BasePreprocessor):
         corpus_fname,
         corpus_dir_path='.',
         encoding='utf-8',
+        language=None,
         need_preprocessing=False,
         limit=None
     ):
+
+
         """Constructor which initializes the BasePreprocessor constructor."""
+        self.language = language
+        # If language is not specified, regex pattern for split is default ''
+        self.lang_split_sent = defaultdict(lambda : u'')
+        # Specify language specific split regex pattern
+        lang_split_sent = [
+            ('hindi', u'[।]'),
+        ]
+        # Store language specific regex pattern in the defaultdict
+        for k,v in lang_split_sent:
+            self.lang_split_sent[k] = v
         super(EmilleCorpusPreprocessor, self).__init__(
             corpus_fname,
             corpus_dir_path=corpus_dir_path,
@@ -28,6 +45,7 @@ class EmilleCorpusPreprocessor(BasePreprocessor):
             limit=limit
         )
 
+
     def _extract_corpus_data(self, data):
         """Extract contents of the 'p' tags which contain the body."""
 
@@ -35,8 +53,9 @@ class EmilleCorpusPreprocessor(BasePreprocessor):
         ptags = soup.find_all('p')
         content =[]
         for index in range(len(ptags)):
-            content.append(ptags[index].string)
-        return content
+
+            content.append( ". ".join(list(ptags[index].strings)))
+        return ". ".join(content)
 
     def _clean_word(self, word):
         """
@@ -44,9 +63,8 @@ class EmilleCorpusPreprocessor(BasePreprocessor):
         * Remove punctuations.
         """
 
-        #
         return re.sub(
-            pattern=ur"((\p{P}+)|(\p{S}))",
+            pattern=ur"(([a-z\(\)\:\.]*)|(\p{P}+)|(\p{S}+))",
             repl='',
             string=word.lower()
         ).strip()
@@ -58,16 +76,14 @@ class EmilleCorpusPreprocessor(BasePreprocessor):
         * Sentence Tokenize the corpus using NLTK.
         * Remove punctuations [ except space ] from each individual sentences.
         """
-        # tbl = dict.fromkeys(
-        #     i for i in xrange(sys.maxunicode)
-        #     if unicodedata.category(unichr(i)).startswith('P')
-        # )
-        # return (
-        #     sentence.translate(tbl) for sentence in sent_tokenize(data)
-        # )
-        return (
-            sentence for sentence in sent_tokenize(data)
-        )
+        lang_specific_split_pattern = self.lang_split_sent[self.language]
+        for generic_sentence_split in sent_tokenize(data):
+            for sentence in re.split(
+                lang_specific_split_pattern, generic_sentence_split
+            ):
+                clean_sentence = sentence.expandtabs().strip()
+                if len(clean_sentence) > 0:
+                    yield clean_sentence
 
     def _tokenize_words(self, sentence):
         """Tokenize Words from sentences."""
