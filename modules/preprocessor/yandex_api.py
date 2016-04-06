@@ -33,14 +33,17 @@ def yandex_api(lang_translate, input_score_path, output_score_path):
                 tr_word_2 = json.loads(
                     requests.get(base_url, params=options).text
                 )["text"][0]
-                try:
-                    output_data.append("%s %s %s" % (
-                        word_1,
-                        tr_word_2,
-                        score
-                    ))
-                except KeyError:
-                    pass
+                if len(tr_word_2.split()>1):
+                    tr_word_2 = None
+                if tr_word_2 is not None:
+                    try:
+                        output_data.append("%s %s %s" % (
+                            word_1,
+                            tr_word_2,
+                            score
+                        ))
+                    except KeyError:
+                        pass
             outfile.write("\n".join(output_data))
 
 
