@@ -45,13 +45,24 @@ def yandex_api(lang_translate, input_score_path, output_score_path):
 
 
 if __name__ == '__main__':
-
-    yandex_api(
-        lang_translate='en-hi',
-        input_score_path=os.path.join(
-            'data', 'evaluate', 'wordsim_relatedness_goldstandard.txt'
-        ),
-        output_score_path=os.path.join(
-            'data', 'evaluate', 'wordsim_relatedness_translate.txt'
-        )
+    dir_path = os.path.join(
+        'data', 'evaluate'
     )
+    datasets = [
+        ('EN-MC-30.txt', dir_path),
+        ('EN-RG-65.txt', dir_path),
+        ('wordsim_relatedness_goldstandard.txt', dir_path),
+        ('MEN_dataset_natural_form_full', dir_path),
+        ('Mtruk.txt', dir_path)
+    ]
+    for (dataset_fname, dataset_dir) in datasets:
+        print "Processing %s" %(dataset_fname)
+        yandex_api(
+            lang_translate='en-hi',
+            input_score_path=os.path.join(
+                dataset_dir, dataset_fname
+            ),
+            output_score_path=os.path.join(
+                dataset_dir, '%s_translate' %(dataset_fname)
+            )
+        )
