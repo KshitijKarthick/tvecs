@@ -11,27 +11,25 @@ def create_bilingual_dictionary(clusters_file_path, sample_size, model):
 		clusters = json.load(file)
 		for cluster in clusters:
 			no_of_words = 0
-			print "Cluster"
 			if len(cluster) >= sample_size:
 				selected_words = set()
 				count = 0
 				while no_of_words < sample_size:
 					word = random.choice(cluster)
-					print "Random Word", word
 					if count == len(cluster):
 						raise ValueError('No Valid words obtained')
 					if word not in selected_words:
 						count += 1
-						tr = yandex.translate(word)['text'][0]
-						try:
-							model[tr]
-							selected_words.add(word)
-							bilingual_dictionary.append((word, tr))
-							no_of_words += 1
-						except:
-							print "Not Valid"
+						tr = yandex.get_valid_translation(word)['text'][0]
+						if tr is not None:
+							try:
+								model[tr]
+								selected_words.add(word)
+								bilingual_dictionary.append((word, tr))
+								no_of_words += 1
+							except:
+								print "Not Valid"
 			else:
-				print cluster
 				raise ValueError("Sample Size too small")
 	return bilingual_dictionary
 
