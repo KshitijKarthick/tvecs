@@ -21,13 +21,11 @@ from modules.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
 from modules.evaluation import evaluation
 
 
-def evaluate(vsm):
+def evaluate(vsm, wordsim_dataset_path):
     """Extract Correlation, P-Value for specified vector space mapper."""
-    dir_path = os.path.join(
-        'data', 'evaluate', 'wordsim_relatedness_translate.txt'
-    )
+
     return evaluation.extract_correlation_coefficient(
-            score_data_path=dir_path,
+            score_data_path=wordsim_dataset_path,
             vsm=vsm
     )
 
@@ -36,11 +34,21 @@ def multivariate_analyse():
     """Perform multivariate analysis."""
     corpus_size = [23887762, 35831643, 47775524, 59719405]
     bilingual_size = [706, 1060, 1413, 1766]
+    dir_path = os.path.join(
+        'data', 'evaluate'
+    )
+    wordsim_datasets = [
+        ('EN-MC-30.txt_translate', dir_path),
+        ('EN-RG-65.txt_translate', dir_path),
+        ('wordsim_relatedness_goldstandard.txt_translate', dir_path),
+        ('MEN_dataset_natural_form_full_translate', dir_path),
+        ('Mtruk.txt_translate', dir_path)
+    ]
     with open(os.path.join(
         'data', 'multivariate', 'multivariate.csv'
     ), 'w+') as csvfile:
         fieldnames = [
-            'corpus_size', 'bilingual_size',
+            'corpus_size', 'bilingual_size', 'wordsim_dataset',
             'correlation_score', 'p_value', 'execution_time'
         ]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -116,14 +124,19 @@ def multivariate_analyse():
                     )
                     vsm.map_vector_spaces()
                     new_time = time.time()
-                    correlation_score, p_value = evaluate(vsm)
-                    writer.writerow({
-                        'corpus_size': corpus,
-                        'bilingual_size': bilingual,
-                        'correlation_score': correlation_score,
-                        'p_value': p_value,
-                        'execution_time': (new_time - old_time) + m_exec_time
-                    })
+                    for index, (wordsim_fname, wordsim_dir) in enumerate(wordsim_datasets):
+                        correlation_score, p_value = evaluate(
+                            vsm=vsm,
+                            wordsim_dataset_path=os.path.join(wordsim_dir, wordsim_fname)
+                        )
+                        writer.writerow({
+                            'corpus_size': corpus,
+                            'bilingual_size': bilingual,
+                            'wordsim_dataset': index,
+                            'correlation_score': correlation_score,
+                            'p_value': p_value,
+                            'execution_time': (new_time - old_time) + m_exec_time
+                        })
 
 
 if __name__ == '__main__':

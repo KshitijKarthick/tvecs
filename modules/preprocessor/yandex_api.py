@@ -33,6 +33,7 @@ def yandex_api(lang_translate, input_score_path, output_score_path):
             for line in file:
                 word_1, word_2, score = line.split()
                 options['text'] = word_2
+<<<<<<< HEAD
                 tr_word_2 = translate(word_2, lang_translate, key)["text"][0]
                 try:
                     output_data.append("%s %s %s" % (
@@ -42,16 +43,43 @@ def yandex_api(lang_translate, input_score_path, output_score_path):
                     ))
                 except KeyError:
                     pass
+=======
+                tr_word_2 = json.loads(
+                    requests.get(base_url, params=options).text
+                )["text"][0]
+                if len(tr_word_2.split()>1):
+                    tr_word_2 = None
+                if tr_word_2 is not None:
+                    try:
+                        output_data.append("%s %s %s" % (
+                            word_1,
+                            tr_word_2,
+                            score
+                        ))
+                    except KeyError:
+                        pass
+>>>>>>> 91a506ef453cea3c210fae8d4f59a2306a3ef9a7
             outfile.write("\n".join(output_data))
 
 if __name__ == '__main__':
-
-    yandex_api(
-        lang_translate='en-hi',
-        input_score_path=os.path.join(
-            'data', 'evaluate', 'wordsim_relatedness_goldstandard.txt'
-        ),
-        output_score_path=os.path.join(
-            'data', 'evaluate', 'wordsim_relatedness_translate.txt'
-        )
+    dir_path = os.path.join(
+        'data', 'evaluate'
     )
+    datasets = [
+        ('EN-MC-30.txt', dir_path),
+        ('EN-RG-65.txt', dir_path),
+        ('wordsim_relatedness_goldstandard.txt', dir_path),
+        ('MEN_dataset_natural_form_full', dir_path),
+        ('Mtruk.txt', dir_path)
+    ]
+    for (dataset_fname, dataset_dir) in datasets:
+        print "Processing %s" %(dataset_fname)
+        yandex_api(
+            lang_translate='en-hi',
+            input_score_path=os.path.join(
+                dataset_dir, dataset_fname
+            ),
+            output_score_path=os.path.join(
+                dataset_dir, '%s_translate' %(dataset_fname)
+            )
+        )
