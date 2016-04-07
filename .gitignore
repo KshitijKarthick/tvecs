@@ -1,4 +1,9 @@
 /data/corpus/
 /data/models/
 /data/vectors/
+/_build/
+/_static/
+/_templates/
+/data/multivariate/models/
+/visualization/vector_space_mapper/
 *.pyc
