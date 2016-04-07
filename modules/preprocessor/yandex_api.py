@@ -11,7 +11,13 @@ import json
 import codecs
 import requests
 
-def translate(word):
+def get_valid_translation(word):
+    tr_word_2=translate(word)
+    if len(tr_word_2.split()>1):
+        tr_word_2 = None
+    return tr_word_2
+
+def get_translation(word):
     base_url = 'https://translate.yandex.net/api/v1.5/tr.json/translate'
     options = {
         'lang': 'en-hi',
@@ -33,22 +39,8 @@ def yandex_api(lang_translate, input_score_path, output_score_path):
             for line in file:
                 word_1, word_2, score = line.split()
                 options['text'] = word_2
-<<<<<<< HEAD
-                tr_word_2 = translate(word_2, lang_translate, key)["text"][0]
-                try:
-                    output_data.append("%s %s %s" % (
-                        word_1,
-                        tr_word_2,
-                        score
-                    ))
-                except KeyError:
-                    pass
-=======
-                tr_word_2 = json.loads(
-                    requests.get(base_url, params=options).text
-                )["text"][0]
-                if len(tr_word_2.split()>1):
-                    tr_word_2 = None
+                tr_word_2 = get_valid_translation(word_2, lang_translate, key)["text"][0]
+
                 if tr_word_2 is not None:
                     try:
                         output_data.append("%s %s %s" % (
@@ -58,7 +50,6 @@ def yandex_api(lang_translate, input_score_path, output_score_path):
                         ))
                     except KeyError:
                         pass
->>>>>>> 91a506ef453cea3c210fae8d4f59a2306a3ef9a7
             outfile.write("\n".join(output_data))
 
 if __name__ == '__main__':
