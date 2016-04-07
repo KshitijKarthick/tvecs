@@ -27,13 +27,13 @@ def generate_model(
 
     Function Parameters:
     * language           - (string)  - Language for which model is generated
-                                       [ Used for model filename ]
+    [ Used for model filename ]
     * corpus_fname       - (string)  - Corpus Filename
     * corpus_dir_path    - (string)  - Directory Path where corpus exists
-                                       [ Default current directory ]
+    [ Default current directory ]
     * output_dir_path    - (string)  - Output Dir Path where model is stored
     * need_preprocessing - (boolean) - Runs Preprocess with the same flag
-                                       [ Default True ]
+    [ Default True ]
     * iter               - (number)  - Number of iterations for Word2Vec
 
     """
@@ -59,10 +59,10 @@ def construct_model(
     Function Parameters:
     * preprocessed_corpus- (object)  - Instance of SubClass of BasePreprocessor
     * language           - (string)  - Language for which model is generated
-                                       [ Used for model filename ]
+    [ Used for model filename ]
     * output_dir_path    - (string)  - Output Dir Path where model is stored
     * need_preprocessing - (boolean) - Runs Preprocess with the same flag
-                                       [ Default True ]
+    [ Default True ]
     * iter               - (number)  - Number of iterations for Word2Vec
     """
     model = gensim.models.Word2Vec(preprocessed_corpus, iter=iter)

@@ -8,6 +8,7 @@ from scipy.stats import pearsonr
 from gensim.models import Word2Vec
 from modules.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
 
+
 def extract_correlation_coefficient(score_data_path, vsm):
     """
     Extract Human Score, Word1, Word2. Compute T-Vecs Score.
@@ -34,6 +35,7 @@ def extract_correlation_coefficient(score_data_path, vsm):
                 list(human_score), list(calculated_score)
             )
 
+
 def get_correlation_coefficient(human_score, calculated_score):
     """
     Measure correlation using Pearson's Coefficient.
@@ -47,16 +49,14 @@ def get_correlation_coefficient(human_score, calculated_score):
 
     Return
     * correlation_coefficient - (float) - Measure of degree of relatedness
-                                          between two variables
+    between two variables
     * p-value                 - (float) - The null hypothesis is that the
-                                          two variables are uncorrelated.
-                                          The p-value is a number between zero
-                                          and one that represents
-                                          the probability that your data would
-                                          have arisen if the null
-                                          hypothesis were true.
+    two variables are uncorrelated. The p-value is a number between zero
+    and one that represents the probability that your data would have
+    arisen if the null hypothesis were true.
     """
     return pearsonr(human_score, calculated_score)
+
 
 def _load_vector_space_mapper(model_1_path, model_2_path, bilingual_path):
     model_1 = Word2Vec.load(model_1_path)
