@@ -9,10 +9,11 @@ import cPickle
 import codecs
 import logging
 import json
+import numpy as np
 
 
 def cluster(language, vec_list, word_list, num_clusters=1000, n_jobs=3):
-    """Test."""
+    """Utilised for clustering passed Vector List, and return n clusters."""
     kmeans_clust = KMeans(
         n_clusters=num_clusters,
         precompute_distances=True,
@@ -32,13 +33,13 @@ def cluster(language, vec_list, word_list, num_clusters=1000, n_jobs=3):
 
 if __name__ == '__main__':
     language = 'english'
-    num_clusters = 2
+    num_clusters = 1000
     logging.basicConfig(level=logging.DEBUG)
     model = Word2Vec.load(
         os.path.join('data', 'models', 't-vex-english-model')
     )
-    word_list = model.vocab.keys()
-    vec_list = [model[word] for word in word_list]
+    word_list = np.array(model.vocab.keys())
+    vec_list = np.array([model[word] for word in word_list])
     del(model)
     with codecs.open(
         os.path.join(
