@@ -13,8 +13,8 @@ import requests
 
 def get_valid_translation(word):
     tr_word_2=get_translation(word)
-    if len(tr_word_2.split()>1):
-        tr_word_2 = None
+    if (len(tr_word_2.split()))>1:
+       tr_word_2 = None
     return tr_word_2
 
 def get_translation(word):
@@ -38,7 +38,6 @@ def yandex_api(lang_translate, input_score_path, output_score_path):
         with codecs.open(output_score_path, 'w', encoding='utf-8') as outfile:
             for line in file:
                 word_1, word_2, score = line.split()
-                options['text'] = word_2
                 tr_word_2 = get_valid_translation(word_2)
 
                 if tr_word_2 is not None:
