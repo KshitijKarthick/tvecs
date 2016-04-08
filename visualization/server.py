@@ -44,6 +44,13 @@ class Server():
         )
 
     @cherrypy.expose
+    def lingual_semantics(self):
+        """Semantically related words in same language returned."""
+        return file(os.path.join(
+            'visualization', 'static', 'intra_language.html')
+        )
+
+    @cherrypy.expose
     def retrieve_recommendations(self, language, word, limit=10):
         """
         Retrieve number of semantically similar recommendations.

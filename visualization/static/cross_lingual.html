@@ -139,7 +139,7 @@
 
         function getWord() {
           var newWord = prompt("Please enter a new word","");
-          rootWords["english"] = newWord;
+          rootWords[language] = newWord;
           graphNode = document.getElementById('svg-container');
           graphNode.removeChild(graphNode.firstChild);
           main();
@@ -149,6 +149,23 @@
 </head>
 <body onload='main()'>
   <div id="main-container" class="container row">
+    <div class="switch-menu">
+      <a href="http://0.0.0.0:5000">
+        <button class="switch-btn home-btn">
+          <img src="../images/home.svg">
+        </button>
+      </a>
+      <a href="http://0.0.0.0:5000/lingual_semantics">
+        <button class="switch-btn switch-intra-lang">
+          <img src="../images/home.svg">
+        </button>
+      </a>
+      <a href="http://0.0.0.0:5000/multivariate_analysis">
+        <button class="switch-btn switch-multivariate">
+          <img src="../images/home.svg">
+        </button>
+      </a>
+    </div>
     <div id="svg-container" class="col-sm-10"></div>
     <div id="option-menu" class="col-sm-2">
       <div id="language-menu">

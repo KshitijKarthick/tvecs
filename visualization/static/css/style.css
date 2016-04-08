@@ -6,6 +6,7 @@ html, body {
 
 body {
   font-family: 'Raleway', sans-serif;
+  background: #fff;
 }
 
 #svg-container > svg > g > line {
@@ -125,4 +126,151 @@ input[type="radio"]:checked + label span {
   -webkit-transition:background-color 0.4s linear;
   transition:background-color 0.4s linear;
   margin-right: 10px;
+}
+
+.switch-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  padding: 10px;
+}
+
+.switch-menu a {
+  text-decoration: none;
+  color: transparent;
+}
+
+.switch-menu a:hover {
+  background: transparent;
+  color: transparent;
+}
+
+.switch-menu img {
+  height: 35px;
+}
+
+.switch-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 30px;
+  border: none;
+  margin-right: 10px;
+  background: rgba(20, 20, 20, 0.2);
+}
+
+.switch-btn:hover {
+  background: rgba(20, 20, 20, 0.4);
+}
+
+.switch-btn:focus {
+  outline: 0;
+}
+
+/*.home-btn, .home-btn:hover {
+  background: rgba(58, 239, 56, 0.29);
+}
+
+.switch-cross-lang, .switch-cross-lang:hover {
+  background: rgba(17, 177, 161, 0.21);
+}
+
+.switch-intra-lang, .switch-intra-lang:hover{
+  background: rgba(255, 74, 74, 0.45);
+}
+
+.switch-multivariate, .switch-multivariate:hover {
+  background: rgba(255, 31, 145, 0.29)
+}*/
+
+/* Index Page Style */
+
+#tv-main-container {
+  background: url("../images/index_light30_bg.png");
+  height: 100%;
+  width: 100%;
+  background-position: center; 
+  font-family: 'Raleway', sans-serif;
+}
+
+#tv-grid-box {
+  height: 100%;
+  text-align: center;
+}
+
+#tv-top {
+  height: 30%;
+}
+
+#tv-header {
+  font-size: 75px;
+  margin-top: 20px;
+  color: #65315B;
+  font-weight: bold;
+  letter-spacing: 5px;
+}
+
+#tv-content {
+  height: 70%;
+}
+
+#tv-anchors {
+  text-decoration: none;
+}
+
+.tv-btn {
+    height: 250px;
+    width: 250px;
+    border-radius: 140px;
+    border: 5px solid transparent;
+}
+
+#tv-bottom-left, #tv-bottom-center, #tv-bottom-right {
+  text-align: center;
+  padding: 20px;
+}
+
+#tv-intra-lang-btn {
+  background: rgba(243, 35, 35, 0.79);
+  box-shadow: 0 0 10px rgb(204, 24, 24);
+  color: #D40101;
+}
+
+#tv-cross-lang-btn {
+  background: rgba(20, 165, 151, 0.79);
+  box-shadow: 0 0 10px rgb(53, 140, 131); 
+  color: #004D40;
+}
+
+#tv-multivariate-btn {
+  background: rgba(255, 31, 145, 0.69);
+  box-shadow: 0 0 10px rgb(239, 15, 129);
+  color: #D2006B;
+}
+
+.tv-btn:focus {
+  outline: 0;
+}
+
+@keyframes rip 
+{
+  0%  {
+     border: none;
+  }
+  
+  25% {
+    border-top: 5px solid;
+  }
+
+  50% {
+    border-left: 5px solid;
+  }
+
+  75% {
+    border-bottom: 5px solid;
+  }
+
+  100% {
+    border-right: 5px solid;
+  }
 }
