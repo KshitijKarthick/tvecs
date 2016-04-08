@@ -19,7 +19,7 @@ class HcCorpusPreprocessor(BasePreprocessor):
         corpus_dir_path='.',
         encoding='utf-8',
         need_preprocessing=False,
-        language=None,
+        language='english',
         limit=None
     ):
         """Constructor which initializes the BasePreprocessor constructor."""
@@ -59,9 +59,14 @@ class HcCorpusPreprocessor(BasePreprocessor):
         * Remove apostrophes ['s, s'].
         * Bring to lowercase.
         * Remove punctuations.
+        * Remove English words from Non-English corpus data. 
         """
+        if self.language is "english":
+            regex = ur"((\p{P}+)|(\p{S}+)|([0-9]+))"
+        else:
+            regex = ur"((\p{P}+)|(\p{S}+)|([0-9]+)|([A-Za-z]))"
         return re.sub(
-            pattern=ur"((\p{P}+)|(\p{S}+)|([0-9]+))",
+            pattern=regex,
             repl='',
             string=word.lower()
         ).strip()
