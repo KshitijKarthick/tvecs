@@ -16,6 +16,7 @@ import codecs
 import logging
 import ntpath
 import argparse
+import itertools as it
 from gensim.models import Word2Vec
 from modules.preprocessor import hccorpus_preprocessor as prep
 from modules.model_generator import model_generation as model
@@ -158,14 +159,16 @@ def args_parser():
         "--text1",
         dest="corpus1",
         help="text corpus for model generation",
-        action="store"
+        action="store",
+        nargs='*'
     )
     parser.add_argument(
         "-t2",
         "--text2",
         dest="corpus2",
         help="text corpus for model generation",
-        action="store"
+        action="store",
+        nargs='*'
     )
     args = parser.parse_args()
     logger = init_logger(args)
@@ -212,23 +215,27 @@ def evaluate(logger, args):
     for func_name in order_of_evaluation:
         func = tvex_calls[func_name]['func']
         if func_name is "preprocessor":
-            fname_1 = ntpath.split(args.corpus1)[1]
-            fname_2 = ntpath.split(args.corpus2)[1]
-            logger.info("Preprocessing %s %s:" % (args.corpus1, args.corpus2))
+            def preprocess_multiple_corpora(corpus_list, language):
+                res= []
+                for fpath in corpus_list:
+                    fname = ntpath.split(fpath)[1]
+                    logger.info("Preprocessing %s\t=> %s" % (language, fpath))
+                    res.append(
+                        func(
+                            corpus_fname=fname,
+                            corpus_dir_path=ntpath.split(fpath)[0],
+                            encoding='utf-8',
+                            need_preprocessing=True,
+                            language=language
+                        )
+                    )
+                return it.chain(*res)
             tvex_calls[func_name]['result'] = (
-                func(
-                    corpus_fname=fname_1,
-                    corpus_dir_path=ntpath.split(args.corpus1)[0],
-                    encoding='utf-8',
-                    need_preprocessing=True,
-                    language=args.language1
+                preprocess_multiple_corpora(
+                    corpus_list=args.corpus1, language=args.language1
                 ),
-                func(
-                    corpus_fname=fname_2,
-                    corpus_dir_path=ntpath.split(args.corpus2)[0],
-                    encoding='utf-8',
-                    need_preprocessing=True,
-                    language=args.language2
+                preprocess_multiple_corpora(
+                    corpus_list=args.corpus2, language=args.language2
                 )
             )
         elif func_name is "model_generator":

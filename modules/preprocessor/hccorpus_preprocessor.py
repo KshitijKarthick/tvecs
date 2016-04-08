@@ -61,7 +61,7 @@ class HcCorpusPreprocessor(BasePreprocessor):
         * Remove punctuations.
         """
         return re.sub(
-            pattern=ur"((\p{P}+)|(\p{S}+))",
+            pattern=ur"((\p{P}+)|(\p{S}+)|([0-9]+))",
             repl='',
             string=word.lower()
         ).strip()
