@@ -1,0 +1,106 @@
+#!/usr/bin/env python2.7
+# -*- coding: utf-8 -*-
+"""Leipzig Preprocessor which inherits from BasePreprocessor."""
+
+import os
+import codecs
+import regex as re
+from collections import defaultdict
+from base_preprocessor import BasePreprocessor
+
+
+class LeipzigPreprocessor(BasePreprocessor):
+    """Leipzig Preprocessor which preprocesses the Leipzig-Corpus."""
+
+    def __init__(
+        self,
+        corpus_fname,
+        corpus_dir_path='.',
+        encoding='utf-8',
+        need_preprocessing=False,
+        language=None,
+        limit=None
+    ):
+        """Constructor which initializes the BasePreprocessor constructor."""
+        self.language = language
+        # If language is not specified, regex pattern for split is default ''
+        self.lang_split_sent = defaultdict(lambda : u'')
+        # Specify language specific split regex pattern
+        lang_split_sent = [
+            ('hindi', u'[।]'),
+        ]
+        # Store language specific regex pattern in the defaultdict
+        for k,v in lang_split_sent:
+            self.lang_split_sent[k] = v
+
+        # < -- call function to preprocess leipzig corpus -- >
+        self.leipzig_corpus_preprocess(corpus_fname, corpus_dir_path, encoding)
+
+        # < -- call BasePreprocessor Constructor -- >
+        super(LeipzigPreprocessor, self).__init__(
+            corpus_fname,
+            corpus_dir_path=corpus_dir_path,
+            encoding=encoding,
+            need_preprocessing=False,
+            limit=limit
+        )
+
+    def leipzig_corpus_preprocess(self, corpus_fname, corpus_dir_path, encoding):
+        """
+        Extract valid content from the Corpus
+
+        Store extracted corpus data in corpus_fname.preprocessed
+        """
+        with codecs.open(
+            os.path.join(
+                corpus_dir_path, corpus_fname
+            ), 'r', encoding='utf-8') as file:
+                line_split_list = file.read().split("\n")
+                tab_split_list = [line.split('\t')[1] for line in line_split_list]
+                extracted_corpus = "\n".join(tab_split_list)
+                with codecs.open(
+                    os.path.join(
+                        corpus_dir_path, '%s.preprocessed' % (corpus_fname)
+                    ), 'w', encoding='utf-8'
+                ) as extracted_corpus_file:
+                    extracted_corpus_file.write(extracted_corpus)
+
+    def _extract_corpus_data(self, data):
+        """
+        Function not utilised for Leipzig Corpus
+
+        Executed only if need_preprocessing is set to True
+        """
+        raise NotImplementedError(
+            "Base Class _extract_corpus_data() not implemented"
+        )
+
+    def _clean_word(self, word):
+        """
+        Preprocess words after tokenizing words from sentences.
+
+        * Remove apostrophes ['s, s'].
+        * Bring to lowercase.
+        * Remove punctuations.
+        """
+        return re.sub(
+            pattern=ur"((\p{P}+)|(\p{S}+))",
+            repl='',
+            string=word.lower()
+        ).strip()
+
+    def _tokenize_sentences(self, data):
+        """
+        Function to tokenize corpus data into sentences.
+
+        Function not utilised for Leipzig Corpus
+        """
+        raise NotImplementedError(
+            "Base Class _tokenize_sentences() not implemented"
+        )
+
+    def _tokenize_words(self, sentence):
+        """Tokenize Words from sentences."""
+        return sentence.split()
+
+BasePreprocessor.register(LeipzigPreprocessor)
