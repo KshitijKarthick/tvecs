@@ -53,7 +53,6 @@ class EmilleCorpusPreprocessor(BasePreprocessor):
         ptags = soup.find_all('p')
         content =[]
         for index in range(len(ptags)):
-
             content.append( ". ".join(list(ptags[index].strings)))
         return ". ".join(content)
 
@@ -64,7 +63,7 @@ class EmilleCorpusPreprocessor(BasePreprocessor):
         """
 
         return re.sub(
-            pattern=ur"(([a-z\(\)\:\.]*)|(\p{P}+)|(\p{S}+))",
+            pattern=ur"((\p{P}+)|(\p{S}+)|([0-9]+))",
             repl='',
             string=word.lower()
         ).strip()
