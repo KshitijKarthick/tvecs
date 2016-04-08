@@ -24,7 +24,7 @@ def get_translation(word):
         'key': '<Enter Key Here>',
         'text': word
     }
-    return json.loads(requests.get(base_url, params=options).text)
+    return json.loads(requests.get(base_url, params=options).text)["text"][0]
 
 def yandex_api(lang_translate, input_score_path, output_score_path):
     """
@@ -39,7 +39,7 @@ def yandex_api(lang_translate, input_score_path, output_score_path):
             for line in file:
                 word_1, word_2, score = line.split()
                 options['text'] = word_2
-                tr_word_2 = get_valid_translation(word_2)["text"][0]
+                tr_word_2 = get_valid_translation(word_2)
 
                 if tr_word_2 is not None:
                     try:
