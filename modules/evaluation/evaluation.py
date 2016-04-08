@@ -75,7 +75,7 @@ if __name__ == '__main__':
     print "Evaluation of T-Vecs Model against Human Semantic Similarity Score:"
     correlation_score, pvalue = extract_correlation_coefficient(
         score_data_path=os.path.join(
-            'data', 'evaluate', 'wordsim_relatedness_translate.txt'
+            'data', 'evaluate', 'wordsim_relatedness_goldstandard.txt_translate'
         ),
         vsm=_load_vector_space_mapper(
             model_1_path=os.path.join('data', 'models', 't-vex-english-model'),
