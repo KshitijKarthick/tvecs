@@ -12,7 +12,7 @@ import codecs
 import requests
 
 def get_valid_translation(word):
-    tr_word_2=translate(word)
+    tr_word_2=get_translation(word)
     if len(tr_word_2.split()>1):
         tr_word_2 = None
     return tr_word_2
