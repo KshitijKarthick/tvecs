@@ -33,7 +33,7 @@ def evaluate(vsm, wordsim_dataset_path):
 def multivariate_analyse():
     """Perform multivariate analysis."""
     corpus_size = [23887762, 35831643, 47775524, 59719405]
-    bilingual_size = [706, 1060, 1413, 1766]
+    bilingual_size = [4516, 6774, 9032, 11291]
     dir_path = os.path.join(
         'data', 'evaluate'
     )
@@ -48,8 +48,8 @@ def multivariate_analyse():
         'data', 'multivariate', 'multivariate.csv'
     ), 'w+') as csvfile:
         fieldnames = [
-            'corpus_size', 'bilingual_size', 'wordsim_dataset',
-            'correlation_score', 'p_value', 'execution_time'
+            'corpus_size', 'bilingual_size', 'avg_sim_test', 'wordsim_dataset',
+            'correlation_score', 'p_value', 'exec_time'
         ]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
@@ -132,10 +132,21 @@ def multivariate_analyse():
                         writer.writerow({
                             'corpus_size': corpus,
                             'bilingual_size': bilingual,
+                            'avg_sim_test': (
+                                vsm.obtain_avg_similarity_from_test(
+                                    test_path = os.path.join(
+                                        'data',
+                                        'bilingual_dictionary',
+                                        'english_hindi_test_bd'
+                                    )
+                                )
+                            ),
                             'wordsim_dataset': index,
                             'correlation_score': correlation_score,
                             'p_value': p_value,
-                            'execution_time': (new_time - old_time) + m_exec_time
+                            'exec_time': (
+                                new_time - old_time
+                            ) + m_exec_time
                         })
 
 
