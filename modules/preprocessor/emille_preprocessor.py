@@ -20,7 +20,7 @@ class EmilleCorpusPreprocessor(BasePreprocessor):
         corpus_fname,
         corpus_dir_path='.',
         encoding='utf-8',
-        language=None,
+        language='english',
         need_preprocessing=False,
         limit=None
     ):
@@ -60,10 +60,14 @@ class EmilleCorpusPreprocessor(BasePreprocessor):
         """
         Preprocess words after tokenizing words from sentences.
         * Remove punctuations.
+        * Remove English words from Non-English corpus data.
         """
-
+        if self.language is "english":
+            regex = ur"((\p{P}+)|(\p{S}+)|([0-9]+))"
+        else:
+            regex = ur"((\p{P}+)|(\p{S}+)|([0-9]+)|([A-Za-z]))"
         return re.sub(
-            pattern=ur"((\p{P}+)|(\p{S}+)|([0-9]+))",
+            pattern=regex,
             repl='',
             string=word.lower()
         ).strip()
