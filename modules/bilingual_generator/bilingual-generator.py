@@ -20,7 +20,7 @@ def create_bilingual_dictionary(clusters_file_path, sample_size, model):
 						raise ValueError('No Valid words obtained')
 					if word not in selected_words:
 						count += 1
-						tr = yandex.get_valid_translation(word)['text'][0]
+						tr = yandex.get_valid_translation(word)
 						if tr is not None:
 							try:
 								model[tr]
