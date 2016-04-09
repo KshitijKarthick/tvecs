@@ -66,9 +66,14 @@ class BasePreprocessor(object):
                         output_fpath=self.preprocessed_corpus_path
                     )
             else:
-                logging.info('Preprocessed Corpus found')
+                logging.info('Preprocessed Corpus found: %s.preprocessed' % (
+                    corpus_fname
+                ))
             self.preprocessed_corpus_fname = '%s.preprocessed' % (corpus_fname)
         else:
+            logging.info('Utilising Preprocessed Corpus: %s' %(
+                self.corpus_fname
+            ))
             self.preprocessed_corpus_fname = self.corpus_fname
             self.preprocessed_corpus_path = os.path.join(
                 corpus_dir_path,

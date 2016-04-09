@@ -32,14 +32,18 @@ class LeipzigPreprocessor(BasePreprocessor):
         # Store language specific regex pattern in the defaultdict
         for k,v in lang_split_sent:
             self.lang_split_sent[k] = v
-
-        if not os.path.exists("%s.preprocessed" % os.path.join(corpus_dir_path, corpus_fname)):
+        preprocessed_corpus_fname = "%s.preprocessed" %(
+            corpus_fname
+        )
+        if not os.path.exists(
+            os.path.join(corpus_dir_path, preprocessed_corpus_fname)
+        ):
             # < -- call function to preprocess leipzig corpus -- >
             self.leipzig_corpus_preprocess(corpus_fname, corpus_dir_path, encoding)
 
         # < -- call BasePreprocessor Constructor -- >
         super(LeipzigPreprocessor, self).__init__(
-            corpus_fname,
+            corpus_fname=preprocessed_corpus_fname,
             corpus_dir_path=corpus_dir_path,
             encoding=encoding,
             need_preprocessing=False,
