@@ -14,10 +14,22 @@ from modules.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
 
 
 class Server():
-    """Server Configuration for t-vex."""
+    """
+    **Server Configuration for t-vex.**
+
+    **API Documentation:**
+        :param language: Language used for same space recommendations.
+        :param cross_lang1: Language 1 used for cross lingual recommendations.
+        :param cross_lang2: Language 2 used for cross lingual recommendations.
+        :param vm: Vector Space Mapper between cross_lang1 and cross_lang2.
+        :param model: Model loaded for language param in same space recommendations.
+
+    .. seealso::
+        * :mod:`cherrypy`
+    """
 
     def __init__(self):
-        """Initialization the Language and Model."""
+        """**Initialization the Language and Model.**"""
         self.language = None
         self.cross_lang1 = None
         self.cross_lang2 = None
@@ -26,26 +38,26 @@ class Server():
 
     @cherrypy.expose
     def index(self):
-        """Semantic spac visualization html returned."""
+        """**Semantic spac visualization html returned.**"""
         return file(os.path.join('visualization', 'static', 'index.html'))
 
     @cherrypy.expose
     def multivariate_analysis(self):
-        """Parallel Coordinates for multivariate analysis html page return."""
+        """**Parallel Coordinates for multivariate analysis html page return.**"""
         return file(os.path.join(
             'visualization', 'static', 'multivariate.html')
         )
 
     @cherrypy.expose
     def cross_lingual(self):
-        """Cross Lingual recommender html returned."""
+        """**Cross Lingual recommender html returned.**"""
         return file(os.path.join(
             'visualization', 'static', 'cross_lingual.html')
         )
 
     @cherrypy.expose
     def lingual_semantics(self):
-        """Semantically related words in same language returned."""
+        """**Semantically related words in same language returned.**"""
         return file(os.path.join(
             'visualization', 'static', 'intra_language.html')
         )
@@ -53,9 +65,22 @@ class Server():
     @cherrypy.expose
     def retrieve_recommendations(self, language, word, limit=10):
         """
-        Retrieve number of semantically similar recommendations.
+        **Retrieve number of semantically similar recommendations.**
 
-        For specified word in the given language retrieve limit recommendations
+        - For specified word in the given language retrieve limit recommendations
+
+        **API Documentation**
+            :param language: Language for which recommendations required
+            :param word: Semantic similar words provided for given word
+            :param limit: No of words to be recommended [ Default 10 ]
+            :type language: String
+            :type word: String
+            :type limit: Integer
+            :return: List of recommendations
+            :rtype: :class:`List`
+
+        .. seealso::
+            * :class:`gensim.models.Word2Vec`
         """
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
         if self.language is None or self.language != language:
@@ -85,7 +110,24 @@ class Server():
         word,
         topn=10
     ):
-        """Provide cross lingual recommendations."""
+        """
+        **Provide cross lingual recommendations.**
+
+        **API Documentation**
+            :param lang1: Language 1 for cross lingual recommendations.
+            :param lang2: Language 2 for cross lingual recommendations.
+            :param word: Word utilised for cross lingual recommendations.
+            :param topn: No of recommendations provided.
+            :type lang1: String
+            :type lang2: String
+            :type word: String
+            :type topn: Integer
+            :return: List of recommendations
+            :rtype: :class:`List`
+
+        .. seealso::
+            * :mod:`modules.vector_space_mapper.vector_space_mapper`
+        """
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
         if self.cross_lang1 is not lang1 and self.cross_lang2 is not lang2:
             try:
@@ -110,7 +152,20 @@ class Server():
 
     @cherrypy.expose
     def create_vector_space_mapper(self, lang1, lang2):
-        """Create Vector Space Mapper between Languages."""
+        """
+        **Create Vector Space Mapper between Languages.**
+
+        **API Documentation**
+            :param lang1: Language 1 used for
+                building :class:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper` object
+            :param lang2: Language 2 used for
+                building :class:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper` object
+            :return: JSON with successful/failure message
+            :rtype: JSON
+
+        .. seealso::
+            :mod:`modules.vector_space_mapper.vector_space_mapper`
+        """
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
         dir_path = os.path.join(
             'visualization', 'vector_space_mapper'
@@ -154,7 +209,7 @@ class Server():
             return json.dumps({'msg': 'Success'})
 
     def _recommend(self, word, limit, fn):
-        """Vector Space Mapper recommend functionality."""
+        """**Vector Space Mapper recommend functionality.**"""
         try:
             vec_list = fn(word, topn=limit)
             data = json.dumps([
