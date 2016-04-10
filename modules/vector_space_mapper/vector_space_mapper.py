@@ -1,6 +1,6 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
-"""Module to map two Vector Spaces using a bilingual dictionary."""
+"""**Module to map two Vector Spaces using a bilingual dictionary.**"""
 
 import os
 import logging
@@ -12,15 +12,30 @@ from sklearn.linear_model import RidgeCV
 
 class VectorSpaceMapper(object):
     """
-    Class to Map two vector spaces together.
+    **Class to map two vector spaces together.**
 
-    Vector spaces obtained using the two Word2Vec models.
-    Bilingual Dictionary used to map semantic embeddings between vector spaces.
-    Linear Regression utilised for the mapping
+    - Vector spaces obtained using the two Word2Vec models.
+    - Bilingual Dictionary used to map semantic embeddings between vector spaces.
+    - Linear Regression utilised for the mapping from :mod:`sklearn.linear_model`
+
+    **API Documentation**:
+        :param model_1: Model constructed from Language 1 built using :mod:`modules.model_generator.model_generation`.
+        :param model_2: Model constructed from Language 2 built using :mod:`modules.model_generator.model_generation`.
+        :param bilingual_dict: Bilingual Dictionary for Language 1, Language 2.
+        :type model_1: :mod:`gensim.models.Word2Vec`
+        :type model_2: :mod:`gensim.models.Word2Vec`
+        :type bilingual_dict: List[(lang1, lang2), (lang1, lang2)]
+
+    .. seealso::
+        * :mod:`modules.model_generator.model_generation`
+        * :mod:`gensim.models.Word2Vec`
+        * :mod:`sklearn.linear_model`
+        * :mod:`scipy.spatial.distance`
+
     """
 
     def __init__(self, model_1, model_2, bilingual_dict):
-        """Constructor initialization for the vector space mapper."""
+        """**Constructor initialization for the vector space mapper.**"""
         logging.basicConfig(level=logging.INFO)
         self.model_1 = model_1
         self.model_2 = model_2
@@ -59,10 +74,9 @@ class VectorSpaceMapper(object):
 
     def map_vector_spaces(self):
         """
-        Perform linear regression upon the semantic embeddings.
+        **Perform linear regression upon the semantic embeddings.**
 
-        Semantic embeddings obtained from vector space of corresponding
-        bilingual words of the same language
+        - Semantic embeddings obtained from vector space of corresponding bilingual words of the same language.
         """
         self.lt = RidgeCV()
         self.lt.fit(self.vector_1_list, self.vector_2_list)
@@ -75,9 +89,17 @@ class VectorSpaceMapper(object):
 
     def get_recommendations_from_vec(self, vector, topn=10):
         """
-        Get topn most similar words from model-2 [language 2].
+        **Get topn most similar words from model-2 [language 2]**.
 
-        vector for the word in model-1 [language 1] should be provided
+        - Vector for the word in Model 1 [Language 1] should be provided
+
+        **API Documentation**:
+            :param vector: Input a vector from Model 1, recommendations provided from Model 2.
+            :param topn: Number of recommendations to be provided.
+            :type vector: :class:`List`, :class:`numpy.array`
+            :type topn: Integer
+            :return: Topn recommendations from Model 2.
+            :rtype: :class:`List`
         """
         if self.lt is not None:
             try:
@@ -96,9 +118,17 @@ class VectorSpaceMapper(object):
 
     def get_recommendations_from_word(self, word, topn=10, pretty_print=False):
         """
-        Get topn most similar words from model-2 [language 2].
+        **Get topn most similar words from model-2 [language 2].**
 
-        word from model-1 [language 1] should be provided
+        - Word from Model 1 [Language 1] should be provided
+
+        **API Documentation**:
+            :param word: Input a word from Model 1, recommendations provided from Model 2.
+            :param topn: Number of recommendations to be provided.
+            :type word: String expected [ usually unicode preferred ]
+            :type topn: Integer
+            :return: Topn recommendations from Model 2.
+            :rtype: :class:`List`
         """
         if self.lt is not None:
             try:
@@ -122,9 +152,17 @@ class VectorSpaceMapper(object):
 
     def obtain_cosine_similarity(self, word_1, word_2):
         """
-        Obtain cosine similarity.
+        **Obtain cosine similarity.**
 
-        Cosine Similarity between word_2 and predicted word using word_1
+        - Cosine Similarity between word_2 and predicted word using word_1
+
+        **API Documentation**:
+            :param word_1: Used to predict possible vector from Model 2 using word from Model 1.
+            :param word_2: Used for comparison in cosine similarity.
+            :type word_1: String
+            :type word_2: String
+            :return: Cosine similarity between predicted word and actual word.
+            :rtype: Float
         """
         try:
             vec_1 = self._predict_vec_from_word(word_1)
@@ -135,9 +173,15 @@ class VectorSpaceMapper(object):
 
     def obtain_avg_similarity_from_test(self, test_path):
         """
-        Obtain Avg Similarity from testing dataset.
+        **Obtain Avg Similarity from testing dataset.**
 
-        Testing bilingual dictionary utilised to obtain avg cosine similiarity
+        - Testing bilingual dictionary utilised to obtain avg cosine similiarity.
+
+        **API Documentation**:
+            :param test_path: Path for the test bilingual dictionary.
+            :type test_path: String
+            :return: Avg similarity obtained from test bilingual dictionary.
+            :rtype: Float
         """
         with codecs.open(test_path, 'r', encoding='utf-8') as file:
             data = file.read().split('\n')
