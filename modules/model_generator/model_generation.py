@@ -1,12 +1,12 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
 """
-Used to generate Word2Vec Models for individual languages after preprocessing.
+**Used to generate Word2Vec Models for individual languages after preprocessing.**
 
-* Preprocessing Corpus - Implementation of BasePreprocessor module
-    * HcCorpusPreprocessor
-* Word2Vec Model Building
-    * Gensim Word2Vec SkipGram implementation
+- Preprocessing Corpus - Implementation of BasePreprocessor module
+    - HcCorpusPreprocessor
+- Word2Vec Model Building
+    - Gensim Word2Vec SkipGram implementation
 """
 
 import os
@@ -23,18 +23,23 @@ def generate_model(
     iter=5
 ):
     """
-    Function used to preprocess and generate models.
+    **Function used to preprocess and generate models.**
 
-    Function Parameters:
-    * language           - (string)  - Language for which model is generated
-    [ Used for model filename ]
-    * corpus_fname       - (string)  - Corpus Filename
-    * corpus_dir_path    - (string)  - Directory Path where corpus exists
-    [ Default current directory ]
-    * output_dir_path    - (string)  - Output Dir Path where model is stored
-    * need_preprocessing - (boolean) - Runs Preprocess with the same flag
-    [ Default True ]
-    * iter               - (number)  - Number of iterations for Word2Vec
+    **API Documentation**
+        :param language: Language for which model is generated [ Used for model filename ]
+        :type language: String
+        :param corpus_fname: Corpus Filename
+        :type corpus_fname: String
+        :param corpus_dir_path: Directory Path where corpus exists [ Default current directory ]
+        :type corpus_dir_path: String
+        :param output_dir_path: Output Dir Path where model is stored
+        :type output_dir_path: String
+        :param need_preprocessing: Runs Preprocess with the same flag [ Default True ]
+        :type need_preprocessing: Boolean [ True/False ]
+        :param iter: Number of iterations for Word2Vec.
+        :type iter: Integer
+        :return: Constructed Model based on the provided specifications.
+        :rtype: :mod:`gensim.models.Word2Vec`
 
     """
     preprocessor_obj = pre.HcCorpusPreprocessor(
@@ -54,16 +59,20 @@ def construct_model(
     iter=5
 ):
     """
-    Construct Model given the preprocessed corpus.
+    **Construct Model given the preprocessed corpus.**
 
-    Function Parameters:
-    * preprocessed_corpus- (object)  - Instance of SubClass of BasePreprocessor
-    * language           - (string)  - Language for which model is generated
-    [ Used for model filename ]
-    * output_dir_path    - (string)  - Output Dir Path where model is stored
-    * need_preprocessing - (boolean) - Runs Preprocess with the same flag
-    [ Default True ]
-    * iter               - (number)  - Number of iterations for Word2Vec
+    **API Documentation:**
+        :param preprocessed_corpus: - (object)  - Instance of SubClass of BasePreprocessor
+        :param language:           - (string)  - Language for which model is generated [ Used for model filename ]
+        :param output_dir_path:    - (string)  - Output Dir Path where model is stored
+        :param need_preprocessing: - (boolean) - Runs Preprocess with the same flag [ Default True ]
+        :param iter:               - (number)  - Number of iterations for Word2Vec
+        :return: Constructed Model based on the provided specifications.
+        :rtype: :mod:`gensim.models.Word2Vec`
+
+    .. seealso::
+        * :mod:`gensim.models.Word2Vec`
+        * :mod:`modules.preprocessor.hccorpus_preprocessor`
     """
     model = gensim.models.Word2Vec(preprocessed_corpus, iter=iter)
     if os.path.exists(output_dir_path) is False:
