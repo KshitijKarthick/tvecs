@@ -66,6 +66,11 @@ Development documentation is categorized into:
     :inherited-members:
     :show-inheritance:
 
+.. automodule:: modules.preprocessor.leipzig_preprocessor
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
 .. automodule:: modules.preprocessor.yandex_api
     :members:
     :inherited-members:
@@ -89,6 +94,11 @@ Development documentation is categorized into:
     :caption: Bilingual Dictionary Generator Documentation
 
 .. automodule:: modules.bilingual_generator.clustering
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+.. automodule:: modules.bilingual_generator.bilingual_generator
     :members:
     :inherited-members:
     :show-inheritance:
