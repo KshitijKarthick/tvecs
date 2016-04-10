@@ -1,6 +1,6 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
-"""EMILLE Corpus Preprocessor which inherits from BasePreprocessor."""
+"""**EMILLE Corpus Preprocessor which inherits from BasePreprocessor.**"""
 
 import regex as re
 from base_preprocessor import BasePreprocessor
@@ -13,7 +13,12 @@ from collections import defaultdict
 
 
 class EmilleCorpusPreprocessor(BasePreprocessor):
-    """Emille Corpus Preprocessor which preprocesses the EMILLE Corpus."""
+    """
+    **Emille Corpus Preprocessor which preprocesses the EMILLE Corpus.**
+
+    .. seealso::
+        * :class:`modules.preprocessor.base_preprocessor.BasePreprocessor`
+    """
 
     def __init__(
         self,
@@ -26,7 +31,7 @@ class EmilleCorpusPreprocessor(BasePreprocessor):
     ):
 
 
-        """Constructor which initializes the BasePreprocessor constructor."""
+        """**Constructor which initializes the BasePreprocessor constructor.**"""
         self.language = language
         # If language is not specified, regex pattern for split is default ''
         self.lang_split_sent = defaultdict(lambda : u'')
@@ -47,7 +52,7 @@ class EmilleCorpusPreprocessor(BasePreprocessor):
 
 
     def _extract_corpus_data(self, data):
-        """Extract contents of the 'p' tags which contain the body."""
+        """**Extract contents of the 'p' tags which contain the body.**"""
 
         soup = BeautifulSoup(data)
         ptags = soup.find_all('p')
@@ -58,9 +63,10 @@ class EmilleCorpusPreprocessor(BasePreprocessor):
 
     def _clean_word(self, word):
         """
-        Preprocess words after tokenizing words from sentences.
-        * Remove punctuations.
-        * Remove English words from Non-English corpus data.
+        **Preprocess words after tokenizing words from sentences.**
+
+        - Remove punctuations.
+        - Remove English words from Non-English corpus data.
         """
         if self.language is "english":
             regex = ur"((\p{P}+)|(\p{S}+)|([0-9]+))"
@@ -74,10 +80,13 @@ class EmilleCorpusPreprocessor(BasePreprocessor):
 
     def _tokenize_sentences(self, data):
         """
-        Sentence tokenize corpus.
+        **Sentence tokenize corpus**.
 
-        * Sentence Tokenize the corpus using NLTK.
-        * Remove punctuations [ except space ] from each individual sentences.
+        - Sentence Tokenize the corpus using NLTK.
+        - Remove punctuations [ except space ] from each individual sentences.
+
+        .. seealso::
+            * :mod:`nltk.tokenizers`
         """
         lang_specific_split_pattern = self.lang_split_sent[self.language]
         for generic_sentence_split in sent_tokenize(data):
@@ -89,7 +98,7 @@ class EmilleCorpusPreprocessor(BasePreprocessor):
                     yield clean_sentence
 
     def _tokenize_words(self, sentence):
-        """Tokenize Words from sentences."""
+        """**Tokenize Words from sentences.**"""
         return sentence.split()
 
 BasePreprocessor.register(EmilleCorpusPreprocessor)

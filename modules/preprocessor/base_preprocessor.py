@@ -1,10 +1,9 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
 """
-Module used to specify abstract Preprocessor Class.
+**Module used to specify abstract Preprocessor Class.**
 
-* BasePreprocessor is an Abstract Base Class
-  with basic abstract preprocessor functionality.
+- BasePreprocessor is an Abstract Base Class with basic abstract preprocessor functionality.
 """
 
 import os
@@ -15,7 +14,22 @@ import fileinput
 
 
 class BasePreprocessor(object):
-    """Abstract Base Class with basic preprocessor functionality."""
+    """
+    **Abstract Base Class with basic preprocessor functionality.**
+
+    **API Documentation**:
+        :param corpus_fname: Corpus Filename to be preprocessed
+        :param corpus_dir_path: Corpus Directory Path [ Default Current Directory ]
+        :param encoding: Encoding format of the corpus [ Default utf-8 ]
+        :param need_preprocessing: Preprocess corpus to obtain
+            only the valid content from the file to an intermediate file
+            [ False - Corpus has each sentence in seperate lines ]
+        :type corpus_fname: String
+        :type corpus_dir_path: String
+        :type encoding: String
+        :type need_preprocessing: Boolean
+
+    """
 
     __metaclass__ = ABCMeta
 
@@ -28,19 +42,7 @@ class BasePreprocessor(object):
         limit=None
     ):
         """
-        Constructor initialization for BasePreprocessor.
-
-        Function Parameters:
-        * corpus_fname       - (string)  - Corpus Filename to be preprocessed
-        * corpus_dir_path    - (string)  - Corpus Directory Path
-                                           [ Default Current Directory ]
-        * encoding           - (string)  - Encoding format of the corpus
-                                           [ Default utf-8 ]
-        * need_preprocessing - (boolean) - Preprocess corpus to obtain
-                                           only the valid content from the file
-                                           to an intermediate file
-                                           [ False - Corpus has each sentence
-                                            in seperate lines ]
+        **Constructor initialization for BasePreprocessor.**
         """
         logging.basicConfig(level=logging.INFO)
         self.limit = limit
@@ -82,14 +84,16 @@ class BasePreprocessor(object):
 
     def _save_preprocessed_data(self, data, output_fpath):
         """
-        Save the extracted valid content.
+        **Save the extracted valid content.**
 
-        Extracted content tokenized into sentences and stored intermediate file
+        - Extracted content tokenized into sentences and stored intermediate file
 
-        Function Parameters:
-        data         - (string)  - Extracted data
-        output_fname - (string)  - Intermediate file path
+        **API Documentation:**
+            :param data: Extracted data
+            :param output_fpath: Intermediate file path
                                    [ Inclusive of file name ]
+            :type data: String
+            :type output_fpath: String
         """
         with codecs.open(output_fpath, 'w', encoding=self.encoding) as file:
             logging.info("Tokenizing Corpus into Sentences")
@@ -103,9 +107,9 @@ class BasePreprocessor(object):
     @abstractmethod
     def _extract_corpus_data(self, data):
         """
-        Extract valid content from the Corpus.
+        **Extract valid content from the Corpus.**
 
-        Executed only if need_preprocessing is set to True
+        - Executed only if need_preprocessing is set to True
         """
         raise NotImplementedError(
             "Base Class _extract_corpus_data() not implemented"
@@ -114,9 +118,9 @@ class BasePreprocessor(object):
     @abstractmethod
     def _clean_word(self, data):
         """
-        After Tokenizing into words, function is called for individual word.
+        **After Tokenizing into words, function is called for individual word.**
 
-        Called by __iter__() which returns list of words.
+        - Called by __iter__() which returns list of words.
         """
         raise NotImplementedError(
             "Base Class _clean_data() not implemented"
@@ -124,24 +128,24 @@ class BasePreprocessor(object):
 
     @abstractmethod
     def _tokenize_sentences(self, data):
-        """Function to tokenize corpus data into sentences."""
+        """**Function to tokenize corpus data into sentences.**"""
         raise NotImplementedError(
             "Base Class _tokenize_sentences() not implemented"
         )
 
     @abstractmethod
     def _tokenize_words(self, sentence):
-        """Function to tokenize sentences into words."""
+        """**Function to tokenize sentences into words.**"""
         raise NotImplementedError(
             "Base Class _tokenize_words() not implemented"
         )
 
     def get_preprocessed_text(self, limit=None):
         """
-        Generator generates preprocessed list of tokenized words on every call.
+        **Generator generates preprocessed list of tokenized words on every call.**
 
-        * Read Sentence tokenized intermediate preprocessed file.
-        * Tokenize and preprocess words, return list of words from a sentence.
+        - Read Sentence tokenized intermediate preprocessed file.
+        - Tokenize and preprocess words, return list of words from a sentence.
         """
         count = 0
         if limit is None:
@@ -166,6 +170,6 @@ class BasePreprocessor(object):
                 yield word_list
 
     def __iter__(self):
-        """Iterator provided for get_preprocessed_text."""
+        """**Iterator provided for get_preprocessed_text.**"""
         for tokenized_sentence in self.get_preprocessed_text():
             yield tokenized_sentence
