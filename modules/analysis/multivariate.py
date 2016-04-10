@@ -1,14 +1,14 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
 """
-Perform Multivariate Analysis.
+**Perform Multivariate Analysis.**
 
-Variables considered:
-* Corpus Size
-* Bilingual Dictionary Size
-* Execution time
-* Correlation Coefficient
-* P Value
+* Variables considered:
+    * Corpus Size
+    * Bilingual Dictionary Size
+    * Execution time
+    * Correlation Coefficient
+    * P Value
 """
 
 import os
@@ -22,7 +22,7 @@ from modules.evaluation import evaluation
 
 
 def evaluate(vsm, wordsim_dataset_path):
-    """Extract Correlation, P-Value for specified vector space mapper."""
+    """**Extract Correlation, P-Value for specified vector space mapper.**"""
 
     return evaluation.extract_correlation_coefficient(
             score_data_path=wordsim_dataset_path,
@@ -31,8 +31,8 @@ def evaluate(vsm, wordsim_dataset_path):
 
 
 def multivariate_analyse():
-    """Perform multivariate analysis."""
-    corpus_size = [23887762, 35831643, 47775524, 59719405]
+    """**Perform multivariate analysis.**"""
+    corpus_size = [30607384, 45911076, 61214768, 76518461]
     bilingual_size = [4516, 6774, 9032, 11291]
     dir_path = os.path.join(
         'data', 'evaluate'
