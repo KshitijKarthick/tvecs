@@ -92,18 +92,29 @@ Visualisation of vector space
     [ Open browser to localhost:5000 for visualization ]
     [ Ensure model generation is completed before running visualization ]
 
-Execution of Individual Modules [ For the GEEKS out there ]
+Execution of Individual Modules
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-\`\`\`
+::
 
-| # bilingual dictionary generation -> clustering vectors from trained
-  model
-| python2 -m modules.bilingual\_generator.clustering
+    # bilingual dictionary generation -> clustering vectors from trained model
+    python2 -m modules.bilingual_generator.clustering
 
-| # model generation
-| python2 -m modules.model\_generator.model\_generation
+    # model generation
+    python2 -m modules.model_generator.model_generation
 
-| #vector space mapping [ utilise the object vm to obtain
-  recommendations ]
-| py
+    # vector space mapping [ utilise the object vm to obtain recommendations
+    python2 -m modules.vector_space_mapper.vector_space_mapper
+
+Execution of Unit Tests
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    # Run all unit tests
+    py.test
+
+    # Run individual module tests seperately
+    py.test tests/test_emille_preprocessor.py
+    py.test tests/test_leipzig_preprocessor.py
+    py.test tests/test_hccorpus_preprocessor.py
