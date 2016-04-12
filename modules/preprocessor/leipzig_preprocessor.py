@@ -98,9 +98,10 @@ class LeipzigPreprocessor(BasePreprocessor):
             regex = ur"((\p{P}+)|(\p{S}+)|([0-9]+))"
         else:
             regex = ur"((\p{P}+)|(\p{S}+)|([0-9]+)|([A-Za-z]))"
+        word = re.sub(pattern="-", repl=' ', string=word)
         return re.sub(
             pattern=regex,
-            repl=' ',
+            repl='',
             string=word.lower()
         ).strip().split()
 
