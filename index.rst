@@ -8,37 +8,39 @@ Welcome to T-Vecs's documentation!
 
 The main documentation for the site is organized into a couple sections:
 
-* :ref:`user-docs`
-* :ref:`dev-developer-docs`
-
-Development documentation is categorized into:
-
-* :ref:`dev-visualization-docs`
-* :ref:`dev-preprocessor-docs`
-* :ref:`dev-model-generation-docs`
-* :ref:`dev-bilingual-generation-docs`
-* :ref:`dev-vector-space-mapper-docs`
-* :ref:`dev-analysis-docs`
+User Documentation
+------------------
 
 .. _user-docs:
 
 .. toctree::
-   :maxdepth: 2
-   :caption: User Documentation
 
    README
 
-.. _dev-developer-docs:
-.. toctree::
-   :maxdepth: 2
-   :caption: Development Documentation
+Development Documentation
+-------------------------
 
+* :ref:`dev-developer-docs`
+    * :ref:`dev-visualization-docs`
+    * :ref:`dev-preprocessor-docs`
+    * :ref:`dev-model-generation-docs`
+    * :ref:`dev-bilingual-generation-docs`
+    * :ref:`dev-vector-space-mapper-docs`
+    * :ref:`dev-analysis-docs`
+
+
+.. _dev-developer-docs:
+
+.. toctree::
+   :caption: Development Documentation
+   :titlesonly:
 
 .. _dev-visualization-docs:
 
 .. toctree::
-    :maxdepth: 2
+    :titlesonly:
     :caption: Visualization Developer Documentation
+    :hidden:
 
 .. automodule:: visualization.server
     :members:
@@ -50,6 +52,7 @@ Development documentation is categorized into:
 .. toctree::
     :maxdepth: 2
     :caption: Preprocessor Documentation
+    :hidden:
 
 .. automodule:: modules.preprocessor.base_preprocessor
     :members:
@@ -81,6 +84,7 @@ Development documentation is categorized into:
 .. toctree::
     :maxdepth: 2
     :caption: Model Generator Documentation
+    :hidden:
 
 .. automodule:: modules.model_generator.model_generation
     :members:
@@ -92,6 +96,7 @@ Development documentation is categorized into:
 .. toctree::
     :maxdepth: 2
     :caption: Bilingual Dictionary Generator Documentation
+    :hidden:
 
 .. automodule:: modules.bilingual_generator.clustering
     :members:
@@ -108,6 +113,7 @@ Development documentation is categorized into:
 .. toctree::
     :maxdepth: 2
     :caption: Vector Space Mapper Documentation
+    :hidden:
 
 .. automodule:: modules.vector_space_mapper.vector_space_mapper
     :members:
@@ -124,6 +130,7 @@ Development documentation is categorized into:
 .. toctree::
     :maxdepth: 2
     :caption: Multivariate Analysis Documentation
+    :hidden:
 
 .. automodule:: modules.analysis.multivariate
     :members:
