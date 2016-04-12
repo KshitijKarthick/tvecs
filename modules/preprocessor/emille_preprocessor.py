@@ -11,7 +11,6 @@ import unicodedata
 from collections import defaultdict
 
 
-
 class EmilleCorpusPreprocessor(BasePreprocessor):
     """
     **Emille Corpus Preprocessor which preprocesses the EMILLE Corpus.**
@@ -50,11 +49,10 @@ class EmilleCorpusPreprocessor(BasePreprocessor):
             limit=limit
         )
 
-
     def _extract_corpus_data(self, data):
         """**Extract contents of the 'p' tags which contain the body.**"""
 
-        soup = BeautifulSoup(data)
+        soup = BeautifulSoup(data, "html5lib")
         ptags = soup.find_all('p')
         content =[]
         for index in range(len(ptags)):
@@ -74,9 +72,9 @@ class EmilleCorpusPreprocessor(BasePreprocessor):
             regex = ur"((\p{P}+)|(\p{S}+)|([0-9]+)|([A-Za-z]))"
         return re.sub(
             pattern=regex,
-            repl='',
+            repl=' ',
             string=word.lower()
-        ).strip()
+        ).strip().split()
 
     def _tokenize_sentences(self, data):
         """

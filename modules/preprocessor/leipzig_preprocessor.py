@@ -100,9 +100,9 @@ class LeipzigPreprocessor(BasePreprocessor):
             regex = ur"((\p{P}+)|(\p{S}+)|([0-9]+)|([A-Za-z]))"
         return re.sub(
             pattern=regex,
-            repl='',
+            repl=' ',
             string=word.lower()
-        ).strip()
+        ).strip().split()
 
     def _tokenize_sentences(self, data):
         """
