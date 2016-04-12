@@ -9,6 +9,7 @@
 import os
 import codecs
 import logging
+import itertools
 from abc import ABCMeta, abstractmethod
 import fileinput
 
@@ -116,7 +117,7 @@ class BasePreprocessor(object):
         )
 
     @abstractmethod
-    def _clean_word(self, data):
+    def _clean_word(self, word):
         """
         **After Tokenizing into words, function is called for individual word.**
 
@@ -154,11 +155,11 @@ class BasePreprocessor(object):
             files=[self.preprocessed_corpus_path],
             openhook=fileinput.hook_encoded(self.encoding)
         ):
-            word_list = (
+            word_list = itertools.chain(*(
                 self._clean_word(
                     word
                 ) for word in self._tokenize_words(sentence)
-            )
+            ))
             word_list = [
                 word for word in word_list if len(word) is not 0
             ]
