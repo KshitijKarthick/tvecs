@@ -98,6 +98,12 @@ class LeipzigPreprocessor(BasePreprocessor):
             regex = ur"((\p{P}+)|(\p{S}+)|([0-9]+))"
         else:
             regex = ur"((\p{P}+)|(\p{S}+)|([0-9]+)|([A-Za-z]))"
+        # Handle Apostrophe's correctly you'll => you
+        selected_word = re.match(pattern="(.*)'.*?", string=word)
+        # If selected word matches a word with apostrophe
+        if selected_word is not None:
+            word = selected_word.groups()[0]
+        # Handle Pair words ice-cream => ice cream
         word = re.sub(pattern="-", repl=' ', string=word)
         return re.sub(
             pattern=regex,
