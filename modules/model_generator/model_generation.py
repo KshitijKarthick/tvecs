@@ -1,7 +1,7 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
 """
-**Used to generate Word2Vec Models for individual languages after preprocessing.**
+Used to generate Word2Vec Models for individual languages after preprocessing.
 
 - Preprocessing Corpus - Implementation of BasePreprocessor module
     - HcCorpusPreprocessor
@@ -23,9 +23,9 @@ def generate_model(
     iter=5
 ):
     """
-    **Function used to preprocess and generate models.**
+    Function used to preprocess and generate models.
 
-    **API Documentation**
+    API Documentation
         :param language: Language for which model is generated [ Used for model filename ]
         :type language: String
         :param corpus_fname: Corpus Filename
@@ -59,9 +59,9 @@ def construct_model(
     iter=5
 ):
     """
-    **Construct Model given the preprocessed corpus.**
+    Construct Model given the preprocessed corpus.
 
-    **API Documentation:**
+    API Documentation:
         :param preprocessed_corpus: - (object)  - Instance of SubClass of BasePreprocessor
         :param language:           - (string)  - Language for which model is generated [ Used for model filename ]
         :param output_dir_path:    - (string)  - Output Dir Path where model is stored

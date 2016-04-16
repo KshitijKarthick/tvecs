@@ -1,7 +1,7 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
 """
-**Module used to generate bilingual dictionary.**
+Module used to generate bilingual dictionary.
 
 - Utilise Yandex API for bilingual dictionary generation.
 """
@@ -17,7 +17,7 @@ def create_bilingual_dictionary(clusters_file_path, sample_size, model):
     """
     Create bilingual dictionary utilising Yandex, cluster file.
 
-    **API Documentation**
+    API Documentation
         :param clusters_file_path: JSON cluster file.
         :param sample_size: The sample size of words in every cluster.
         :param model: Model in which the translation needs to exist.
