@@ -39,27 +39,29 @@ class Server():
     @cherrypy.expose
     def index(self):
         """**Semantic spac visualization html returned.**"""
-        return file(os.path.join('visualization', 'static', 'index.html'))
+        return file(os.path.join(
+            'modules', 'visualization', 'static', 'index.html'
+        ))
 
     @cherrypy.expose
     def multivariate_analysis(self):
         """**Parallel Coordinates for multivariate analysis html page return.**"""
         return file(os.path.join(
-            'visualization', 'static', 'multivariate.html')
+            'modules', 'visualization', 'static', 'multivariate.html')
         )
 
     @cherrypy.expose
     def cross_lingual(self):
         """**Cross Lingual recommender html returned.**"""
         return file(os.path.join(
-            'visualization', 'static', 'cross_lingual.html')
+            'modules', 'visualization', 'static', 'cross_lingual.html')
         )
 
     @cherrypy.expose
     def lingual_semantics(self):
         """**Semantically related words in same language returned.**"""
         return file(os.path.join(
-            'visualization', 'static', 'intra_language.html')
+            'modules', 'visualization', 'static', 'intra_language.html')
         )
 
     @cherrypy.expose
@@ -235,29 +237,29 @@ if __name__ == '__main__':
         '/js': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': os.path.join(
-                'visualization', 'static', 'js'
+                'modules', 'visualization', 'static', 'js'
             )
         },
         '/css': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': os.path.join(
-                'visualization', 'static', 'css'
+                'modules', 'visualization', 'static', 'css'
             )
         },
         '/images': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': os.path.join(
-                'visualization', 'static', 'images'
+                'modules', 'visualization', 'static', 'images'
             )
         },
         '/resources': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': os.path.join(
-                'visualization', 'static', 'resources'
+                'modules', 'visualization', 'static', 'resources'
             )
         }
     }
-    server_config.read(os.path.join('visualization', 'server.conf'))
+    server_config.read(os.path.join('modules', 'visualization', 'server.conf'))
     server_port = server_config.get('Server', 'port')
     server_host = server_config.get('Server', 'host')
     thread_pool = server_config.get('Server', 'thread_pool')
