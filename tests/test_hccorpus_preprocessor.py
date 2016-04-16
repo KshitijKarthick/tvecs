@@ -127,17 +127,18 @@ class TestHcCorpusPreprocessor:
             assert result == expected[i], "_clean_word function failed for Hindi"
         testing_object.language = 'english'
 
+
     def test_english_clean_word(self):
         testing_object = self.__class__.testing_obj
         data = [
             'Typed', 'essays', 'are', 'preferred', 'but',
             'this', 'is', 'not', 'essential.', "you'll",
-            "tables'", 'ice-cream'
+            "tables'", 'ice-cream', u"they’re"
         ]
         expected = [
             ['typed'], ['essays'], ['are'], ['preferred'],
             ['but'], ['this'], ['is'], ['not'], ['essential'],
-            ['you'], ['tables'], ['ice', 'cream']
+            ['you'], ['tables'], ['ice', 'cream'], [u"they"]
         ]
         for i in range(len(data)):
             result = testing_object._clean_word(data[i])
