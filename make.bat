@@ -8,6 +8,9 @@ if "%SPHINXBUILD%" == "" (
 set BUILDDIR=_build
 set ALLSPHINXOPTS=-d %BUILDDIR%/doctrees %SPHINXOPTS% .
 set I18NSPHINXOPTS=%SPHINXOPTS% .
+set SPHINXAPIDOC=sphinx-apidoc
+set SPHINXAPIDOCDIR=documentation
+set SRC_DIR=modules
 if NOT "%PAPER%" == "" (
 	set ALLSPHINXOPTS=-D latex_paper_size=%PAPER% %ALLSPHINXOPTS%
 	set I18NSPHINXOPTS=-D latex_paper_size=%PAPER% %I18NSPHINXOPTS%
@@ -45,6 +48,8 @@ if "%1" == "help" (
 if "%1" == "clean" (
 	for /d %%i in (%BUILDDIR%\*) do rmdir /q /s %%i
 	del /q /s %BUILDDIR%\*
+	for /d %%i in (%SPHINXAPIDOCDIR\*) do rmdir /q /s %%i
+	del /q /s %SPHINXAPIDOCDIR%\*
 	goto end
 )
 
@@ -74,6 +79,7 @@ if errorlevel 9009 (
 
 
 if "%1" == "html" (
+	%SPHINXAPIDOC% -o %SPHINXAPIDOCDIR% %SRC_DIR% .
 	%SPHINXBUILD% -b html %ALLSPHINXOPTS% %BUILDDIR%/html
 	if errorlevel 1 exit /b 1
 	echo.
@@ -82,6 +88,7 @@ if "%1" == "html" (
 )
 
 if "%1" == "dirhtml" (
+	%SPHINXAPIDOC% -o %SPHINXAPIDOCDIR% %SRC_DIR% .
 	%SPHINXBUILD% -b dirhtml %ALLSPHINXOPTS% %BUILDDIR%/dirhtml
 	if errorlevel 1 exit /b 1
 	echo.
@@ -90,6 +97,7 @@ if "%1" == "dirhtml" (
 )
 
 if "%1" == "singlehtml" (
+	%SPHINXAPIDOC% -o %SPHINXAPIDOCDIR% %SRC_DIR% .
 	%SPHINXBUILD% -b singlehtml %ALLSPHINXOPTS% %BUILDDIR%/singlehtml
 	if errorlevel 1 exit /b 1
 	echo.
@@ -98,6 +106,7 @@ if "%1" == "singlehtml" (
 )
 
 if "%1" == "pickle" (
+	%SPHINXAPIDOC% -o %SPHINXAPIDOCDIR% %SRC_DIR% .
 	%SPHINXBUILD% -b pickle %ALLSPHINXOPTS% %BUILDDIR%/pickle
 	if errorlevel 1 exit /b 1
 	echo.
@@ -106,6 +115,7 @@ if "%1" == "pickle" (
 )
 
 if "%1" == "json" (
+	%SPHINXAPIDOC% -o %SPHINXAPIDOCDIR% %SRC_DIR% .
 	%SPHINXBUILD% -b json %ALLSPHINXOPTS% %BUILDDIR%/json
 	if errorlevel 1 exit /b 1
 	echo.
@@ -114,6 +124,7 @@ if "%1" == "json" (
 )
 
 if "%1" == "htmlhelp" (
+	%SPHINXAPIDOC% -o %SPHINXAPIDOCDIR% %SRC_DIR% .
 	%SPHINXBUILD% -b htmlhelp %ALLSPHINXOPTS% %BUILDDIR%/htmlhelp
 	if errorlevel 1 exit /b 1
 	echo.
@@ -123,6 +134,7 @@ if "%1" == "htmlhelp" (
 )
 
 if "%1" == "qthelp" (
+	%SPHINXAPIDOC% -o %SPHINXAPIDOCDIR% %SRC_DIR% .
 	%SPHINXBUILD% -b qthelp %ALLSPHINXOPTS% %BUILDDIR%/qthelp
 	if errorlevel 1 exit /b 1
 	echo.
@@ -135,6 +147,7 @@ if "%1" == "qthelp" (
 )
 
 if "%1" == "devhelp" (
+	%SPHINXAPIDOC% -o %SPHINXAPIDOCDIR% %SRC_DIR% .
 	%SPHINXBUILD% -b devhelp %ALLSPHINXOPTS% %BUILDDIR%/devhelp
 	if errorlevel 1 exit /b 1
 	echo.
@@ -143,6 +156,7 @@ if "%1" == "devhelp" (
 )
 
 if "%1" == "epub" (
+	%SPHINXAPIDOC% -o %SPHINXAPIDOCDIR% %SRC_DIR% .
 	%SPHINXBUILD% -b epub %ALLSPHINXOPTS% %BUILDDIR%/epub
 	if errorlevel 1 exit /b 1
 	echo.
@@ -151,6 +165,7 @@ if "%1" == "epub" (
 )
 
 if "%1" == "epub3" (
+	%SPHINXAPIDOC% -o %SPHINXAPIDOCDIR% %SRC_DIR% .
 	%SPHINXBUILD% -b epub3 %ALLSPHINXOPTS% %BUILDDIR%/epub3
 	if errorlevel 1 exit /b 1
 	echo.
@@ -159,6 +174,7 @@ if "%1" == "epub3" (
 )
 
 if "%1" == "latex" (
+	%SPHINXAPIDOC% -o %SPHINXAPIDOCDIR% %SRC_DIR% .
 	%SPHINXBUILD% -b latex %ALLSPHINXOPTS% %BUILDDIR%/latex
 	if errorlevel 1 exit /b 1
 	echo.
@@ -167,6 +183,7 @@ if "%1" == "latex" (
 )
 
 if "%1" == "latexpdf" (
+	%SPHINXAPIDOC% -o %SPHINXAPIDOCDIR% %SRC_DIR% .
 	%SPHINXBUILD% -b latex %ALLSPHINXOPTS% %BUILDDIR%/latex
 	cd %BUILDDIR%/latex
 	make all-pdf
@@ -177,6 +194,7 @@ if "%1" == "latexpdf" (
 )
 
 if "%1" == "latexpdfja" (
+	%SPHINXAPIDOC% -o %SPHINXAPIDOCDIR% %SRC_DIR% .
 	%SPHINXBUILD% -b latex %ALLSPHINXOPTS% %BUILDDIR%/latex
 	cd %BUILDDIR%/latex
 	make all-pdf-ja
@@ -187,6 +205,7 @@ if "%1" == "latexpdfja" (
 )
 
 if "%1" == "text" (
+	%SPHINXAPIDOC% -o %SPHINXAPIDOCDIR% %SRC_DIR% .
 	%SPHINXBUILD% -b text %ALLSPHINXOPTS% %BUILDDIR%/text
 	if errorlevel 1 exit /b 1
 	echo.
@@ -195,6 +214,7 @@ if "%1" == "text" (
 )
 
 if "%1" == "man" (
+	%SPHINXAPIDOC% -o %SPHINXAPIDOCDIR% %SRC_DIR% .
 	%SPHINXBUILD% -b man %ALLSPHINXOPTS% %BUILDDIR%/man
 	if errorlevel 1 exit /b 1
 	echo.
@@ -203,6 +223,7 @@ if "%1" == "man" (
 )
 
 if "%1" == "texinfo" (
+	%SPHINXAPIDOC% -o %SPHINXAPIDOCDIR% %SRC_DIR% .
 	%SPHINXBUILD% -b texinfo %ALLSPHINXOPTS% %BUILDDIR%/texinfo
 	if errorlevel 1 exit /b 1
 	echo.
@@ -211,6 +232,7 @@ if "%1" == "texinfo" (
 )
 
 if "%1" == "gettext" (
+	%SPHINXAPIDOC% -o %SPHINXAPIDOCDIR% %SRC_DIR% .
 	%SPHINXBUILD% -b gettext %I18NSPHINXOPTS% %BUILDDIR%/locale
 	if errorlevel 1 exit /b 1
 	echo.
@@ -219,6 +241,7 @@ if "%1" == "gettext" (
 )
 
 if "%1" == "changes" (
+	%SPHINXAPIDOC% -o %SPHINXAPIDOCDIR% %SRC_DIR% .
 	%SPHINXBUILD% -b changes %ALLSPHINXOPTS% %BUILDDIR%/changes
 	if errorlevel 1 exit /b 1
 	echo.
@@ -227,6 +250,7 @@ if "%1" == "changes" (
 )
 
 if "%1" == "linkcheck" (
+	%SPHINXAPIDOC% -o %SPHINXAPIDOCDIR% %SRC_DIR% .
 	%SPHINXBUILD% -b linkcheck %ALLSPHINXOPTS% %BUILDDIR%/linkcheck
 	if errorlevel 1 exit /b 1
 	echo.
@@ -236,6 +260,7 @@ or in %BUILDDIR%/linkcheck/output.txt.
 )
 
 if "%1" == "doctest" (
+	%SPHINXAPIDOC% -o %SPHINXAPIDOCDIR% %SRC_DIR% .
 	%SPHINXBUILD% -b doctest %ALLSPHINXOPTS% %BUILDDIR%/doctest
 	if errorlevel 1 exit /b 1
 	echo.
@@ -245,6 +270,7 @@ results in %BUILDDIR%/doctest/output.txt.
 )
 
 if "%1" == "coverage" (
+	%SPHINXAPIDOC% -o %SPHINXAPIDOCDIR% %SRC_DIR% .
 	%SPHINXBUILD% -b coverage %ALLSPHINXOPTS% %BUILDDIR%/coverage
 	if errorlevel 1 exit /b 1
 	echo.
@@ -254,6 +280,7 @@ results in %BUILDDIR%/coverage/python.txt.
 )
 
 if "%1" == "xml" (
+	%SPHINXAPIDOC% -o %SPHINXAPIDOCDIR% %SRC_DIR% .
 	%SPHINXBUILD% -b xml %ALLSPHINXOPTS% %BUILDDIR%/xml
 	if errorlevel 1 exit /b 1
 	echo.
@@ -262,6 +289,7 @@ if "%1" == "xml" (
 )
 
 if "%1" == "pseudoxml" (
+	%SPHINXAPIDOC% -o %SPHINXAPIDOCDIR% %SRC_DIR% .
 	%SPHINXBUILD% -b pseudoxml %ALLSPHINXOPTS% %BUILDDIR%/pseudoxml
 	if errorlevel 1 exit /b 1
 	echo.

@@ -17,125 +17,18 @@ User Documentation
 
    README
 
-Development Documentation
--------------------------
 
-* :ref:`dev-developer-docs`
-    * :ref:`dev-visualization-docs`
-    * :ref:`dev-preprocessor-docs`
-    * :ref:`dev-model-generation-docs`
-    * :ref:`dev-bilingual-generation-docs`
-    * :ref:`dev-vector-space-mapper-docs`
-    * :ref:`dev-analysis-docs`
-
-
-.. _dev-developer-docs:
+Detailed Development Documentation
+----------------------------------
 
 .. toctree::
-   :caption: Development Documentation
-   :titlesonly:
+	:maxdepth: 10
+	:caption: Modules Heirarchy
+   	:name: mastertoc
+	
+	documentation/modules
 
-.. _dev-visualization-docs:
 
-.. toctree::
-    :titlesonly:
-    :caption: Visualization Developer Documentation
-    :hidden:
-
-.. automodule:: visualization.server
-    :members:
-    :inherited-members:
-    :show-inheritance:
-
-.. _dev-preprocessor-docs:
-
-.. toctree::
-    :maxdepth: 2
-    :caption: Preprocessor Documentation
-    :hidden:
-
-.. automodule:: modules.preprocessor.base_preprocessor
-    :members:
-    :inherited-members:
-    :show-inheritance:
-
-.. automodule:: modules.preprocessor.hccorpus_preprocessor
-    :members:
-    :inherited-members:
-    :show-inheritance:
-
-.. automodule:: modules.preprocessor.emille_preprocessor
-    :members:
-    :inherited-members:
-    :show-inheritance:
-
-.. automodule:: modules.preprocessor.leipzig_preprocessor
-    :members:
-    :inherited-members:
-    :show-inheritance:
-
-.. automodule:: modules.preprocessor.yandex_api
-    :members:
-    :inherited-members:
-    :show-inheritance:
-
-.. _dev-model-generation-docs:
-
-.. toctree::
-    :maxdepth: 2
-    :caption: Model Generator Documentation
-    :hidden:
-
-.. automodule:: modules.model_generator.model_generation
-    :members:
-    :inherited-members:
-    :show-inheritance:
-
-.. _dev-bilingual-generation-docs:
-
-.. toctree::
-    :maxdepth: 2
-    :caption: Bilingual Dictionary Generator Documentation
-    :hidden:
-
-.. automodule:: modules.bilingual_generator.clustering
-    :members:
-    :inherited-members:
-    :show-inheritance:
-
-.. automodule:: modules.bilingual_generator.bilingual_generator
-    :members:
-    :inherited-members:
-    :show-inheritance:
-
-.. _dev-vector-space-mapper-docs:
-
-.. toctree::
-    :maxdepth: 2
-    :caption: Vector Space Mapper Documentation
-    :hidden:
-
-.. automodule:: modules.vector_space_mapper.vector_space_mapper
-    :members:
-    :inherited-members:
-    :show-inheritance:
-
-.. automodule:: modules.evaluation.evaluation
-    :members:
-    :inherited-members:
-    :show-inheritance:
-
-.. _dev-analysis-docs:
-
-.. toctree::
-    :maxdepth: 2
-    :caption: Multivariate Analysis Documentation
-    :hidden:
-
-.. automodule:: modules.analysis.multivariate
-    :members:
-    :inherited-members:
-    :show-inheritance:
 
 
 Indices and tables
