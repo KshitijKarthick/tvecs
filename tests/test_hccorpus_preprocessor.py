@@ -131,11 +131,13 @@ class TestHcCorpusPreprocessor:
         testing_object = self.__class__.testing_obj
         data = [
             'Typed', 'essays', 'are', 'preferred', 'but',
-            'this', 'is', 'not', 'essential.'
+            'this', 'is', 'not', 'essential.', "you'll",
+            "tables'", 'ice-cream'
         ]
         expected = [
             ['typed'], ['essays'], ['are'], ['preferred'],
-            ['but'], ['this'], ['is'], ['not'], ['essential']
+            ['but'], ['this'], ['is'], ['not'], ['essential'],
+            ['you'], ['tables'], ['ice', 'cream']
         ]
         for i in range(len(data)):
             result = testing_object._clean_word(data[i])
