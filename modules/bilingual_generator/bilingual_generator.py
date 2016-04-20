@@ -28,7 +28,7 @@ def create_bilingual_dictionary(clusters_file_path, sample_size, model):
         :rtype: List
 
     .. seealso::
-        * :mod:`modules.bilingual_generator.clsutering`
+        * :mod:`modules.bilingual_generator.clustering`
         * :mod:`modules.preprocessor.yandex_api`
     """
     bilingual_dictionary = []
