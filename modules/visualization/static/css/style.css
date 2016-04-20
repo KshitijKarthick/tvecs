@@ -52,6 +52,33 @@ svg {
   background: #544538;
 }
 
+.word-input-container {
+  padding: 10px;
+  padding-top: 20px;
+}
+
+.word-input-container span {
+  cursor: pointer;
+  background: rgb(41, 30, 20);
+  border-color: rgb(41, 30, 20);
+  color: #fff;
+}
+
+.btn-span {
+  padding: 0 !important;
+}
+
+.word-input {
+  border: none !important;
+}
+
+.btn-word-input {
+  border: none;
+  background: inherit;
+  width: 36px;
+  height: 100%;
+}
+
 #bottom-menu {
   position: absolute;
   bottom: 0;
@@ -147,15 +174,15 @@ input[type="radio"]:checked + label span {
 }
 
 .switch-menu img {
-  height: 35px;
+  height: 25px;
 }
 
 .switch-btn {
-  width: 45px;
-  height: 45px;
+  width: 35px;
+  height: 35px;
   border-radius: 30px;
   border: none;
-  margin-right: 10px;
+  margin-right: 5px;
   background: rgba(20, 20, 20, 0.2);
 }
 
@@ -167,26 +194,11 @@ input[type="radio"]:checked + label span {
   outline: 0;
 }
 
-/*.home-btn, .home-btn:hover {
-  background: rgba(58, 239, 56, 0.29);
-}
-
-.switch-cross-lang, .switch-cross-lang:hover {
-  background: rgba(17, 177, 161, 0.21);
-}
-
-.switch-intra-lang, .switch-intra-lang:hover{
-  background: rgba(255, 74, 74, 0.45);
-}
-
-.switch-multivariate, .switch-multivariate:hover {
-  background: rgba(255, 31, 145, 0.29)
-}*/
-
 /* Index Page Style */
 
 #tv-main-container {
-  background: url("../images/index_light30_bg.png");
+  background: url("../images/background.png");
+  background-size: cover;
   height: 100%;
   width: 100%;
   background-position: center; 
@@ -250,27 +262,4 @@ input[type="radio"]:checked + label span {
 
 .tv-btn:focus {
   outline: 0;
-}
-
-@keyframes rip 
-{
-  0%  {
-     border: none;
-  }
-  
-  25% {
-    border-top: 5px solid;
-  }
-
-  50% {
-    border-left: 5px solid;
-  }
-
-  75% {
-    border-bottom: 5px solid;
-  }
-
-  100% {
-    border-right: 5px solid;
-  }
 }

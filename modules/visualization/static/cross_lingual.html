@@ -78,6 +78,7 @@
                          }
                        }
                      }
+                     console.log(language);
                      $.ajax({
                        url: 'http://0.0.0.0:5000/get_cross_lingual_recommendations',
                        data: {
@@ -89,6 +90,7 @@
                        dataType: 'json'
                      });
                    })
+
                    return ui;
                });
 
@@ -125,6 +127,7 @@
                renderer.run();
 
             $("input[name='language']").on("change", function () {
+              document.getElementsByName('word-text')[0].value = "";
               language = this.value;
               graphNode = document.getElementById('svg-container');
               graphNode.removeChild(graphNode.firstChild);
@@ -137,8 +140,9 @@
           window.location.reload();
         }
 
-        function getWord() {
-          var newWord = prompt("Please enter a new word","");
+        function getWord(wordTextBox) {
+          var newWord = wordTextBox[0].value;
+          console.log(newWord);
           rootWords[language] = newWord;
           graphNode = document.getElementById('svg-container');
           graphNode.removeChild(graphNode.firstChild);
@@ -173,14 +177,24 @@
         <input type="radio" name="language" value="english" id="r1"/><label for="r1"><span></span>English</label><br />
         <input type="radio" name="language" value="hindi" id="r2" checked /><label for="r2"><span></span>Hindi</label><br />
       </div>
-      <!--Themes functionlity-Coming Soon-->
+      <div class="word-input-container">
+        <div class="input-group">
+          <input type="text" class="form-control word-input" name="word-text" placeholder="Enter Word Here" aria-describedby="basic-addon2">
+            <span class="input-group-addon btn-span" id="basic-addon2">
+              <button class="btn-word-input" onclick="getWord(document.getElementsByName('word-text'))">
+                <span class="glyphicon glyphicon-repeat"></span>
+              </button>
+            </span>
+        </div>
+      </div>
+
+    <!--Themes functionlity-Coming Soon-->
       <!-- <div id="theme-menu">
         <div class="menu-heading">Themes</div>
         <input type="radio" name="theme" value="black" id="r5"></input><label for="r5"><span></span>Eerie Black</label><br />
         <input type="radio" name="theme" value="white" id="r6"></input><label for="r6"><span></span>White</label><br />
       </div> -->
       <div id="bottom-menu">
-        <button id="word-text-btn" class="bottom-btns" onclick="getWord()">Enter Word</button>
         <button id="reset-btn" class="bottom-btns" onclick="resetWindow()">Reset</button>
       </div>
     </div>
