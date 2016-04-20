@@ -9,27 +9,22 @@ Welcome to T-Vecs's documentation!
 The main documentation for the site is organized into a couple sections:
 
 
-Usage Documentation
---------------------
-
 .. _user-docs:
 
 	.. toctree::
-		:maxdepth: 10
+		:maxdepth: 2
 		:caption: Usage Documentation
 
 	   	README
 
 
 
-Detailed Development Documentation
-----------------------------------
-
 .. _dev-docs:
 
 	.. toctree::
-		:maxdepth: 10
-		:caption: Developed Documentation
+		:numbered:
+		:titlesonly:
+		:caption: Development Documentation
 		
 		documentation/modules
 
