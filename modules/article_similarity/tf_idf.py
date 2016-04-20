@@ -5,19 +5,11 @@
 import os
 import codecs
 import itertools
+import numpy as np
+import scipy
 from gensim.models import Word2Vec
 from modules.vector_space_mapper import vector_space_mapper
 from sklearn.feature_extraction.text import TfidfVectorizer
-
-
-def obtain_score_for_lists(l1, l2, func):
-    """Obtain comparison score for each element in the list."""
-    scores = [
-        func(word1, word2) for word1, word2 in itertools.product(
-            l1, l2
-        ) if func(word1, word2) is not None
-    ]
-    return sum(scores) / len(scores)
 
 
 def get_cmp_func(model_1, model_2, bilingual_dict, cross_lingual=True):
@@ -83,7 +75,8 @@ def top_words(scores, words, n=5):
 
 
 if __name__ == '__main__':
-    cmp_func = get_cmp_func(**_load_models(cross_lingual=False))
+    kwargs = _load_models(cross_lingual=False)
+    cmp_func = get_cmp_func(**kwargs)
     tf1 = TfidfVectorizer(input="file", min_df=1, stop_words='english')
     tfidf_matrix1 = tf1.fit_transform([
         codecs.open(os.path.join(
@@ -110,4 +103,23 @@ if __name__ == '__main__':
     for l1, l2 in itertools.product(dense_mat1, dense_mat2):
         words1 = top_words(l1, tf1.get_feature_names())
         words2 = top_words(l2, tf2.get_feature_names())
-        print obtain_score_for_lists(words1, words2, cmp_func)
+
+        word_vectors1 = []
+        word_vectors2 = []
+
+        for word in words1:
+            try:
+                word_vectors1.append(kwargs['model_1'][word])
+            except:
+                pass
+
+        for word in words2:
+            try:
+                word_vectors2.append(kwargs['model_1'][word])
+            except:
+                pass
+
+        print scipy.spatial.distance.cosine(
+            np.mean(word_vectors1, axis=0),
+            np.mean(word_vectors2, axis=0)
+        )
