@@ -86,7 +86,7 @@ def multivariate_analyse():
                     )
                 else:
                     if not os.path.exists(os.path.join(m_1_path)):
-                        os.makedirs(directory)
+                        os.makedirs(m_1_path)
                     model_1 =  model_generation.gensim.models.Word2Vec.load(
                         os.path.join(m_1_path, m_1_fname)
                     )
@@ -107,7 +107,7 @@ def multivariate_analyse():
                     )
                 else:
                     if not os.path.exists(os.path.join(m_1_path)):
-                        os.makedirs(directory)
+                        os.makedirs(m_1_path)
                     model_2 =  model_generation.gensim.models.Word2Vec.load(
                         os.path.join(m_2_path, m_2_fname)
                     )
