@@ -8,25 +8,30 @@ Welcome to T-Vecs's documentation!
 
 The main documentation for the site is organized into a couple sections:
 
-User Documentation
-------------------
+
+Usage Documentation
+--------------------
 
 .. _user-docs:
 
-.. toctree::
+	.. toctree::
+		:maxdepth: 10
+		:caption: Usage Documentation
 
-   README
+	   	README
+
 
 
 Detailed Development Documentation
 ----------------------------------
 
-.. toctree::
-	:maxdepth: 10
-	:caption: Modules Heirarchy
-   	:name: mastertoc
-	
-	documentation/modules
+.. _dev-docs:
+
+	.. toctree::
+		:maxdepth: 10
+		:caption: Developed Documentation
+		
+		documentation/modules
 
 
 
