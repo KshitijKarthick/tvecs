@@ -183,7 +183,9 @@ input[type="radio"]:checked + label span {
   border-radius: 30px;
   border: none;
   margin-right: 5px;
-  background: rgba(20, 20, 20, 0.2);
+  background: rgba(154, 114, 97, 0.31);
+  font-size: 16px;
+  color: #222;
 }
 
 .switch-btn:hover {
@@ -192,6 +194,14 @@ input[type="radio"]:checked + label span {
 
 .switch-btn:focus {
   outline: 0;
+}
+
+.home-btn i {
+  font-size: 19px;
+}
+
+.switch-intra-lang i {
+  font-size: 19px;
 }
 
 /* Index Page Style */
@@ -243,23 +253,44 @@ input[type="radio"]:checked + label span {
 }
 
 #tv-intra-lang-btn {
-  background: rgba(243, 35, 35, 0.79);
-  box-shadow: 0 0 10px rgb(204, 24, 24);
-  color: #D40101;
+  background: rgba(20, 165, 151, 0.79);
+  box-shadow: 0 0 10px rgb(53, 140, 131); 
+  font-size: 130px;
+  color: #004D40;
 }
 
 #tv-cross-lang-btn {
   background: rgba(20, 165, 151, 0.79);
   box-shadow: 0 0 10px rgb(53, 140, 131); 
+  font-size: 130px;
   color: #004D40;
 }
 
 #tv-multivariate-btn {
-  background: rgba(255, 31, 145, 0.69);
-  box-shadow: 0 0 10px rgb(239, 15, 129);
-  color: #D2006B;
+  background: rgba(20, 165, 151, 0.79);
+  box-shadow: 0 0 10px rgb(53, 140, 131); 
+  color: #004D40;
+  font-size: 70px;
 }
 
 .tv-btn:focus {
   outline: 0;
+}
+
+.tv-search {
+    margin-top: -57px;
+    color: rgb(0, 121, 101);
+    margin-left: 45px;
+    font-size: 88px !important;
+}
+
+.tv-chart {
+  font-size: 100px;
+  color: #004D40;
+}
+
+.tv-btn-caption {
+  font-size: 20px;
+  padding-top: 20px;
+  color: #94B92C;
 }

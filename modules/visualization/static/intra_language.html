@@ -7,6 +7,7 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/font-awesome/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css'>
     <script type="text/javascript">
       var language="hindi";
@@ -147,18 +148,18 @@
   <div id="main-container" class="container row">
     <div class="switch-menu">
       <a href="http://0.0.0.0:5000">
-        <button class="switch-btn home-btn">
-          <img src="../images/home.svg">
+        <button class="switch-btn home-btn" title="Home">
+          <i class="fa fa-home" aria-hidden="true"></i>
         </button>
       </a>
       <a href="http://0.0.0.0:5000/cross_lingual">
-        <button class="switch-btn switch-cross-lang">
-          <img src="../images/home.svg">
+        <button class="switch-btn switch-cross-lang" title="Cross-Lingual Semantic Space">
+          <i class="fa fa-language" aria-hidden="true"></i>
         </button>
       </a>
       <a href="http://0.0.0.0:5000/multivariate_analysis">
-        <button class="switch-btn switch-multivariate">
-          <img src="../images/home.svg">
+        <button class="switch-btn switch-multivariate" title="Multivariate Analysis">
+          <i class="fa fa-line-chart"></i>
         </button>
       </a>
     </div>
@@ -174,7 +175,7 @@
           <input type="text" class="form-control word-input" name="word-text" placeholder="Enter Word Here" aria-describedby="basic-addon2">
             <span class="input-group-addon btn-span" id="basic-addon2">
               <button class="btn-word-input" onclick="getWord(document.getElementsByName('word-text'))">
-                <span class="glyphicon glyphicon-repeat"></span>
+                <i class="fa fa-refresh" aria-hidden="true"></i>
               </button>
             </span>
         </div>
