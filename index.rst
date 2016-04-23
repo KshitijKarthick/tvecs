@@ -30,6 +30,104 @@ The main documentation for the site is organized into a couple sections:
 
 
 
+.. _dev-seq-diagr:
+
+   	.. toctree::
+   		:numbered:
+   		:caption: Sequence Diagrams
+
+
+
+	.. seqdiag::
+		:align: center
+   		:desctable:
+   		:caption: Sequence Diagram for T-Vecs Driver Module
+
+		seqdiag {
+			t-vecs  -> preprocessor [label = "Preprocess English Corpus"];
+			t-vecs <-- preprocessor [label = "Preprocessed English Corpus"];
+			t-vecs  -> preprocessor [label = "Preprocess Hindi Corpus"];
+			t-vecs <-- preprocessor [label = "Preprocessed Hindi Corpus"];
+			t-vecs -> model_generator [label = "Construct Model for English"];
+			t-vecs <-- model_generator [label = "English Model"]
+			t-vecs -> model_generator [label = "Construct Model for Hindi"];
+			t-vecs <-- model_generator [label = "Hindi Model"]
+			t-vecs -> bilingual_generator [label = "Generate Bilingual Dictionary for English, Hindi"]
+			t-vecs <-- bilingual_generator [label = "Bilingual Dictionary"]
+			t-vecs -> vector_space_mapper [label = "English Model"];
+			t-vecs -> vector_space_mapper [label = "Hindi Model"];
+			t-vecs -> vector_space_mapper [label = "Bilingual Dictionary"];
+			t-vecs <-- vector_space_mapper [label = "Mapping of English & Hindi Vector Spaces"];
+		    t-vecs [description = "Driver Module"];
+		    preprocessor [description = "Preprocessor for Corpus"];
+	        model_generator [description = "Word2Vec implementation to Generate Semantic Word Embeddings"];
+	        bilingual_generator [description = "Generates Bilingual Dictionary"];
+	        vector_space_mapper [description = "Maps Vector Spaces between 2 Models using a Bilingual Dictionary"];
+		}
+
+
+
+	.. seqdiag::
+		:align: center
+   		:desctable:
+   		:caption: Sequence Diagram for Visualization
+
+		seqdiag {
+			client  -> server [label = "GET /index.html"];
+			client <-- server [label = "Visualization Demo"];
+			client  -> server [label = "GET /lingual_semantics.html"];
+			client <-- server [label = "Intra-Lingual Demo"];
+			client  -> server [label = "GET /retrieve_recommendations => language & word sent"];
+			server  -> server [label = "Load Word2Vec Model & Obtain recommendations"];
+			client <-- server [label = "JSON Response => Intra-lingual Recommendations"];
+			client  -> server [label = "GET /cross_lingual.html"];
+			client <-- server [label = "Cross Lingual Demo"];
+			client  -> server [label = "GET /get_cross_lingual_recommendations => lang1, lang2 & word sent"];
+			server  -> vector_space_mapper [label = "Request for cross lingual Recommendations"];
+			server <-- vector_space_mapper [label = "Cross Lingual Recommendations"];
+			client <-- server [label = "JSON Response => Cross-lingual Recommendations"];
+			client  -> server [label = "GET /multivariate_analysis.html"];
+			client <-- server [label = "Multivariate Analysis Visualization"];
+
+		    client [description = "HTTP Client"];
+		    server [description = "CherryPy Server"];
+	        vector_space_mapper [description = "Maps Vector Spaces between 2 Models using a Bilingual Dictionary"];
+		}
+
+
+
+	.. seqdiag::
+		:align: center
+   		:desctable:
+   		:caption: Sequence Diagram for Preprocessor
+
+		seqdiag {
+			t-vecs  -> preprocessor [label = "Invoke Preprocessor\n with corpus"];
+			preprocessor -> preprocessor [label = "_extract_corpus_data()"];
+			preprocessor -> preprocessor [label = "_save_preprocessed_data()"];
+			preprocessor -> preprocessor [label = "_tokenize_sentences()"];
+			t-vecs <-- preprocessor [label = "Intermediate preprocessed\n file generated"];
+			t-vecs  -> preprocessor [label = "get_preprocessed_text()"];
+			preprocessor -> preprocessor [label = "_tokenized_words()"];
+			preprocessor -> preprocessor [label = "_clean_word()"];
+			t-vecs <-- preprocessor [label = "Return a list of sentences with tokenized words"];
+
+		    t-vecs [description = "Driver Module"];
+		    preprocessor [description = "Preprocessor for Corpus"];
+		}
+
+
+
+.. _dev-inh-diagr:
+
+   	.. toctree::
+   		:numbered:
+   		:caption: Inheritance Diagrams
+
+	.. inheritance-diagram:: modules.preprocessor.base_preprocessor.BasePreprocessor  modules.preprocessor.hccorpus_preprocessor.HcCorpusPreprocessor modules.preprocessor.leipzig_preprocessor.LeipzigPreprocessor modules.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor
+   		:parts: 1
+	   	
+
 
 Indices and tables
 ==================
