@@ -32,7 +32,7 @@ def evaluate(vsm, wordsim_dataset_path):
 
 def multivariate_analyse():
     """Perform multivariate analysis."""
-    corpus_size = [30607384, 45911076, 61214768, 76518461]
+    corpus_size = [54708929, 82063393, 109417858, 136772323]
     bilingual_size = [4516, 6774, 9032, 11291]
     dir_path = os.path.join(
         'data', 'evaluate'
