@@ -7,7 +7,6 @@ import codecs
 import os
 import ConfigParser
 import json
-import cPickle
 from gensim.models import Word2Vec
 from jinja2 import Environment, FileSystemLoader
 from modules.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
@@ -15,61 +14,70 @@ from modules.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
 
 class Server():
     """
-    **Server Configuration for t-vex.**
+    Server Configuration for t-vex.
 
-    **API Documentation:**
+    API Documentation:
         :param language: Language used for same space recommendations.
         :param cross_lang1: Language 1 used for cross lingual recommendations.
         :param cross_lang2: Language 2 used for cross lingual recommendations.
         :param vm: Vector Space Mapper between cross_lang1 and cross_lang2.
-        :param model: Model loaded for language param in same space recommendations.
+        :param model: Model loaded for lang param same space recommendations.
 
     .. seealso::
         * :mod:`cherrypy`
     """
 
     def __init__(self):
-        """**Initialization the Language and Model.**"""
-        self.language = None
-        self.cross_lang1 = None
-        self.cross_lang2 = None
-        self.vm = None
-        self.model = None
+        """Initialization the Language and Model."""
+        self.model = {
+            'english': self._load_model('english'),
+            'hindi': self._load_model('hindi')
+        }
+        self.cross_lang_vm = {
+            ('english', 'hindi'): self._create_vector_space_mapper(
+                'english', 'hindi'
+            ),
+            ('hindi', 'english'): self._create_vector_space_mapper(
+                'hindi', 'english'
+            )
+        }
 
     @cherrypy.expose
     def index(self):
-        """**Semantic spac visualization html returned.**"""
-        return file(os.path.join('visualization', 'static', 'index.html'))
+        """Semantic spac visualization html returned."""
+        return file(os.path.join(
+            'modules', 'visualization', 'static', 'index.html'
+        ))
 
     @cherrypy.expose
     def multivariate_analysis(self):
-        """**Parallel Coordinates for multivariate analysis html page return.**"""
+        """Parallel Coordinates for multivariate analysis html page return."""
         return file(os.path.join(
-            'visualization', 'static', 'multivariate.html')
+            'modules', 'visualization', 'static', 'multivariate.html')
         )
 
     @cherrypy.expose
     def cross_lingual(self):
-        """**Cross Lingual recommender html returned.**"""
+        """Cross Lingual recommender html returned."""
         return file(os.path.join(
-            'visualization', 'static', 'cross_lingual.html')
+            'modules', 'visualization', 'static', 'cross_lingual.html')
         )
 
     @cherrypy.expose
     def lingual_semantics(self):
-        """**Semantically related words in same language returned.**"""
+        """Semantically related words in same language returned."""
         return file(os.path.join(
-            'visualization', 'static', 'intra_language.html')
+            'modules', 'visualization', 'static', 'intra_language.html')
         )
 
     @cherrypy.expose
     def retrieve_recommendations(self, language, word, limit=10):
         """
-        **Retrieve number of semantically similar recommendations.**
+        Retrieve number of semantically similar recommendations.
 
-        - For specified word in the given language retrieve limit recommendations
+        - For specified word in the given lang retrieve limit recommendations
 
-        **API Documentation**
+        API Documentation
             :param language: Language for which recommendations required
             :param word: Semantic similar words provided for given word
             :param limit: No of words to be recommended [ Default 10 ]
@@ -83,23 +91,13 @@ class Server():
             * :class:`gensim.models.Word2Vec`
         """
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
-        if self.language is None or self.language != language:
-            try:
-                self.model = Word2Vec.load(
-                    os.path.join(
-                        'data', 'models', 't-vex-%s-model' % (language)
-                    )
-                )
-                self.language = language
-                data = self._recommend(
-                    word, int(limit), fn=self.model.most_similar
-                )
-            except (IOError, OSError):
-                data = json.dumps(None)
-        else:
+        model = self.model.get(language)
+        if model is not None:
             data = self._recommend(
-                word, int(limit), fn=self.model.most_similar
+                word, int(limit), fn=model.most_similar
             )
+        else:
+            data = json.dumps(None)
         return data
 
     @cherrypy.expose
@@ -111,9 +109,9 @@ class Server():
         topn=10
     ):
         """
-        **Provide cross lingual recommendations.**
+        Provide cross lingual recommendations.
 
-        **API Documentation**
+        API Documentation
             :param lang1: Language 1 for cross lingual recommendations.
             :param lang2: Language 2 for cross lingual recommendations.
             :param word: Word utilised for cross lingual recommendations.
@@ -129,36 +127,23 @@ class Server():
             * :mod:`modules.vector_space_mapper.vector_space_mapper`
         """
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
-        if self.cross_lang1 is not lang1 and self.cross_lang2 is not lang2:
-            try:
-                f = open(os.path.join(
-                    'visualization', 'vector_space_mapper', '%s_%s' % (
-                        lang1, lang2
-                    )
-                ), "r")
-                self.vm = cPickle.load(f)
-                self.cross_lang1 = lang1
-                self.cross_lang2 = lang2
-                data = self._recommend(
-                    word, int(topn), fn=self.vm.get_recommendations_from_word
-                )
-            except (IOError, OSError):
-                data = json.dumps(None)
-        else:
+        vm = self.cross_lang_vm.get((lang1, lang2))
+        data = None
+        if vm is not None:
             data = self._recommend(
-                word, int(topn), fn=self.vm.get_recommendations_from_word
+                word, int(topn), fn=vm.get_recommendations_from_word
             )
         return data
 
     @cherrypy.expose
-    def create_vector_space_mapper(self, lang1, lang2):
+    def _create_vector_space_mapper(self, lang1, lang2):
         """
-        **Create Vector Space Mapper between Languages.**
+        Create Vector Space Mapper between Languages.
 
-        **API Documentation**
-            :param lang1: Language 1 used for
+        API Documentation
+            :param language1: Language 1 used for
                 building :class:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper` object
-            :param lang2: Language 2 used for
+            :param language2: Language 2 used for
                 building :class:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper` object
             :return: JSON with successful/failure message
             :rtype: JSON
@@ -167,64 +152,51 @@ class Server():
             :mod:`modules.vector_space_mapper.vector_space_mapper`
         """
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
-        dir_path = os.path.join(
-            'visualization', 'vector_space_mapper'
-        )
-        if not os.path.exists(dir_path):
-            os.makedirs(dir_path)
-        if os.path.exists(os.path.join(
-            dir_path, '%s_%s' % (lang1, lang2)
-        )) is False:
-            try:
-                model_1 = Word2Vec.load(
-                    os.path.join('data', 'models', 't-vex-%s-model' % lang1)
+        vm = None
+        with codecs.open(
+            os.path.join(
+                'data', 'bilingual_dictionary', '%s_%s_train_bd' % (
+                    lang1, lang2
                 )
-                model_2 = Word2Vec.load(
-                    os.path.join('data', 'models', 't-vex-%s-model' % lang2)
+            ), 'r', encoding='utf-8'
+        ) as file:
+            data = file.read().split('\n')
+            bilingual_dict = [
+                (line.split(' ')[0], line.split(' ')[1])
+                for line in data
+            ]
+            if (self.model.get(lang1) is not None) and (
+                self.model.get(lang2) is not None
+            ):
+                vm = VectorSpaceMapper(
+                    self.model[lang1], self.model[lang2], bilingual_dict
                 )
-                with codecs.open(
-                    os.path.join(
-                        'data', 'bilingual_dictionary', '%s_%s_train_bd' % (
-                            lang1, lang2
-                        )
-                    ), 'r', encoding='utf-8'
-                ) as file:
-                    data = file.read().split('\n')
-                    bilingual_dict = [
-                        (line.split(' ')[0], line.split(' ')[1])
-                        for line in data
-                    ]
-                    vm = VectorSpaceMapper(model_1, model_2, bilingual_dict)
-                    vm.map_vector_spaces()
-                    with open(os.path.join(
-                        'visualization', 'vector_space_mapper', '%s_%s' % (
-                            lang1, lang2
-                        )
-                    ), "w") as file:
-                        cPickle.dump(vm, file)
-                        return json.dumps({'msg': 'Success'})
-            except (IOError, OSError):
-                return json.dumps({'msg': 'Failure'})
-        else:
-            return json.dumps({'msg': 'Success'})
+                vm.map_vector_spaces()
+        return vm
 
     def _recommend(self, word, limit, fn):
-        """**Vector Space Mapper recommend functionality.**"""
-        try:
-            vec_list = fn(word, topn=limit)
+        """Vector Space Mapper recommend functionality."""
+        vec_list = fn(word, topn=limit)
+        if vec_list is not None:
             data = json.dumps([
                 {
                     'word': tup[0],
                     'weight': tup[1]
                 } for tup in vec_list
             ])
-        except KeyError:
+        else:
             data = json.dumps(None)
         return data
 
+    def _load_model(self, language):
+        """Used to load Word2Vec Model."""
+        return Word2Vec.load(
+            os.path.join('data', 'models', 't-vex-%s-model' % language)
+        )
+
 
 if __name__ == '__main__':
-    ''' Setting up the Server with Specified Configuration'''
+    """Setting up the Server with Specified Configuration"""
 
     server_config = ConfigParser.RawConfigParser()
     env = Environment(loader=FileSystemLoader('static'))
@@ -235,29 +207,29 @@ if __name__ == '__main__':
         '/js': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': os.path.join(
-                'visualization', 'static', 'js'
+                'modules', 'visualization', 'static', 'js'
             )
         },
         '/css': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': os.path.join(
-                'visualization', 'static', 'css'
+                'modules', 'visualization', 'static', 'css'
             )
         },
         '/images': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': os.path.join(
-                'visualization', 'static', 'images'
+                'modules', 'visualization', 'static', 'images'
             )
         },
         '/resources': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': os.path.join(
-                'visualization', 'static', 'resources'
+                'modules', 'visualization', 'static', 'resources'
             )
         }
     }
-    server_config.read(os.path.join('visualization', 'server.conf'))
+    server_config.read(os.path.join('modules', 'visualization', 'server.conf'))
     server_port = server_config.get('Server', 'port')
     server_host = server_config.get('Server', 'host')
     thread_pool = server_config.get('Server', 'thread_pool')

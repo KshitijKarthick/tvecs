@@ -6,6 +6,10 @@ SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = _build
+SPHINXAPIDOC  = sphinx-apidoc
+SPHINXAPIDOCDIR = documentation
+SRC_DIR = modules
+
 
 # User-friendly check for sphinx-build
 ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)
@@ -51,39 +55,46 @@ help:
 .PHONY: clean
 clean:
 	rm -rf $(BUILDDIR)/*
+	rm -rf $(SPHINXAPIDOCDIR)
 
 .PHONY: html
 html:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
 .PHONY: dirhtml
 dirhtml:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/dirhtml."
 
 .PHONY: singlehtml
 singlehtml:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b singlehtml $(ALLSPHINXOPTS) $(BUILDDIR)/singlehtml
 	@echo
 	@echo "Build finished. The HTML page is in $(BUILDDIR)/singlehtml."
 
 .PHONY: pickle
 pickle:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b pickle $(ALLSPHINXOPTS) $(BUILDDIR)/pickle
 	@echo
 	@echo "Build finished; now you can process the pickle files."
 
 .PHONY: json
 json:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b json $(ALLSPHINXOPTS) $(BUILDDIR)/json
 	@echo
 	@echo "Build finished; now you can process the JSON files."
 
 .PHONY: htmlhelp
 htmlhelp:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b htmlhelp $(ALLSPHINXOPTS) $(BUILDDIR)/htmlhelp
 	@echo
 	@echo "Build finished; now you can run HTML Help Workshop with the" \
@@ -91,6 +102,7 @@ htmlhelp:
 
 .PHONY: qthelp
 qthelp:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b qthelp $(ALLSPHINXOPTS) $(BUILDDIR)/qthelp
 	@echo
 	@echo "Build finished; now you can run "qcollectiongenerator" with the" \
@@ -101,6 +113,7 @@ qthelp:
 
 .PHONY: applehelp
 applehelp:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b applehelp $(ALLSPHINXOPTS) $(BUILDDIR)/applehelp
 	@echo
 	@echo "Build finished. The help book is in $(BUILDDIR)/applehelp."
@@ -110,6 +123,7 @@ applehelp:
 
 .PHONY: devhelp
 devhelp:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b devhelp $(ALLSPHINXOPTS) $(BUILDDIR)/devhelp
 	@echo
 	@echo "Build finished."
@@ -120,18 +134,21 @@ devhelp:
 
 .PHONY: epub
 epub:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b epub $(ALLSPHINXOPTS) $(BUILDDIR)/epub
 	@echo
 	@echo "Build finished. The epub file is in $(BUILDDIR)/epub."
 
 .PHONY: epub3
 epub3:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b epub3 $(ALLSPHINXOPTS) $(BUILDDIR)/epub3
 	@echo
 	@echo "Build finished. The epub3 file is in $(BUILDDIR)/epub3."
 
 .PHONY: latex
 latex:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
 	@echo
 	@echo "Build finished; the LaTeX files are in $(BUILDDIR)/latex."
@@ -140,6 +157,7 @@ latex:
 
 .PHONY: latexpdf
 latexpdf:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
 	@echo "Running LaTeX files through pdflatex..."
 	$(MAKE) -C $(BUILDDIR)/latex all-pdf
@@ -147,6 +165,7 @@ latexpdf:
 
 .PHONY: latexpdfja
 latexpdfja:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
 	@echo "Running LaTeX files through platex and dvipdfmx..."
 	$(MAKE) -C $(BUILDDIR)/latex all-pdf-ja
@@ -154,18 +173,21 @@ latexpdfja:
 
 .PHONY: text
 text:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b text $(ALLSPHINXOPTS) $(BUILDDIR)/text
 	@echo
 	@echo "Build finished. The text files are in $(BUILDDIR)/text."
 
 .PHONY: man
 man:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b man $(ALLSPHINXOPTS) $(BUILDDIR)/man
 	@echo
 	@echo "Build finished. The manual pages are in $(BUILDDIR)/man."
 
 .PHONY: texinfo
 texinfo:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b texinfo $(ALLSPHINXOPTS) $(BUILDDIR)/texinfo
 	@echo
 	@echo "Build finished. The Texinfo files are in $(BUILDDIR)/texinfo."
@@ -174,6 +196,7 @@ texinfo:
 
 .PHONY: info
 info:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b texinfo $(ALLSPHINXOPTS) $(BUILDDIR)/texinfo
 	@echo "Running Texinfo files through makeinfo..."
 	make -C $(BUILDDIR)/texinfo info
@@ -181,18 +204,21 @@ info:
 
 .PHONY: gettext
 gettext:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b gettext $(I18NSPHINXOPTS) $(BUILDDIR)/locale
 	@echo
 	@echo "Build finished. The message catalogs are in $(BUILDDIR)/locale."
 
 .PHONY: changes
 changes:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b changes $(ALLSPHINXOPTS) $(BUILDDIR)/changes
 	@echo
 	@echo "The overview file is in $(BUILDDIR)/changes."
 
 .PHONY: linkcheck
 linkcheck:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b linkcheck $(ALLSPHINXOPTS) $(BUILDDIR)/linkcheck
 	@echo
 	@echo "Link check complete; look for any errors in the above output " \
@@ -200,24 +226,28 @@ linkcheck:
 
 .PHONY: doctest
 doctest:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b doctest $(ALLSPHINXOPTS) $(BUILDDIR)/doctest
 	@echo "Testing of doctests in the sources finished, look at the " \
 	      "results in $(BUILDDIR)/doctest/output.txt."
 
 .PHONY: coverage
 coverage:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b coverage $(ALLSPHINXOPTS) $(BUILDDIR)/coverage
 	@echo "Testing of coverage in the sources finished, look at the " \
 	      "results in $(BUILDDIR)/coverage/python.txt."
 
 .PHONY: xml
 xml:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b xml $(ALLSPHINXOPTS) $(BUILDDIR)/xml
 	@echo
 	@echo "Build finished. The XML files are in $(BUILDDIR)/xml."
 
 .PHONY: pseudoxml
 pseudoxml:
+	$(SPHINXAPIDOC) -o $(SPHINXAPIDOCDIR) $(SRC_DIR) .
 	$(SPHINXBUILD) -b pseudoxml $(ALLSPHINXOPTS) $(BUILDDIR)/pseudoxml
 	@echo
 	@echo "Build finished. The pseudo-XML files are in $(BUILDDIR)/pseudoxml."

@@ -1,6 +1,6 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
-"""**Leipzig Preprocessor which inherits from BasePreprocessor.**"""
+"""Leipzig Preprocessor which inherits from BasePreprocessor."""
 
 import os
 import codecs
@@ -11,7 +11,7 @@ from base_preprocessor import BasePreprocessor
 
 class LeipzigPreprocessor(BasePreprocessor):
     """
-    **Leipzig Preprocessor which preprocesses the Leipzig-Corpus.**
+    Leipzig Preprocessor which preprocesses the Leipzig-Corpus.
 
     .. seealso::
         * :class:`modules.preprocessor.base_preprocessor.BasePreprocessor`
@@ -26,7 +26,7 @@ class LeipzigPreprocessor(BasePreprocessor):
         language='english',
         limit=None
     ):
-        """**Constructor which initializes the BasePreprocessor constructor.**"""
+        """Constructor which initializes the BasePreprocessor constructor."""
         self.language = language
         # If language is not specified, regex pattern for split is default ''
         self.lang_split_sent = defaultdict(lambda : u'')
@@ -57,7 +57,7 @@ class LeipzigPreprocessor(BasePreprocessor):
 
     def leipzig_corpus_preprocess(self, corpus_fname, corpus_dir_path, encoding):
         """
-        **Extract valid content from the Corpus**
+        Extract valid content from the Corpus
 
         - Store extracted corpus data in corpus_fname.preprocessed
         """
@@ -77,7 +77,7 @@ class LeipzigPreprocessor(BasePreprocessor):
 
     def _extract_corpus_data(self, data):
         """
-        **Function not utilised for Leipzig Corpus**
+        Function not utilised for Leipzig Corpus
 
         - Executed only if need_preprocessing is set to True
         """
@@ -87,7 +87,7 @@ class LeipzigPreprocessor(BasePreprocessor):
 
     def _clean_word(self, word):
         """
-        **Preprocess words after tokenizing words from sentences.**
+        Preprocess words after tokenizing words from sentences.
 
         - Remove apostrophes ['s, s'].
         - Bring to lowercase.
@@ -98,15 +98,22 @@ class LeipzigPreprocessor(BasePreprocessor):
             regex = ur"((\p{P}+)|(\p{S}+)|([0-9]+))"
         else:
             regex = ur"((\p{P}+)|(\p{S}+)|([0-9]+)|([A-Za-z]))"
+        # Handle Apostrophe's correctly you'll => you
+        selected_word = re.match(pattern=u"(.*)['’].*?", string=word)
+        # If selected word matches a word with apostrophe
+        if selected_word is not None:
+            word = selected_word.groups()[0]
+        # Handle Pair words ice-cream => ice cream
+        word = re.sub(pattern="-", repl=' ', string=word)
         return re.sub(
             pattern=regex,
             repl='',
             string=word.lower()
-        ).strip()
+        ).strip().split()
 
     def _tokenize_sentences(self, data):
         """
-        **Function to tokenize corpus data into sentences.**
+        Function to tokenize corpus data into sentences.
 
         - Function not utilised for Leipzig Corpus
 
@@ -118,7 +125,7 @@ class LeipzigPreprocessor(BasePreprocessor):
         )
 
     def _tokenize_words(self, sentence):
-        """**Tokenize Words from sentences.**"""
+        """Tokenize Words from sentences."""
         return sentence.split()
 
 BasePreprocessor.register(LeipzigPreprocessor)

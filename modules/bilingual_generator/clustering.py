@@ -1,6 +1,6 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
-"""**Module generates clusters from a Model.**"""
+"""Module generates clusters from a Model."""
 
 from sklearn.cluster import KMeans
 from gensim.models import Word2Vec
@@ -14,9 +14,9 @@ import numpy as np
 
 def cluster(language, vec_list, word_list, num_clusters=1000, n_jobs=3):
     """
-    **Utilised for clustering passed Vector List, and return n clusters.**
+    Utilised for clustering passed Vector List, and return n clusters.
 
-    **API Documentation:**
+    API Documentation:
         :param language: Language utilised for filename for cluster file.
         :param vec_list: A vector list obtained from the Model.
         :param word_list: A word list obtained from the Model corresponding to vec_list.

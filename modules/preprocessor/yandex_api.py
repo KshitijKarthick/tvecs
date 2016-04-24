@@ -1,7 +1,7 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
 """
-**Utilise Yandex Translation Service.**
+Utilise Yandex Translation Service.
 
 - Obtain bilingual semantic human score.
 """
@@ -12,7 +12,7 @@ import codecs
 import requests
 
 def get_valid_translation(word):
-    """**Ensure the translation is valid.**"""
+    """Ensure the translation is valid."""
     tr_word_2=get_translation(word)
     if (len(tr_word_2.split()))>1:
        tr_word_2 = None
@@ -20,7 +20,7 @@ def get_valid_translation(word):
 
 def get_translation(word):
     """
-    **Obtain translation of specified word from Yandex.**
+    Obtain translation of specified word from Yandex.
 
     - Translation from English -> Hindi.
     """
@@ -35,7 +35,7 @@ def get_translation(word):
 
 def yandex_api(lang_translate, input_score_path, output_score_path):
     """
-    **Utilise Yandex Translation Service, obtain bilingual semantic human score.**
+    Utilise Yandex Translation Service, obtain bilingual semantic human score.
 
     - WordSim score, translated on one column using Yandex.
     - Yandex Api Key, lang for translation needs to be provided

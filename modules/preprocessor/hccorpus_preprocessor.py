@@ -1,6 +1,6 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
-"""**HC Corpus Preprocessor which inherits from BasePreprocessor.**"""
+"""HC Corpus Preprocessor which inherits from BasePreprocessor."""
 
 import sys
 import unicodedata
@@ -12,7 +12,7 @@ from nltk.tokenize import sent_tokenize
 
 class HcCorpusPreprocessor(BasePreprocessor):
     """
-    **Hc-Corpus Preprocessor which preprocesses the Hc-Corpus.**
+    Hc-Corpus Preprocessor which preprocesses the Hc-Corpus.
 
     .. seealso::
         * :class:`modules.preprocessor.base_preprocessor.BasePreprocessor`
@@ -27,7 +27,7 @@ class HcCorpusPreprocessor(BasePreprocessor):
         language='english',
         limit=None
     ):
-        """**Constructor which initializes the BasePreprocessor constructor.**"""
+        """Constructor which initializes the BasePreprocessor constructor."""
         self.language = language
         # If language is not specified, regex pattern for split is default ''
         self.lang_split_sent = defaultdict(lambda : u'')
@@ -47,7 +47,7 @@ class HcCorpusPreprocessor(BasePreprocessor):
         )
 
     def _extract_corpus_data(self, data):
-        """**Extract 4th column of corpus which contains the body.**"""
+        """Extract 4th column of corpus which contains the body."""
         line_split_list = data.split('\n')
         corpus_data = []
         for i in range(len(line_split_list)):
@@ -59,7 +59,7 @@ class HcCorpusPreprocessor(BasePreprocessor):
 
     def _clean_word(self, word):
         """
-        **Preprocess words after tokenizing words from sentences.**
+        Preprocess words after tokenizing words from sentences.
 
         - Remove apostrophes ['s, s'].
         - Bring to lowercase.
@@ -70,15 +70,22 @@ class HcCorpusPreprocessor(BasePreprocessor):
             regex = ur"((\p{P}+)|(\p{S}+)|([0-9]+))"
         else:
             regex = ur"((\p{P}+)|(\p{S}+)|([0-9]+)|([A-Za-z]))"
+        # Handle Apostrophe's correctly you'll => you
+        selected_word = re.match(pattern=u"(.*)['’].*?", string=word)
+        # If selected word matches a word with apostrophe
+        if selected_word is not None:
+            word = selected_word.groups()[0]
+        # Handle Pair words ice-cream => ice cream
+        word = re.sub(pattern="-", repl=' ', string=word)
         return re.sub(
             pattern=regex,
             repl='',
             string=word.lower()
-        ).strip()
+        ).strip().split()
 
     def _tokenize_sentences(self, data):
         """
-        **Sentence tokenize corpus.**
+        Sentence tokenize corpus.
 
         - Sentence Tokenize the corpus using NLTK.
         - Remove punctuations [ except space ] from each individual sentences.
@@ -96,7 +103,7 @@ class HcCorpusPreprocessor(BasePreprocessor):
                     yield clean_sentence
 
     def _tokenize_words(self, sentence):
-        """**Tokenize Words from sentences.**"""
+        """Tokenize Words from sentences."""
         return sentence.split()
 
 BasePreprocessor.register(HcCorpusPreprocessor)

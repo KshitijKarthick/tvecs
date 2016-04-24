@@ -8,127 +8,125 @@ Welcome to T-Vecs's documentation!
 
 The main documentation for the site is organized into a couple sections:
 
-* :ref:`user-docs`
-* :ref:`dev-developer-docs`
-
-Development documentation is categorized into:
-
-* :ref:`dev-visualization-docs`
-* :ref:`dev-preprocessor-docs`
-* :ref:`dev-model-generation-docs`
-* :ref:`dev-bilingual-generation-docs`
-* :ref:`dev-vector-space-mapper-docs`
-* :ref:`dev-analysis-docs`
 
 .. _user-docs:
 
-.. toctree::
-   :maxdepth: 2
-   :caption: User Documentation
+	.. toctree::
+		:maxdepth: 2
+		:caption: Usage Documentation
 
-   README
-
-.. _dev-developer-docs:
-.. toctree::
-   :maxdepth: 2
-   :caption: Development Documentation
+	   	README
 
 
-.. _dev-visualization-docs:
 
-.. toctree::
-    :maxdepth: 2
-    :caption: Visualization Developer Documentation
+.. _dev-docs:
 
-.. automodule:: visualization.server
-    :members:
-    :inherited-members:
-    :show-inheritance:
+	.. toctree::
+		:numbered:
+		:titlesonly:
+		:caption: Development Documentation
+		
+		documentation/modules
 
-.. _dev-preprocessor-docs:
 
-.. toctree::
-    :maxdepth: 2
-    :caption: Preprocessor Documentation
 
-.. automodule:: modules.preprocessor.base_preprocessor
-    :members:
-    :inherited-members:
-    :show-inheritance:
+.. _dev-seq-diagr:
 
-.. automodule:: modules.preprocessor.hccorpus_preprocessor
-    :members:
-    :inherited-members:
-    :show-inheritance:
+   	.. toctree::
+   		:numbered:
+   		:caption: Sequence Diagrams
 
-.. automodule:: modules.preprocessor.emille_preprocessor
-    :members:
-    :inherited-members:
-    :show-inheritance:
 
-.. automodule:: modules.preprocessor.leipzig_preprocessor
-    :members:
-    :inherited-members:
-    :show-inheritance:
 
-.. automodule:: modules.preprocessor.yandex_api
-    :members:
-    :inherited-members:
-    :show-inheritance:
+	.. seqdiag::
+		:align: center
+   		:desctable:
+   		:caption: Sequence Diagram for T-Vecs Driver Module
 
-.. _dev-model-generation-docs:
+		seqdiag {
+			t-vecs  -> preprocessor [label = "Preprocess English Corpus"];
+			t-vecs <-- preprocessor [label = "Preprocessed English Corpus"];
+			t-vecs  -> preprocessor [label = "Preprocess Hindi Corpus"];
+			t-vecs <-- preprocessor [label = "Preprocessed Hindi Corpus"];
+			t-vecs -> model_generator [label = "Construct Model for English"];
+			t-vecs <-- model_generator [label = "English Model"]
+			t-vecs -> model_generator [label = "Construct Model for Hindi"];
+			t-vecs <-- model_generator [label = "Hindi Model"]
+			t-vecs -> bilingual_generator [label = "Generate Bilingual Dictionary for English, Hindi"]
+			t-vecs <-- bilingual_generator [label = "Bilingual Dictionary"]
+			t-vecs -> vector_space_mapper [label = "English Model"];
+			t-vecs -> vector_space_mapper [label = "Hindi Model"];
+			t-vecs -> vector_space_mapper [label = "Bilingual Dictionary"];
+			t-vecs <-- vector_space_mapper [label = "Mapping of English & Hindi Vector Spaces"];
+		    t-vecs [description = "Driver Module"];
+		    preprocessor [description = "Preprocessor for Corpus"];
+	        model_generator [description = "Word2Vec implementation to Generate Semantic Word Embeddings"];
+	        bilingual_generator [description = "Generates Bilingual Dictionary"];
+	        vector_space_mapper [description = "Maps Vector Spaces between 2 Models using a Bilingual Dictionary"];
+		}
 
-.. toctree::
-    :maxdepth: 2
-    :caption: Model Generator Documentation
 
-.. automodule:: modules.model_generator.model_generation
-    :members:
-    :inherited-members:
-    :show-inheritance:
 
-.. _dev-bilingual-generation-docs:
+	.. seqdiag::
+		:align: center
+   		:desctable:
+   		:caption: Sequence Diagram for Visualization
 
-.. toctree::
-    :maxdepth: 2
-    :caption: Bilingual Dictionary Generator Documentation
+		seqdiag {
+			client  -> server [label = "GET /index.html"];
+			client <-- server [label = "Visualization Demo"];
+			client  -> server [label = "GET /lingual_semantics.html"];
+			client <-- server [label = "Intra-Lingual Demo"];
+			client  -> server [label = "GET /retrieve_recommendations => language & word sent"];
+			server  -> server [label = "Load Word2Vec Model & Obtain recommendations"];
+			client <-- server [label = "JSON Response => Intra-lingual Recommendations"];
+			client  -> server [label = "GET /cross_lingual.html"];
+			client <-- server [label = "Cross Lingual Demo"];
+			client  -> server [label = "GET /get_cross_lingual_recommendations => lang1, lang2 & word sent"];
+			server  -> vector_space_mapper [label = "Request for cross lingual Recommendations"];
+			server <-- vector_space_mapper [label = "Cross Lingual Recommendations"];
+			client <-- server [label = "JSON Response => Cross-lingual Recommendations"];
+			client  -> server [label = "GET /multivariate_analysis.html"];
+			client <-- server [label = "Multivariate Analysis Visualization"];
 
-.. automodule:: modules.bilingual_generator.clustering
-    :members:
-    :inherited-members:
-    :show-inheritance:
+		    client [description = "HTTP Client"];
+		    server [description = "CherryPy Server"];
+	        vector_space_mapper [description = "Maps Vector Spaces between 2 Models using a Bilingual Dictionary"];
+		}
 
-.. automodule:: modules.bilingual_generator.bilingual_generator
-    :members:
-    :inherited-members:
-    :show-inheritance:
 
-.. _dev-vector-space-mapper-docs:
 
-.. toctree::
-    :maxdepth: 2
-    :caption: Vector Space Mapper Documentation
+	.. seqdiag::
+		:align: center
+   		:desctable:
+   		:caption: Sequence Diagram for Preprocessor
 
-.. automodule:: modules.vector_space_mapper.vector_space_mapper
-    :members:
-    :inherited-members:
-    :show-inheritance:
+		seqdiag {
+			t-vecs  -> preprocessor [label = "Invoke Preprocessor\n with corpus"];
+			preprocessor -> preprocessor [label = "_extract_corpus_data()"];
+			preprocessor -> preprocessor [label = "_save_preprocessed_data()"];
+			preprocessor -> preprocessor [label = "_tokenize_sentences()"];
+			t-vecs <-- preprocessor [label = "Intermediate preprocessed\n file generated"];
+			t-vecs  -> preprocessor [label = "get_preprocessed_text()"];
+			preprocessor -> preprocessor [label = "_tokenized_words()"];
+			preprocessor -> preprocessor [label = "_clean_word()"];
+			t-vecs <-- preprocessor [label = "Return a list of sentences with tokenized words"];
 
-.. automodule:: modules.evaluation.evaluation
-    :members:
-    :inherited-members:
-    :show-inheritance:
+		    t-vecs [description = "Driver Module"];
+		    preprocessor [description = "Preprocessor for Corpus"];
+		}
 
-.. _dev-analysis-docs:
 
-.. toctree::
-    :maxdepth: 2
-    :caption: Multivariate Analysis Documentation
 
-.. automodule:: modules.analysis.multivariate
-    :members:
-    :inherited-members:
-    :show-inheritance:
+.. _dev-inh-diagr:
+
+   	.. toctree::
+   		:numbered:
+   		:caption: Inheritance Diagrams
+
+	.. inheritance-diagram:: modules.preprocessor.base_preprocessor.BasePreprocessor  modules.preprocessor.hccorpus_preprocessor.HcCorpusPreprocessor modules.preprocessor.leipzig_preprocessor.LeipzigPreprocessor modules.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor
+   		:parts: 1
+	   	
 
 
 Indices and tables

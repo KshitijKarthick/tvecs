@@ -1,7 +1,7 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
 """
-**Module used to specify abstract Preprocessor Class.**
+Module used to specify abstract Preprocessor Class.
 
 - BasePreprocessor is an Abstract Base Class with basic abstract preprocessor functionality.
 """
@@ -9,15 +9,16 @@
 import os
 import codecs
 import logging
+import itertools
 from abc import ABCMeta, abstractmethod
 import fileinput
 
 
 class BasePreprocessor(object):
     """
-    **Abstract Base Class with basic preprocessor functionality.**
+    Abstract Base Class with basic preprocessor functionality.
 
-    **API Documentation**:
+    API Documentation:
         :param corpus_fname: Corpus Filename to be preprocessed
         :param corpus_dir_path: Corpus Directory Path [ Default Current Directory ]
         :param encoding: Encoding format of the corpus [ Default utf-8 ]
@@ -42,7 +43,7 @@ class BasePreprocessor(object):
         limit=None
     ):
         """
-        **Constructor initialization for BasePreprocessor.**
+        Constructor initialization for BasePreprocessor.
         """
         logging.basicConfig(level=logging.INFO)
         self.limit = limit
@@ -84,11 +85,11 @@ class BasePreprocessor(object):
 
     def _save_preprocessed_data(self, data, output_fpath):
         """
-        **Save the extracted valid content.**
+        Save the extracted valid content.
 
         - Extracted content tokenized into sentences and stored intermediate file
 
-        **API Documentation:**
+        API Documentation:
             :param data: Extracted data
             :param output_fpath: Intermediate file path
                                    [ Inclusive of file name ]
@@ -107,7 +108,7 @@ class BasePreprocessor(object):
     @abstractmethod
     def _extract_corpus_data(self, data):
         """
-        **Extract valid content from the Corpus.**
+        Extract valid content from the Corpus.
 
         - Executed only if need_preprocessing is set to True
         """
@@ -116,9 +117,9 @@ class BasePreprocessor(object):
         )
 
     @abstractmethod
-    def _clean_word(self, data):
+    def _clean_word(self, word):
         """
-        **After Tokenizing into words, function is called for individual word.**
+        After Tokenizing into words, function is called for individual word.
 
         - Called by __iter__() which returns list of words.
         """
@@ -128,21 +129,21 @@ class BasePreprocessor(object):
 
     @abstractmethod
     def _tokenize_sentences(self, data):
-        """**Function to tokenize corpus data into sentences.**"""
+        """Function to tokenize corpus data into sentences."""
         raise NotImplementedError(
             "Base Class _tokenize_sentences() not implemented"
         )
 
     @abstractmethod
     def _tokenize_words(self, sentence):
-        """**Function to tokenize sentences into words.**"""
+        """Function to tokenize sentences into words."""
         raise NotImplementedError(
             "Base Class _tokenize_words() not implemented"
         )
 
     def get_preprocessed_text(self, limit=None):
         """
-        **Generator generates preprocessed list of tokenized words on every call.**
+        Generator generates preprocessed list of tokenized words on every call.
 
         - Read Sentence tokenized intermediate preprocessed file.
         - Tokenize and preprocess words, return list of words from a sentence.
@@ -154,11 +155,11 @@ class BasePreprocessor(object):
             files=[self.preprocessed_corpus_path],
             openhook=fileinput.hook_encoded(self.encoding)
         ):
-            word_list = (
+            word_list = itertools.chain(*(
                 self._clean_word(
                     word
                 ) for word in self._tokenize_words(sentence)
-            )
+            ))
             word_list = [
                 word for word in word_list if len(word) is not 0
             ]
@@ -170,6 +171,6 @@ class BasePreprocessor(object):
                 yield word_list
 
     def __iter__(self):
-        """**Iterator provided for get_preprocessed_text.**"""
+        """Iterator provided for get_preprocessed_text."""
         for tokenized_sentence in self.get_preprocessed_text():
             yield tokenized_sentence
