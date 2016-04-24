@@ -13,6 +13,7 @@ Module used to control and coordinate all other modules for T-Vecs.
 import argparse
 import codecs
 import itertools as it
+import json
 import logging
 import ntpath
 import os
@@ -21,13 +22,24 @@ import time
 from gensim.models import Word2Vec
 
 from modules.model_generator import model_generation as model
-from modules.preprocessor import hccorpus_preprocessor as prep
+from modules.preprocessor import emille_preprocessor as emilleprep
+from modules.preprocessor import hccorpus_preprocessor as hcprep
+from modules.preprocessor import leipzig_preprocessor as leipprep
 from modules.vector_space_mapper import vector_space_mapper as vm
 
 
 def preprocess_corpus(*args, **kwargs):
     """Wrapper function for preprocessing module."""
-    return prep.HcCorpusPreprocessor(*args, **kwargs)
+    preprocessor_type = kwargs['preprocessor_type']
+    del kwargs['preprocessor_type']
+    data = []
+    if preprocessor_type == hcprep.HcCorpusPreprocessor.__name__:
+        data = hcprep.HcCorpusPreprocessor(*args, **kwargs)
+    elif preprocessor_type == emilleprep.EmilleCorpusPreprocessor.__name__:
+        data = emilleprep.EmilleCorpusPreprocessor(*args, **kwargs)
+    elif preprocessor_type == leipprep.LeipzigPreprocessor.__name__:
+        data = leipprep.LeipzigPreprocessor(*args, **kwargs)
+    return data
 
 
 def model_generator(
@@ -101,6 +113,33 @@ order_of_tvex_calls = [
 order_of_evaluation = order_of_tvex_calls[:]
 
 
+def parse_config(config_path):
+    """Used to load and parse config file."""
+    config = json.load(open(config_path, 'r'))
+    lang1_details = config.get('language1', {})
+    lang1 = lang1_details.get('name', None)
+    lang2_details = config.get('language2', {})
+    lang2 = lang2_details.get('name', None)
+    model1 = lang1_details.get('model', None)
+    model2 = lang2_details.get('model', None)
+    corpus1 = lang1_details.get('corpora')
+    corpus2 = lang2_details.get('corpora')
+    iterations = config.get('iterations', 5)
+    silent = config.get('silent', False)
+    verbose = config.get('verbose', False)
+    return (
+        lang1,
+        lang2,
+        model1,
+        model2,
+        corpus1,
+        corpus2,
+        iterations,
+        silent,
+        verbose
+    )
+
+
 def args_parser():
     """Utilised for cmdline arguments parsing."""
     global order_of_tvex_calls, order_of_evaluation
@@ -144,7 +183,6 @@ def args_parser():
         "-l1",
         "--language1",
         dest="language1",
-        required=True,
         help="Language name of model 1/ text 1",
         action="store"
     )
@@ -152,40 +190,49 @@ def args_parser():
         "-l2",
         "--l2",
         dest="language2",
-        required=True,
         help="Language name of model 2/ text 2",
         action="store"
     )
     parser.add_argument(
-        "-t1",
-        "--text1",
-        dest="corpus1",
-        help="text corpus for model generation",
-        action="store",
-        nargs='*'
-    )
-    parser.add_argument(
-        "-t2",
-        "--text2",
-        dest="corpus2",
-        help="text corpus for model generation",
-        action="store",
-        nargs='*'
+        "-c",
+        "--config",
+        dest="config",
+        help="config file path",
+        action="store"
     )
     args = parser.parse_args()
     logger = init_logger(args)
-    # Load a precomputed model for trsl
-    if args.model1 and args.model2:
-        order_of_evaluation = order_of_tvex_calls[2:]
-        tvex_calls['model_generator']['result'] = (
-            Word2Vec.load(args.model1),
-            Word2Vec.load(args.model2)
-        )
-    # Build trsl using precomputed word sets and a config file
-    elif args.corpus1 and args.corpus2:
-        order_of_evaluation = order_of_tvex_calls[:]
+    parse_success = True
+    try:
+        # if Config is given higher priority, cmd line args are overriden
+        if args.config:
+            (
+                args.language1, args.language2,
+                args.model1, args.model2,
+                args.corpus1, args.corpus2,
+                args.iter, args.silent, args.verbose
+            ) = parse_config(args.config)
+
+        # Load a precomputed model for trsl
+        if args.model1 and args.model2 and args.language1 and args.language2:
+            order_of_evaluation = order_of_tvex_calls[2:]
+            tvex_calls['model_generator']['result'] = (
+                Word2Vec.load(args.model1),
+                Word2Vec.load(args.model2)
+            )
+
+        # Build trsl using precomputed word sets and a config file
+        elif args.corpus1 and args.corpus2:
+            order_of_evaluation = order_of_tvex_calls[:]
+
+        else:
+            parse_success = False
+
+    except AttributeError:
+        parse_success = False
+
     # Insufficient arguments passed to build trsl
-    else:
+    if parse_success is False:
         logger.error(
             "Required arguments not passed, run --help for more details"
         )
@@ -219,12 +266,15 @@ def evaluate(logger, args):
         if func_name is "preprocessor":
             def preprocess_multiple_corpora(corpus_list, language):
                 res= []
-                for fpath in corpus_list:
+                for corpus in corpus_list:
+                    fpath = corpus.keys()[0]
+                    preprocessor_type = corpus.values()[0]
                     fname = ntpath.split(fpath)[1]
                     logger.info("Preprocessing %s\t=> %s" % (language, fpath))
                     res.append(
                         func(
                             corpus_fname=fname,
+                            preprocessor_type=preprocessor_type,
                             corpus_dir_path=ntpath.split(fpath)[0],
                             encoding='utf-8',
                             need_preprocessing=True,
