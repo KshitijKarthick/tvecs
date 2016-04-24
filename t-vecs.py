@@ -10,16 +10,18 @@ Module used to control and coordinate all other modules for T-Vecs.
 * Vector Space Mapping
 """
 
-import os
-import time
+import argparse
 import codecs
+import itertools as it
 import logging
 import ntpath
-import argparse
-import itertools as it
+import os
+import time
+
 from gensim.models import Word2Vec
-from modules.preprocessor import hccorpus_preprocessor as prep
+
 from modules.model_generator import model_generation as model
+from modules.preprocessor import hccorpus_preprocessor as prep
 from modules.vector_space_mapper import vector_space_mapper as vm
 
 
@@ -32,7 +34,7 @@ def model_generator(
     preprocessed_corpus,
     language,
     output_dir_path=os.path.join(".", "data", "models"),
-    iter=5
+        iterations=5
 ):
     """
     Wrapper function for model_generator module.
@@ -47,7 +49,7 @@ def model_generator(
         preprocessed_corpus=preprocessed_corpus,
         language=language,
         output_dir_path=output_dir_path,
-        iter=iter
+        iterations=iterations
     )
 
 
@@ -246,14 +248,14 @@ def evaluate(logger, args):
                         "preprocessor"
                     ]["result"][0],
                     language=args.language1,
-                    iter=args.iter
+                    iterations=args.iter
                 ),
                 func(
                     preprocessed_corpus=tvex_calls[
                         "preprocessor"
                     ]["result"][1],
                     language=args.language2,
-                    iter=args.iter
+                    iterations=args.iter
                 )
             )
         elif func_name is "bilingual_generator":
