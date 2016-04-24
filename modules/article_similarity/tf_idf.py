@@ -119,7 +119,7 @@ if __name__ == '__main__':
             except:
                 pass
 
-        print scipy.spatial.distance.cosine(
+        print 1 - scipy.spatial.distance.cosine(
             np.mean(word_vectors1, axis=0),
             np.mean(word_vectors2, axis=0)
         )
