@@ -207,8 +207,8 @@ input[type="radio"]:checked + label span {
 /* Index Page Style */
 
 #tv-main-container {
-  background: url("../images/background.png");
-  background-size: cover;
+  background: url("../images/index_lighter.png");
+  background-size: 60%;
   height: 100%;
   width: 100%;
   background-position: center; 
@@ -253,21 +253,26 @@ input[type="radio"]:checked + label span {
 }
 
 #tv-intra-lang-btn {
-  background: rgba(20, 165, 151, 0.79);
+  background: rgba(20, 165, 151, 0.85);
   box-shadow: 0 0 10px rgb(53, 140, 131); 
   font-size: 130px;
   color: #004D40;
 }
 
+#tv-intra-lang-btn img {
+  height: 130px;
+  margin-bottom: 10px;
+}
+
 #tv-cross-lang-btn {
-  background: rgba(20, 165, 151, 0.79);
+  background: rgba(20, 165, 151, 0.85);
   box-shadow: 0 0 10px rgb(53, 140, 131); 
   font-size: 130px;
   color: #004D40;
 }
 
 #tv-multivariate-btn {
-  background: rgba(20, 165, 151, 0.79);
+  background: rgba(20, 165, 151, 0.85);
   box-shadow: 0 0 10px rgb(53, 140, 131); 
   color: #004D40;
   font-size: 70px;
@@ -278,7 +283,7 @@ input[type="radio"]:checked + label span {
 }
 
 .tv-search {
-    margin-top: -57px;
+    margin-top: -42px;
     color: rgb(0, 121, 101);
     margin-left: 45px;
     font-size: 88px !important;
@@ -287,10 +292,13 @@ input[type="radio"]:checked + label span {
 .tv-chart {
   font-size: 100px;
   color: #004D40;
+  margin-top: 8px;
 }
 
 .tv-btn-caption {
-  font-size: 20px;
+  font-size: 25px;
   padding-top: 20px;
-  color: #94B92C;
+  color: #667D23;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
