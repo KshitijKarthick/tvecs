@@ -11,22 +11,25 @@ Perform Multivariate Analysis.
     * P Value
 """
 
-import os
-import csv
-import time
 import codecs
-from modules.preprocessor.hccorpus_preprocessor import HcCorpusPreprocessor
-from modules.model_generator import model_generation
-from modules.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
+import csv
+import os
+import time
+
 from modules.evaluation import evaluation
+from modules.logger import init_logger as log
+from modules.model_generator import model_generation
+from modules.preprocessor.hccorpus_preprocessor import HcCorpusPreprocessor
+from modules.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
+
+LOGGER = log.initialise('T-Vecs.Multivariate')
 
 
 def evaluate(vsm, wordsim_dataset_path):
     """Extract Correlation, P-Value for specified vector space mapper."""
-
     return evaluation.extract_correlation_coefficient(
-            score_data_path=wordsim_dataset_path,
-            vsm=vsm
+        score_data_path=wordsim_dataset_path,
+        vsm=vsm
     )
 
 
@@ -63,7 +66,7 @@ def multivariate_analyse():
                 (line.split(' ')[0], line.split(' ')[1])
                 for line in data
             ]
-
+            LOGGER.info('Performing multivariate analysis')
             for corpus in corpus_size:
                 m_old_time = time.time()
                 m_1_fname = "%s-%s-models" % ('english', corpus)
@@ -71,6 +74,9 @@ def multivariate_analyse():
                 m_2_fname = "%s-%s-models" % ('hindi', corpus)
                 m_2_path = os.path.join('data', 'multivariate', 'models')
                 if not os.path.exists(os.path.join(m_1_path, m_1_fname)):
+                    LOGGER.info(
+                        "Constructing Model 1 with corpus size: %s" % corpus
+                    )
                     model_1 = model_generation.construct_model(
                         HcCorpusPreprocessor(
                             corpus_fname='all.txt',
@@ -87,10 +93,16 @@ def multivariate_analyse():
                 else:
                     if not os.path.exists(os.path.join(m_1_path)):
                         os.makedirs(m_1_path)
-                    model_1 =  model_generation.gensim.models.Word2Vec.load(
+                    LOGGER.info(
+                        "Loading Model 1 with corpus size: %s" % corpus
+                    )
+                    model_1 = model_generation.gensim.models.Word2Vec.load(
                         os.path.join(m_1_path, m_1_fname)
                     )
                 if not os.path.exists(os.path.join(m_2_path, m_2_fname)):
+                    LOGGER.info(
+                        "Constructing Model 2 with corpus size: %s" % corpus
+                    )
                     model_2 = model_generation.construct_model(
                         HcCorpusPreprocessor(
                             corpus_fname='all.txt',
@@ -108,12 +120,15 @@ def multivariate_analyse():
                 else:
                     if not os.path.exists(os.path.join(m_1_path)):
                         os.makedirs(m_1_path)
-                    model_2 =  model_generation.gensim.models.Word2Vec.load(
+                    LOGGER.info(
+                        "Loading Model 2 with corpus size: %s" % corpus
+                    )
+                    model_2 = model_generation.gensim.models.Word2Vec.load(
                         os.path.join(m_2_path, m_2_fname)
                     )
                 m_exec_time = time.time() - m_old_time
                 for bilingual in bilingual_size:
-                    print("Corpus: %s Bilingual Size: %s" % (
+                    LOGGER.info("Corpus: %s with Bilingual Size: %s" % (
                         corpus, bilingual
                     ))
                     old_time = time.time()
@@ -124,17 +139,24 @@ def multivariate_analyse():
                     )
                     vsm.map_vector_spaces()
                     new_time = time.time()
-                    for index, (wordsim_fname, wordsim_dir) in enumerate(wordsim_datasets):
+                    for index, (wordsim_fname, wordsim_dir) in enumerate(
+                            wordsim_datasets
+                    ):
                         correlation_score, p_value = evaluate(
                             vsm=vsm,
-                            wordsim_dataset_path=os.path.join(wordsim_dir, wordsim_fname)
+                            wordsim_dataset_path=os.path.join(
+                                wordsim_dir, wordsim_fname
+                            )
+                        )
+                        LOGGER.info(
+                            "Writing Evaluation Record Details"
                         )
                         writer.writerow({
                             'corpus_size': corpus,
                             'bilingual_size': bilingual,
                             'avg_sim_test': (
                                 vsm.obtain_avg_similarity_from_test(
-                                    test_path = os.path.join(
+                                    test_path=os.path.join(
                                         'data',
                                         'bilingual_dictionary',
                                         'english_hindi_test_bd'
