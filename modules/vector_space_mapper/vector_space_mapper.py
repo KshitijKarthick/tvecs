@@ -91,7 +91,7 @@ class VectorSpaceMapper(object):
         return self._predict_vec_from_vec(self.model_1[word])
 
     def _predict_vec_from_vec(self, vector):
-        return self.lt.predict(vector)[0]
+        return self.lt.predict(vector.reshape(1, -1))[0]
 
     def get_recommendations_from_vec(self, vector, topn=10):
         """
