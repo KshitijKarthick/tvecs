@@ -52,6 +52,33 @@ svg {
   background: #544538;
 }
 
+.word-input-container {
+  padding: 10px;
+  padding-top: 20px;
+}
+
+.word-input-container span {
+  cursor: pointer;
+  background: rgb(41, 30, 20);
+  border-color: rgb(41, 30, 20);
+  color: #fff;
+}
+
+.btn-span {
+  padding: 0 !important;
+}
+
+.word-input {
+  border: none !important;
+}
+
+.btn-word-input {
+  border: none;
+  background: inherit;
+  width: 36px;
+  height: 100%;
+}
+
 #bottom-menu {
   position: absolute;
   bottom: 0;
@@ -147,16 +174,18 @@ input[type="radio"]:checked + label span {
 }
 
 .switch-menu img {
-  height: 35px;
+  height: 25px;
 }
 
 .switch-btn {
-  width: 45px;
-  height: 45px;
+  width: 35px;
+  height: 35px;
   border-radius: 30px;
   border: none;
-  margin-right: 10px;
-  background: rgba(20, 20, 20, 0.2);
+  margin-right: 5px;
+  background: rgba(154, 114, 97, 0.31);
+  font-size: 16px;
+  color: #222;
 }
 
 .switch-btn:hover {
@@ -167,26 +196,19 @@ input[type="radio"]:checked + label span {
   outline: 0;
 }
 
-/*.home-btn, .home-btn:hover {
-  background: rgba(58, 239, 56, 0.29);
+.home-btn i {
+  font-size: 19px;
 }
 
-.switch-cross-lang, .switch-cross-lang:hover {
-  background: rgba(17, 177, 161, 0.21);
+.switch-intra-lang i {
+  font-size: 19px;
 }
-
-.switch-intra-lang, .switch-intra-lang:hover{
-  background: rgba(255, 74, 74, 0.45);
-}
-
-.switch-multivariate, .switch-multivariate:hover {
-  background: rgba(255, 31, 145, 0.29)
-}*/
 
 /* Index Page Style */
 
 #tv-main-container {
-  background: url("../images/index_light30_bg.png");
+  background: url("../images/index_lighter.png");
+  background-size: 60%;
   height: 100%;
   width: 100%;
   background-position: center; 
@@ -231,46 +253,52 @@ input[type="radio"]:checked + label span {
 }
 
 #tv-intra-lang-btn {
-  background: rgba(243, 35, 35, 0.79);
-  box-shadow: 0 0 10px rgb(204, 24, 24);
-  color: #D40101;
+  background: rgba(20, 165, 151, 0.85);
+  box-shadow: 0 0 10px rgb(53, 140, 131); 
+  font-size: 130px;
+  color: #004D40;
+}
+
+#tv-intra-lang-btn img {
+  height: 130px;
+  margin-bottom: 10px;
 }
 
 #tv-cross-lang-btn {
-  background: rgba(20, 165, 151, 0.79);
+  background: rgba(20, 165, 151, 0.85);
   box-shadow: 0 0 10px rgb(53, 140, 131); 
+  font-size: 130px;
   color: #004D40;
 }
 
 #tv-multivariate-btn {
-  background: rgba(255, 31, 145, 0.69);
-  box-shadow: 0 0 10px rgb(239, 15, 129);
-  color: #D2006B;
+  background: rgba(20, 165, 151, 0.85);
+  box-shadow: 0 0 10px rgb(53, 140, 131); 
+  color: #004D40;
+  font-size: 70px;
 }
 
 .tv-btn:focus {
   outline: 0;
 }
 
-@keyframes rip 
-{
-  0%  {
-     border: none;
-  }
-  
-  25% {
-    border-top: 5px solid;
-  }
+.tv-search {
+    margin-top: -42px;
+    color: rgb(0, 121, 101);
+    margin-left: 45px;
+    font-size: 88px !important;
+}
 
-  50% {
-    border-left: 5px solid;
-  }
+.tv-chart {
+  font-size: 100px;
+  color: #004D40;
+  margin-top: 8px;
+}
 
-  75% {
-    border-bottom: 5px solid;
-  }
-
-  100% {
-    border-right: 5px solid;
-  }
+.tv-btn-caption {
+  font-size: 25px;
+  padding-top: 20px;
+  color: #667D23;
+  font-weight: bold;
+  letter-spacing: 1px;
 }

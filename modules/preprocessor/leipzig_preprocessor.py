@@ -2,11 +2,14 @@
 # -*- coding: utf-8 -*-
 """Leipzig Preprocessor which inherits from BasePreprocessor."""
 
-import os
 import codecs
-import regex as re
+import os
 from collections import defaultdict
+
+import regex as re
+
 from base_preprocessor import BasePreprocessor
+from modules.logger import init_logger as log
 
 
 class LeipzigPreprocessor(BasePreprocessor):
@@ -27,24 +30,26 @@ class LeipzigPreprocessor(BasePreprocessor):
         limit=None
     ):
         """Constructor which initializes the BasePreprocessor constructor."""
+        self.logger = log.initialise('T-Vecs.Preprocessor')
         self.language = language
         # If language is not specified, regex pattern for split is default ''
-        self.lang_split_sent = defaultdict(lambda : u'')
+        self.lang_split_sent = defaultdict(lambda: u'')
         # Specify language specific split regex pattern
         lang_split_sent = [
             ('hindi', u'[।]'),
         ]
         # Store language specific regex pattern in the defaultdict
-        for k,v in lang_split_sent:
+        for k, v in lang_split_sent:
             self.lang_split_sent[k] = v
-        preprocessed_corpus_fname = "%s.preprocessed" %(
-            corpus_fname
-        )
+        self.logger.info('LeipzigPreprocessor utilised')
+        preprocessed_corpus_fname = "%s.preprocessed" % corpus_fname
         if not os.path.exists(
             os.path.join(corpus_dir_path, preprocessed_corpus_fname)
         ):
             # < -- call function to preprocess leipzig corpus -- >
-            self.leipzig_corpus_preprocess(corpus_fname, corpus_dir_path, encoding)
+            self.leipzig_corpus_preprocess(
+                corpus_fname, corpus_dir_path, encoding
+            )
 
         # < -- call BasePreprocessor Constructor -- >
         super(LeipzigPreprocessor, self).__init__(
@@ -55,29 +60,38 @@ class LeipzigPreprocessor(BasePreprocessor):
             limit=limit
         )
 
-    def leipzig_corpus_preprocess(self, corpus_fname, corpus_dir_path, encoding):
+    def leipzig_corpus_preprocess(
+            self,
+            corpus_fname,
+            corpus_dir_path,
+            encoding
+    ):
         """
-        Extract valid content from the Corpus
+        Extract valid content from the Corpus.
 
         - Store extracted corpus data in corpus_fname.preprocessed
         """
+        self.logger.debug('Extracting Corpus data')
         with codecs.open(
             os.path.join(
                 corpus_dir_path, corpus_fname
-            ), 'r', encoding='utf-8') as file:
-                line_split_list = file.read().split("\n")
-                tab_split_list = [line.split('\t')[1] for line in line_split_list]
-                extracted_corpus = "\n".join(tab_split_list)
-                with codecs.open(
+            ), 'r', encoding='utf-8'
+        ) as file:
+            line_split_list = file.read().split("\n")
+            tab_split_list = [
+                line.split('\t')[1] for line in line_split_list
+                ]
+            extracted_corpus = "\n".join(tab_split_list)
+            with codecs.open(
                     os.path.join(
                         corpus_dir_path, '%s.preprocessed' % (corpus_fname)
                     ), 'w', encoding='utf-8'
-                ) as extracted_corpus_file:
-                    extracted_corpus_file.write(extracted_corpus)
+            ) as extracted_corpus_file:
+                extracted_corpus_file.write(extracted_corpus)
 
     def _extract_corpus_data(self, data):
         """
-        Function not utilised for Leipzig Corpus
+        Function not utilised for Leipzig Corpus.
 
         - Executed only if need_preprocessing is set to True
         """

@@ -2,11 +2,16 @@
 # -*- coding: utf-8 -*-
 """Module to Evaluate T-Vecs model against Human Semantic Similarity Score."""
 
-import os
 import codecs
-from scipy.stats import pearsonr
+import os
+
 from gensim.models import Word2Vec
+from scipy.stats import pearsonr
+
+from modules.logger import init_logger as log
 from modules.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
+
+LOGGER = log.initialise('T-Vecs.Evaluation')
 
 
 def extract_correlation_coefficient(score_data_path, vsm):
@@ -21,6 +26,9 @@ def extract_correlation_coefficient(score_data_path, vsm):
         :return: Returns (Correlation coefficient, P-Value)
         :rtype: Tuple(Float, Float)
     """
+    LOGGER.info(
+        'Extracting Human Score from score data path: %s' % score_data_path
+    )
     with codecs.open(score_data_path, 'r', encoding='utf-8') as file:
             human_score, calculated_score = zip(*[
                 [data.split()[2], vsm.obtain_cosine_similarity(
@@ -63,6 +71,7 @@ def get_correlation_coefficient(human_score, calculated_score):
     .. seealso::
         * :mod:`scipy.stats`
     """
+    LOGGER.info('Computing Correlation Coefficient b/w human, t-vecs score')
     return pearsonr(human_score, calculated_score)
 
 
@@ -80,10 +89,13 @@ def _load_vector_space_mapper(model_1_path, model_2_path, bilingual_path):
         return vm
 
 if __name__ == '__main__':
-    print "Evaluation of T-Vecs Model against Human Semantic Similarity Score:"
+    LOGGER.info(
+        "Evaluation of T-Vecs Model against Human Semantic Similarity Score:"
+    )
     correlation_score, pvalue = extract_correlation_coefficient(
         score_data_path=os.path.join(
-            'data', 'evaluate', 'wordsim_relatedness_goldstandard.txt_translate'
+            'data', 'evaluate',
+            'wordsim_relatedness_goldstandard.txt_translate'
         ),
         vsm=_load_vector_space_mapper(
             model_1_path=os.path.join('data', 'models', 't-vex-english-model'),
@@ -93,6 +105,6 @@ if __name__ == '__main__':
             )
         )
     )
-    print "Correlation Score obtained: %s\nP-Value obtained: %s" % (
+    LOGGER.info("Correlation Score obtained: %s\nP-Value obtained: %s" % (
         correlation_score, pvalue
-    )
+    ))
