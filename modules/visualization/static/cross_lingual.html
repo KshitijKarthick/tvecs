@@ -119,11 +119,16 @@
                     
                    }),
 
-                   ui.addEventListener("mouseover", function(){
+                   ui.addEventListener("mouseover", function(e){
                     toastr.clear();
                     var item = node.id;
-                    var printdef = function(data) {
+                    language = e.target.getAttribute("data-language");
 
+                    var printdef = function(data) {
+                      if(!data[1])
+                      {
+                        return;
+                      }    
                       trword = data[0]
                       var definition = "" ;
                       for (var part_of_speech in data[1])
@@ -150,6 +155,7 @@
                       }
                       toastr.info(definition,trword)
                     }
+
                     $.ajax({
                       url: 'http://0.0.0.0:5000/retrieve_meaning',
                       data: {

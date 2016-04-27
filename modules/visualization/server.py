@@ -106,10 +106,14 @@ class Server():
             meanings = []
             meanings.append(trword)
             meanings.append(dictionary.meaning(trword))
-            self.cached_dictionary[word] = meanings
-            with codecs.open('cached_dictionary', 'w', encoding='utf-8') as f:
-                f.write(json.dumps(self.cached_dictionary))
-
+            try:
+                meanings.append(dictionary.meaning(trword))
+            except:
+                meanings.append(None)
+            if meanings[1]:
+                self.cached_dictionary[word] = meanings
+                with codecs.open('cached_dictionary', 'w', encoding='utf-8') as f:
+                    f.write(json.dumps(self.cached_dictionary))
             return json.dumps(meanings)
         
 
