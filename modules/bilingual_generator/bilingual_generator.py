@@ -6,12 +6,18 @@ Module used to generate bilingual dictionary.
 - Utilise Yandex API for bilingual dictionary generation.
 """
 
-import os
 import codecs
 import json
-from gensim.models import Word2Vec
+import os
 import random
+
+from gensim.models import Word2Vec
+
+from modules.logger import init_logger as log
 from modules.preprocessor import yandex_api as yandex
+
+LOGGER = log.initialise('T-Vecs.BilingualDictionary')
+
 
 def create_bilingual_dictionary(clusters_file_path, sample_size, model):
     """
@@ -32,6 +38,7 @@ def create_bilingual_dictionary(clusters_file_path, sample_size, model):
         * :mod:`modules.preprocessor.yandex_api`
     """
     bilingual_dictionary = []
+    LOGGER.info('Creating Bilingual Dictionary')
     with codecs.open(cluster_groups, 'r', encoding='utf-8') as file:
         clusters = json.load(file)
         for cluster in clusters:
@@ -48,13 +55,14 @@ def create_bilingual_dictionary(clusters_file_path, sample_size, model):
                         tr = yandex.get_valid_translation(word, "en-hi")
                         if tr is not None:
                             try:
-                                model[tr]
+                                x = model[tr]
                                 selected_words.add(word)
                                 bilingual_dictionary.append((word, tr))
                                 no_of_words += 1
-                            except:
-                                print "Not Valid"
+                            except KeyError:
+                                LOGGER.error("Not Valid")
             else:
+                LOGGER.error('Sample Size too small')
                 raise ValueError("Sample Size too small")
     return bilingual_dictionary
 
@@ -77,4 +85,4 @@ if __name__ == '__main__':
 
     file = codecs.open(bilingual_dict_path, 'w', encoding='utf-8')
     for tup in bilingual_dictionary:
-        file.write(tup[0]+ " " + tup[1] + "\n")
+        file.write(tup[0] + " " + tup[1] + "\n")

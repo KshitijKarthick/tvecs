@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 """CherryPy Server to provide recommendations of semantic similarity."""
 
-import cherrypy
-import codecs
 import os
-import ConfigParser
 import json
 from PyDictionary import PyDictionary
+import codecs
+import cherrypy
+import ConfigParser
 from gensim.models import Word2Vec
 from jinja2 import Environment, FileSystemLoader
 from modules.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
@@ -219,7 +219,10 @@ class Server():
 
     def _recommend(self, word, limit, fn):
         """Vector Space Mapper recommend functionality."""
-        vec_list = fn(word, topn=limit)
+        try:
+            vec_list = fn(word, topn=limit)
+        except KeyError:
+            vec_list = None
         if vec_list is not None:
             data = json.dumps([
                 {

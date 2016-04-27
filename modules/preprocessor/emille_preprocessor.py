@@ -2,13 +2,14 @@
 # -*- coding: utf-8 -*-
 """EMILLE Corpus Preprocessor which inherits from BasePreprocessor."""
 
-import regex as re
-from base_preprocessor import BasePreprocessor
-from nltk.tokenize import sent_tokenize
-from bs4 import BeautifulSoup
-import sys
-import unicodedata
 from collections import defaultdict
+
+import regex as re
+from bs4 import BeautifulSoup
+from nltk.tokenize import sent_tokenize
+
+from base_preprocessor import BasePreprocessor
+from modules.logger import init_logger as log
 
 
 class EmilleCorpusPreprocessor(BasePreprocessor):
@@ -29,6 +30,7 @@ class EmilleCorpusPreprocessor(BasePreprocessor):
         limit=None
     ):
         """Constructor which initializes the BasePreprocessor constructor."""
+        self.logger = log.initialise('T-Vecs.Preprocessor')
         self.language = language
         # If language is not specified, regex pattern for split is default ''
         self.lang_split_sent = defaultdict(lambda: u'')
@@ -39,6 +41,7 @@ class EmilleCorpusPreprocessor(BasePreprocessor):
         # Store language specific regex pattern in the defaultdict
         for k, v in lang_split_sent:
             self.lang_split_sent[k] = v
+        self.logger.info('EmilleCorpusPreprocessor utilised')
         super(EmilleCorpusPreprocessor, self).__init__(
             corpus_fname,
             corpus_dir_path=corpus_dir_path,

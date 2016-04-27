@@ -42,25 +42,32 @@ Execution
 
 ::
 
-      # Preprocessing, Model Generation, Bilingual Generation, Vector Space Mapping between two languages english hindi from the corpus
+      # Preprocessing, Model Generation, Bilingual Generation, Vector Space Mapping between two languages english hindi from the corpus using the config file
 
-        python2 -im t-vecs -l1 kannada -l2 tamil -t1 ./data/corpus/English/all.txt -t2 ./data/corpus/Hindi/all.txt
-      # [ utilise the dictionary tvex_calls which contains results of every step performed ]
+        python2 -im t-vecs -c config.json
+
+        # [ utilise the dictionary tvex_calls which contains results of every step performed ]
 
       # Bilingual generation, Vector space mapping between two languages english hindi providing the models
 
         python2 -im t-vecs -l1 english -l2 hindi -m1 ./data/models/t-vex-english-model -m2 ./data/models/t-vex-hindi-model
-      # [ utilise the dictionary tvex_calls which contains results of every step performed ]
+
+        python2 -im t-vecs -c config.json
+
+        # [ utilise the dictionary tvex_calls which contains results of every step performed ]
 
 Usage Details
 ~~~~~~~~~~~~~
+
+T-Vecs Driver Module Cmd Line Args
+''''''''''''''''''''''''''''''''''
 
 ::
 
     $ python2 -m t-vecs --help
 
-    usage: t-vecs.py [-h] [-v] [-s] [-i ITER] [-m1 MODEL1] [-m2 MODEL2] -l1
-                     LANGUAGE1 -l2 LANGUAGE2 [-t1 CORPUS1] [-t2 CORPUS2]
+    usage: t-vecs.py [-h] [-v] [-s] [-i ITER] [-m1 MODEL1] [-m2 MODEL2]
+                     [-l1 LANGUAGE1] [-l2 LANGUAGE2] [-c CONFIG]
 
     Script used to generate models
 
@@ -77,18 +84,22 @@ Usage Details
                             Language name of model 1/ text 1
       -l2 LANGUAGE2, --l2 LANGUAGE2
                             Language name of model 2/ text 2
-      -t1 CORPUS1, --text1 CORPUS1
-                            text corpus for model generation
-      -t2 CORPUS2, --text2 CORPUS2
-                            text corpus for model generation
+      -c CONFIG, --config CONFIG
+                            config file path
+
+Config File Format
+''''''''''''''''''
+
+- See config.json in the repository for example.
+
+
 
 Visualisation of vector space
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
-    cd visualization
-    python2 server.py
+    python2 -m modules.visualization.server
     [ Open browser to localhost:5000 for visualization ]
     [ Ensure model generation is completed before running visualization ]
 

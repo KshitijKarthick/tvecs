@@ -121,6 +121,7 @@
                renderer.run();
 
             $("input[name='language']").on("change", function () {
+              document.getElementsByName('word-text')[0].value = "";
               language = this.value;
               graphNode = document.getElementById('svg-container');
               graphNode.removeChild(graphNode.firstChild);

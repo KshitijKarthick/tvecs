@@ -11,7 +11,7 @@ def crawl(url, fname):
     """Crawl and extract valid content and write to file."""
     d = requests.get(url).text
     b = BeautifulSoup(d)
-    p = [x.text for x in b.find_all("p")]
+    p = [x.text.strip() for x in b.find_all("p") if len(x.text.strip())>0]
     c = codecs.open(fname, "w", encoding='utf-8')
     c.write("\n".join(p))
 

@@ -2,12 +2,15 @@
 # -*- coding: utf-8 -*-
 """Module to map two Vector Spaces using a bilingual dictionary."""
 
-import os
-import logging
 import codecs
-from gensim.models import Word2Vec
+import logging
+import os
+
 import scipy.spatial.distance as dist
+from gensim.models import Word2Vec
 from sklearn.linear_model import RidgeCV
+
+from modules.logger import init_logger as log
 
 
 class VectorSpaceMapper(object):
@@ -36,15 +39,17 @@ class VectorSpaceMapper(object):
 
     def __init__(self, model_1, model_2, bilingual_dict):
         """Constructor initialization for the vector space mapper."""
-        logging.basicConfig(level=logging.INFO)
+        self.logger = log.initialise('T-Vecs.VectorSpaceMapper')
         self.model_1 = model_1
         self.model_2 = model_2
         self.lt = None
         self.bilingual_dict = bilingual_dict
         bilingual_dict = dict(bilingual_dict)
+        self.logger.debug('Extracting vocabulary and vector list from model 1')
         self.vector_1_list, self.word_1_list = self._extract_vectors_and_words(
             self.model_1, bilingual_dict.keys()
         )
+        self.logger.debug('Extracting vocabulary and vector list from model 2')
         self.vector_2_list, self.word_2_list = self._extract_vectors_and_words(
             self.model_2, bilingual_dict.values()
         )
@@ -78,6 +83,7 @@ class VectorSpaceMapper(object):
 
         - Semantic embeddings obtained from vector space of corresponding bilingual words of the same language.
         """
+        self.logger.info('Learning transformation between Vector Spaces.')
         self.lt = RidgeCV()
         self.lt.fit(self.vector_1_list, self.vector_2_list)
 
@@ -85,7 +91,7 @@ class VectorSpaceMapper(object):
         return self._predict_vec_from_vec(self.model_1[word])
 
     def _predict_vec_from_vec(self, vector):
-        return self.lt.predict(vector)[0]
+        return self.lt.predict(vector.reshape(1, -1))[0]
 
     def get_recommendations_from_vec(self, vector, topn=10):
         """
@@ -183,6 +189,9 @@ class VectorSpaceMapper(object):
             :return: Avg similarity obtained from test bilingual dictionary.
             :rtype: Float
         """
+        self.logger.info(
+            'Avg similarity score measured against testing bilingual dictionary'
+        )
         with codecs.open(test_path, 'r', encoding='utf-8') as file:
             data = file.read().split('\n')
             bilingual_dict = [
