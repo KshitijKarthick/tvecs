@@ -91,30 +91,33 @@ class Server():
             :rtype: :class:`String`
 
         """
-
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
 
-        trword = word
+        enable_meaning = True
+        if (enable_meaning):
+            trword = word
 
-        if word in self.cached_dictionary:
-            return json.dumps(self.cached_dictionary[word])
-        else:
-            if(language=='hindi'):
-                trword = yandex.get_translation(word, "hi-en")
+            if word in self.cached_dictionary:
+                return json.dumps(self.cached_dictionary[word])
+            else:
+                if(language=='hindi'):
+                    trword = yandex.get_translation(word, "hi-en")
 
-            dictionary = PyDictionary(trword)
-            meanings = []
-            meanings.append(trword)
-            meanings.append(dictionary.meaning(trword))
-            try:
+                dictionary = PyDictionary(trword)
+                meanings = []
+                meanings.append(trword)
                 meanings.append(dictionary.meaning(trword))
-            except:
-                meanings.append(None)
-            if meanings[1]:
-                self.cached_dictionary[word] = meanings
-                with codecs.open('cached_dictionary', 'w', encoding='utf-8') as f:
-                    f.write(json.dumps(self.cached_dictionary))
-            return json.dumps(meanings)
+                try:
+                    meanings.append(dictionary.meaning(trword))
+                except:
+                    meanings.append(None)
+                if meanings[1]:
+                    self.cached_dictionary[word] = meanings
+                    with codecs.open('cached_dictionary', 'w', encoding='utf-8') as f:
+                        f.write(json.dumps(self.cached_dictionary))
+                return json.dumps(meanings)
+        else:
+            raise cherrypy.HTTPError(status=404)
         
 
     @cherrypy.expose
