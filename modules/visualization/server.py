@@ -43,7 +43,15 @@ class Server():
                 'hindi', 'english'
             )
         }
-        with codecs.open('cached_dictionary', 'r', encoding='utf-8') as f:
+        cache_file_path = os.path.join(
+            'modules', 'visualization', 'cached_dictionary'
+        )
+        if not os.path.exists(cache_file_path):
+            json.dump({}, codecs.open(
+                cache_file_path, 'w', encoding='utf-8'
+            ))
+            self.cached_dictionary = {}
+        with codecs.open(cache_file_path, 'r', encoding='utf-8') as f:
             self.cached_dictionary = json.load(f)
 
     @cherrypy.expose
@@ -74,11 +82,11 @@ class Server():
             'modules', 'visualization', 'static', 'intra_language.html')
         )
 
-    @cherrypy.expose
     def retrieve_meaning(self, language, word):
         """
         Optional: Translate the word.
-        Retrieve English definition(s) of a word from cached file or PyDictionary.
+
+        Retrieve Eng definition(s) of a word from cached file or PyDictionary.
 
         API Documentation
             :param language: Language for which definition needed
@@ -93,32 +101,28 @@ class Server():
         """
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
 
-        enable_meaning = True
-        if (enable_meaning):
-            trword = word
-
-            if word in self.cached_dictionary:
-                return json.dumps(self.cached_dictionary[word])
-            else:
-                if(language=='hindi'):
-                    trword = yandex.get_translation(word, "hi-en")
-
-                dictionary = PyDictionary(trword)
-                meanings = []
-                meanings.append(trword)
-                meanings.append(dictionary.meaning(trword))
-                try:
-                    meanings.append(dictionary.meaning(trword))
-                except:
-                    meanings.append(None)
-                if meanings[1]:
-                    self.cached_dictionary[word] = meanings
-                    with codecs.open('cached_dictionary', 'w', encoding='utf-8') as f:
-                        f.write(json.dumps(self.cached_dictionary))
-                return json.dumps(meanings)
+        trword = word
+        if word in self.cached_dictionary:
+            return json.dumps(self.cached_dictionary[word])
         else:
-            raise cherrypy.HTTPError(status=404)
-        
+            if(language == 'hindi'):
+                trword = yandex.get_translation(word, "hi-en")
+
+            dictionary = PyDictionary(trword)
+            meanings = []
+            meanings.append(trword)
+            meanings.append(dictionary.meaning(trword))
+            try:
+                meanings.append(dictionary.meaning(trword))
+            except:
+                meanings.append(None)
+            if meanings[1]:
+                self.cached_dictionary[word] = meanings
+                with codecs.open(
+                    'cached_dictionary', 'w', encoding='utf-8'
+                ) as f:
+                    f.write(json.dumps(self.cached_dictionary))
+            return json.dumps(meanings)
 
     @cherrypy.expose
     def retrieve_recommendations(self, language, word, limit=10):
