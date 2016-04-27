@@ -9,3 +9,4 @@ bs4 >= 0.0.1
 Sphinx >= 1.4
 pytest >= 2.9.1
 sphinx-rtd-theme >= 0.1.9
+PyDictionary >= 1.5.2
