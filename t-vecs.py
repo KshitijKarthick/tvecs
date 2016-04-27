@@ -14,13 +14,13 @@ import argparse
 import codecs
 import itertools as it
 import json
-import logging
 import ntpath
 import os
 import time
 
 from gensim.models import Word2Vec
 
+from modules.logger import init_logger as log
 from modules.model_generator import model_generation as model
 from modules.preprocessor import emille_preprocessor as emilleprep
 from modules.preprocessor import hccorpus_preprocessor as hcprep
@@ -66,11 +66,11 @@ def model_generator(
 
 
 def bilingual_generator(lang1, lang2):
-    """Loads & returns previously generated bilingual dictionary."""
+    """Load & returns previously generated bilingual dictionary."""
     bilingual_dict = []
     with codecs.open(
         os.path.join(
-            'data', 'bilingual_dictionary', '%s_%s_train_bd' %(lang1, lang2)
+            'data', 'bilingual_dictionary', '%s_%s_train_bd' % (lang1, lang2)
         ), 'r',
         encoding='utf-8'
     ) as file:
@@ -83,7 +83,7 @@ def bilingual_generator(lang1, lang2):
 
 
 def map_vector_spaces(*args, **kwargs):
-    """Generates & return VectorSpaceMapper Instance and maps vectors spaces."""
+    """Generate & return VectorSpaceMapper Instance and maps vectors spaces."""
     vector_mapper_obj = vm.VectorSpaceMapper(*args, **kwargs)
     vector_mapper_obj.map_vector_spaces()
     return vector_mapper_obj
@@ -201,7 +201,8 @@ def args_parser():
         action="store"
     )
     args = parser.parse_args()
-    logger = init_logger(args)
+    logger = log.initialise('T-Vecs')
+    log.set_logger_normal(logger)
     parse_success = True
     try:
         # if Config is given higher priority, cmd line args are overriden
@@ -213,8 +214,14 @@ def args_parser():
                 args.iter, args.silent, args.verbose
             ) = parse_config(args.config)
 
+        if args.verbose is True:
+            log.set_logger_verbose(logger)
+
+        elif args.silent is True:
+            log.set_logger_silent(logger)
+
         # Load a precomputed model for trsl
-        if args.model1 and args.model2 and args.language1 and args.language2:
+        elif args.model1 and args.model2 and args.language1 and args.language2:
             order_of_evaluation = order_of_tvex_calls[2:]
             tvex_calls['model_generator']['result'] = (
                 Word2Vec.load(args.model1),
@@ -245,19 +252,6 @@ def args_parser():
     logger.info("Execution Time : " + str(loading_time))
 
 
-def init_logger(args):
-    """Initialise the logger based on user preference."""
-    logging.basicConfig()
-    logger = logging.getLogger('T-Vecs')
-    if args.silent:
-        logger.setLevel(logging.ERROR)
-    elif args.verbose:
-        logger.setLevel(logging.DEBUG)
-    else:
-        logger.setLevel(logging.INFO)
-    return logger
-
-
 def evaluate(logger, args):
     """Evaluate and run sequence of operations based on user specs."""
     global tvex_calls, order_of_evaluation
@@ -265,7 +259,7 @@ def evaluate(logger, args):
         func = tvex_calls[func_name]['func']
         if func_name is "preprocessor":
             def preprocess_multiple_corpora(corpus_list, language):
-                res= []
+                res = []
                 for corpus in corpus_list:
                     fpath = corpus.keys()[0]
                     preprocessor_type = corpus.values()[0]
@@ -291,7 +285,6 @@ def evaluate(logger, args):
                 )
             )
         elif func_name is "model_generator":
-            logger.info("Model Generation")
             tvex_calls[func_name]['result'] = (
                 func(
                     preprocessed_corpus=tvex_calls[
@@ -309,12 +302,10 @@ def evaluate(logger, args):
                 )
             )
         elif func_name is "bilingual_generator":
-            logger.info("Running Bilingual Generator")
             tvex_calls[func_name]['result'] = func(
                 lang1=args.language1, lang2=args.language2
             )
         elif func_name is "vector_space_mapper":
-            logger.info("Mapping Vector Spaces Together")
             tvex_calls[func_name]['result'] = func(
                 model_1=tvex_calls["model_generator"]["result"][0],
                 model_2=tvex_calls["model_generator"]["result"][1],

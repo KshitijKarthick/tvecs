@@ -2,12 +2,13 @@
 # -*- coding: utf-8 -*-
 """HC Corpus Preprocessor which inherits from BasePreprocessor."""
 
-import sys
-import unicodedata
-import regex as re
 from collections import defaultdict
-from base_preprocessor import BasePreprocessor
+
+import regex as re
 from nltk.tokenize import sent_tokenize
+
+from base_preprocessor import BasePreprocessor
+from modules.logger import init_logger as log
 
 
 class HcCorpusPreprocessor(BasePreprocessor):
@@ -28,16 +29,18 @@ class HcCorpusPreprocessor(BasePreprocessor):
         limit=None
     ):
         """Constructor which initializes the BasePreprocessor constructor."""
+        self.logger = log.initialise('T-Vecs.Preprocessor')
         self.language = language
         # If language is not specified, regex pattern for split is default ''
-        self.lang_split_sent = defaultdict(lambda : u'')
+        self.lang_split_sent = defaultdict(lambda: u'')
         # Specify language specific split regex pattern
         lang_split_sent = [
             ('hindi', u'[।]'),
         ]
         # Store language specific regex pattern in the defaultdict
-        for k,v in lang_split_sent:
+        for k, v in lang_split_sent:
             self.lang_split_sent[k] = v
+        self.logger.info('HcCorpusPreprocessor utilised')
         super(HcCorpusPreprocessor, self).__init__(
             corpus_fname,
             corpus_dir_path=corpus_dir_path,

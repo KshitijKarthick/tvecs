@@ -6,12 +6,13 @@ Module used to specify abstract Preprocessor Class.
 - BasePreprocessor is an Abstract Base Class with basic abstract preprocessor functionality.
 """
 
-import os
 import codecs
-import logging
-import itertools
-from abc import ABCMeta, abstractmethod
 import fileinput
+import itertools
+import os
+from abc import ABCMeta, abstractmethod
+
+from modules.logger import init_logger as log
 
 
 class BasePreprocessor(object):
@@ -45,7 +46,7 @@ class BasePreprocessor(object):
         """
         Constructor initialization for BasePreprocessor.
         """
-        logging.basicConfig(level=logging.INFO)
+        self.logger = log.initialise('T-Vecs.Preprocessor')
         self.limit = limit
         self.corpus_fname = corpus_fname
         self.corpus_path = os.path.join(
@@ -53,7 +54,6 @@ class BasePreprocessor(object):
         )
         self.encoding = encoding
         if need_preprocessing is True:
-            logging.info('Preprocessing Corpus')
             self.preprocessed_corpus_path = os.path.join(
                 corpus_dir_path, '%s.preprocessed' % (corpus_fname)
             )
@@ -61,20 +61,21 @@ class BasePreprocessor(object):
                 with codecs.open(
                     self.corpus_path, 'r', encoding=self.encoding
                 ) as file:
-                    logging.info('Extracting Corpus Data')
+                    self.logger.debug('Extracting Corpus Data')
                     self._save_preprocessed_data(
                         data=self._extract_corpus_data(
                             data=file.read()
                         ),
                         output_fpath=self.preprocessed_corpus_path
                     )
+                    self.logger.debug('Saved Intermediate Preprocessed File')
             else:
-                logging.info('Preprocessed Corpus found: %s.preprocessed' % (
+                self.logger.info('Preprocessed Corpus found: %s.preprocessed' % (
                     corpus_fname
                 ))
             self.preprocessed_corpus_fname = '%s.preprocessed' % (corpus_fname)
         else:
-            logging.info('Utilising Preprocessed Corpus: %s' %(
+            self.logger.info('Utilising Preprocessed Corpus: %s' % (
                 self.corpus_fname
             ))
             self.preprocessed_corpus_fname = self.corpus_fname
@@ -97,9 +98,8 @@ class BasePreprocessor(object):
             :type output_fpath: String
         """
         with codecs.open(output_fpath, 'w', encoding=self.encoding) as file:
-            logging.info("Tokenizing Corpus into Sentences")
+            self.logger.debug("Tokenizing Corpus into Sentences")
             sentence_tokenized = self._tokenize_sentences(data)
-            logging.info('Saving Preprocessed Corpus')
             sentence_tokenized = (
                 '%s\n' % (sentence) for sentence in sentence_tokenized
             )

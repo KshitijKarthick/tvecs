@@ -13,7 +13,10 @@ import os
 
 import gensim
 
+from modules.logger import init_logger as log
 from modules.preprocessor import hccorpus_preprocessor as pre
+
+LOGGER = log.initialise('T-Vecs.ModelGeneration')
 
 
 def generate_model(
@@ -44,6 +47,7 @@ def generate_model(
         :rtype: :mod:`gensim.models.Word2Vec`
 
     """
+    LOGGER.info('Constructing Preprocessor Object')
     preprocessor_obj = pre.HcCorpusPreprocessor(
         corpus_fname=corpus_fname,
         corpus_dir_path=corpus_dir_path,
@@ -86,6 +90,7 @@ def construct_model(
         * :mod:`gensim.models.Word2Vec`
         * :mod:`modules.preprocessor.hccorpus_preprocessor`
     """
+    LOGGER.info('Generating Model')
     model = gensim.models.Word2Vec(preprocessed_corpus, iter=iterations)
     if os.path.exists(output_dir_path) is False:
         os.makedirs(output_dir_path)
@@ -96,7 +101,7 @@ def construct_model(
     else:
         output_path = os.path.join(output_dir_path, output_fname)
     model.save(output_path)
-    print("Model saved at %s" % (output_path))
+    LOGGER.info("Model saved at %s" % (output_path))
     return model
 
 
