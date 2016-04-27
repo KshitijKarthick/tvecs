@@ -59,7 +59,7 @@
                      var links = graph.getLinks(node.id);
                      var addNode = function(data){
                        if(data == null)
-                         alert("Sorry! Related words not found!!");
+                         tvecsAlert();
                        else {
                          for(var i=0;i<data.length;i++){
                            var flag = true;
@@ -151,6 +151,9 @@
           });
         });
 
+        function tvecsAlert() {
+          $('#myModal').modal('toggle');
+        }
 
     </script>
 </head>
@@ -200,6 +203,24 @@
         <button id="reset-btn" class="bottom-btns" onclick="resetWindow()">Reset</button>
       </div>
     </div>
+    <div class="modal fade" id="myModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true"></span>
+            </button>
+            <h4 class="modal-title">Alert</h4>
+          </div>
+          <div class="modal-body">
+            <p>Sorry! Related words not found &#9785;</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
   </div>
 </body>
 </html>
