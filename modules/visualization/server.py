@@ -7,9 +7,11 @@ import codecs
 import os
 import ConfigParser
 import json
+from PyDictionary import PyDictionary
 from gensim.models import Word2Vec
 from jinja2 import Environment, FileSystemLoader
 from modules.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
+from modules.preprocessor import yandex_api as yandex
 
 
 class Server():
@@ -41,6 +43,8 @@ class Server():
                 'hindi', 'english'
             )
         }
+        with codecs.open('cached_dictionary', 'r', encoding='utf-8') as f:
+            self.cached_dictionary = json.load(f)
 
     @cherrypy.expose
     def index(self):
@@ -69,6 +73,45 @@ class Server():
         return file(os.path.join(
             'modules', 'visualization', 'static', 'intra_language.html')
         )
+
+    @cherrypy.expose
+    def retrieve_meaning(self, language, word):
+        """
+        Optional: Translate the word.
+        Retrieve English definition(s) of a word from cached file or PyDictionary.
+
+        API Documentation
+            :param language: Language for which definition needed
+            :param word: Word whose definition needs to be retrieved
+
+            :type language: String
+            :type word: String
+
+            :return: word and definition
+            :rtype: :class:`String`
+
+        """
+
+        cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
+
+        trword = word
+
+        if word in self.cached_dictionary:
+            return json.dumps(self.cached_dictionary[word])
+        else:
+            if(language=='hindi'):
+                trword = yandex.get_translation(word, "hi-en")
+
+            dictionary = PyDictionary(trword)
+            meanings = []
+            meanings.append(trword)
+            meanings.append(dictionary.meaning(trword))
+            self.cached_dictionary[word] = meanings
+            with codecs.open('cached_dictionary', 'w', encoding='utf-8') as f:
+                f.write(json.dumps(self.cached_dictionary))
+
+            return json.dumps(meanings)
+        
 
     @cherrypy.expose
     def retrieve_recommendations(self, language, word, limit=10):

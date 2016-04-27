@@ -9,6 +9,9 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/font-awesome/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css'>
+    <link href="css/toastr.css" rel="stylesheet">
+    <script src="js/toastr.js"></script>
+
     <script type="text/javascript">
       var language="hindi";
       var rootWords = {
@@ -20,6 +23,8 @@
         "hindi" : "english"
       }
         function main () {
+
+
 
           var graph = Viva.Graph.graph();
 
@@ -54,9 +59,11 @@
                      .attr("cy",12.5);
 
 
+
                    var ui = Viva.Graph.svg('svg');
                    ui.appendChild(circle);
                    ui.appendChild(text);
+
 
                    ui.addEventListener("click", function(){
                      var item = node.id;
@@ -90,9 +97,49 @@
                        success: addNode,
                        dataType: 'json'
                      });
-                   })
+                   }),
+                  ui.addEventListener("mouseover", function(){
+                    toastr.clear();
+                    var item = node.id;
+                    var printdef = function(data) {
 
-                   return ui;
+                      trword = data[0]
+                      var s = "" ;
+                      for (var part_of_speech in data[1])
+                      {
+                          definition = definition + part_of_speech + ": " + data[1][part_of_speech][0] + "<br>" ;
+                      }
+
+                      toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-bottom-full-width",
+                        "preventDuplicates": true,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                      }
+                      toastr.info(definition,trword)
+                    }
+                    $.ajax({
+                      url: 'http://0.0.0.0:5000/retrieve_meaning',
+                      data: {
+                        'language' : language,
+                        'word' : node.id,
+                      },
+                      success : printdef,
+                      dataType: 'json'
+                    });
+                  })
+                  return ui;
                });
 
                // Usually when you have custom look for nodes, you might want to
@@ -149,6 +196,14 @@
           graphNode.removeChild(graphNode.firstChild);
           main();
         }
+
+        $(document).ready(function() {
+          $('input').keydown(function(e) {
+            if(e.keyCode === 13) {
+              getWord(document.getElementsByName('word-text'));
+            }
+          });
+        });
 
     </script>
 </head>
