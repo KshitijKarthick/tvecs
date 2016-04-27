@@ -47,23 +47,25 @@
                      .text(node.id)
                      .attr('height', 24)
                      .attr('text-anchor', 'middle')
-                     .attr('x', 20);
+                     .attr('x', 20)
+                     .attr("data-language", language);
                    var circle = Viva.Graph.svg('circle')
                      .attr("r", 7)
                      .attr("cx",12.5)
-                     .attr("cy",12.5);
+                     .attr("cy",12.5)
+                     .attr("data-language", language);
 
 
                    var ui = Viva.Graph.svg('svg');
                    ui.appendChild(circle);
                    ui.appendChild(text);
 
-                   ui.addEventListener("click", function(){
+                   ui.addEventListener("mousedown", function(e){
                      var item = node.id;
                      var links = graph.getLinks(node.id);
                      var addNode = function(data){
                        if(data == null)
-                         alert("Sorry! Related words not found!!");
+                         tvecsAlert();
                        else {
                          for(var i=0;i<data.length;i++){
                            var flag = true;
@@ -79,19 +81,39 @@
                          }
                        }
                      }
-                     console.log(language);
-                     $.ajax({
-                       url: 'http://0.0.0.0:5000/get_cross_lingual_recommendations',
-                       data: {
-                         'lang1': language,
-                         'lang2': alternate[language],
-                         'word': node.id
-                       },
-                       success: addNode,
-                       dataType: 'json'
-                     });
-                   })
 
+                     e.preventDefault();
+                     switch(e.which) {
+                      case 1: language = e.target.getAttribute("data-language");
+                              $.ajax({
+                                url: 'http://0.0.0.0:5000/get_cross_lingual_recommendations',
+                                data: {
+                                  'lang1': language,
+                                  'lang2': alternate[language],
+                                  'word': node.id
+                                },
+                                success: addNode,
+                                dataType: 'json'
+                              });
+                              language = alternate[language];
+                              break;
+                      case 3: language = e.target.getAttribute("data-language");
+                                $.ajax({
+                                url: 'http://0.0.0.0:5000/retrieve_recommendations',
+                                data: {
+                                  'language': language,
+                                  'word': node.id
+                                },
+                                success: addNode,
+                                dataType: 'json'
+                              });
+                              break;
+                      default: alert("hey not that click");
+                              break;
+                     }
+                    
+                   })
+                  
                    return ui;
                });
 
@@ -150,9 +172,13 @@
           main();
         }
 
+        function tvecsAlert() {
+          $('#myModal').modal('toggle');
+        }
+
     </script>
 </head>
-<body onload='main()'>
+<body onload='main()' oncontextmenu="return false;">
   <div id="main-container" class="container row">
     <div class="switch-menu">
       <a href="http://0.0.0.0:5000">
@@ -199,6 +225,24 @@
         <button id="reset-btn" class="bottom-btns" onclick="resetWindow()">Reset</button>
       </div>
     </div>
+    <div class="modal fade" id="myModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true"></span>
+            </button>
+            <h4 class="modal-title">Alert</h4>
+          </div>
+          <div class="modal-body">
+            <p>Sorry! Related words not found &#9785;</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
   </div>
 </body>
 </html>
