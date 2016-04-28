@@ -217,11 +217,15 @@
 
         function getWord(wordTextBox) {
           var newWord = wordTextBox[0].value;
-          console.log(newWord);
-          rootWords[language] = newWord;
-          graphNode = document.getElementById('svg-container');
-          graphNode.removeChild(graphNode.firstChild);
-          main();
+          if(newWord !== "") {
+            rootWords[language] = newWord;
+            graphNode = document.getElementById('svg-container');
+            graphNode.removeChild(graphNode.firstChild);
+            main();
+          }
+          else {
+            tvecsAlert("You have not entered any word");
+          }
         }
 
         $(document).ready(function() {
