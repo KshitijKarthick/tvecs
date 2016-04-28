@@ -20,7 +20,7 @@ body {
 
 #svg-container > svg > g > svg > text {
   cursor: pointer;
-  font-size: 25px;
+  font-size: 28px;
   fill: #6D4739;
 }
 
@@ -118,7 +118,7 @@ svg {
 
 .menu-heading {
   padding-bottom: 10px;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
 }
 
@@ -127,7 +127,7 @@ input[type="radio"] {
 }
 input[type="radio"] + label {
     color: #ffeeee;
-    font-size:14px;
+    font-size:18px;
 }
 input[type="radio"] + label span {
     display:inline-block;
@@ -262,6 +262,14 @@ input[type="radio"]:checked + label span {
 #tv-intra-lang-btn img {
   height: 130px;
   margin-bottom: 10px;
+}
+
+#tv-cross-lang {
+  padding-left: 140px;
+}
+
+#tv-multivariate {
+  padding-right: 140px;
 }
 
 #tv-cross-lang-btn {
