@@ -71,7 +71,7 @@
                      var links = graph.getLinks(node.id);
                      var addNode = function(data){
                        if(data == null)
-                         tvecsAlert();
+                         tvecsAlert("Sorry! Related words not found &#9785;");
                        else {
                          for(var i=0;i<data.length;i++){
                            var flag = true;
@@ -232,7 +232,8 @@
           });
         });
 
-        function tvecsAlert() {
+        function tvecsAlert(alertMsg) {
+          $('#modal-message').html(alertMsg);
           $('#myModal').modal('toggle');
         }
 
@@ -291,7 +292,7 @@
             <h4 class="modal-title"></h4>
           </div>
           <div class="modal-body">
-            <p>Sorry! Related words not found &#9785;</p>
+            <p id="modal-message"></p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary modal-btn" data-dismiss="modal">Close</button>

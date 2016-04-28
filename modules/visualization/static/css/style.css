@@ -79,6 +79,10 @@ svg {
   height: 100%;
 }
 
+.btn-word-input:focus {
+  outline: 0;
+}
+
 #bottom-menu {
   position: absolute;
   bottom: 0;
@@ -344,4 +348,8 @@ input[type="radio"]:checked + label span {
 .modal-btn:hover {
   color: #E45151 !important;
   background: #fff;
+}
+
+.modal-btn:focus {
+  outline: 0 !important;
 }
