@@ -1,15 +1,13 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
 """Module to map two Vector Spaces using a bilingual dictionary."""
-
+import os
 import codecs
 import logging
-import os
-
 import scipy.spatial.distance as dist
 from gensim.models import Word2Vec
 from sklearn.linear_model import RidgeCV
-
+from modules.bilingual_generator import bilingual_generator as bg
 from modules.logger import init_logger as log
 
 
@@ -192,22 +190,17 @@ class VectorSpaceMapper(object):
         self.logger.info(
             'Avg similarity score measured against testing bilingual dictionary'
         )
-        with codecs.open(test_path, 'r', encoding='utf-8') as file:
-            data = file.read().split('\n')
-            bilingual_dict = [
-                (line.split(' ')[0], line.split(' ')[1])
-                for line in data
-            ]
-            avg = 0.0
-            count = 0.0
-            for tup in bilingual_dict:
-                word_1 = tup[0]
-                word_2 = tup[1]
-                similarity = self.obtain_cosine_similarity(word_1, word_2)
-                if similarity is not None:
-                    count += 1
-                    avg += similarity
-            return avg / count
+        bilingual_dict = bg.load_bilingual_dictionary(test_path)
+        avg = 0.0
+        count = 0.0
+        for tup in bilingual_dict:
+            word_1 = tup[0]
+            word_2 = tup[1]
+            similarity = self.obtain_cosine_similarity(word_1, word_2)
+            if similarity is not None:
+                count += 1
+                avg += similarity
+        return avg / count
 
 
 if __name__ == '__main__':
@@ -218,18 +211,13 @@ if __name__ == '__main__':
     model_2 = Word2Vec.load(
         os.path.join('data', 'models', 't-vex-hindi-model')
     )
-    with codecs.open(
+    bilingual_dict = bg.load_bilingual_dictionary(
         os.path.join(
             'data', 'bilingual_dictionary', 'english_hindi_train_bd'
-        ), 'r', encoding='utf-8'
-    ) as file:
-        data = file.read().split('\n')
-        bilingual_dict = [
-            (line.split(' ')[0], line.split(' ')[1])
-            for line in data
-        ]
-        vm = VectorSpaceMapper(model_1, model_2, bilingual_dict)
-        vm.map_vector_spaces()
-        print vm.obtain_avg_similarity_from_test(test_path=os.path.join(
-            'data', 'bilingual_dictionary', 'english_hindi_test_bd'
-        ))
+        )
+    )
+    vm = VectorSpaceMapper(model_1, model_2, bilingual_dict)
+    vm.map_vector_spaces()
+    print vm.obtain_avg_similarity_from_test(test_path=os.path.join(
+        'data', 'bilingual_dictionary', 'english_hindi_test_bd'
+    ))
