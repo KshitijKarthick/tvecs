@@ -23,6 +23,7 @@ def generate_model(
         language,
         corpus_fname,
         corpus_dir_path='.',
+        output_fname=None,
         output_dir_path=os.path.join('data', 'models'),
         need_preprocessing=True,
         iterations=5
@@ -58,7 +59,8 @@ def generate_model(
         preprocessed_corpus=preprocessor_obj,
         language=language,
         output_dir_path=output_dir_path,
-        iterations=iterations
+        iterations=iterations,
+        output_fname=output_fname
     )
 
 

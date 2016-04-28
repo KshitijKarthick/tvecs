@@ -10,22 +10,20 @@ Module used to control and coordinate all other modules for T-Vecs.
 * Vector Space Mapping
 """
 
-import argparse
-import codecs
-import itertools as it
-import json
-import ntpath
 import os
 import time
-
+import json
+import ntpath
+import argparse
+import itertools as it
 from gensim.models import Word2Vec
-
 from modules.logger import init_logger as log
 from modules.model_generator import model_generation as model
 from modules.preprocessor import emille_preprocessor as emilleprep
 from modules.preprocessor import hccorpus_preprocessor as hcprep
 from modules.preprocessor import leipzig_preprocessor as leipprep
 from modules.vector_space_mapper import vector_space_mapper as vm
+from modules.bilingual_generator import bilingual_generator as bg
 
 
 def preprocess_corpus(*args, **kwargs):
@@ -67,18 +65,11 @@ def model_generator(
 
 def bilingual_generator(lang1, lang2):
     """Load & returns previously generated bilingual dictionary."""
-    bilingual_dict = []
-    with codecs.open(
+    bilingual_dict = bg.load_bilingual_dictionary(
         os.path.join(
             'data', 'bilingual_dictionary', '%s_%s_train_bd' % (lang1, lang2)
-        ), 'r',
-        encoding='utf-8'
-    ) as file:
-        data = file.read().split('\n')
-        bilingual_dict = [
-            (line.split(' ')[0], line.split(' ')[1])
-            for line in data
-        ]
+        )
+    )
     return bilingual_dict
 
 
@@ -247,9 +238,17 @@ def args_parser():
 
     old_time = time.time()
     evaluate(logger, args)
+    vm = tvex_calls['vector_space_mapper']['result']
+    logger.info(
+        "Avg Similarity Test Score :%s" % vm.obtain_avg_similarity_from_test(
+            test_path=os.path.join(
+                'data', 'bilingual_dictionary', 'english_hindi_test_bd'
+            )
+        )
+    )
     new_time = time.time()
     loading_time = new_time - old_time
-    logger.info("Execution Time : " + str(loading_time))
+    logger.info("Execution Time :" + str(loading_time))
 
 
 def evaluate(logger, args):
