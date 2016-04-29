@@ -220,6 +220,12 @@
         function getWord(wordTextBox) {
           var enteredWord = wordTextBox[0].value;
           newWord = enteredWord.toLowerCase();
+          if (document.getElementById('r1').checked) {
+            language = document.getElementById('r1').value;
+          }
+          else {
+            language = document.getElementById('r2').value;
+          }
           if(newWord !== "") {
             rootWords[language] = newWord;
             graphNode = document.getElementById('svg-container');
