@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 """
 Used to generate Word2Vec Models for individual languages after preprocessing.
-
 - Preprocessing Corpus - Implementation of BasePreprocessor module
     - HcCorpusPreprocessor
 - Word2Vec Model Building
@@ -28,7 +27,6 @@ def generate_model(
 ):
     """
     Function used to preprocess and generate models.
-
     API Documentation
         :param language: Language for which model is generated [ Used for model filename ]
         :type language: basestring
@@ -44,7 +42,6 @@ def generate_model(
         :type iterations: int
         :return: Constructed Model based on the provided specifications.
         :rtype: :mod:`gensim.models.Word2Vec`
-
     """
     LOGGER.info('Constructing Preprocessor Object')
     preprocessor_obj = pre.HcCorpusPreprocessor(
@@ -71,7 +68,6 @@ def construct_model(
 ):
     """
     Construct Model given the preprocessed corpus.
-
     API Documentation:
         :param preprocessed_corpus: Instance of SubClass of BasePreprocessor
         :type preprocessed_corpus: HcCorpusPreprocessor object
@@ -85,7 +81,6 @@ def construct_model(
         :type iterations: int
         :return: Constructed Model based on the provided specifications.
         :rtype: :mod:`gensim.models.Word2Vec`
-
     .. seealso::
         * :mod:`gensim.models.Word2Vec`
         * :mod:`modules.preprocessor.hccorpus_preprocessor`
