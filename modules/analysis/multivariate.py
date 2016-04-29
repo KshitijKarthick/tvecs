@@ -11,10 +11,10 @@ Perform Multivariate Analysis.
     * P Value
 """
 
-import codecs
-import csv
 import os
+import csv
 import time
+import codecs
 
 from modules.evaluation import evaluation
 from modules.logger import init_logger as log
@@ -173,4 +173,5 @@ def multivariate_analyse():
 
 
 if __name__ == '__main__':
+    log.set_logger_normal(LOGGER)
     multivariate_analyse()
