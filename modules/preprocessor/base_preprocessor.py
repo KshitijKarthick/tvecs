@@ -45,7 +45,10 @@ class BasePreprocessor(object):
         limit=None
     ):
         """Constructor initialization for BasePreprocessor."""
-        self.logger = LOGGER
+        try:
+            self.logger = LOGGER
+        except NameError:
+            self.logger = log.initialise('T-Vecs.Preprocessor')
         self.limit = limit
         self.corpus_fname = corpus_fname
         self.corpus_path = os.path.join(

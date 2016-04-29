@@ -28,7 +28,10 @@ class LeipzigPreprocessor(BasePreprocessor):
         limit=None
     ):
         """Constructor which initializes the BasePreprocessor constructor."""
-        self.logger = LOGGER
+        try:
+            self.logger = LOGGER
+        except NameError:
+            self.logger = log.initialise('T-Vecs.Preprocessor')
         self.language = language
         # If language is not specified, regex pattern for split is default ''
         self.lang_split_sent = defaultdict(lambda: u'')
