@@ -4,6 +4,7 @@
 
 import os
 import codecs
+
 from modules.logger import init_logger as log
 
 
@@ -41,7 +42,7 @@ def load_bilingual_dictionary(bilingual_dictionary_path, encoding='utf-8'):
 
 
 if __name__ == '__main__':
-
+    log.set_logger_normal(LOGGER)
     load_bilingual_dictionary(
         os.path.join(
             'data', 'bilingual_dictionary', 'english_hindi_train_bd'
