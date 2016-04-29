@@ -13,6 +13,8 @@ from abc import ABCMeta, abstractmethod
 
 from modules.logger import init_logger as log
 
+LOGGER = log.initialise('T-Vecs.Preprocessor')
+
 
 class BasePreprocessor(object):
     """
@@ -42,10 +44,8 @@ class BasePreprocessor(object):
         need_preprocessing=False,
         limit=None
     ):
-        """
-        Constructor initialization for BasePreprocessor.
-        """
-        self.logger = log.initialise('T-Vecs.Preprocessor')
+        """Constructor initialization for BasePreprocessor."""
+        self.logger = LOGGER
         self.limit = limit
         self.corpus_fname = corpus_fname
         self.corpus_path = os.path.join(
@@ -173,3 +173,6 @@ class BasePreprocessor(object):
         """Iterator provided for get_preprocessed_text."""
         for tokenized_sentence in self.get_preprocessed_text():
             yield tokenized_sentence
+
+if __name__ == '__main__':
+    log.set_logger_normal(LOGGER)

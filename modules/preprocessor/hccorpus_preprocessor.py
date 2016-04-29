@@ -8,6 +8,8 @@ from nltk.tokenize import sent_tokenize
 from base_preprocessor import BasePreprocessor
 from modules.logger import init_logger as log
 
+LOGGER = log.initialise('T-Vecs.Preprocessor')
+
 
 class HcCorpusPreprocessor(BasePreprocessor):
     """
@@ -27,7 +29,7 @@ class HcCorpusPreprocessor(BasePreprocessor):
         limit=None
     ):
         """Constructor which initializes the BasePreprocessor constructor."""
-        self.logger = log.initialise('T-Vecs.Preprocessor')
+        self.logger = LOGGER
         self.language = language
         # If language is not specified, regex pattern for split is default ''
         self.lang_split_sent = defaultdict(lambda: u'')
@@ -108,3 +110,6 @@ class HcCorpusPreprocessor(BasePreprocessor):
         return sentence.split()
 
 BasePreprocessor.register(HcCorpusPreprocessor)
+
+if __name__ == '__main__':
+    log.set_logger_normal(LOGGER)

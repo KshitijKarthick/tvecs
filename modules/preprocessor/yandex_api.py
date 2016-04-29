@@ -11,6 +11,11 @@ import json
 import codecs
 import requests
 
+from modules.logger import init_logger as log
+
+
+LOGGER = log.initialise('T-Vecs.BilingualDictionary')
+
 
 def get_valid_translation(word, from_to):
     """
@@ -92,7 +97,7 @@ if __name__ == '__main__':
         ('Mtruk.txt', dir_path)
     ]
     for (dataset_fname, dataset_dir) in datasets:
-        print "Processing %s" % dataset_fname
+        LOGGER.info("Processing %s" % dataset_fname)
         yandex_api(
             lang_translate='en-hi',
             input_score_path=os.path.join(
