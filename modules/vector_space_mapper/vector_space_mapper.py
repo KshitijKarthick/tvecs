@@ -40,7 +40,10 @@ class VectorSpaceMapper(object):
 
     def __init__(self, model_1, model_2, bilingual_dict):
         """Constructor initialization for the vector space mapper."""
-        self.logger = LOGGER
+        try:
+            self.logger = LOGGER
+        except NameError:
+            self.logger = log.initialise('T-Vecs.VectorSpaceMapper')
         self.model_1 = model_1
         self.model_2 = model_2
         self.lt = None
