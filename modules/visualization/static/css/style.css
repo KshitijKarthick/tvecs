@@ -55,6 +55,7 @@ svg {
 .word-input-container {
   padding: 10px;
   padding-top: 20px;
+  padding-left: 20px;
 }
 
 .word-input-container span {
@@ -124,7 +125,7 @@ svg {
 
 .menu-heading {
   padding-bottom: 10px;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -355,3 +356,42 @@ input[type="radio"]:checked + label span {
 .modal-btn:focus {
   outline: 0 !important;
 }
+
+#words-menu {
+  padding-left: 20px;
+  padding-top: 20px;
+}
+
+#sample-words-container {
+  padding-left: 10px;
+  margin-top: 10px;
+  position: relative;
+}
+
+.word-list {
+  background: #fff;
+  color: #291E14;
+  height: 35px;
+  min-width: 120px;
+  font-size: 18px;
+  border-radius: 3px;
+}
+
+.word-list:focus {
+  outline: 0;
+}
+
+#english-words {
+  position: absolute;
+  top: 0;
+  display: none;
+}
+
+.sample-menu-btn {
+  height: 35px;
+  width: 35px;
+  background: #291E14;
+  border: 1px #291e14;
+  border-radius: 3px;
+}
+

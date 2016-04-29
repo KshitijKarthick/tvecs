@@ -70,8 +70,9 @@
                      var item = node.id;
                      var links = graph.getLinks(node.id);
                      var addNode = function(data){
-                       if(data == null)
-                         tvecsAlert("Sorry! Related words not found &#9785;");
+                       if(data == null) {
+                          tvecsAlert("Sorry! Related words not found &#9785;");
+                       }
                        else {
                          for(var i=0;i<data.length;i++){
                            var flag = true;
@@ -207,6 +208,7 @@
               graphNode = document.getElementById('svg-container');
               graphNode.removeChild(graphNode.firstChild);
               main();
+              changeWordList();
               console.log(language);
             });
         }
@@ -241,6 +243,31 @@
           $('#myModal').modal('toggle');
         }
 
+        function getSampleWord(lang) {
+          if(lang === 'english') {
+            var word = $("#english-words-list option:selected").text();
+          }
+          else if(lang === 'hindi') {
+            var word = $("#hindi-words-list option:selected").text();
+          }
+          console.log(word);
+          language = lang;
+          rootWords[language] = word;
+          graphNode = document.getElementById('svg-container');
+          graphNode.removeChild(graphNode.firstChild);
+          main();
+        }
+
+        function changeWordList() {
+          if (language === "english") {
+            document.getElementById("english-words").style.display = "block";
+            document.getElementById("hindi-words").style.display = "none";
+          }
+          else {
+            document.getElementById("english-words").style.display = "none";
+            document.getElementById("hindi-words").style.display = "block";
+          }
+        }
 
     </script>
 </head>
@@ -275,13 +302,31 @@
             </span>
         </div>
       </div>
-
-    <!--Themes functionlity-Coming Soon-->
-      <!-- <div id="theme-menu">
-        <div class="menu-heading">Themes</div>
-        <input type="radio" name="theme" value="black" id="r5"></input><label for="r5"><span></span>Eerie Black</label><br />
-        <input type="radio" name="theme" value="white" id="r6"></input><label for="r6"><span></span>White</label><br />
-      </div> -->
+      <div id="words-menu">
+        <div class="menu-heading">Sample Words</div>
+        <div id="sample-words-container">
+          <div id="hindi-words">
+            <select id="hindi-words-list" class="word-list">
+              <option value="स्नेह">स्नेह</option>
+              <option value="चीन">चीन</option>
+              <option value="मौसम">मौसम</option>
+              <option value="मोबाइल">मोबाइल</option>
+              <option value="कार्यक्रम">कार्यक्रम</option>
+            </select>
+            <button class="sample-menu-btn" onclick="getSampleWord('hindi')"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+          </div>
+          <div id="english-words">
+            <select id="english-words-list" class="word-list">
+              <option value="school" selected="selected">school</option>
+              <option value="samsung">samsung</option>
+              <option value="god">god</option>
+              <option value="india">india</option>
+              <option value="independence">independence</option>
+            </select>
+            <button class="sample-menu-btn" onclick="getSampleWord('english')"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </div>
       <div id="bottom-menu">
         <button id="reset-btn" class="bottom-btns" onclick="resetWindow()">Reset</button>
       </div>
