@@ -5,11 +5,10 @@ Module used to specify abstract Preprocessor Class.
 
 - BasePreprocessor is an Abstract Base Class with basic abstract preprocessor functionality.
 """
-
+import os
 import codecs
 import fileinput
 import itertools
-import os
 from abc import ABCMeta, abstractmethod
 
 from modules.logger import init_logger as log

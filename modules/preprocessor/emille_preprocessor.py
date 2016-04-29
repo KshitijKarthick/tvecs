@@ -1,11 +1,9 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
 """EMILLE Corpus Preprocessor which inherits from BasePreprocessor."""
-
-from collections import defaultdict
-
 import regex as re
 from bs4 import BeautifulSoup
+from collections import defaultdict
 from nltk.tokenize import sent_tokenize
 
 from base_preprocessor import BasePreprocessor

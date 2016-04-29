@@ -1,12 +1,10 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
 """Leipzig Preprocessor which inherits from BasePreprocessor."""
-
-import codecs
 import os
-from collections import defaultdict
-
+import codecs
 import regex as re
+from collections import defaultdict
 
 from base_preprocessor import BasePreprocessor
 from modules.logger import init_logger as log
@@ -80,7 +78,7 @@ class LeipzigPreprocessor(BasePreprocessor):
             line_split_list = file.read().split("\n")
             tab_split_list = [
                 line.split('\t')[1] for line in line_split_list
-                ]
+            ]
             extracted_corpus = "\n".join(tab_split_list)
             with codecs.open(
                     os.path.join(
