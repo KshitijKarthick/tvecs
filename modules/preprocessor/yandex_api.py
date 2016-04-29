@@ -11,29 +11,27 @@ import json
 import codecs
 import requests
 
-def get_valid_translation(word, from_to):
 
+def get_valid_translation(word, from_to):
     """
     Ensure the translation is valid.
+
     Return only single word translations.
     If multiple words translations, return None.
 
     API Documentation
         :param word: word to be translated
-        :param from_to: language codes pair representing the source and target language
-
+        :param from_to: language codes pair representing the src/target lang
         :type language: String
         :type word: String
-
         :return: translated word
         :rtype: :class:`String`
-
     """
-    
-    tr_word_2=get_translation(word, from_to)
-    if (len(tr_word_2.split()))>1:
-       tr_word_2 = None
+    tr_word_2 = get_translation(word, from_to)
+    if (len(tr_word_2.split())) > 1:
+        tr_word_2 = None
     return tr_word_2
+
 
 def get_translation(word, from_to):
     """
@@ -41,16 +39,12 @@ def get_translation(word, from_to):
 
     API Documentation
         :param word: word to be translated
-        :param from_to: language codes pair representing the source and target language
-
+        :param from_to: language codes pair representing the src/target lang
         :type language: String
         :type word: String
-
         :return: translated word
         :rtype: :class:`String`
-
     """
-
     base_url = 'https://translate.yandex.net/api/v1.5/tr.json/translate'
     options = {
         'lang': from_to,
@@ -58,6 +52,7 @@ def get_translation(word, from_to):
         'text': word
     }
     return json.loads(requests.get(base_url, params=options).text)["text"][0]
+
 
 def yandex_api(lang_translate, input_score_path, output_score_path):
     """
@@ -85,6 +80,7 @@ def yandex_api(lang_translate, input_score_path, output_score_path):
             outfile.write("\n".join(output_data))
 
 if __name__ == '__main__':
+    log.set_logger_normal(LOGGER)
     dir_path = os.path.join(
         'data', 'evaluate'
     )
@@ -96,13 +92,13 @@ if __name__ == '__main__':
         ('Mtruk.txt', dir_path)
     ]
     for (dataset_fname, dataset_dir) in datasets:
-        print "Processing %s" %(dataset_fname)
+        print "Processing %s" % dataset_fname
         yandex_api(
             lang_translate='en-hi',
             input_score_path=os.path.join(
                 dataset_dir, dataset_fname
             ),
             output_score_path=os.path.join(
-                dataset_dir, '%s_translate' %(dataset_fname)
+                dataset_dir, '%s_translate' % dataset_fname
             )
         )
