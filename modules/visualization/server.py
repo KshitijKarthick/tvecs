@@ -4,14 +4,15 @@
 
 import os
 import json
-from PyDictionary import PyDictionary
 import codecs
 import cherrypy
 import ConfigParser
 from gensim.models import Word2Vec
+from PyDictionary import PyDictionary
 from jinja2 import Environment, FileSystemLoader
-from modules.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
+
 from modules.preprocessor import yandex_api as yandex
+from modules.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
 
 
 class Server():

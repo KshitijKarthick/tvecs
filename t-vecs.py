@@ -212,11 +212,19 @@ def args_parser():
             log.set_logger_silent(logger)
 
         # Load a precomputed model for trsl
-        elif args.model1 and args.model2 and args.language1 and args.language2:
+        if args.model1 and args.model2 and args.language1 and args.language2:
+            logger.info(
+                'Loading Model of %s :%s' % (args.language1, args.model1)
+            )
+            model_1 = Word2Vec.load(args.model1)
+            logger.info(
+                'Loading Model of %s :%s' % (args.language2, args.model2)
+            )
+            model_2 = Word2Vec.load(args.model2)
             order_of_evaluation = order_of_tvex_calls[2:]
             tvex_calls['model_generator']['result'] = (
-                Word2Vec.load(args.model1),
-                Word2Vec.load(args.model2)
+                model_1,
+                model_2
             )
 
         # Build trsl using precomputed word sets and a config file
@@ -239,11 +247,9 @@ def args_parser():
     old_time = time.time()
     evaluate(logger, args)
     vm = tvex_calls['vector_space_mapper']['result']
-    logger.info(
-        "Avg Similarity Test Score :%s" % vm.obtain_avg_similarity_from_test(
-            test_path=os.path.join(
-                'data', 'bilingual_dictionary', 'english_hindi_test_bd'
-            )
+    vm.obtain_avg_similarity_from_test(
+        test_path=os.path.join(
+            'data', 'bilingual_dictionary', 'english_hindi_test_bd'
         )
     )
     new_time = time.time()
@@ -263,7 +269,7 @@ def evaluate(logger, args):
                     fpath = corpus.keys()[0]
                     preprocessor_type = corpus.values()[0]
                     fname = ntpath.split(fpath)[1]
-                    logger.info("Preprocessing %s\t=> %s" % (language, fpath))
+                    logger.info("Preprocessing %s : %s" % (language, fpath))
                     res.append(
                         func(
                             corpus_fname=fname,

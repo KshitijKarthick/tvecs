@@ -4,11 +4,14 @@
 import os
 import codecs
 import logging
-import scipy.spatial.distance as dist
 from gensim.models import Word2Vec
+import scipy.spatial.distance as dist
 from sklearn.linear_model import RidgeCV
+
 from modules.bilingual_generator import bilingual_generator as bg
 from modules.logger import init_logger as log
+
+LOGGER = log.initialise('T-Vecs.VectorSpaceMapper')
 
 
 class VectorSpaceMapper(object):
@@ -37,7 +40,10 @@ class VectorSpaceMapper(object):
 
     def __init__(self, model_1, model_2, bilingual_dict):
         """Constructor initialization for the vector space mapper."""
-        self.logger = log.initialise('T-Vecs.VectorSpaceMapper')
+        try:
+            self.logger = LOGGER
+        except NameError:
+            self.logger = log.initialise('T-Vecs.VectorSpaceMapper')
         self.model_1 = model_1
         self.model_2 = model_2
         self.lt = None
@@ -200,11 +206,15 @@ class VectorSpaceMapper(object):
             if similarity is not None:
                 count += 1
                 avg += similarity
-        return avg / count
+        score = avg / count
+        self.logger.info(
+            'Avg Test Similarity Score: %s' % score
+        )
+        return score
 
 
 if __name__ == '__main__':
-
+    log.set_logger_normal(LOGGER)
     model_1 = Word2Vec.load(
         os.path.join('data', 'models', 't-vex-english-model')
     )
@@ -218,6 +228,6 @@ if __name__ == '__main__':
     )
     vm = VectorSpaceMapper(model_1, model_2, bilingual_dict)
     vm.map_vector_spaces()
-    print vm.obtain_avg_similarity_from_test(test_path=os.path.join(
+    vm.obtain_avg_similarity_from_test(test_path=os.path.join(
         'data', 'bilingual_dictionary', 'english_hindi_test_bd'
     ))

@@ -1,12 +1,10 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
 """Module to Evaluate T-Vecs model against Human Semantic Similarity Score."""
-
-import codecs
 import os
-
-from gensim.models import Word2Vec
+import codecs
 from scipy.stats import pearsonr
+from gensim.models import Word2Vec
 
 from modules.logger import init_logger as log
 from modules.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
@@ -89,6 +87,7 @@ def _load_vector_space_mapper(model_1_path, model_2_path, bilingual_path):
         return vm
 
 if __name__ == '__main__':
+    log.set_logger_normal(LOGGER)
     LOGGER.info(
         "Evaluation of T-Vecs Model against Human Semantic Similarity Score:"
     )

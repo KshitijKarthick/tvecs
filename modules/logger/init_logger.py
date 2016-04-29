@@ -1,11 +1,14 @@
 """Initialise logging functionality."""
-
+import sys
 import logging
 
 
 def initialise(handler_name):
     """Initialise the logger based on user preference."""
-    logging.basicConfig()
+    logging.basicConfig(
+        stream=sys.stdout,
+        format='%(asctime)s-%(levelname)s-%(name)s-%(message)s'
+    )
     logger = logging.getLogger(handler_name)
     return logger
 
@@ -26,5 +29,5 @@ def set_logger_silent(logger):
 
 
 def set_logger_normal(logger):
-    """Set Logger to info level"""
+    """Set Logger to info level."""
     set_logger_level(logging.INFO, logger)

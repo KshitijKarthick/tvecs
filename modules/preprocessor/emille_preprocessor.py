@@ -1,15 +1,15 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
 """EMILLE Corpus Preprocessor which inherits from BasePreprocessor."""
-
-from collections import defaultdict
-
 import regex as re
 from bs4 import BeautifulSoup
+from collections import defaultdict
 from nltk.tokenize import sent_tokenize
 
 from base_preprocessor import BasePreprocessor
 from modules.logger import init_logger as log
+
+LOGGER = log.initialise('T-Vecs.Preprocessor')
 
 
 class EmilleCorpusPreprocessor(BasePreprocessor):
@@ -30,7 +30,10 @@ class EmilleCorpusPreprocessor(BasePreprocessor):
         limit=None
     ):
         """Constructor which initializes the BasePreprocessor constructor."""
-        self.logger = log.initialise('T-Vecs.Preprocessor')
+        try:
+            self.logger = LOGGER
+        except NameError:
+            self.logger = log.initialise('T-Vecs.Preprocessor')
         self.language = language
         # If language is not specified, regex pattern for split is default ''
         self.lang_split_sent = defaultdict(lambda: u'')
@@ -107,3 +110,6 @@ class EmilleCorpusPreprocessor(BasePreprocessor):
         return sentence.split()
 
 BasePreprocessor.register(EmilleCorpusPreprocessor)
+
+if __name__ == '__main__':
+    log.set_logger_normal(LOGGER)

@@ -8,9 +8,7 @@ Used to generate Word2Vec Models for individual languages after preprocessing.
 - Word2Vec Model Building
     - Gensim Word2Vec SkipGram implementation
 """
-
 import os
-
 import gensim
 
 from modules.logger import init_logger as log
@@ -108,6 +106,7 @@ def construct_model(
 
 
 if __name__ == '__main__':
+    log.set_logger_normal(LOGGER)
     generate_model(
         language='hindi',
         corpus_fname='all.txt',
