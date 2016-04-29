@@ -218,7 +218,8 @@
         }
 
         function getWord(wordTextBox) {
-          var newWord = wordTextBox[0].value;
+          var enteredWord = wordTextBox[0].value;
+          newWord = enteredWord.toLowerCase();
           if(newWord !== "") {
             rootWords[language] = newWord;
             graphNode = document.getElementById('svg-container');
