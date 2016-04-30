@@ -54,7 +54,7 @@ class VectorSpaceMapper(object):
             self.model_1, bilingual_dict.keys()
         )
         self.logger.debug('Extracting vocabulary and vector list from model 2')
-        self.vector_2_list, self.word_2_list = self._extract_vectors_and_words(
+        self.vector_2_list, self.word_2_list = VectorSpaceMapper._extract_vectors_and_words(
             self.model_2, bilingual_dict.values()
         )
         # Remove corresponding elements if any vectors were missing from models
@@ -71,7 +71,8 @@ class VectorSpaceMapper(object):
             ]
         )
 
-    def _extract_vectors_and_words(self, model, word_list):
+    @staticmethod
+    def _extract_vectors_and_words(model, word_list):
         vector_list = []
         for word in word_list:
             try:
@@ -79,7 +80,7 @@ class VectorSpaceMapper(object):
             except KeyError:
                 vec = None
             vector_list.append(vec)
-        return (vector_list, word_list)
+        return vector_list, word_list
 
     def map_vector_spaces(self):
         """
@@ -135,6 +136,8 @@ class VectorSpaceMapper(object):
         API Documentation:
             :param word: Input a word from Model 1, recommendations provided from Model 2.
             :param topn: Number of recommendations to be provided.
+            :param pretty_print: Pretty Print the recommendations correctly.
+            :type pretty_print: Boolean
             :type word: String expected [ usually unicode preferred ]
             :type topn: Integer
             :return: Topn recommendations from Model 2.
@@ -196,10 +199,10 @@ class VectorSpaceMapper(object):
         self.logger.info(
             'Avg similarity score measured against testing bilingual dictionary'
         )
-        bilingual_dict = bg.load_bilingual_dictionary(test_path)
+        bilingual_dictionary = bg.load_bilingual_dictionary(test_path)
         avg = 0.0
         count = 0.0
-        for tup in bilingual_dict:
+        for tup in bilingual_dictionary:
             word_1 = tup[0]
             word_2 = tup[1]
             similarity = self.obtain_cosine_similarity(word_1, word_2)
@@ -208,7 +211,7 @@ class VectorSpaceMapper(object):
                 avg += similarity
         score = avg / count
         self.logger.info(
-            'Avg Test Similarity Score: %s' % score
+            'Avg Test Similarity Score: %s', score
         )
         return score
 
