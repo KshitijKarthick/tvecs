@@ -14,16 +14,9 @@ from modules.preprocessor import yandex_api as yandex
 from modules.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
 
 
-class Server():
+class Server(object):
     """
     Server Configuration for t-vex.
-
-    API Documentation:
-        :param language: Language used for same space recommendations.
-        :param cross_lang1: Language 1 used for cross lingual recommendations.
-        :param cross_lang2: Language 2 used for cross lingual recommendations.
-        :param vm: Vector Space Mapper between cross_lang1 and cross_lang2.
-        :param model: Model loaded for lang param same space recommendations.
 
     .. seealso::
         * :mod:`cherrypy`
@@ -32,8 +25,8 @@ class Server():
     def __init__(self):
         """Initialization the Language and Model."""
         self.model = {
-            'english': self._load_model('english'),
-            'hindi': self._load_model('hindi')
+            'english': Server._load_model('english'),
+            'hindi': Server._load_model('hindi')
         }
         self.cross_lang_vm = {
             ('english', 'hindi'): self._create_vector_space_mapper(
@@ -105,17 +98,11 @@ class Server():
         if word in self.cached_dictionary:
             return json.dumps(self.cached_dictionary[word])
         else:
-            if(language == 'hindi'):
+            if language == 'hindi':
                 trword = yandex.get_translation(word, "hi-en")
 
             dictionary = PyDictionary(trword)
-            meanings = []
-            meanings.append(trword)
-            meanings.append(dictionary.meaning(trword))
-            try:
-                meanings.append(dictionary.meaning(trword))
-            except:
-                meanings.append(None)
+            meanings = [trword, dictionary.meaning(trword)]
             if meanings[1]:
                 self.cached_dictionary[word] = meanings
                 with codecs.open(
@@ -147,7 +134,7 @@ class Server():
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
         model = self.model.get(language)
         if model is not None:
-            data = self._recommend(
+            data = Server._recommend(
                 word, int(limit), fn=model.most_similar
             )
         else:
@@ -184,7 +171,7 @@ class Server():
         vm = self.cross_lang_vm.get((lang1, lang2))
         data = None
         if vm is not None:
-            data = self._recommend(
+            data = Server._recommend(
                 word, int(topn), fn=vm.get_recommendations_from_word
             )
         return data
@@ -195,9 +182,9 @@ class Server():
         Create Vector Space Mapper between Languages.
 
         API Documentation
-            :param language1: Language 1 used for
+            :param lang1: Language 1 used for
                 building :class:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper` object
-            :param language2: Language 2 used for
+            :param lang2: Language 2 used for
                 building :class:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper` object
             :return: JSON with successful/failure message
             :rtype: JSON
@@ -228,7 +215,8 @@ class Server():
                 vm.map_vector_spaces()
         return vm
 
-    def _recommend(self, word, limit, fn):
+    @staticmethod
+    def _recommend(word, limit, fn):
         """Vector Space Mapper recommend functionality."""
         try:
             vec_list = fn(word, topn=limit)
@@ -245,7 +233,8 @@ class Server():
             data = json.dumps(None)
         return data
 
-    def _load_model(self, language):
+    @staticmethod
+    def _load_model(language):
         """Used to load Word2Vec Model."""
         return Word2Vec.load(
             os.path.join('data', 'models', 't-vex-%s-model' % language)
