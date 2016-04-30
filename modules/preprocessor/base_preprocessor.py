@@ -57,7 +57,7 @@ class BasePreprocessor(object):
         self.encoding = encoding
         if need_preprocessing is True:
             self.preprocessed_corpus_path = os.path.join(
-                corpus_dir_path, '%s.preprocessed' % (corpus_fname)
+                corpus_dir_path, '%s.preprocessed' % corpus_fname
             )
             if os.path.exists(self.preprocessed_corpus_path) is False:
                 with codecs.open(
@@ -72,10 +72,10 @@ class BasePreprocessor(object):
                     )
                     self.logger.debug('Saved Intermediate Preprocessed File')
             else:
-                self.logger.info('Preprocessed Corpus found: %s.preprocessed' % (
-                    corpus_fname
-                ))
-            self.preprocessed_corpus_fname = '%s.preprocessed' % (corpus_fname)
+                self.logger.info(
+                    'Preprocessed Corpus found: %s.preprocessed', corpus_fname
+                )
+            self.preprocessed_corpus_fname = '%s.preprocessed' % corpus_fname
         else:
             self.logger.info('Utilising Preprocessed Corpus: %s' % (
                 self.corpus_fname
@@ -103,7 +103,7 @@ class BasePreprocessor(object):
             self.logger.debug("Tokenizing Corpus into Sentences")
             sentence_tokenized = self._tokenize_sentences(data)
             sentence_tokenized = (
-                '%s\n' % (sentence) for sentence in sentence_tokenized
+                '%s\n' % sentence for sentence in sentence_tokenized
             )
             file.writelines(sentence_tokenized)
 
