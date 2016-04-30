@@ -36,6 +36,8 @@ def generate_model(
         :type corpus_dir_path: basestring
         :param output_dir_path: Output Dir Path where model is stored
         :type output_dir_path: basestring
+        :param output_fname: Output filename to be generated.
+        :type output_fname: basestring
         :param need_preprocessing: Runs Preprocess with the same flag [ Default True ]
         :type need_preprocessing: bool [ True/False ]
         :param iterations: Number of iterations for Word2Vec.
@@ -47,7 +49,7 @@ def generate_model(
     preprocessor_obj = pre.HcCorpusPreprocessor(
         corpus_fname=corpus_fname,
         corpus_dir_path=corpus_dir_path,
-        need_preprocessing=True,
+        need_preprocessing=need_preprocessing,
         language=language
     )
     return construct_model(
@@ -91,12 +93,12 @@ def construct_model(
         os.makedirs(output_dir_path)
     if output_fname is None:
         output_path = os.path.join(
-            output_dir_path, 't-vex-%s-model' % (language)
+            output_dir_path, 't-vex-%s-model' % language
         )
     else:
         output_path = os.path.join(output_dir_path, output_fname)
     model.save(output_path)
-    LOGGER.info("Model saved at %s" % (output_path))
+    LOGGER.info("Model saved at %s", output_path)
     return model
 
 
