@@ -9,6 +9,8 @@ from collections import defaultdict
 from base_preprocessor import BasePreprocessor
 from modules.logger import init_logger as log
 
+LOGGER = log.initialise('T-Vecs.Preprocessor')
+
 
 class LeipzigPreprocessor(BasePreprocessor):
     """
@@ -65,7 +67,7 @@ class LeipzigPreprocessor(BasePreprocessor):
             self,
             corpus_fname,
             corpus_dir_path,
-            encoding
+            encoding='utf-8'
     ):
         """
         Extract valid content from the Corpus.
@@ -76,7 +78,7 @@ class LeipzigPreprocessor(BasePreprocessor):
         with codecs.open(
             os.path.join(
                 corpus_dir_path, corpus_fname
-            ), 'r', encoding='utf-8'
+            ), 'r', encoding=encoding
         ) as file:
             line_split_list = file.read().split("\n")
             tab_split_list = [
@@ -85,7 +87,7 @@ class LeipzigPreprocessor(BasePreprocessor):
             extracted_corpus = "\n".join(tab_split_list)
             with codecs.open(
                     os.path.join(
-                        corpus_dir_path, '%s.preprocessed' % (corpus_fname)
+                        corpus_dir_path, '%s.preprocessed' % corpus_fname
                     ), 'w', encoding='utf-8'
             ) as extracted_corpus_file:
                 extracted_corpus_file.write(extracted_corpus)
