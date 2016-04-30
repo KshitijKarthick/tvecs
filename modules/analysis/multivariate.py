@@ -75,7 +75,7 @@ def multivariate_analyse():
                 m_2_path = os.path.join('data', 'multivariate', 'models')
                 if not os.path.exists(os.path.join(m_1_path, m_1_fname)):
                     LOGGER.info(
-                        "Constructing Model 1 with corpus size: %s" % corpus
+                        "Constructing Model 1 with corpus size: %s", corpus
                     )
                     model_1 = model_generation.construct_model(
                         HcCorpusPreprocessor(
@@ -94,14 +94,14 @@ def multivariate_analyse():
                     if not os.path.exists(os.path.join(m_1_path)):
                         os.makedirs(m_1_path)
                     LOGGER.info(
-                        "Loading Model 1 with corpus size: %s" % corpus
+                        "Loading Model 1 with corpus size: %s", corpus
                     )
                     model_1 = model_generation.gensim.models.Word2Vec.load(
                         os.path.join(m_1_path, m_1_fname)
                     )
                 if not os.path.exists(os.path.join(m_2_path, m_2_fname)):
                     LOGGER.info(
-                        "Constructing Model 2 with corpus size: %s" % corpus
+                        "Constructing Model 2 with corpus size: %s", corpus
                     )
                     model_2 = model_generation.construct_model(
                         HcCorpusPreprocessor(
@@ -121,16 +121,18 @@ def multivariate_analyse():
                     if not os.path.exists(os.path.join(m_1_path)):
                         os.makedirs(m_1_path)
                     LOGGER.info(
-                        "Loading Model 2 with corpus size: %s" % corpus
+                        "Loading Model 2 with corpus size: %s", corpus
                     )
                     model_2 = model_generation.gensim.models.Word2Vec.load(
                         os.path.join(m_2_path, m_2_fname)
                     )
                 m_exec_time = time.time() - m_old_time
                 for bilingual in bilingual_size:
-                    LOGGER.info("Corpus: %s with Bilingual Size: %s" % (
-                        corpus, bilingual
-                    ))
+                    LOGGER.info(
+                        "Corpus: %s with Bilingual Size: %s",
+                        corpus,
+                        bilingual
+                    )
                     old_time = time.time()
                     vsm = VectorSpaceMapper(
                         model_1=model_1,
