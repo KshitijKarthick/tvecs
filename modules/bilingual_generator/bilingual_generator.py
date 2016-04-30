@@ -27,7 +27,7 @@ def load_bilingual_dictionary(bilingual_dictionary_path, encoding='utf-8'):
         :rtype: List
     """
     LOGGER.info(
-        'Loading Bilingual Dictionary: %s' % bilingual_dictionary_path
+        'Loading Bilingual Dictionary: %s', bilingual_dictionary_path
     )
     with codecs.open(
         bilingual_dictionary_path, 'r', encoding=encoding
@@ -50,7 +50,9 @@ def build_sparse_bilingual_dictionary(
         sample_size=1
 ):
     """
-    Create Sparse Bilingual Dictionary from clustering pre-existing Bilingual Dictionary
+    Create Sparse Bilingual Dictionary.
+
+    - Cluster pre-existing Bilingual Dictionary and sample from the same.
 
     API Documentation
         :param bilingual_dictionary_path: Path for Bilingual Dictionary.
@@ -72,7 +74,7 @@ def build_sparse_bilingual_dictionary(
         * :mod:`modules.bilingual_generator.clustering`
     """
     LOGGER.info(
-        'Building Bilingual Dictionary from: %s' % bilingual_dictionary_path
+        'Building Bilingual Dictionary from: %s', bilingual_dictionary_path
     )
     bilingual_dict = dict(load_bilingual_dictionary(
         bilingual_dictionary_path=bilingual_dictionary_path,
@@ -95,7 +97,7 @@ def build_sparse_bilingual_dictionary(
         os.path.join(output_path, output_fname), 'w', encoding=encoding
     ) as f:
         LOGGER.info(
-            'Save the Bilingual Dictionary: %s' % os.path.join(
+            'Save the Bilingual Dictionary: %s', os.path.join(
                 output_path, output_fname
             )
         )
@@ -108,6 +110,8 @@ if __name__ == '__main__':
         os.path.join('data', 'models', 't-vex-english-model')
     )
     build_sparse_bilingual_dictionary(
-        bilingual_dictionary_path=os.path.join('data', 'bilingual_dictionary', 'english_hindi_train_bd'),
+        bilingual_dictionary_path=os.path.join(
+            'data', 'bilingual_dictionary', 'english_hindi_train_bd'
+        ),
         model=model,
     )
