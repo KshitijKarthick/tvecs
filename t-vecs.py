@@ -44,7 +44,7 @@ def model_generator(
     preprocessed_corpus,
     language,
     output_dir_path=os.path.join(".", "data", "models"),
-        iterations=5
+    iterations=5
 ):
     """
     Wrapper function for model_generator module.
@@ -214,11 +214,11 @@ def args_parser():
         # Load a precomputed model for trsl
         if args.model1 and args.model2 and args.language1 and args.language2:
             logger.info(
-                'Loading Model of %s :%s' % (args.language1, args.model1)
+                'Loading Model of %s :%s', args.language1, args.model1
             )
             model_1 = Word2Vec.load(args.model1)
             logger.info(
-                'Loading Model of %s :%s' % (args.language2, args.model2)
+                'Loading Model of %s :%s', args.language2, args.model2
             )
             model_2 = Word2Vec.load(args.model2)
             order_of_evaluation = order_of_tvex_calls[2:]
@@ -246,8 +246,8 @@ def args_parser():
 
     old_time = time.time()
     evaluate(logger, args)
-    vm = tvex_calls['vector_space_mapper']['result']
-    vm.obtain_avg_similarity_from_test(
+    tvecs_vm = tvex_calls['vector_space_mapper']['result']
+    tvecs_vm.obtain_avg_similarity_from_test(
         test_path=os.path.join(
             'data', 'bilingual_dictionary', 'english_hindi_test_bd'
         )
@@ -263,13 +263,13 @@ def evaluate(logger, args):
     for func_name in order_of_evaluation:
         func = tvex_calls[func_name]['func']
         if func_name is "preprocessor":
-            def preprocess_multiple_corpora(corpus_list, language):
+            def _preprocess_multiple_corpora(corpus_list, language):
                 res = []
                 for corpus in corpus_list:
                     fpath = corpus.keys()[0]
                     preprocessor_type = corpus.values()[0]
                     fname = ntpath.split(fpath)[1]
-                    logger.info("Preprocessing %s : %s" % (language, fpath))
+                    logger.info("Preprocessing %s : %s", language, fpath)
                     res.append(
                         func(
                             corpus_fname=fname,
@@ -282,10 +282,10 @@ def evaluate(logger, args):
                     )
                 return it.chain(*res)
             tvex_calls[func_name]['result'] = (
-                preprocess_multiple_corpora(
+                _preprocess_multiple_corpora(
                     corpus_list=args.corpus1, language=args.language1
                 ),
-                preprocess_multiple_corpora(
+                _preprocess_multiple_corpora(
                     corpus_list=args.corpus2, language=args.language2
                 )
             )
