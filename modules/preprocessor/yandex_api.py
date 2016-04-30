@@ -14,7 +14,7 @@ import requests
 from modules.logger import init_logger as log
 
 
-LOGGER = log.initialise('T-Vecs.BilingualDictionary')
+LOGGER = log.initialise('T-Vecs.Yandex')
 
 
 def get_valid_translation(word, from_to):
@@ -27,7 +27,7 @@ def get_valid_translation(word, from_to):
     API Documentation
         :param word: word to be translated
         :param from_to: language codes pair representing the src/target lang
-        :type language: String
+        :type from_to: String
         :type word: String
         :return: translated word
         :rtype: :class:`String`
@@ -35,6 +35,9 @@ def get_valid_translation(word, from_to):
     tr_word_2 = get_translation(word, from_to)
     if (len(tr_word_2.split())) > 1:
         tr_word_2 = None
+    LOGGER.debug(
+        'Word: %s Options: %s Translation: %s', word, from_to, tr_word_2
+    )
     return tr_word_2
 
 
@@ -45,7 +48,7 @@ def get_translation(word, from_to):
     API Documentation
         :param word: word to be translated
         :param from_to: language codes pair representing the src/target lang
-        :type language: String
+        :type from_to: String
         :type word: String
         :return: translated word
         :rtype: :class:`String`
@@ -67,11 +70,16 @@ def yandex_api(lang_translate, input_score_path, output_score_path):
     - Yandex Api Key, lang for translation needs to be provided
     """
     output_data = []
+    LOGGER.info(
+        "Input Score Path: %s Output Score Path: %s",
+        input_score_path,
+        output_score_path
+    )
     with codecs.open(input_score_path, 'r', encoding='utf-8') as file:
         with codecs.open(output_score_path, 'w', encoding='utf-8') as outfile:
             for line in file:
                 word_1, word_2, score = line.split()
-                tr_word_2 = get_valid_translation(word_2, "en-hi")
+                tr_word_2 = get_valid_translation(word_2, lang_translate)
 
                 if tr_word_2 is not None:
                     try:
