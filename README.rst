@@ -20,6 +20,25 @@ Prerequisites
 -  Download nltk\_data using nltk.download() -> only tokenizers required
 -  Download corpus and extract in specified directory
 
+
+Install as a Package
+~~~~~~~~~~~~~~~~~~~~
+
+::
+
+        # Install package
+        sudo python setup.py install
+
+        # Usage from cmd line
+        tvecs -c ./config.json
+
+        tvecs -l1 english -l2 hindi -m1 ./data/models/t-vex-english-models -m2 ./data/models/t-vex-hindi-models
+
+        # Usage from python
+
+        import tvecs.vector_space_mapper.vector_space_mapper as vm
+
+
 Download Corpus
 ~~~~~~~~~~~~~~~
 
@@ -44,15 +63,15 @@ Execution
 
       # Preprocessing, Model Generation, Bilingual Generation, Vector Space Mapping between two languages english hindi from the corpus using the config file
 
-        python2 -im t-vecs -c config.json
+        python2 -im tvecs -c config.json
 
         # [ utilise the dictionary tvex_calls which contains results of every step performed ]
 
       # Bilingual generation, Vector space mapping between two languages english hindi providing the models
 
-        python2 -im t-vecs -l1 english -l2 hindi -m1 ./data/models/t-vex-english-model -m2 ./data/models/t-vex-hindi-model
+        python2 -im tvecs -l1 english -l2 hindi -m1 ./data/models/t-vex-english-model -m2 ./data/models/t-vex-hindi-model
 
-        python2 -im t-vecs -c config.json
+        python2 -im tvecs -c config.json
 
         # [ utilise the dictionary tvex_calls which contains results of every step performed ]
 
@@ -64,7 +83,7 @@ T-Vecs Driver Module Cmd Line Args
 
 ::
 
-    $ python2 -m t-vecs --help
+    $ python2 -m tvecs --help
 
     usage: t-vecs.py [-h] [-v] [-s] [-i ITER] [-m1 MODEL1] [-m2 MODEL2]
                      [-l1 LANGUAGE1] [-l2 LANGUAGE2] [-c CONFIG]
@@ -99,7 +118,7 @@ Visualisation of vector space
 
 ::
 
-    python2 -m modules.visualization.server
+    python2 -m tvecs.visualization.server
     [ Open browser to localhost:5000 for visualization ]
     [ Ensure model generation is completed before running visualization ]
 
@@ -109,13 +128,13 @@ Execution of Individual Modules
 ::
 
     # bilingual dictionary generation -> clustering vectors from trained model
-    python2 -m modules.bilingual_generator.clustering
+    python2 -m tvecs.bilingual_generator.clustering
 
     # model generation
-    python2 -m modules.model_generator.model_generation
+    python2 -m tvecs.model_generator.model_generation
 
     # vector space mapping [ utilise the object vm to obtain recommendations
-    python2 -m modules.vector_space_mapper.vector_space_mapper
+    python2 -m tvecs.vector_space_mapper.vector_space_mapper
 
 Execution of Unit Tests
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
