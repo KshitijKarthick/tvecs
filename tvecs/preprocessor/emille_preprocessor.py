@@ -1,19 +1,20 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
-"""HC Corpus Preprocessor which inherits from BasePreprocessor."""
+"""EMILLE Corpus Preprocessor which inherits from BasePreprocessor."""
 import regex as re
+from bs4 import BeautifulSoup
 from collections import defaultdict
 from nltk.tokenize import sent_tokenize
 
 from base_preprocessor import BasePreprocessor
-from modules.logger import init_logger as log
+from tvecs.logger import init_logger as log
 
 LOGGER = log.initialise('T-Vecs.Preprocessor')
 
 
-class HcCorpusPreprocessor(BasePreprocessor):
+class EmilleCorpusPreprocessor(BasePreprocessor):
     """
-    Hc-Corpus Preprocessor which preprocesses the Hc-Corpus.
+    Emille Corpus Preprocessor which preprocesses the EMILLE Corpus.
 
     .. seealso::
         * :class:`modules.preprocessor.base_preprocessor.BasePreprocessor`
@@ -24,8 +25,8 @@ class HcCorpusPreprocessor(BasePreprocessor):
         corpus_fname,
         corpus_dir_path='.',
         encoding='utf-8',
-        need_preprocessing=False,
         language='english',
+        need_preprocessing=False,
         limit=None
     ):
         """Constructor which initializes the BasePreprocessor constructor."""
@@ -43,8 +44,8 @@ class HcCorpusPreprocessor(BasePreprocessor):
         # Store language specific regex pattern in the defaultdict
         for k, v in lang_split_sent:
             self.lang_split_sent[k] = v
-        self.logger.info('HcCorpusPreprocessor utilised')
-        super(HcCorpusPreprocessor, self).__init__(
+        self.logger.info('EmilleCorpusPreprocessor utilised')
+        super(EmilleCorpusPreprocessor, self).__init__(
             corpus_fname,
             corpus_dir_path=corpus_dir_path,
             encoding=encoding,
@@ -53,29 +54,25 @@ class HcCorpusPreprocessor(BasePreprocessor):
         )
 
     def _extract_corpus_data(self, data):
-        """Extract 4th column of corpus which contains the body."""
-        line_split_list = data.split('\n')
-        corpus_data = []
-        for i in range(len(line_split_list)):
-            tab_split_list = line_split_list[i].split('\t')
-            for j in range(len(tab_split_list)):
-                if j % 4 == 0 and j != 0:
-                    corpus_data.append(tab_split_list[j].strip())
-        return ". ".join(corpus_data)
+        """Extract contents of the 'p' tags which contain the body."""
+        soup = BeautifulSoup(data, "html5lib")
+        ptags = soup.find_all('p')
+        content = []
+        for index in range(len(ptags)):
+            content.append(". ".join(list(ptags[index].strings)))
+        return ". ".join(content)
 
     def _clean_word(self, word):
         """
         Preprocess words after tokenizing words from sentences.
 
-        - Remove apostrophes ['s, s'].
-        - Bring to lowercase.
         - Remove punctuations.
         - Remove English words from Non-English corpus data.
         """
         if self.language is "english":
-            regex = ur"((\p{P}+)|(\p{S}+)|([0-9]+))"
+            regex = r"((\p{P}+)|(\p{S}+)|([0-9]+))"
         else:
-            regex = ur"((\p{P}+)|(\p{S}+)|([0-9]+)|([A-Za-z]))"
+            regex = r"((\p{P}+)|(\p{S}+)|([0-9]+)|([A-Za-z]))"
         # Handle Apostrophe's correctly you'll => you
         selected_word = re.match(pattern=u"(.*)['’].*?", string=word)
         # If selected word matches a word with apostrophe
@@ -112,7 +109,7 @@ class HcCorpusPreprocessor(BasePreprocessor):
         """Tokenize Words from sentences."""
         return sentence.split()
 
-BasePreprocessor.register(HcCorpusPreprocessor)
+BasePreprocessor.register(EmilleCorpusPreprocessor)
 
 if __name__ == '__main__':
     log.set_logger_normal(LOGGER)

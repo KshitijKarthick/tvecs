@@ -17,13 +17,13 @@ import ntpath
 import argparse
 import itertools as it
 from gensim.models import Word2Vec
-from modules.logger import init_logger as log
-from modules.model_generator import model_generation as model
-from modules.preprocessor import emille_preprocessor as emilleprep
-from modules.preprocessor import hccorpus_preprocessor as hcprep
-from modules.preprocessor import leipzig_preprocessor as leipprep
-from modules.vector_space_mapper import vector_space_mapper as vm
-from modules.bilingual_generator import bilingual_generator as bg
+from logger import init_logger as log
+from model_generator import model_generation as model
+from preprocessor import emille_preprocessor as emilleprep
+from preprocessor import hccorpus_preprocessor as hcprep
+from preprocessor import leipzig_preprocessor as leipprep
+from vector_space_mapper import vector_space_mapper as vm
+from bilingual_generator import bilingual_generator as bg
 
 
 def preprocess_corpus(*args, **kwargs):

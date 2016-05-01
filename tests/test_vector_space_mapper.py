@@ -4,9 +4,10 @@
 import os
 import pytest
 import random
-from modules.model_generator import model_generation as mod
-from modules.bilingual_generator import bilingual_generator as bg
-from modules.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
+
+from tvecs.model_generator import model_generation as mod
+from tvecs.bilingual_generator import bilingual_generator as bg
+from tvecs.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
 
 
 class TestVectorSpaceMapper:

@@ -3,7 +3,8 @@
 
 import os
 import pytest
-from modules.preprocessor.leipzig_preprocessor import LeipzigPreprocessor
+
+from tvecs.preprocessor.leipzig_preprocessor import LeipzigPreprocessor
 
 class TestHcCorpusPreprocessor:
 

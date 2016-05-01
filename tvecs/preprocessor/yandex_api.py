@@ -11,7 +11,7 @@ import json
 import codecs
 import requests
 
-from modules.logger import init_logger as log
+from tvecs.logger import init_logger as log
 
 
 LOGGER = log.initialise('T-Vecs.Yandex')

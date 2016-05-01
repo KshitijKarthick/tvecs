@@ -3,7 +3,8 @@
 
 import os
 import pytest
-from modules.preprocessor.hccorpus_preprocessor import HcCorpusPreprocessor
+
+from tvecs.preprocessor.hccorpus_preprocessor import HcCorpusPreprocessor
 
 class TestHcCorpusPreprocessor:
 

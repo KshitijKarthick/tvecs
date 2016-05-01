@@ -4,14 +4,14 @@ import json
 import codecs
 from sklearn.cluster import AffinityPropagation
 
-from modules.logger import init_logger as log
+from tvecs.logger import init_logger as log
 
 LOGGER = log.initialise('T-Vecs.Clustering')
 
 
 def build_clusters(entire_word_list, model, damping_factor=0.5):
     """
-    Cluster word_list using Affinity Propagation
+    Cluster word_list using Affinity Propagation.
 
     - Clustering based on the vectors from the Word2Vec model.
 

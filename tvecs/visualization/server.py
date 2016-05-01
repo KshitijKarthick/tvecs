@@ -10,8 +10,9 @@ import ConfigParser
 from gensim.models import Word2Vec
 from PyDictionary import PyDictionary
 from jinja2 import Environment, FileSystemLoader
-from modules.preprocessor import yandex_api as yandex
-from modules.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
+
+from tvecs.preprocessor import yandex_api as yandex
+from tvecs.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
 
 
 class Server(object):

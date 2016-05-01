@@ -16,11 +16,11 @@ import csv
 import time
 import codecs
 
-from modules.evaluation import evaluation
-from modules.logger import init_logger as log
-from modules.model_generator import model_generation
-from modules.preprocessor.hccorpus_preprocessor import HcCorpusPreprocessor
-from modules.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
+from tvecs.evaluation import evaluation
+from tvecs.logger import init_logger as log
+from tvecs.model_generator import model_generation
+from tvecs.preprocessor.hccorpus_preprocessor import HcCorpusPreprocessor
+from tvecs.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
 
 LOGGER = log.initialise('T-Vecs.Multivariate')
 

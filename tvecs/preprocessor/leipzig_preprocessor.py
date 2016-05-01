@@ -7,7 +7,7 @@ import regex as re
 from collections import defaultdict
 
 from base_preprocessor import BasePreprocessor
-from modules.logger import init_logger as log
+from tvecs.logger import init_logger as log
 
 LOGGER = log.initialise('T-Vecs.Preprocessor')
 

@@ -8,8 +8,8 @@ from gensim.models import Word2Vec
 import scipy.spatial.distance as dist
 from sklearn.linear_model import RidgeCV
 
-from modules.bilingual_generator import bilingual_generator as bg
-from modules.logger import init_logger as log
+from tvecs.bilingual_generator import bilingual_generator as bg
+from tvecs.logger import init_logger as log
 
 LOGGER = log.initialise('T-Vecs.VectorSpaceMapper')
 

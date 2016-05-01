@@ -7,8 +7,8 @@ import random
 import codecs
 from gensim.models import Word2Vec
 
-from modules.bilingual_generator import cluster as cl
-from modules.logger import init_logger as log
+from tvecs.bilingual_generator import cluster as cl
+from tvecs.logger import init_logger as log
 
 
 LOGGER = log.initialise('T-Vecs.BilingualDictionary')

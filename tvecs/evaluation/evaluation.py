@@ -6,9 +6,9 @@ import codecs
 from scipy.stats import pearsonr
 from gensim.models import Word2Vec
 
-from modules.logger import init_logger as log
-from modules.bilingual_generator import bilingual_generator as bg
-from modules.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
+from tvecs.logger import init_logger as log
+from tvecs.bilingual_generator import bilingual_generator as bg
+from tvecs.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
 
 LOGGER = log.initialise('T-Vecs.Evaluation')
 

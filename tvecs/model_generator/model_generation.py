@@ -2,16 +2,18 @@
 # -*- coding: utf-8 -*-
 """
 Used to generate Word2Vec Models for individual languages after preprocessing.
+
 - Preprocessing Corpus - Implementation of BasePreprocessor module
     - HcCorpusPreprocessor
+
 - Word2Vec Model Building
     - Gensim Word2Vec SkipGram implementation
 """
 import os
 import gensim
 
-from modules.logger import init_logger as log
-from modules.preprocessor import hccorpus_preprocessor as pre
+from tvecs.logger import init_logger as log
+from tvecs.preprocessor import hccorpus_preprocessor as pre
 
 LOGGER = log.initialise('T-Vecs.ModelGeneration')
 
@@ -27,6 +29,7 @@ def generate_model(
 ):
     """
     Function used to preprocess and generate models.
+
     API Documentation
         :param language: Language for which model is generated [ Used for model filename ]
         :type language: basestring
@@ -70,6 +73,7 @@ def construct_model(
 ):
     """
     Construct Model given the preprocessed corpus.
+
     API Documentation:
         :param preprocessed_corpus: Instance of SubClass of BasePreprocessor
         :type preprocessed_corpus: HcCorpusPreprocessor object
@@ -83,6 +87,7 @@ def construct_model(
         :type iterations: int
         :return: Constructed Model based on the provided specifications.
         :rtype: :mod:`gensim.models.Word2Vec`
+
     .. seealso::
         * :mod:`gensim.models.Word2Vec`
         * :mod:`modules.preprocessor.hccorpus_preprocessor`

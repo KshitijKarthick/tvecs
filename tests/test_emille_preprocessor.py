@@ -3,7 +3,8 @@
 
 import os
 import pytest
-from modules.preprocessor.emille_preprocessor import EmilleCorpusPreprocessor
+
+from tvecs.preprocessor.emille_preprocessor import EmilleCorpusPreprocessor
 
 class TestEmilleCorpusPreprocessor:
 

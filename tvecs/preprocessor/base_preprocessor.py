@@ -11,7 +11,7 @@ import fileinput
 import itertools
 from abc import ABCMeta, abstractmethod
 
-from modules.logger import init_logger as log
+from tvecs.logger import init_logger as log
 
 LOGGER = log.initialise('T-Vecs.Preprocessor')
 
