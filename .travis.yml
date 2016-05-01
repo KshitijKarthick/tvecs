@@ -1,7 +1,12 @@
 language: python
+sudo: required
 python:
-  - "2.7"
+  - "2.7_with_system_site_packages"
+before_install:
+  - "sudo apt-get install -qq python-numpy python-scipy"
 # command to install dependencies
-install: "pip install -r requirements.txt"
+install: 
+  - "pip install -r requirements.txt"
+  - "python setup.py install"
 # command to run tests
 script: pytest
