@@ -1,7 +1,6 @@
 CherryPy >= 3.6.0
 gensim >= 0.12.4
 Jinja2 >= 2.7.3
-numpy >= 1.11.0
 nltk >= 3.1
 SciPy >= 0.9
 regex >= 2016.3.2

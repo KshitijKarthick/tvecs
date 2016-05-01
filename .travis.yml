@@ -1,9 +1,10 @@
 language: python
 sudo: required
+cache: pip
 python:
   - "2.7_with_system_site_packages"
 before_install:
-  - "sudo apt-get install -qq python-numpy python-scipy"
+  - "sudo apt-get install -qq gfortran libblas-dev liblapack-dev python-scipy"
 # command to install dependencies
 install: 
   - "pip install -r requirements.txt"
