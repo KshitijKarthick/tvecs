@@ -6,9 +6,24 @@ import pytest
 
 from tvecs.preprocessor.hccorpus_preprocessor import HcCorpusPreprocessor
 
+
 class TestHcCorpusPreprocessor:
+    """
+    Unit Testing for module :mod:`modules.preprocessor.hccorpus_preprocessor`.
+
+    .. seealso::
+        * :mod:`modules.preprocessor.base_preprocessor`
+        * :mod:`pytest`
+    """
 
     def setup_class(cls):
+        """
+        Create instance of :class:`modules.preprocessor.hccorpus_preprocessor.HcCorpusPreprocessor`
+
+        API Documentation:
+            :param cls: Class level scope
+            :type cls: :class:`TestHcCorpusPreprocessor`
+        """
         try:
             cls.testing_obj = HcCorpusPreprocessor(
                 corpus_fname='test_hccorpus_corpus',
@@ -17,18 +32,30 @@ class TestHcCorpusPreprocessor:
             )
         except BaseException as err:
             pytest.fail(
-                'Pre-processing %s failed : %s' %('test_hccorpus_corpus', err.message)
+                'Pre-processing %s failed : %s' % ('test_hccorpus_corpus', err.message)
             )
 
     def teardown_class(cls):
+        """
+        Delete the preprocessed files generated.
+
+        API Documentation:
+            :param cls: Class level scope
+            :type cls: :class:`TestHcCorpusPreprocessor`
+        """
         try:
             os.remove(
                 os.path.join('tests', 'resources', 'test_hccorpus_corpus.%s' % 'preprocessed')
             )
-        except (OSError, IOError) as err:
+        except (OSError, IOError):
             pass
 
     def test_implement_extract_corpus_data(self):
+        """
+        Test :func:`modules.preprocessor.hccorpus_preprocessor.HcCorpusPreprocessor._extract_corpus_data`
+
+        Ensure that the function is implemented in the class.
+        """
         testing_object = self.__class__.testing_obj
         try:
             testing_object._extract_corpus_data(data='')
@@ -36,6 +63,11 @@ class TestHcCorpusPreprocessor:
             pytest.fail('Not Implemented _extract_corpus_data function')
 
     def test_implement_clean_word(self):
+        """
+        Test :func:`modules.preprocessor.hccorpus_preprocessor.HcCorpusPreprocessor._clean_word`
+
+        Ensure that the function is implemented in the class.
+        """
         testing_object = self.__class__.testing_obj
         try:
             testing_object._clean_word(word='')
@@ -43,6 +75,11 @@ class TestHcCorpusPreprocessor:
             pytest.fail('Not Implemented _clean_word function')
 
     def test_implement_tokenize_sentences(self):
+        """
+        Test :func:`modules.preprocessor.hccorpus_preprocessor.HcCorpusPreprocessor._tokenize_sentences`
+
+        Ensure that the function is implemented in the class.
+        """
         testing_object = self.__class__.testing_obj
         try:
             testing_object._tokenize_sentences(data='')
@@ -50,6 +87,11 @@ class TestHcCorpusPreprocessor:
             pytest.fail('Not Implemented _tokenize_sentences function')
 
     def test_implement_tokenize_words(self):
+        """
+        Test :func:`modules.preprocessor.hccorpus_preprocessor.HcCorpusPreprocessor._tokenize_words`
+
+        Ensure that the function is implemented in the class.
+        """
         testing_object = self.__class__.testing_obj
         try:
             testing_object._tokenize_words(sentence='')
@@ -57,7 +99,11 @@ class TestHcCorpusPreprocessor:
             pytest.fail('Not Implemented _tokenize_words function')
 
     def test_extract_corpus_data(self):
-        """Bleh is the problem"""
+        """
+        Test :func:`modules.preprocessor.hccorpus_preprocessor.HcCorpusPreprocessor._extract_corpus_data`.
+
+        Ensure preprocessor can extract required corpus and remove unnecessary data.
+        """
         testing_object = self.__class__.testing_obj
         data = """blogspot.com\t2011/10/01\t3\t0\tWe love you Mr. Brown.
             blogspot.com\t2012/01/01\t3\t0\tIf I were a bear,"""
@@ -66,6 +112,11 @@ class TestHcCorpusPreprocessor:
         assert result == expected, "_extract_corpus_data implementation failed"
 
     def test_english_tokenize_sentences(self):
+        """
+        Test :func:`modules.preprocessor.hccorpus_preprocessor.HcCorpusPreprocessor._tokenize_sentences`.
+
+        Ensure sentence tokenizer for english works as expected.
+        """
         testing_object = self.__class__.testing_obj
         data = 'We love you Mr. Brown.. If I were a bear,'
         expected = ['We love you Mr. Brown..', 'If I were a bear,']
@@ -73,6 +124,11 @@ class TestHcCorpusPreprocessor:
         assert expected == result, "_tokenize_sentences failed for english language"
 
     def test_hindi_tokenize_sentences(self):
+        """
+        Test :func:`modules.preprocessor.hccorpus_preprocessor.HcCorpusPreprocessor._tokenize_sentences`.
+
+        Ensure that the sentence tokenizer for hindi works as expected.
+        """
         testing_object = self.__class__.testing_obj
         data = u"ये कहानी तो मेरे को मेरे नाना ने सुनाई थी. गरमी का मौसम था ….." \
                u" सभी नदियाँ, तालाब , कुँए सूख गये थे. पानी का नामोनिशान तक ना था." \
@@ -103,6 +159,11 @@ class TestHcCorpusPreprocessor:
             pytest.fail("_tokenize_sentences failed for hindi language : %s" % err.message)
 
     def test_tokenize_words(self):
+        """
+        Test :func:`modules.preprocessor.hccorpus_preprocessor.HcCorpusPreprocessor._tokenize_sentences`.
+
+        Ensure that the word tokenizer for hindi works as expected.
+        """
         testing_object = self.__class__.testing_obj
         data = u'मैं आसपास बिखरे पड़े कंकड़-पत्थर चोंच से ला-लाकर घड़े में डालने लगा बस क्या था !'
         expected = [
@@ -113,6 +174,11 @@ class TestHcCorpusPreprocessor:
         assert result == expected, "_tokenize_words failed"
 
     def test_hindi_clean_word(self):
+        """
+        Test :func:`modules.preprocessor.hccorpus_preprocessor.HcCorpusPreprocessor._clean_word`.
+
+        Ensure that the word level clean functionality works for hindi.
+        """
         testing_object = self.__class__.testing_obj
         data = [
             u'मैं', u'आसपास', u'बिखरे', u'पड़े', u'कंकड़-पत्थर,', u'चोंच', u'से',
@@ -120,7 +186,7 @@ class TestHcCorpusPreprocessor:
         ]
         expected = [
             [u'मैं'], [u'आसपास'], [u'बिखरे'], [u'पड़े'], [u'कंकड़', u'पत्थर'], [u'चोंच'], [u'से'],
-            [u'ला', u'लाकर'], [u'घड़े'], [u'में'], [],[u'डालने'], [u'लगा'], [u'बस'], [u'क्या'], [u'था'], []
+            [u'ला', u'लाकर'], [u'घड़े'], [u'में'], [], [u'डालने'], [u'लगा'], [u'बस'], [u'क्या'], [u'था'], []
         ]
         testing_object.language = 'hindi'
         for i in range(len(data)):
@@ -128,8 +194,12 @@ class TestHcCorpusPreprocessor:
             assert result == expected[i], "_clean_word function failed for Hindi"
         testing_object.language = 'english'
 
-
     def test_english_clean_word(self):
+        """
+        Test :func:`modules.preprocessor.hccorpus_preprocessor.HcCorpusPreprocessor._clean_word`.
+
+        Ensure that the word level clean functionality works for english.
+        """
         testing_object = self.__class__.testing_obj
         data = [
             'Typed', 'essays', 'are', 'preferred', 'but',
