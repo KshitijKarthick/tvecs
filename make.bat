@@ -10,7 +10,7 @@ set ALLSPHINXOPTS=-d %BUILDDIR%/doctrees %SPHINXOPTS% .
 set I18NSPHINXOPTS=%SPHINXOPTS% .
 set SPHINXAPIDOC=sphinx-apidoc
 set SPHINXAPIDOCDIR=documentation
-set SRC_DIR=modules
+set SRC_DIR=tvecs
 if NOT "%PAPER%" == "" (
 	set ALLSPHINXOPTS=-D latex_paper_size=%PAPER% %ALLSPHINXOPTS%
 	set I18NSPHINXOPTS=-D latex_paper_size=%PAPER% %I18NSPHINXOPTS%

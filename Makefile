@@ -8,7 +8,7 @@ PAPER         =
 BUILDDIR      = _build
 SPHINXAPIDOC  = sphinx-apidoc
 SPHINXAPIDOCDIR = documentation
-SRC_DIR = modules
+SRC_DIR = tvecs
 
 
 # User-friendly check for sphinx-build
