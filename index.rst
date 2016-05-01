@@ -26,7 +26,17 @@ The main documentation for the site is organized into a couple sections:
 		:titlesonly:
 		:caption: Development Documentation
 		
-		documentation/modules
+		_dev_docs/modules
+
+
+
+.. _test-docs:
+
+	.. toctree::
+		:numbered:
+		:caption: Testing Documentation
+		
+		_test_docs/modules
 
 
 
