@@ -194,7 +194,7 @@ def args_parser():
     args = parser.parse_args()
     logger = log.initialise('T-Vecs')
     log.set_logger_normal(logger)
-    parse_success = True
+    parse_success = False
     try:
         # if Config is given higher priority, cmd line args are overriden
         if args.config:
@@ -226,13 +226,12 @@ def args_parser():
                 model_1,
                 model_2
             )
+            parse_success = True
 
         # Build trsl using precomputed word sets and a config file
         elif args.corpus1 and args.corpus2:
             order_of_evaluation = order_of_tvex_calls[:]
-
-        else:
-            parse_success = False
+            parse_success = True
 
     except AttributeError:
         parse_success = False
