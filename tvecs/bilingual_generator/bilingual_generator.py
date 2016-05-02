@@ -31,8 +31,8 @@ def load_bilingual_dictionary(bilingual_dictionary_path, encoding='utf-8'):
     )
     with codecs.open(
         bilingual_dictionary_path, 'r', encoding=encoding
-    ) as f:
-        data = f.read().split('\n')
+    ) as bilingual_dict_file:
+        data = bilingual_dict_file.read().split('\n')
         bilingual_dict = [
             (line.split(' ')[0], line.split(' ')[1])
             for line in data
@@ -95,23 +95,23 @@ def build_sparse_bilingual_dictionary(
     ])
     with codecs.open(
         os.path.join(output_path, output_fname), 'w', encoding=encoding
-    ) as f:
+    ) as sparse_bd:
         LOGGER.info(
             'Save the Bilingual Dictionary: %s', os.path.join(
                 output_path, output_fname
             )
         )
-        f.write(sparse_bilingual_dict)
+        sparse_bd.write(sparse_bilingual_dict)
 
 
 if __name__ == '__main__':
     log.set_logger_normal(LOGGER)
-    model = Word2Vec.load(
+    MODEL = Word2Vec.load(
         os.path.join('data', 'models', 't-vex-english-model')
     )
     build_sparse_bilingual_dictionary(
         bilingual_dictionary_path=os.path.join(
             'data', 'bilingual_dictionary', 'english_hindi_train_bd'
         ),
-        model=model,
+        model=MODEL,
     )
