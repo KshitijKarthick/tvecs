@@ -134,7 +134,7 @@ The main documentation for the site is organized into a couple sections:
    		:numbered:
    		:caption: Inheritance Diagrams
 
-	.. inheritance-diagram:: modules.preprocessor.base_preprocessor.BasePreprocessor  modules.preprocessor.hccorpus_preprocessor.HcCorpusPreprocessor modules.preprocessor.leipzig_preprocessor.LeipzigPreprocessor modules.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor
+	.. inheritance-diagram:: tvecs.preprocessor.base_preprocessor.BasePreprocessor  tvecs.preprocessor.hccorpus_preprocessor.HcCorpusPreprocessor tvecs.preprocessor.leipzig_preprocessor.LeipzigPreprocessor tvecs.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor
    		:parts: 1
 	   	
 
