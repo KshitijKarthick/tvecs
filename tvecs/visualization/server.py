@@ -38,7 +38,7 @@ class Server(object):
             )
         }
         cache_file_path = os.path.join(
-            'modules', 'visualization', 'cached_dictionary'
+            'tvecs', 'visualization', 'cached_dictionary'
         )
         if not os.path.exists(cache_file_path):
             json.dump({}, codecs.open(
@@ -52,28 +52,28 @@ class Server(object):
     def index(self):
         """Semantic spac visualization html returned."""
         return file(os.path.join(
-            'modules', 'visualization', 'static', 'index.html'
+            'tvecs', 'visualization', 'static', 'index.html'
         ))
 
     @cherrypy.expose
     def multivariate_analysis(self):
         """Parallel Coordinates for multivariate analysis html page return."""
         return file(os.path.join(
-            'modules', 'visualization', 'static', 'multivariate.html')
+            'tvecs', 'visualization', 'static', 'multivariate.html')
         )
 
     @cherrypy.expose
     def cross_lingual(self):
         """Cross Lingual recommender html returned."""
         return file(os.path.join(
-            'modules', 'visualization', 'static', 'cross_lingual.html')
+            'tvecs', 'visualization', 'static', 'cross_lingual.html')
         )
 
     @cherrypy.expose
     def lingual_semantics(self):
         """Semantically related words in same language returned."""
         return file(os.path.join(
-            'modules', 'visualization', 'static', 'intra_language.html')
+            'tvecs', 'visualization', 'static', 'intra_language.html')
         )
 
     def retrieve_meaning(self, language, word):
@@ -166,7 +166,7 @@ class Server(object):
             :rtype: :class:`List`
 
         .. seealso::
-            * :mod:`modules.vector_space_mapper.vector_space_mapper`
+            * :mod:`tvecs.vector_space_mapper.vector_space_mapper`
         """
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
         vm = self.cross_lang_vm.get((lang1, lang2))
@@ -183,15 +183,17 @@ class Server(object):
         Create Vector Space Mapper between Languages.
 
         API Documentation
-            :param lang1: Language 1 used for
-                building :class:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper` object
-            :param lang2: Language 2 used for
-                building :class:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper` object
+            :param lang1: Language 1 used for building
+                :class:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper`
+                object
+            :param lang2: Language 2 used for building
+                :class:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper`
+                object
             :return: JSON with successful/failure message
             :rtype: JSON
 
         .. seealso::
-            :mod:`modules.vector_space_mapper.vector_space_mapper`
+            :mod:`tvecs.vector_space_mapper.vector_space_mapper`
         """
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
         vm = None
@@ -254,29 +256,29 @@ if __name__ == '__main__':
         '/js': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': os.path.join(
-                'modules', 'visualization', 'static', 'js'
+                'tvecs', 'visualization', 'static', 'js'
             )
         },
         '/css': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': os.path.join(
-                'modules', 'visualization', 'static', 'css'
+                'tvecs', 'visualization', 'static', 'css'
             )
         },
         '/images': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': os.path.join(
-                'modules', 'visualization', 'static', 'images'
+                'tvecs', 'visualization', 'static', 'images'
             )
         },
         '/resources': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': os.path.join(
-                'modules', 'visualization', 'static', 'resources'
+                'tvecs', 'visualization', 'static', 'resources'
             )
         }
     }
-    server_config.read(os.path.join('modules', 'visualization', 'server.conf'))
+    server_config.read(os.path.join('tvecs', 'visualization', 'server.conf'))
     server_port = server_config.get('Server', 'port')
     server_host = server_config.get('Server', 'host')
     thread_pool = server_config.get('Server', 'thread_pool')
