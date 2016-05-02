@@ -1,5 +1,6 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
+"""Unit Test Cases for :mod:`tvecs.preprocessor.emille_preprocessor`."""
 
 import os
 import pytest
@@ -9,16 +10,22 @@ from tvecs.preprocessor.emille_preprocessor import EmilleCorpusPreprocessor
 
 class TestEmilleCorpusPreprocessor:
     """
-    Unit Testing for module :mod:`modules.preprocessor.emille_preprocessor`.
+    Unit Testing for module :mod:`tvecs.preprocessor.emille_preprocessor`.
+
+    Test Cases considered for the following functions
+        - :func:`tvecs.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._extract_corpus_data`
+        - :func:`tvecs.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._clean_word`
+        - :func:`tvecs.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._tokenize_sentences`
+        - :func:`tvecs.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._tokenize_words`
 
     .. seealso::
-        * :mod:`modules.preprocessor.base_preprocessor`
+        * :mod:`tvecs.preprocessor.base_preprocessor`
         * :mod:`pytest`
     """
 
     def setup_class(cls):
         """
-        Create instance of :class:`modules.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor`
+        Create instance of :class:`tvecs.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor`.
 
         API Documentation:
             :param cls: Class level scope
@@ -53,7 +60,7 @@ class TestEmilleCorpusPreprocessor:
 
     def test_implement_extract_corpus_data(self):
         """
-        Test :func:`modules.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._extract_corpus_data`
+        Test :func:`tvecs.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._extract_corpus_data`.
 
         Ensure that the function is implemented in the class.
         """
@@ -65,7 +72,7 @@ class TestEmilleCorpusPreprocessor:
 
     def test_implement_clean_word(self):
         """
-        Test :func:`modules.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._clean_word`
+        Test :func:`tvecs.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._clean_word`.
 
         Ensure that the function is implemented in the class.
         """
@@ -77,7 +84,7 @@ class TestEmilleCorpusPreprocessor:
 
     def test_implement_tokenize_sentences(self):
         """
-        Test :func:`modules.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._tokenize_sentences`
+        Test :func:`tvecs.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._tokenize_sentences`.
 
         Ensure that the function is implemented in the class.
         """
@@ -89,7 +96,7 @@ class TestEmilleCorpusPreprocessor:
 
     def test_implement_tokenize_words(self):
         """
-        Test :func:`modules.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._tokenize_words`
+        Test :func:`tvecs.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._tokenize_words`.
 
         Ensure that the function is implemented in the class.
         """
@@ -101,7 +108,7 @@ class TestEmilleCorpusPreprocessor:
 
     def test_english_tokenize_sentences(self):
         """
-        Test :func:`modules.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._tokenize_sentences`.
+        Test :func:`tvecs.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._tokenize_sentences`.
 
         Ensure sentence tokenizer for english works as expected.
         """
@@ -113,7 +120,7 @@ class TestEmilleCorpusPreprocessor:
 
     def test_hindi_tokenize_sentences(self):
         """
-        Test :func:`modules.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._tokenize_sentences`.
+        Test :func:`tvecs.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._tokenize_sentences`.
 
         Ensure that the sentence tokenizer for hindi works as expected.
         """
@@ -148,7 +155,7 @@ class TestEmilleCorpusPreprocessor:
 
     def test_tokenize_words(self):
         """
-        Test :func:`modules.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._tokenize_sentences`.
+        Test :func:`tvecs.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._tokenize_sentences`.
 
         Ensure that the word tokenizer for hindi works as expected.
         """
@@ -163,7 +170,7 @@ class TestEmilleCorpusPreprocessor:
 
     def test_hindi_clean_word(self):
         """
-        Test :func:`modules.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._clean_word`.
+        Test :func:`tvecs.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._clean_word`.
 
         Ensure that the word level clean functionality works for hindi.
         """
@@ -184,7 +191,7 @@ class TestEmilleCorpusPreprocessor:
 
     def test_english_clean_word(self):
         """
-        Test :func:`modules.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._clean_word`.
+        Test :func:`tvecs.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._clean_word`.
 
         Ensure that the word level clean functionality works for english.
         """

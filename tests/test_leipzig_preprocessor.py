@@ -1,5 +1,6 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
+"""Unit Test Cases for :mod:`tvecs.preprocessor.leipzig_preprocessor`."""
 
 import os
 import pytest
@@ -9,16 +10,21 @@ from tvecs.preprocessor.leipzig_preprocessor import LeipzigPreprocessor
 
 class TestLeipzigPreprocessor:
     """
-    Unit Testing for module :mod:`modules.preprocessor.leipzig_preprocessor`.
+    Unit Testing for module :mod:`tvecs.preprocessor.leipzig_preprocessor`.
+
+    Test Cases considered for the following functions
+        - :func:`tvecs.preprocessor.leipzig_preprocessor.LeipzigPreprocessor._clean_word`
+        - :func:`tvecs.preprocessor.leipzig_preprocessor.LeipzigPreprocessor._tokenize_words`
+        - :func:`tvecs.preprocessor.leipzig_preprocessor.LeipzigPreprocessor._tokenize_sentences`
 
     .. seealso::
-        * :mod:`modules.preprocessor.base_preprocessor`
+        * :mod:`tvecs.preprocessor.base_preprocessor`
         * :mod:`pytest`
     """
 
     def setup_class(cls):
         """
-        Create instance of :class:`modules.preprocessor.leipzig_preprocessor.LeipzigPreprocessor`
+        Create instance of :class:`tvecs.preprocessor.leipzig_preprocessor.LeipzigPreprocessor`.
 
         API Documentation:
             :param cls: Class level scope
@@ -51,7 +57,7 @@ class TestLeipzigPreprocessor:
 
     def test_implement_clean_word(self):
         """
-        Test :func:`modules.preprocessor.leipzig_preprocessor.LeipzigPreprocessor._clean_word`
+        Test :func:`tvecs.preprocessor.leipzig_preprocessor.LeipzigPreprocessor._clean_word`.
 
         Ensure that the function is implemented in the class.
         """
@@ -63,7 +69,7 @@ class TestLeipzigPreprocessor:
 
     def test_implement_tokenize_words(self):
         """
-        Test :func:`modules.preprocessor.leipzig_preprocessor.LeipzigPreprocessor._tokenize_words`
+        Test :func:`tvecs.preprocessor.leipzig_preprocessor.LeipzigPreprocessor._tokenize_words`.
 
         Ensure that the function is implemented in the class.
         """
@@ -75,7 +81,7 @@ class TestLeipzigPreprocessor:
 
     def test_tokenize_words(self):
         """
-        Test :func:`modules.preprocessor.leipzig_preprocessor.LeipzigPreprocessor._tokenize_sentences`.
+        Test :func:`tvecs.preprocessor.leipzig_preprocessor.LeipzigPreprocessor._tokenize_sentences`.
 
         Ensure that the sentence tokenizer for hindi works as expected.
         """
@@ -90,7 +96,7 @@ class TestLeipzigPreprocessor:
 
     def test_hindi_clean_word(self):
         """
-        Test :func:`modules.preprocessor.leipzig_preprocessor.LeipzigPreprocessor._clean_word`.
+        Test :func:`tvecs.preprocessor.leipzig_preprocessor.LeipzigPreprocessor._clean_word`.
 
         Ensure that the word level clean functionality works for hindi.
         """
@@ -111,7 +117,7 @@ class TestLeipzigPreprocessor:
 
     def test_english_clean_word(self):
         """
-        Test :func:`modules.preprocessor.leipzig_preprocessor.LeipzigPreprocessor._clean_word`.
+        Test :func:`tvecs.preprocessor.leipzig_preprocessor.LeipzigPreprocessor._clean_word`.
 
         Ensure that the word level clean functionality works for english.
         """

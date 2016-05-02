@@ -1,5 +1,6 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
+"""Unit Test Cases for :mod:`tvecs.vector_space_mapper.vector_space_mapper`."""
 
 import os
 import pytest
@@ -12,29 +13,28 @@ from tvecs.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
 
 class TestVectorSpaceMapper:
     """
-    Unit Testing for module :mod:`modules.vector_space_mapper.vector_space_mapper`.
+    Unit Testing for module :mod:`tvecs.vector_space_mapper.vector_space_mapper`.
+
+    Test Cases considered for the following functions
+        - :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.extract_vectors_and_words`
+        - :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._predict_vec_from_word`
+        - :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._predict_vec_from_vec`
+        - :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_vec`
+        - :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_word`
 
     .. seealso::
-        * :mod:`modules.vector_space_mapper.vector_space_mapper`
+        * :mod:`tvecs.vector_space_mapper.vector_space_mapper`
         * :mod:`pytest`
-        * :mod:`modules.model_generator.model_generation`
+        * :mod:`tvecs.model_generator.model_generation`
     """
 
     def setup_class(cls):
         """
-        Used to create a :mod:`modules.vector_space_mapper.vector_space_mapper`.
+        Used to create a :mod:`tvecs.vector_space_mapper.vector_space_mapper`.
 
         - Learns transformation between two models
-            - :mod:`modules.model_generator.model_generation`
-            - :mod:`modules.model_generator.model_generation`
-
-        - Test Cases considered for the following functions
-            - :func:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.extract_vectors_and_words`
-            - :func:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._predict_vec_from_word`
-            - :func:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._predict_vec_from_vec`
-            - :func:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_vec`
-            - :func:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_word`
-
+            - :mod:`tvecs.model_generator.model_generation`
+            - :mod:`tvecs.model_generator.model_generation`
         """
         try:
             model_1 = mod.generate_model(
@@ -89,7 +89,7 @@ class TestVectorSpaceMapper:
 
     def test_english_extract_vectors_and_words(self):
         """
-        Test :func:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._extract_vectors_and_words`.
+        Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._extract_vectors_and_words`.
 
         Verify the data structure for the response of the function for English model.
         """
@@ -114,7 +114,7 @@ class TestVectorSpaceMapper:
 
     def test_hindi_extract_vectors_and_words(self):
         """
-        Test :func:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._extract_vectors_and_words`.
+        Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._extract_vectors_and_words`.
 
         Verify the data structure for the response of the function for Hindi model.
         """
@@ -139,7 +139,7 @@ class TestVectorSpaceMapper:
 
     def test_predict_vec_from_word(self):
         """
-        Test :func:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._predict_vec_from_word`.
+        Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._predict_vec_from_word`.
 
          Verify the data structure for the response of the function given a word.
         """
@@ -150,7 +150,7 @@ class TestVectorSpaceMapper:
 
     def test_predict_vec_from_vec(self):
         """
-        Test :func:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._predict_vec_from_vec`.
+        Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._predict_vec_from_vec`.
 
         Verify the data structure for the response of the function given a vector.
         """
@@ -165,8 +165,8 @@ class TestVectorSpaceMapper:
         """
         Test following functions.
 
-         - :func:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._predict_vec_from_vec`.
-         - :func:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._predict_vec_from_word`.
+         - :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._predict_vec_from_vec`.
+         - :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._predict_vec_from_word`.
 
         Verify both functions provide same predictions.
         """
@@ -181,7 +181,7 @@ class TestVectorSpaceMapper:
 
     def test_num_recom_from_get_recommendations_from_word(self):
         """
-        Test :func:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_word`.
+        Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_word`.
 
         Verify number of recommendations conform to the number of recommendations requested.
         """
@@ -193,7 +193,7 @@ class TestVectorSpaceMapper:
 
     def test_num_recom_from_get_recommendations_from_vec(self):
         """
-        Test :func:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_vec`.
+        Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_vec`.
 
         Verify number of recommendations conform to the number of recommendations requested.
         """
@@ -205,7 +205,7 @@ class TestVectorSpaceMapper:
 
     def test_get_recommendations_from_word(self):
         """
-        Test :func:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_word`.
+        Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_word`.
 
         Verify the response type from the function.
         """
@@ -218,7 +218,7 @@ class TestVectorSpaceMapper:
 
     def test_get_recommendations_from_vec(self):
         """
-        Test :func:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_vec`.
+        Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_vec`.
 
         Verify the response type from the function.
         """
@@ -233,8 +233,8 @@ class TestVectorSpaceMapper:
         """
         Test following functions.
 
-         - :func:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_vec`
-         - :func:`modules.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_word`
+         - :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_vec`
+         - :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_word`
 
         Verify the results from both functions match.
         """
