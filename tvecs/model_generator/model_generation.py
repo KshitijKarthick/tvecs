@@ -31,20 +31,23 @@ def generate_model(
     Function used to preprocess and generate models.
 
     API Documentation
-        :param language: Language for which model is generated [ Used for model filename ]
-        :type language: basestring
+        :param language: Language for which model is generated.
+        :type language: :class:`String`
         :param corpus_fname: Corpus Filename
-        :type corpus_fname: basestring
-        :param corpus_dir_path: Directory Path where corpus exists [ Default current directory ]
-        :type corpus_dir_path: basestring
+        :type corpus_fname: :class:`String`
+        :param corpus_dir_path: Directory Path where corpus exists.
+                                [ Default Current Directory ]
+        :type corpus_dir_path: :class:`String`
         :param output_dir_path: Output Dir Path where model is stored
-        :type output_dir_path: basestring
+        :type output_dir_path: :class:`String`
         :param output_fname: Output filename to be generated.
-        :type output_fname: basestring
-        :param need_preprocessing: Runs Preprocess with the same flag [ Default True ]
-        :type need_preprocessing: bool [ True/False ]
+        :type output_fname: :class:`String`
+        :param need_preprocessing: Runs Preprocess with the same flag.
+                                [ Default True ]
+        :type need_preprocessing: :class:`Boolean`
         :param iterations: Number of iterations for Word2Vec.
-        :type iterations: int
+                                [ Default value 5 ]
+        :type iterations: :class:`Integer`
         :return: Constructed Model based on the provided specifications.
         :rtype: :mod:`gensim.models.Word2Vec`
     """
@@ -75,22 +78,25 @@ def construct_model(
     Construct Model given the preprocessed corpus.
 
     API Documentation:
-        :param preprocessed_corpus: Instance of SubClass of BasePreprocessor
-        :type preprocessed_corpus: HcCorpusPreprocessor object
-        :param language: Language for which model is generated [ Used for model filename ]
-        :type language: basestring
-        :param output_dir_path: Output Dir Path where model is stored
-        :type output_dir_path: basestring
+        :param preprocessed_corpus: Instance of SubClass of BasePreprocessor.
+        :type preprocessed_corpus:
+            :class:`tvecs.preprocessor.hccorpus_preprocessor.HcCorpusPreprocessor`
+        :param language: Language for which model is generated.
+        :type language: :class:`String`
+        :param output_dir_path: Output Dir Path where model is stored.
+                                [ Default Current Directory ]
+        :type output_dir_path: :class:`String`
         :param output_fname: Output file name set.
-        :type output_fname: basestring
-        :param iterations: Number of iterations for Word2Vec
-        :type iterations: int
+        :type output_fname: :class:`String`
+        :param iterations: Number of iterations for Word2Vec.
+                                [ Default value 5 ]
+        :type iterations: :class:`Integer`
         :return: Constructed Model based on the provided specifications.
         :rtype: :mod:`gensim.models.Word2Vec`
 
     .. seealso::
         * :mod:`gensim.models.Word2Vec`
-        * :mod:`modules.preprocessor.hccorpus_preprocessor`
+        * :mod:`tvecs.preprocessor.hccorpus_preprocessor`
     """
     LOGGER.info('Generating Model')
     model = gensim.models.Word2Vec(preprocessed_corpus, iter=iterations)
