@@ -3,7 +3,8 @@
 """
 Module used to specify abstract Preprocessor Class.
 
-- BasePreprocessor is an Abstract Base Class with basic abstract preprocessor functionality.
+- BasePreprocessor is an Abstract Base Class
+    with basic abstract preprocessor functionality.
 """
 import os
 import codecs
@@ -22,16 +23,20 @@ class BasePreprocessor(object):
 
     API Documentation:
         :param corpus_fname: Corpus Filename to be preprocessed
-        :param corpus_dir_path: Corpus Directory Path [ Default Current Directory ]
-        :param encoding: Encoding format of the corpus [ Default utf-8 ]
+        :param corpus_dir_path: Corpus Directory Path
+                                [ Default Current Directory ]
+        :param encoding: Encoding format of the corpus
+                                [ Default utf-8 ]
         :param need_preprocessing: Preprocess corpus to obtain
             only the valid content from the file to an intermediate file
             [ False - Corpus has each sentence in seperate lines ]
-        :type corpus_fname: String
-        :type corpus_dir_path: String
-        :type encoding: String
-        :type need_preprocessing: Boolean
-
+        :param limit: Number of tokenized words to be limited to
+                                [ Default None ]
+        :type limit: :class:`Integer`
+        :type corpus_fname: :class:`String`
+        :type corpus_dir_path: :class:`String`
+        :type encoding: :class:`String`
+        :type need_preprocessing: :class:`Boolean`
     """
 
     __metaclass__ = ABCMeta
@@ -90,14 +95,14 @@ class BasePreprocessor(object):
         """
         Save the extracted valid content.
 
-        - Extracted content tokenized into sentences and stored intermediate file
+        - Extracted content tokenized into sentences and stored in file.
 
         API Documentation:
             :param data: Extracted data
             :param output_fpath: Intermediate file path
                                    [ Inclusive of file name ]
-            :type data: String
-            :type output_fpath: String
+            :type data: :class:`String`
+            :type output_fpath: :class:`String`
         """
         with codecs.open(output_fpath, 'w', encoding=self.encoding) as file:
             self.logger.debug("Tokenizing Corpus into Sentences")

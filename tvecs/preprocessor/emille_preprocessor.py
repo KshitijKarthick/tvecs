@@ -16,8 +16,28 @@ class EmilleCorpusPreprocessor(BasePreprocessor):
     """
     Emille Corpus Preprocessor which preprocesses the EMILLE Corpus.
 
+    API Documentation:
+        :param corpus_fname: Corpus Filename to be preprocessed
+        :param corpus_dir_path: Corpus Directory Path
+                                [ Default Current Directory ]
+        :param encoding: Encoding format of the corpus
+                                [ Default utf-8 ]
+        :param language: Language of the model constructed
+                                [ Default English ]
+        :param limit: Number of tokenized words to be limited to
+                                [ Default None ]
+        :param need_preprocessing: Preprocess corpus to obtain
+            only the valid content from the file to an intermediate file
+            [ False - Corpus has each sentence in seperate lines ]
+        :type corpus_fname: :class:`String`
+        :type corpus_dir_path: :class:`String`
+        :type encoding: :class:`String`
+        :type language: :class:`String`
+        :type limit: :class:`Integer`
+        :type need_preprocessing: :class:`Boolean`
+
     .. seealso::
-        * :class:`modules.preprocessor.base_preprocessor.BasePreprocessor`
+        * :class:`tvecs.preprocessor.base_preprocessor.BasePreprocessor`
     """
 
     def __init__(
