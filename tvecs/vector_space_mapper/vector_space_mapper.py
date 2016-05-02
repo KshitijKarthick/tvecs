@@ -19,19 +19,22 @@ class VectorSpaceMapper(object):
     Class to map two vector spaces together.
 
     - Vector spaces obtained using the two Word2Vec models.
-    - Bilingual Dictionary used to map semantic embeddings between vector spaces.
-    - Linear Regression utilised for the mapping from :mod:`sklearn.linear_model`
+    - Bilingual Dict used to map semantic embeddings between vector spaces.
+    - Linear Regression utilised for the mapping from
+        :mod:`sklearn.linear_model`
 
     API Documentation:
-        :param model_1: Model constructed from Language 1 built using :mod:`modules.model_generator.model_generation`.
-        :param model_2: Model constructed from Language 2 built using :mod:`modules.model_generator.model_generation`.
+        :param model_1: Model constructed from Language 1 built using
+            :mod:`tvecs.model_generator.model_generation`.
+        :param model_2: Model constructed from Language 2 built using
+            :mod:`tvecs.model_generator.model_generation`.
         :param bilingual_dict: Bilingual Dictionary for Language 1, Language 2.
         :type model_1: :mod:`gensim.models.Word2Vec`
         :type model_2: :mod:`gensim.models.Word2Vec`
-        :type bilingual_dict: List[(lang1, lang2), (lang1, lang2)]
+        :type bilingual_dict: :class:`List[(lang1, lang2), (lang1, lang2)]`
 
     .. seealso::
-        * :mod:`modules.model_generator.model_generation`
+        * :mod:`tvecs.model_generator.model_generation`
         * :mod:`gensim.models.Word2Vec`
         * :mod:`sklearn.linear_model`
         * :mod:`scipy.spatial.distance`
@@ -54,7 +57,9 @@ class VectorSpaceMapper(object):
             self.model_1, bilingual_dict.keys()
         )
         self.logger.debug('Extracting vocabulary and vector list from model 2')
-        self.vector_2_list, self.word_2_list = VectorSpaceMapper._extract_vectors_and_words(
+        (
+            self.vector_2_list, self.word_2_list
+        ) = VectorSpaceMapper._extract_vectors_and_words(
             self.model_2, bilingual_dict.values()
         )
         # Remove corresponding elements if any vectors were missing from models
@@ -73,6 +78,7 @@ class VectorSpaceMapper(object):
 
     @staticmethod
     def _extract_vectors_and_words(model, word_list):
+        """Extract vocabulary and vectors from model from word list."""
         vector_list = []
         for word in word_list:
             try:
@@ -86,7 +92,8 @@ class VectorSpaceMapper(object):
         """
         Perform linear regression upon the semantic embeddings.
 
-        - Semantic embeddings obtained from vector space of corresponding bilingual words of the same language.
+        - Semantic embeddings obtained from vector space of corresponding
+            bilingual words of the same language.
         """
         self.logger.info('Learning transformation between Vector Spaces.')
         self.lt = RidgeCV()
@@ -105,10 +112,11 @@ class VectorSpaceMapper(object):
         - Vector for the word in Model 1 [Language 1] should be provided
 
         API Documentation:
-            :param vector: Input a vector from Model 1, recommendations provided from Model 2.
+            :param vector: Input a vector from Model 1,
+                recommendations provided from Model 2.
             :param topn: Number of recommendations to be provided.
             :type vector: :class:`List`, :class:`numpy.array`
-            :type topn: Integer
+            :type topn: :class:`Integer`
             :return: Topn recommendations from Model 2.
             :rtype: :class:`List`
         """
@@ -134,12 +142,13 @@ class VectorSpaceMapper(object):
         - Word from Model 1 [Language 1] should be provided
 
         API Documentation:
-            :param word: Input a word from Model 1, recommendations provided from Model 2.
+            :param word: Input a word from Model 1,
+                recommendations provided from Model 2.
             :param topn: Number of recommendations to be provided.
             :param pretty_print: Pretty Print the recommendations correctly.
-            :type pretty_print: Boolean
+            :type pretty_print: :class:`Boolean`
             :type word: String expected [ usually unicode preferred ]
-            :type topn: Integer
+            :type topn: :class:`Integer`
             :return: Topn recommendations from Model 2.
             :rtype: :class:`List`
         """
@@ -170,12 +179,13 @@ class VectorSpaceMapper(object):
         - Cosine Similarity between word_2 and predicted word using word_1
 
         API Documentation:
-            :param word_1: Used to predict possible vector from Model 2 using word from Model 1.
+            :param word_1: Used to predict possible vector from Model 2
+                using word from Model 1.
             :param word_2: Used for comparison in cosine similarity.
-            :type word_1: String
-            :type word_2: String
+            :type word_1: :class:`String`
+            :type word_2: :class:`String`
             :return: Cosine similarity between predicted word and actual word.
-            :rtype: Float
+            :rtype: :class:`Float`
         """
         try:
             vec_1 = self._predict_vec_from_word(word_1)
@@ -188,16 +198,17 @@ class VectorSpaceMapper(object):
         """
         Obtain Avg Similarity from testing dataset.
 
-        - Testing bilingual dictionary utilised to obtain avg cosine similiarity.
+        - Testing bilingual dictionary utilised
+            to obtain avg cosine similiarity.
 
         API Documentation:
             :param test_path: Path for the test bilingual dictionary.
-            :type test_path: String
+            :type test_path: :class:`String`
             :return: Avg similarity obtained from test bilingual dictionary.
-            :rtype: Float
+            :rtype: :class:`Float`
         """
         self.logger.info(
-            'Avg similarity score measured against testing bilingual dictionary'
+            'Avg similarity score measured against testing bilingual dict'
         )
         bilingual_dictionary = bg.load_bilingual_dictionary(test_path)
         avg = 0.0
