@@ -45,7 +45,7 @@ def multivariate_analyse():
         ('EN-RG-65.txt_translate', dir_path),
         ('wordsim_relatedness_goldstandard.txt_translate', dir_path),
         ('MEN_dataset_natural_form_full_translate', dir_path),
-        ('Mtruk.txt_translate', dir_path)
+        ('Mturk.txt_translate', dir_path)
     ]
     with open(os.path.join(
         'data', 'multivariate', 'multivariate.csv'
@@ -60,8 +60,8 @@ def multivariate_analyse():
             os.path.join(
                 'data', 'bilingual_dictionary', 'english_hindi_train_bd'
             ), 'r', encoding='utf-8'
-        ) as file:
-            data = file.read().split('\n')
+        ) as bilingual_file:
+            data = bilingual_file.read().split('\n')
             bilingual_dict = [
                 (line.split(' ')[0], line.split(' ')[1])
                 for line in data
