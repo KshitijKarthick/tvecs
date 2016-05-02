@@ -21,10 +21,10 @@ def load_bilingual_dictionary(bilingual_dictionary_path, encoding='utf-8'):
     API Documentation
         :param bilingual_dictionary_path: Path for Bilingual Dictionary.
         :param encoding: Encoding of the bilingual dictionary.
-        :type bilingual_dictionary_path: :func:`str`
-        :type encoding: str
+        :type bilingual_dictionary_path: :class:`String`
+        :type encoding: :class:`String`
         :return: Bilingual Dictionary loaded.
-        :rtype: List
+        :rtype: :class:`List`
     """
     LOGGER.info(
         'Loading Bilingual Dictionary: %s', bilingual_dictionary_path
@@ -62,16 +62,16 @@ def build_sparse_bilingual_dictionary(
         :param output_path: Output file path for bilingual dictionary.
         :param topn: Number of words considered from bilingual dictionary.
         :param sample_size: Number of samples from each cluster.
-        :type bilingual_dictionary_path: :func:`str`
-        :type encoding: :func:`str`
+        :type bilingual_dictionary_path: :class:`String`
+        :type encoding: :class:`String`
         :type model: 'mod'`gensim.models.Word2Vec`.
-        :type output_fname: str
-        :type output_path: str
-        :type topn: int
-        :type sample_size: int
+        :type output_fname: :class:`String`
+        :type output_path: :class:`String`
+        :type topn: :class:`Integer`
+        :type sample_size: :class:`Integer`
 
     .. seealso::
-        * :mod:`modules.bilingual_generator.clustering`
+        * :mod:`tvecs.bilingual_generator.clustering`
     """
     LOGGER.info(
         'Building Bilingual Dictionary from: %s', bilingual_dictionary_path

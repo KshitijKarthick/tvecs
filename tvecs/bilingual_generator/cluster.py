@@ -19,9 +19,9 @@ def build_clusters(entire_word_list, model, damping_factor=0.5):
         :param entire_word_list: Word List provided to cluster.
         :param model:  Model to obtain the vectors for the word_list.
         :param damping_factor: Damping factor for the affinity propagation.
-        :type entire_word_list: list
+        :type entire_word_list: :class:`List`
         :type model: :mod:`gensim.models.Word2Vec`
-        :type damping_factor: float
+        :type damping_factor: :class:`Float`
     """
     vocab = set(entire_word_list)
     d = {}
@@ -65,11 +65,11 @@ def write_clusters(
         :param encoding: Encoding of the file written.
         :param output_fname: Filename of the output file.
         :param output_path: File path of the output file.
-        :type word_list: list
+        :type word_list: :class:`List`
         :type model: :mod:`gensim.models.Word2Vec`
-        :type encoding: str
-        :type output_fname: str
-        :type output_path: str
+        :type encoding: :class:`String`
+        :type output_fname: :class:`String`
+        :type output_path: :class:`String`
     """
     clusters = build_clusters(entire_word_list=word_list, model=model)
     with codecs.open(
