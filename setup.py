@@ -39,7 +39,7 @@ setup(
         'regex >= 2016.3.2',
         'scipy >= 0.17.0',
         'sklearn >= 0.0',
-        'bs4 >= 0.0.1',
+        'beautifulsoup4 >= 4.4.1',
         'pytest >= 2.9.1',
         'PyDictionary >= 1.5.2'
     ],
