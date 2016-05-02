@@ -68,11 +68,11 @@ def generate_model(
 
 
 def construct_model(
-    preprocessed_corpus,
-    language,
-    output_dir_path=".",
-    output_fname=None,
-    iterations=5
+        preprocessed_corpus,
+        language,
+        output_dir_path=".",
+        output_fname=None,
+        iterations=5
 ):
     """
     Construct Model given the preprocessed corpus.
