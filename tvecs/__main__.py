@@ -63,12 +63,10 @@ def model_generator(
     )
 
 
-def bilingual_generator(lang1, lang2):
+def bilingual_generator(lang1, lang2, bilingual_dict):
     """Load & returns previously generated bilingual dictionary."""
     bilingual_dict = bg.load_bilingual_dictionary(
-        os.path.join(
-            'data', 'bilingual_dictionary', '%s_%s_train_bd' % (lang1, lang2)
-        )
+        bilingual_dict
     )
     return bilingual_dict
 
@@ -118,6 +116,7 @@ def parse_config(config_path):
     iterations = config.get('iterations', 5)
     silent = config.get('silent', False)
     verbose = config.get('verbose', False)
+    bilingual_dict = config.get('bilingual_dict', '')
     return (
         lang1,
         lang2,
@@ -127,7 +126,8 @@ def parse_config(config_path):
         corpus2,
         iterations,
         silent,
-        verbose
+        verbose,
+        bilingual_dict
     )
 
 
@@ -191,6 +191,13 @@ def args_parser():
         help="config file path",
         action="store"
     )
+    parser.add_argument(
+        "-b",
+        "--bilingual",
+        dest="bilingual_dict",
+        help="bilingual dictionary path",
+        action="store"
+    )
     args = parser.parse_args()
     logger = log.initialise('T-Vecs')
     log.set_logger_normal(logger)
@@ -202,7 +209,8 @@ def args_parser():
                 args.language1, args.language2,
                 args.model1, args.model2,
                 args.corpus1, args.corpus2,
-                args.iter, args.silent, args.verbose
+                args.iter, args.silent, args.verbose,
+                args.bilingual_dict
             ) = parse_config(args.config)
 
         if args.verbose is True:
@@ -211,8 +219,10 @@ def args_parser():
         elif args.silent is True:
             log.set_logger_silent(logger)
 
+        valid_model = args.model1 and args.model2
+        valid_lang = args.language1 and args.language2
         # Load a precomputed model for trsl
-        if args.model1 and args.model2 and args.language1 and args.language2:
+        if valid_model and valid_lang and args.bilingual_dict:
             logger.info(
                 'Loading Model of %s :%s', args.language1, args.model1
             )
@@ -307,7 +317,9 @@ def evaluate(logger, args):
             )
         elif func_name is "bilingual_generator":
             tvex_calls[func_name]['result'] = func(
-                lang1=args.language1, lang2=args.language2
+                lang1=args.language1,
+                lang2=args.language2,
+                bilingual_dict=args.bilingual_dict
             )
         elif func_name is "vector_space_mapper":
             tvex_calls[func_name]['result'] = func(
