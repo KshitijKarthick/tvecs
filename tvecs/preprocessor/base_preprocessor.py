@@ -14,7 +14,7 @@ from abc import ABCMeta, abstractmethod
 
 from tvecs.logger import init_logger as log
 
-LOGGER = log.initialise('T-Vecs.Preprocessor')
+LOGGER = log.initialise('TVecs.Preprocessor')
 
 
 class BasePreprocessor(object):

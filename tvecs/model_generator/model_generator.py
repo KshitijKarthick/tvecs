@@ -15,7 +15,7 @@ import gensim
 from tvecs.logger import init_logger as log
 from tvecs.preprocessor import hccorpus_preprocessor as pre
 
-LOGGER = log.initialise('T-Vecs.ModelGeneration')
+LOGGER = log.initialise('TVecs.ModelGeneration')
 
 
 def generate_model(

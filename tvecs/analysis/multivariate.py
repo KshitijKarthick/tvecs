@@ -22,7 +22,7 @@ from tvecs.model_generator import model_generator
 from tvecs.preprocessor.hccorpus_preprocessor import HcCorpusPreprocessor
 from tvecs.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
 
-LOGGER = log.initialise('T-Vecs.Multivariate')
+LOGGER = log.initialise('TVecs.Multivariate')
 
 
 def evaluate(vsm, wordsim_dataset_path):

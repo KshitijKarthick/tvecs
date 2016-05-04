@@ -9,7 +9,7 @@ from collections import defaultdict
 from base_preprocessor import BasePreprocessor
 from tvecs.logger import init_logger as log
 
-LOGGER = log.initialise('T-Vecs.Preprocessor')
+LOGGER = log.initialise('TVecs.Preprocessor')
 
 
 class LeipzigPreprocessor(BasePreprocessor):

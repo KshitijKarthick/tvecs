@@ -12,7 +12,7 @@ from sklearn import metrics
 from tvecs.bilingual_generator import bilingual_generator as bg
 from tvecs.logger import init_logger as log
 
-LOGGER = log.initialise('T-Vecs.VectorSpaceMapper')
+LOGGER = log.initialise('TVecs.VectorSpaceMapper')
 
 
 class VectorSpaceMapper(object):

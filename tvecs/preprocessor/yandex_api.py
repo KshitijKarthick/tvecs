@@ -14,7 +14,7 @@ import requests
 from tvecs.logger import init_logger as log
 
 
-LOGGER = log.initialise('T-Vecs.Yandex')
+LOGGER = log.initialise('TVecs.Yandex')
 
 
 def get_valid_translation(word, from_to):

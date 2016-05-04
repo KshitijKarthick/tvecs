@@ -10,7 +10,7 @@ from tvecs.logger import init_logger as log
 from tvecs.bilingual_generator import bilingual_generator as bg
 from tvecs.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
 
-LOGGER = log.initialise('T-Vecs.Evaluation')
+LOGGER = log.initialise('TVecs.Evaluation')
 
 
 def extract_correlation_coefficient(score_data_path, vsm):

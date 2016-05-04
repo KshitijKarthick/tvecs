@@ -6,7 +6,7 @@ from sklearn.cluster import AffinityPropagation
 
 from tvecs.logger import init_logger as log
 
-LOGGER = log.initialise('T-Vecs.Clustering')
+LOGGER = log.initialise('TVecs.Clustering')
 
 
 def build_clusters(entire_word_list, model, damping_factor=0.5):

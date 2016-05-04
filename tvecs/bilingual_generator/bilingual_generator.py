@@ -11,7 +11,7 @@ from tvecs.bilingual_generator import cluster as cl
 from tvecs.logger import init_logger as log
 
 
-LOGGER = log.initialise('T-Vecs.BilingualDictionary')
+LOGGER = log.initialise('TVecs.BilingualDictionary')
 
 
 def load_bilingual_dictionary(bilingual_dictionary_path, encoding='utf-8'):

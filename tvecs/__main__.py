@@ -17,6 +17,7 @@ import ntpath
 import argparse
 import itertools as it
 from gensim.models import Word2Vec
+
 from logger import init_logger as log
 from model_generator import model_generator as model
 from preprocessor import emille_preprocessor as emilleprep
@@ -199,7 +200,7 @@ def args_parser():
         action="store"
     )
     args = parser.parse_args()
-    logger = log.initialise('T-Vecs')
+    logger = log.initialise('TVecs')
     log.set_logger_normal(logger)
     parse_success = False
     try:
