@@ -25,7 +25,7 @@ class TestVectorSpaceMapper:
     .. seealso::
         * :mod:`tvecs.vector_space_mapper.vector_space_mapper`
         * :mod:`pytest`
-        * :mod:`tvecs.model_generator.model_generation`
+        * :mod:`tvecs.model_generator.model_generator`
     """
 
     def setup_class(cls):
@@ -33,8 +33,8 @@ class TestVectorSpaceMapper:
         Used to create a :mod:`tvecs.vector_space_mapper.vector_space_mapper`.
 
         - Learns transformation between two models
-            - :mod:`tvecs.model_generator.model_generation`
-            - :mod:`tvecs.model_generator.model_generation`
+            - :mod:`tvecs.model_generator.model_generator`
+            - :mod:`tvecs.model_generator.model_generator`
         """
         try:
             model_1 = mod.generate_model(
