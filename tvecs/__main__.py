@@ -18,7 +18,7 @@ import argparse
 import itertools as it
 from gensim.models import Word2Vec
 from logger import init_logger as log
-from model_generator import model_generation as model
+from model_generator import model_generator as model
 from preprocessor import emille_preprocessor as emilleprep
 from preprocessor import hccorpus_preprocessor as hcprep
 from preprocessor import leipzig_preprocessor as leipprep
@@ -256,7 +256,18 @@ def args_parser():
     old_time = time.time()
     evaluate(logger, args)
     tvecs_vm = tvex_calls['vector_space_mapper']['result']
-    tvecs_vm.obtain_avg_similarity_from_test(
+    logger.info(
+        'Evaluation of Training Dataset'
+    )
+    tvecs_vm.obtain_mean_square_error_from_dataset(
+        test_path=os.path.join(
+            'data', 'bilingual_dictionary', 'english_hindi_train_bd'
+        )
+    )
+    logger.info(
+        'Evaluation of Testing Dataset'
+    )
+    tvecs_vm.obtain_mean_square_error_from_dataset(
         test_path=os.path.join(
             'data', 'bilingual_dictionary', 'english_hindi_test_bd'
         )

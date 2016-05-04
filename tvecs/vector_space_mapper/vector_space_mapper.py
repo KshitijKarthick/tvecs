@@ -7,6 +7,7 @@ import logging
 from gensim.models import Word2Vec
 import scipy.spatial.distance as dist
 from sklearn.linear_model import RidgeCV
+from sklearn import metrics
 
 from tvecs.bilingual_generator import bilingual_generator as bg
 from tvecs.logger import init_logger as log
@@ -25,16 +26,16 @@ class VectorSpaceMapper(object):
 
     API Documentation:
         :param model_1: Model constructed from Language 1 built using
-            :mod:`tvecs.model_generator.model_generation`.
+            :mod:`tvecs.model_generator.model_generator`.
         :param model_2: Model constructed from Language 2 built using
-            :mod:`tvecs.model_generator.model_generation`.
+            :mod:`tvecs.model_generator.model_generator`.
         :param bilingual_dict: Bilingual Dictionary for Language 1, Language 2.
         :type model_1: :mod:`gensim.models.Word2Vec`
         :type model_2: :mod:`gensim.models.Word2Vec`
         :type bilingual_dict: :class:`List[(lang1, lang2), (lang1, lang2)]`
 
     .. seealso::
-        * :mod:`tvecs.model_generator.model_generation`
+        * :mod:`tvecs.model_generator.model_generator`
         * :mod:`gensim.models.Word2Vec`
         * :mod:`sklearn.linear_model`
         * :mod:`scipy.spatial.distance`
@@ -194,35 +195,37 @@ class VectorSpaceMapper(object):
         except KeyError:
             return None
 
-    def obtain_avg_similarity_from_test(self, test_path):
+    def obtain_mean_square_error_from_dataset(self, test_path):
         """
-        Obtain Avg Similarity from testing dataset.
-
-        - Testing bilingual dictionary utilised
-            to obtain avg cosine similiarity.
+        Obtain Mean Square Error from bilingual dataset.
 
         API Documentation:
             :param test_path: Path for the test bilingual dictionary.
             :type test_path: :class:`String`
-            :return: Avg similarity obtained from test bilingual dictionary.
+            :return: Mean Square Error obtained from bilingual dictionary.
             :rtype: :class:`Float`
         """
         self.logger.info(
-            'Avg similarity score measured against testing bilingual dict'
+            'Obtain mean square error from dataset: %s', test_path
         )
         bilingual_dictionary = bg.load_bilingual_dictionary(test_path)
         avg = 0.0
         count = 0.0
+        expected = []
+        actual = []
         for tup in bilingual_dictionary:
             word_1 = tup[0]
             word_2 = tup[1]
-            similarity = self.obtain_cosine_similarity(word_1, word_2)
-            if similarity is not None:
-                count += 1
-                avg += similarity
-        score = avg / count
+            try:
+                pr_vector_1 = self._predict_vec_from_word(word_1)
+                vector_2 = self.model_2[word_2]
+                expected.append(pr_vector_1)
+                actual.append(vector_2)
+            except KeyError:
+                pass
+        score = metrics.mean_squared_error(expected, actual)
         self.logger.info(
-            'Avg Test Similarity Score: %s', score
+            'Mean Squared Error for Dataset: %s', score
         )
         return score
 
@@ -242,6 +245,15 @@ if __name__ == '__main__':
     )
     vm = VectorSpaceMapper(model_1, model_2, bilingual_dict)
     vm.map_vector_spaces()
-    vm.obtain_avg_similarity_from_test(test_path=os.path.join(
+    LOGGER.info(
+        'Evaluation of Testing Dataset'
+    )
+    vm.obtain_mean_square_error_from_dataset(test_path=os.path.join(
         'data', 'bilingual_dictionary', 'english_hindi_test_bd'
+    ))
+    LOGGER.info(
+        'Evaluation of Training Dataset'
+    )
+    vm.obtain_mean_square_error_from_dataset(test_path=os.path.join(
+        'data', 'bilingual_dictionary', 'english_hindi_train_bd'
     ))

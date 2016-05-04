@@ -18,7 +18,7 @@ import codecs
 
 from tvecs.evaluation import evaluation
 from tvecs.logger import init_logger as log
-from tvecs.model_generator import model_generation
+from tvecs.model_generator import model_generator
 from tvecs.preprocessor.hccorpus_preprocessor import HcCorpusPreprocessor
 from tvecs.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
 
@@ -51,7 +51,7 @@ def multivariate_analyse():
         'data', 'multivariate', 'multivariate.csv'
     ), 'w+') as csvfile:
         fieldnames = [
-            'corpus_size', 'bilingual_size', 'avg_sim_test', 'wordsim_dataset',
+            'corpus_size', 'bilingual_size', 'mean_square_error', 'wordsim_dataset',
             'correlation_score', 'p_value', 'exec_time'
         ]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -77,7 +77,7 @@ def multivariate_analyse():
                     LOGGER.info(
                         "Constructing Model 1 with corpus size: %s", corpus
                     )
-                    model_1 = model_generation.construct_model(
+                    model_1 = model_generator.construct_model(
                         HcCorpusPreprocessor(
                             corpus_fname='all.txt',
                             corpus_dir_path=os.path.join(
@@ -96,14 +96,14 @@ def multivariate_analyse():
                     LOGGER.info(
                         "Loading Model 1 with corpus size: %s", corpus
                     )
-                    model_1 = model_generation.gensim.models.Word2Vec.load(
+                    model_1 = model_generator.gensim.models.Word2Vec.load(
                         os.path.join(m_1_path, m_1_fname)
                     )
                 if not os.path.exists(os.path.join(m_2_path, m_2_fname)):
                     LOGGER.info(
                         "Constructing Model 2 with corpus size: %s", corpus
                     )
-                    model_2 = model_generation.construct_model(
+                    model_2 = model_generator.construct_model(
                         HcCorpusPreprocessor(
                             corpus_fname='all.txt',
                             corpus_dir_path=os.path.join(
@@ -123,7 +123,7 @@ def multivariate_analyse():
                     LOGGER.info(
                         "Loading Model 2 with corpus size: %s", corpus
                     )
-                    model_2 = model_generation.gensim.models.Word2Vec.load(
+                    model_2 = model_generator.gensim.models.Word2Vec.load(
                         os.path.join(m_2_path, m_2_fname)
                     )
                 m_exec_time = time.time() - m_old_time
@@ -156,8 +156,8 @@ def multivariate_analyse():
                         writer.writerow({
                             'corpus_size': corpus,
                             'bilingual_size': bilingual,
-                            'avg_sim_test': (
-                                vsm.obtain_avg_similarity_from_test(
+                            'mean_square_error': (
+                                vsm.obtain_mean_square_error_from_dataset(
                                     test_path=os.path.join(
                                         'data',
                                         'bilingual_dictionary',

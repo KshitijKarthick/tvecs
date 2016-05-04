@@ -6,7 +6,7 @@ import os
 import pytest
 import random
 
-from tvecs.model_generator import model_generation as mod
+from tvecs.model_generator import model_generator as mod
 from tvecs.bilingual_generator import bilingual_generator as bg
 from tvecs.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
 
