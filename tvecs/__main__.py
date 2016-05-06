@@ -261,7 +261,7 @@ def args_parser():
         'Evaluation of Training Dataset'
     )
     tvecs_vm.obtain_mean_square_error_from_dataset(
-        test_path=os.path.join(
+        dataset_path=os.path.join(
             'data', 'bilingual_dictionary', 'english_hindi_train_bd'
         )
     )
@@ -269,13 +269,13 @@ def args_parser():
         'Evaluation of Testing Dataset'
     )
     tvecs_vm.obtain_mean_square_error_from_dataset(
-        test_path=os.path.join(
+        dataset_path=os.path.join(
             'data', 'bilingual_dictionary', 'english_hindi_test_bd'
         )
     )
     new_time = time.time()
     loading_time = new_time - old_time
-    logger.info("Execution Time :" + str(loading_time))
+    logger.info("Execution Time: " + str(loading_time))
 
 
 def evaluate(logger, args):

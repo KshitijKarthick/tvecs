@@ -195,22 +195,24 @@ class VectorSpaceMapper(object):
         except KeyError:
             return None
 
-    def obtain_mean_square_error_from_dataset(self, test_path):
+    def obtain_mean_square_error_from_dataset(self, dataset_path, ):
         """
         Obtain Mean Square Error from bilingual dataset.
 
         API Documentation:
-            :param test_path: Path for the test bilingual dictionary.
-            :type test_path: :class:`String`
-            :return: Mean Square Error obtained from bilingual dictionary.
+            :param dataset_path: Path for the test bilingual dictionary.
+            :type dataset_path: :class:`String`
+            :return: Percentage of reduction of Mean Square Error after transformation.
             :rtype: :class:`Float`
         """
         self.logger.info(
-            'Obtain mean square error from dataset: %s', test_path
+            'Obtain mean square error from dataset: %s', dataset_path
         )
-        bilingual_dictionary = bg.load_bilingual_dictionary(test_path)
+        bilingual_dictionary = bg.load_bilingual_dictionary(dataset_path)
         avg = 0.0
         count = 0.0
+        expected_with_tr = []
+        actual_with_tr = []
         expected = []
         actual = []
         for tup in bilingual_dictionary:
@@ -218,16 +220,27 @@ class VectorSpaceMapper(object):
             word_2 = tup[1]
             try:
                 pr_vector_1 = self._predict_vec_from_word(word_1)
+                vector_1 = self.model_1[word_1]
                 vector_2 = self.model_2[word_2]
-                expected.append(pr_vector_1)
+                expected.append(vector_1)
                 actual.append(vector_2)
+                expected_with_tr.append(pr_vector_1)
+                actual_with_tr.append(vector_2)
             except KeyError:
                 pass
         score = metrics.mean_squared_error(expected, actual)
+        score_with_tr = metrics.mean_squared_error(expected_with_tr, actual_with_tr)
         self.logger.info(
-            'Mean Squared Error for Dataset: %s', score
+            'Mean Square Error for Dataset without transformation: %s', score
         )
-        return score
+        self.logger.info(
+            'Mean Square Error for Dataset with transformation: %s', score_with_tr
+        )
+        error_reduction = ((score - score_with_tr) / score) * 100
+        self.logger.info(
+            'Reduction in Mean Square Error with transformation: %s %%', error_reduction
+        )
+        return error_reduction
 
 
 if __name__ == '__main__':
@@ -248,12 +261,12 @@ if __name__ == '__main__':
     LOGGER.info(
         'Evaluation of Testing Dataset'
     )
-    vm.obtain_mean_square_error_from_dataset(test_path=os.path.join(
+    vm.obtain_mean_square_error_from_dataset(dataset_path=os.path.join(
         'data', 'bilingual_dictionary', 'english_hindi_test_bd'
     ))
     LOGGER.info(
         'Evaluation of Training Dataset'
     )
-    vm.obtain_mean_square_error_from_dataset(test_path=os.path.join(
+    vm.obtain_mean_square_error_from_dataset(dataset_path=os.path.join(
         'data', 'bilingual_dictionary', 'english_hindi_train_bd'
     ))

@@ -158,7 +158,7 @@ def multivariate_analyse():
                             'bilingual_size': bilingual,
                             'mean_square_error': (
                                 vsm.obtain_mean_square_error_from_dataset(
-                                    test_path=os.path.join(
+                                    dataset_path=os.path.join(
                                         'data',
                                         'bilingual_dictionary',
                                         'english_hindi_test_bd'
