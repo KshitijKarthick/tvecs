@@ -144,7 +144,7 @@ The main documentation for the site is organized into a couple sections:
 		:caption: Experimental Results
 
 +---------------+------------------+-------------------+--------------------+------------+
-| Corpus Size   | Bilingual Size   | Wordsim Dataset   | Correltion Score   | P-Value    |
+| Corpus Size   | Bilingual Size   | Wordsim Dataset   | Correlation Score   | P-Value    |
 +===============+==================+===================+====================+============+
 | 136772323     | 11291            | MTurk-287         | 0.6268             | 1.83e-29   |
 +---------------+------------------+-------------------+--------------------+------------+
