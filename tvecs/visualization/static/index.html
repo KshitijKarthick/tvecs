@@ -1,44 +1,45 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>T-Vecs Visualization</title>
-    <script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="resources/font-awesome/css/font-awesome.min.css">
-    <link href='https://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css'>
-</head>
-<body>
-  <div id="tv-main-container">
-    <div class="row" id="tv-grid-box">
-      <div class="col-sm-12 col-md-12 col-lg-12" id="tv-top">
-        <div id="tv-header">T-Vecs Visualization</div>
-      </div>
-      <div class="col-sm-12 col-md-12 col-lg-12 row" id="tv-content">
-        <div class="col-md-6 col-sm-6 col-lg-6" id="tv-bottom-center">
-          <div id="tv-cross-lang">
-            <a class="tv-anchors" href="http://0.0.0.0:5000/cross_lingual">
-              <button class="tv-btn" id="tv-cross-lang-btn"><i class="fa fa-language" aria-hidden="true"></i></button>
-            </a>
-            <div class="tv-btn-caption">Cross-Lingual</div>
-          </div>
+  <head>
+    <meta charset="utf-8">
+    <title>T-Vecs Visualization</title>
+      <script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
+      <script type="text/javascript" src="js/bootstrap.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="css/style.css">
+      <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+      <link rel="stylesheet" href="resources/font-awesome/css/font-awesome.min.css">
+      <link href='https://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div id="tv-main-container">
+      <div class="row" id="tv-grid-box">
+        <div class="col-sm-12 col-md-12 col-lg-12" id="tv-top">
+          <div id="tv-header">T-Vecs Visualization</div>
         </div>
-        <div class="col-md-6 col-sm-6 col-lg-6" id="tv-bottom-right">
-          <div id="tv-multivariate">
-            <a class="tv-anchors" href="http://0.0.0.0:5000/multivariate_analysis">
-              <button class="tv-btn" id="tv-multivariate-btn">
-                <span class="fa-stack fa-lg">
-                  <i class="fa fa-line-chart fa-stack-1x tv-chart"></i>
-                  <i class="fa fa-search fa-stack tv-search"></i>
-                </span>
-              </button>
-            </a>
-            <div class="tv-btn-caption">Multivariate Analysis</div>
+        <div class="col-sm-12 col-md-12 col-lg-12 row" id="tv-content">
+          <div class="col-md-6 col-sm-6 col-lg-6" id="tv-bottom-center">
+            <div id="tv-cross-lang">
+              <a class="tv-anchors" href="http://0.0.0.0:5000/cross_lingual">
+                <button class="tv-btn" id="tv-cross-lang-btn"><i class="fa fa-language" aria-hidden="true"></i></button>
+              </a>
+              <div class="tv-btn-caption">Cross-Lingual</div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6 col-lg-6" id="tv-bottom-right">
+            <div id="tv-multivariate">
+              <a class="tv-anchors" href="http://0.0.0.0:5000/multivariate_analysis">
+                <button class="tv-btn" id="tv-multivariate-btn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-line-chart fa-stack-1x tv-chart"></i>
+                    <i class="fa fa-search fa-stack tv-search"></i>
+                  </span>
+                </button>
+              </a>
+              <div class="tv-btn-caption">Multivariate Analysis</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>
