@@ -173,7 +173,7 @@
     renderer.run();
 
     function processInput() {
-        var english_word = $('#english-word-input').val().trim(),
+        var english_word = $('#english-word-input').val().trim().toLowerCase(),
             hindi_word = $('#hindi-word-input').val().trim();
 
         if (english_word && hindi_word) {
