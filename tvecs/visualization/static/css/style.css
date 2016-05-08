@@ -397,3 +397,13 @@ input[type="radio"]:checked + label span {
   border-radius: 3px;
 }
 
+#multivariate-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  padding: 10px;
+  width: 100%;
+  background: #fff;
+}
+
