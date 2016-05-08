@@ -77,10 +77,10 @@ svg {
 
 .btn-word-input {
   border: none;
-  background: #3A3026 none repeat scroll 0% 0%;
+  background: #291E14 none repeat scroll 0% 0%;
   height: 100%;
   font-size: 20px;
-  padding: 10px 15px 10px 15px;
+  padding: 3px 15px 10px 15px;
 }
 
 .btn-word-input:focus {
