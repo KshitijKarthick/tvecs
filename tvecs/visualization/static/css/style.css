@@ -129,6 +129,7 @@ svg {
   font-weight: bold;
 }
 
+/*Radio button style*/
 input[type="radio"] {
     display:none;
 }
@@ -162,6 +163,7 @@ input[type="radio"]:checked + label span {
   margin-right: 10px;
 }
 
+/*Switch Menu style*/
 .switch-menu {
   position: absolute;
   top: 0;
@@ -212,7 +214,6 @@ input[type="radio"]:checked + label span {
 }
 
 /* Index Page Style */
-
 #tv-main-container {
   background: url("../images/index_lighter.png");
   background-size: 60%;
@@ -357,6 +358,7 @@ input[type="radio"]:checked + label span {
   outline: 0 !important;
 }
 
+/*Sample Words Menu style*/
 #words-menu {
   padding-left: 20px;
   padding-top: 20px;
@@ -393,5 +395,15 @@ input[type="radio"]:checked + label span {
   background: #291E14;
   border: 1px #291e14;
   border-radius: 3px;
+}
+
+#multivariate-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  padding: 10px;
+  width: 100%;
+  background: #fff;
 }
 
