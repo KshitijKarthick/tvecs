@@ -121,6 +121,26 @@ class Server(object):
 
     @cherrypy.expose
     def get_distance(self, word1, word2, language1, language2):
+        """
+        Retrieve cosine distance between word1 and word2.
+
+        - word1 and word2 have to be in the vocabulary of language1 and language2, respectively.
+
+        API Documentation
+            :param word1: A word in language1's vocabulary
+            :param language1: Language of word1
+            :param word2: A word in language2's vocabulary
+            :param language2: Language of word2
+            :type word1: String
+            :type language1: String
+            :type word2: String
+            :type language2: String
+            :return: Dictionary with keys 'word1', 'word2', and 'distance'
+            :rtype: :class:`Dictionary`
+
+        .. seealso::
+            * :meth:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.obtain_cosine_similarity`
+        """
 
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
 
