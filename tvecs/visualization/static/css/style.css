@@ -275,10 +275,6 @@ input[type="radio"]:checked + label span {
   padding-left: 140px;
 }
 
-#tv-multivariate {
-  padding-right: 140px;
-}
-
 #tv-cross-lang-btn {
   background: rgba(20, 165, 151, 0.85);
   box-shadow: 0 0 10px rgb(53, 140, 131); 
@@ -288,7 +284,18 @@ input[type="radio"]:checked + label span {
 
 #tv-multivariate-btn {
   background: rgba(20, 165, 151, 0.85);
-  box-shadow: 0 0 10px rgb(53, 140, 131); 
+  box-shadow: 0 0 10px rgb(53, 140, 131);
+  color: #004D40;
+  font-size: 70px;
+}
+
+#tv-distances {
+    padding-right: 140px;
+}
+
+#tv-distances-btn {
+  background: rgba(20, 165, 151, 0.85);
+  box-shadow: 0 0 10px rgb(53, 140, 131);
   color: #004D40;
   font-size: 70px;
 }

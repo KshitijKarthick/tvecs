@@ -70,6 +70,13 @@ class Server(object):
         )
 
     @cherrypy.expose
+    def distances(self):
+        """Visualization with distances html returned."""
+        return file(os.path.join(
+            'tvecs', 'visualization', 'static', 'distances.html')
+        )
+
+    @cherrypy.expose
     def lingual_semantics(self):
         """Semantically related words in same language returned."""
         return file(os.path.join(
@@ -111,6 +118,24 @@ class Server(object):
                 ) as f:
                     f.write(json.dumps(self.cached_dictionary))
             return json.dumps(meanings)
+
+    @cherrypy.expose
+    def get_distance(self, word1, word2, language1, language2):
+        cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
+
+        vm = self.cross_lang_vm.get((language1, language2))
+        similarity = None
+        if vm is not None:
+            similarity = vm.obtain_cosine_similarity(word1, word2)
+
+        distance = 1 - similarity if similarity is not None else None
+        return json.dumps(
+            {
+                '%s_word'%(language1): word1,
+                '%s_word'%(language2): word2,
+                'distance': distance
+            }
+        )
 
     @cherrypy.expose
     def retrieve_recommendations(self, language, word, limit=10):

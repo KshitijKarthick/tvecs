@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>T-Vecs Word Distances</title>
+    <script type="text/javascript" src="js/dist/vivagraph.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/font-awesome/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css'>
+    <link href="css/toastr.css" rel="stylesheet">
+    <script src="js/toastr.js"></script>
+</head>
+<body>
+  <div id="main-container" class="container row">
+    <div class="switch-menu">
+      <a href="http://0.0.0.0:5000">
+        <button class="switch-btn home-btn" title="Home">
+          <i class="fa fa-home" aria-hidden="true"></i>
+        </button>
+      </a>
+      <a href="http://0.0.0.0:5000/multivariate_analysis">
+        <button class="switch-btn switch-multivariate" title="Multivariate Analysis">
+          <i class="fa fa-line-chart" aria-hidden="true"></i>
+        </button>
+      </a>
+    </div>
+    <div id="svg-container" class="col-sm-10"></div>
+    <div id="option-menu" class="col-sm-2">
+      <center><h4>Distances</h4></center>
+      <div class="word-input-container">
+        <div class="input-group">
+          <input type="text" class="form-control word-input" id="english-word-input" name="word-text" placeholder="English Word" aria-describedby="basic-addon2">
+        </div>
+      </div>
+      <div class="word-input-container">
+        <div class="input-group">
+          <input type="text" class="form-control word-input" name="word-text" id="hindi-word-input" placeholder="Hindi Word" aria-describedby="basic-addon2">
+            <span class="input-group-addon btn-span" id="basic-addon2">
+              <button class="btn-word-input" onclick="processInput()">
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+              </button>
+            </span>
+        </div>
+      </div>
+      <div id="bottom-menu">
+        <button id="reset-btn" class="bottom-btns" onclick="window.location.reload()">Reset</button>
+      </div>
+    </div>
+    <div class="modal fade" id="myModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true"></span>
+            </button>
+            <h4 class="modal-title"></h4>
+          </div>
+          <div class="modal-body">
+            <p id="modal-message"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary modal-btn" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+  </div>
+  <script type="text/javascript">
+    var graph = Viva.Graph.graph();
+    var graphics = Viva.Graph.View.svgGraphics();
+    var geom = Viva.Graph.geom();
+    var nodes = [];
+    var edges = [];
+
+    // This function let us override default node appearance and create
+    // something better than blue dots:
+    graphics.node(function(node) {
+        // node.data holds custom object passed to graph.addNode():
+        var text = Viva.Graph.svg('text')
+         .attr('fill', 'black')
+         .text(node.data.id)
+         .attr('height', 24)
+         .attr('text-anchor', 'middle')
+         .attr('x', 20)
+         .attr("data-language", node.language);
+        var circle = Viva.Graph.svg('circle')
+         .attr("r", 7)
+         .attr("cx",12.5)
+         .attr("cy",12.5)
+         .attr("data-language", node.language);
+
+
+
+        var ui = Viva.Graph.svg('svg');
+        ui.appendChild(circle);
+        ui.appendChild(text);
+
+
+        return ui;
+    });
+
+    graphics.placeNode(function(nodeUI, pos) {
+       // nodeUI - is exactly the same object that we returned from
+       //   node() callback above.
+       // pos - is calculated position for this node.
+       nodeUI.attr('x', pos.x - 12).attr('y', pos.y - 12);
+    });
+
+    graphics.link(function(link){
+        var label = Viva.Graph.svg('text').attr('id','label_'+link.data.id).text(link.data.distance);
+        graphics.getSvgRoot().childNodes[0].append(label);
+
+        return Viva.Graph.svg('path')
+            .attr('stroke', 'gray')
+            .attr('id', link.data.id);
+    })
+
+    graphics.placeLink(function(linkUI, fromPos, toPos) {
+        var toNodeSize = 40,
+        fromNodeSize = 40;
+
+        var from = geom.intersectRect(
+            fromPos.x - fromNodeSize / 2, // left
+            fromPos.y - fromNodeSize / 2, // top
+            fromPos.x + fromNodeSize / 2, // right
+            fromPos.y + fromNodeSize / 2, // bottom
+            fromPos.x, fromPos.y, toPos.x, toPos.y)
+        || fromPos;
+
+        var to = geom.intersectRect(
+            toPos.x - toNodeSize / 2, // left
+            toPos.y - toNodeSize / 2, // top
+            toPos.x + toNodeSize / 2, // right
+            toPos.y + toNodeSize / 2, // bottom
+            // segment:
+            toPos.x, toPos.y, fromPos.x, fromPos.y)
+            || toPos;
+
+        var data = 'M' + from.x + ',' + from.y +
+            'L' + to.x + ',' + to.y;
+
+        linkUI.attr("d", data);
+
+        document.getElementById('label_'+linkUI.attr('id'))
+                    .attr("x", (from.x + to.x) / 2)
+                    .attr("y", (from.y + to.y) / 2);
+    });
+
+
+    var idealLength = 90;
+    var layout = Viva.Graph.Layout.forceDirected(graph, {
+       springLength: idealLength,
+       springCoeff : 0.0001,
+       gravity : -1,
+       theta : 0,
+       // This is the main part of this example. We are telling force directed
+       // layout, that we want to change length of each physical spring
+       // by overriding `springTransform` method:
+       springTransform: function (link, spring) {
+         spring.length = idealLength * (1 + link.data.connectionStrength);
+       }
+    });
+
+    // Step 4. Render the graph with our customized graphics object:
+    var renderer = Viva.Graph.View.renderer(graph, {
+           graphics : graphics,
+           layout: layout,
+           container: document.getElementById('svg-container')
+       });
+    renderer.run();
+
+    function processInput() {
+        var english_word = $('#english-word-input').val().trim(),
+            hindi_word = $('#hindi-word-input').val().trim();
+
+        if (english_word && hindi_word) {
+            $.ajax(
+                'http://0.0.0.0:5000/get_distance',
+                {
+                    data: {
+                        word1: english_word,
+                        word2: hindi_word,
+                        language1: 'english',
+                        language2: 'hindi'
+                    },
+                    failure: function(data) {
+                        tvecsAlert("Something went wrong while talking to the server!");
+                    },
+                    success: addNodes,
+                    method: 'POST',
+                    dataType: 'json'
+                }
+            );
+        }
+        else {
+            tvecsAlert("Please enter both words!");
+        }
+
+    }
+
+    function addNodes(data) {
+        if(data.distance === null) {
+            tvecsAlert("One or both of the entered words are misspelt or not present in the vocabulary");
+        }
+        else {
+            if(nodes.indexOf(data.english_word) === -1) {
+                nodes.push(data.english_word);
+                graph.addNode(data.english_word, {id: data.english_word});
+            }
+            if(nodes.indexOf(data.hindi_word) === -1) {
+                nodes.push(data.hindi_word);
+                graph.addNode(data.hindi_word, {id: data.hindi_word});
+            }
+
+            if(edges.indexOf(data.english_word+data.hindi_word) === -1) {
+                edges.push(data.english_word+data.hindi_word);
+                graph.addLink(data.english_word, data.hindi_word, {id: data.english_word+data.hindi_word, distance: data.distance.toFixed(2), connectionStrength: data.distance});
+            }
+        }
+    }
+
+    function tvecsAlert(alertMsg) {
+      $('#modal-message').html(alertMsg);
+      $('#myModal').modal('toggle');
+    }
+  </script>
+</body>
+</html>
