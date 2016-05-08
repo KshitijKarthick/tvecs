@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
+    <meta charset="utf-8">
     <title>T-Vecs Cross Lingual Mapping</title>
-    <script type="text/javascript" src="js/dist/vivagraph.min.js"></script>
+    <link rel="icon" href="../images/favicon_trex.ico"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <script type="text/javascript" src="js/dist/vivagraph.min.js"></script>
     <link rel="stylesheet" href="resources/font-awesome/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css'>
     <link href="css/toastr.css" rel="stylesheet">
@@ -22,340 +24,332 @@
         "english" : "hindi",
         "hindi" : "english"
       }
-        function main () {
+        
+      function main() {
 
+        // Step 1. Create a graph:
+        var graph = Viva.Graph.graph();
 
+        // Step 2. Add graph content.
+        //  graph.addNode(nodeId, yourCustomData) method lets you add new
+        //  nodes to the graph and associate them with custom data. In this
+        //  case we are associating GitHub user profiles with their Gravatar's images:
+        // graph.addNode('anvaka', '91bad8ceeec43ae303790f8fe238164b');
+        // graph.addNode('indexzero', 'd43e8ea63b61e7669ded5b9d3c2e980f');
+        graph.addNode(rootWords[language]);
 
-          var graph = Viva.Graph.graph();
+        // Step 3. Customize node appearance.
+        //  Vivagraph can present graph in multiple ways. svgGraphics() - is
+        //  the way to render graph in SVG format:
+        var graphics = Viva.Graph.View.svgGraphics();
 
-             graph.addNode(rootWords[language]);
+        // This function let us override default node appearance and create
+        // something better than blue dots:
+        graphics.node(function(node) {
+          var text = Viva.Graph.svg('text')
+            .attr('fill', 'black')
+            .text(node.id)
+            .attr('height', 24)
+            .attr('text-anchor', 'middle')
+            .attr('x', 20)
+            .attr("data-language", language);
+          var circle = Viva.Graph.svg('circle')
+            .attr("r", 7)
+            .attr("cx",12.5)
+            .attr("cy",12.5)
+            .attr("data-language", language);
 
-               // Step 2. Add graph content.
-               //  graph.addNode(nodeId, yourCustomData) method lets you add new
-               //  nodes to the graph and associate them with custom data. In this
-               //  case we are associating GitHub user profiles with their Gravatar's images:
-               // graph.addNode('anvaka', '91bad8ceeec43ae303790f8fe238164b');
-               // graph.addNode('indexzero', 'd43e8ea63b61e7669ded5b9d3c2e980f');
-
-
-               // Step 3. Customize node appearance.
-               //  Vivagraph can present graph in multiple ways. svgGraphics() - is
-               //  the way to render graph in SVG format:
-               var graphics = Viva.Graph.View.svgGraphics();
-
-               // This function let us override default node appearance and create
-               // something better than blue dots:
-               graphics.node(function(node) {
-                   // node.data holds custom object passed to graph.addNode():
-                   var text = Viva.Graph.svg('text')
-                     .attr('fill', 'black')
-                     .text(node.id)
-                     .attr('height', 24)
-                     .attr('text-anchor', 'middle')
-                     .attr('x', 20)
-                     .attr("data-language", language);
-                   var circle = Viva.Graph.svg('circle')
-                     .attr("r", 7)
-                     .attr("cx",12.5)
-                     .attr("cy",12.5)
-                     .attr("data-language", language);
-
-
-
-                   var ui = Viva.Graph.svg('svg');
-                   ui.appendChild(circle);
-                   ui.appendChild(text);
-
-                   ui.addEventListener("mousedown", function(e){
-                     var item = node.id;
-                     var links = graph.getLinks(node.id);
-                     var addNode = function(data){
-                       if(data == null) {
-                          tvecsAlert("Sorry! Related words not found &#9785;");
-                       }
-                       else {
-                         for(var i=0;i<data.length;i++){
-                           var flag = true;
-                           for(var j=0;j<links.length; j++){
-                             if(links[j].toId == data[i].word || links[j].fromId == data[i].word){
-                               flag = false;
-                               break;
-                             }
-                           }
-                           if(flag === true){
-                             graph.addLink(item, data[i].word, {connectionStrength: data[i].weight});
-                           }
-                         }
-                       }
-                     }
-                     e.preventDefault();
-                     switch(e.which) {
-                      case 1: language = e.target.getAttribute("data-language");
-                              $.ajax({
-                                url: 'http://0.0.0.0:5000/get_cross_lingual_recommendations',
-                                data: {
-                                  'lang1': language,
-                                  'lang2': alternate[language],
-                                  'word': node.id
-                                },
-                                success: addNode,
-                                dataType: 'json'
-                              });
-                              language = alternate[language];
-                              break;
-                      case 3: language = e.target.getAttribute("data-language");
-                                $.ajax({
-                                url: 'http://0.0.0.0:5000/retrieve_recommendations',
-                                data: {
-                                  'language': language,
-                                  'word': node.id
-                                },
-                                success: addNode,
-                                dataType: 'json'
-                              });
-                              break;
-                      default: alert("hey not that click");
-                              break;
-                     }
-                    
-                   }),
-
-                   ui.addEventListener("mouseover", function(e){
-                    toastr.clear();
-                    var item = node.id;
-                    language = e.target.getAttribute("data-language");
-
-                    var printdef = function(data) {
-                      if(!data[1])
-                      {
-                        return;
-                      }    
-                      trword = data[0]
-                      var definition = "" ;
-                      for (var part_of_speech in data[1])
-                      {
-                          definition = definition + part_of_speech + ": " + data[1][part_of_speech][0] + "<br>" ;
-                      }
-
-                      toastr.options = {
-                        "closeButton": false,
-                        "debug": false,
-                        "newestOnTop": false,
-                        "progressBar": false,
-                        "positionClass": "toast-bottom-full-width",
-                        "preventDuplicates": true,
-                        "onclick": null,
-                        "showDuration": "300",
-                        "hideDuration": "1000",
-                        "timeOut": "5000",
-                        "extendedTimeOut": "1000",
-                        "showEasing": "swing",
-                        "hideEasing": "linear",
-                        "showMethod": "fadeIn",
-                        "hideMethod": "fadeOut"
-                      }
-                      toastr.info(definition,trword)
+          var ui = Viva.Graph.svg('svg');
+          ui.appendChild(circle);
+          ui.appendChild(text);
+              
+          ui.addEventListener("mousedown", function(e){
+            var item = node.id;
+            var links = graph.getLinks(node.id);
+            var addNode = function(data){
+              if(data == null) {
+                tvecsAlert("Sorry! Related words not found &#9785;");
+              }
+              else {
+                for(var i=0;i<data.length;i++) {
+                  var flag = true;
+                  for(var j=0;j<links.length; j++){
+                    if(links[j].toId == data[i].word || links[j].fromId == data[i].word){
+                      flag = false;
+                      break;
                     }
-
-                    $.ajax({
-                      url: 'http://0.0.0.0:5000/retrieve_meaning',
-                      data: {
-                        'language' : language,
-                        'word' : node.id,
-                      },
-                      success : printdef,
-                      dataType: 'json'
-                    });
-                  })
-                  return ui;
-               });
-
-               // Usually when you have custom look for nodes, you might want to
-               // set their position in a new way too. placeNode() method serves
-               // this goal:
-               graphics.placeNode(function(nodeUI, pos) {
-                   // nodeUI - is exactly the same object that we returned from
-                   //   node() callback above.
-                   // pos - is calculated position for this node.
-                   nodeUI.attr('x', pos.x - 12).attr('y', pos.y - 12);
-               });
-
-               var idealLength = 90;
-               var layout = Viva.Graph.Layout.forceDirected(graph, {
-                   springLength: idealLength,
-                   springCoeff : 0.0001,
-                   gravity : -100,
-                   theta : 0,
-                   // This is the main part of this example. We are telling force directed
-                   // layout, that we want to change length of each physical spring
-                   // by overriding `springTransform` method:
-                   springTransform: function (link, spring) {
-                     spring.length = idealLength * (1 - link.data.connectionStrength);
-                   }
-               });
-
-               // Step 4. Render the graph with our customized graphics object:
-               var renderer = Viva.Graph.View.renderer(graph, {
-                       graphics : graphics,
-                       layout: layout,
-                       container: document.getElementById('svg-container')
-                   });
-               renderer.run();
-
-            $("input[name='language']").on("change", function () {
-              document.getElementsByName('word-text')[0].value = "";
-              language = this.value;
-              graphNode = document.getElementById('svg-container');
-              graphNode.removeChild(graphNode.firstChild);
-              main();
-              changeWordList();
-              console.log(language);
-            });
-        }
-
-        function resetWindow() {
-          window.location.reload();
-        }
-
-        function getWord(wordTextBox) {
-          var enteredWord = wordTextBox[0].value;
-          newWord = enteredWord.toLowerCase();
-          if (document.getElementById('r1').checked) {
-            language = document.getElementById('r1').value;
-          }
-          else {
-            language = document.getElementById('r2').value;
-          }
-          if(newWord !== "") {
-            rootWords[language] = newWord;
-            graphNode = document.getElementById('svg-container');
-            graphNode.removeChild(graphNode.firstChild);
-            main();
-          }
-          else {
-            tvecsAlert("You have not entered any word");
-          }
-        }
-
-        $(document).ready(function() {
-          $('input').keydown(function(e) {
-            if(e.keyCode === 13) {
-              getWord(document.getElementsByName('word-text'));
+                  }
+                  if(flag === true){
+                    graph.addLink(item, data[i].word, {connectionStrength: data[i].weight});
+                  }
+                }
+              }
             }
+
+            switch(e.which) {
+              case 1: language = e.target.getAttribute("data-language");
+                $.ajax({
+                  url: 'http://0.0.0.0:5000/get_cross_lingual_recommendations',
+                  data: {
+                    'lang1': language,
+                    'lang2': alternate[language],
+                    'word': node.id
+                  },
+                  success: addNode,
+                  dataType: 'json'
+                });
+                language = alternate[language];
+                break;
+              case 3: language = e.target.getAttribute("data-language");
+                $.ajax({
+                  url: 'http://0.0.0.0:5000/retrieve_recommendations',
+                  data: {
+                    'language': language,
+                    'word': node.id
+                  },
+                  success: addNode,
+                  dataType: 'json'
+                });
+                break;
+              default: alert("Invalid Event");
+                break;
+            }       
           });
+
+          ui.addEventListener("mouseover", function(e){
+            toastr.clear();
+            var item = node.id;
+            language = e.target.getAttribute("data-language");
+
+            var printdef = function(data) {
+              if(!data[1]) {
+                return;
+              }    
+              trword = data[0]
+              var definition = "" ;
+              for (var part_of_speech in data[1]) {
+                  definition = definition + part_of_speech + ": " + data[1][part_of_speech][0] + "<br>" ;
+              }
+
+              toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-bottom-full-width",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+              }
+              toastr.info(definition,trword)
+            }
+
+            $.ajax({
+              url: 'http://0.0.0.0:5000/retrieve_meaning',
+              data: {
+                'language' : language,
+                'word' : node.id,
+              },
+              success : printdef,
+              dataType: 'json'
+            });
+          });
+          return ui;
         });
 
-        function tvecsAlert(alertMsg) {
-          $('#modal-message').html(alertMsg);
-          $('#myModal').modal('toggle');
-        }
+        // Usually when you have custom look for nodes, you might want to
+        // set their position in a new way too. placeNode() method serves
+        // this goal:
+        graphics.placeNode(function(nodeUI, pos) {
+          // nodeUI - is exactly the same object that we returned from
+          //   node() callback above.
+          // pos - is calculated position for this node.
+          nodeUI.attr('x', pos.x - 12).attr('y', pos.y - 12);
+        });
 
-        function getSampleWord(lang) {
-          if(lang === 'english') {
-            var word = $("#english-words-list option:selected").text();
+        var idealLength = 90;
+        var layout = Viva.Graph.Layout.forceDirected(graph, {
+          springLength: idealLength,
+          springCoeff : 0.0001,
+          gravity : -100,
+          theta : 0,
+          // This is the main part of this example. We are telling force directed
+          // layout, that we want to change length of each physical spring
+          // by overriding `springTransform` method:
+          springTransform: function (link, spring) {
+            spring.length = idealLength * (1 - link.data.connectionStrength);
           }
-          else if(lang === 'hindi') {
-            var word = $("#hindi-words-list option:selected").text();
-          }
-          console.log(word);
-          language = lang;
-          rootWords[language] = word;
+        });
+
+        // Step 4. Render the graph with our customized graphics object:
+        var renderer = Viva.Graph.View.renderer(graph, {
+          graphics : graphics,
+          layout: layout,
+          container: document.getElementById('svg-container')
+        });
+        renderer.run();
+
+        $("input[name='language']").on("change", function () {
+          document.getElementsByName('word-text')[0].value = "";
+          language = this.value;
+          graphNode = document.getElementById('svg-container');
+          graphNode.removeChild(graphNode.firstChild);
+          main();
+          changeWordList();
+          console.log(language);
+        });
+      }
+
+      function resetWindow() {
+        window.location.reload();
+      }
+
+      function getWord(wordTextBox) {
+        var enteredWord = wordTextBox[0].value;
+        newWord = enteredWord.toLowerCase();
+        if (document.getElementById('r1').checked) {
+          language = document.getElementById('r1').value;
+        }
+        else {
+          language = document.getElementById('r2').value;
+        }
+        if(newWord !== "") {
+          rootWords[language] = newWord;
           graphNode = document.getElementById('svg-container');
           graphNode.removeChild(graphNode.firstChild);
           main();
         }
-
-        function changeWordList() {
-          if (language === "english") {
-            document.getElementById("english-words").style.display = "block";
-            document.getElementById("hindi-words").style.display = "none";
-          }
-          else {
-            document.getElementById("english-words").style.display = "none";
-            document.getElementById("hindi-words").style.display = "block";
-          }
+        else {
+          tvecsAlert("You have not entered any word");
         }
+      }
 
+      $(document).ready(function() {
+        $('input').keydown(function(e) {
+          if(e.keyCode === 13) {
+            getWord(document.getElementsByName('word-text'));
+          }
+        });
+      });
+
+      function tvecsAlert(alertMsg) {
+        $('#modal-message').html(alertMsg);
+        $('#myModal').modal('toggle');
+      }
+
+      function getSampleWord(lang) {
+        if(lang === 'english') {
+          var word = $("#english-words-list option:selected").text();
+        }
+        else if(lang === 'hindi') {
+          var word = $("#hindi-words-list option:selected").text();
+        }
+        console.log(word);
+        language = lang;
+        rootWords[language] = word;
+        graphNode = document.getElementById('svg-container');
+        graphNode.removeChild(graphNode.firstChild);
+        main();
+      }
+
+      function changeWordList() {
+        if (language === "english") {
+          document.getElementById("english-words").style.display = "block";
+          document.getElementById("hindi-words").style.display = "none";
+        }
+        else {
+          document.getElementById("english-words").style.display = "none";
+          document.getElementById("hindi-words").style.display = "block";
+        }
+      }
     </script>
-</head>
-<body onload='main()' oncontextmenu="return false;">
-  <div id="main-container" class="container row">
-    <div class="switch-menu">
-      <a href="http://0.0.0.0:5000">
-        <button class="switch-btn home-btn" title="Home">
-          <i class="fa fa-home" aria-hidden="true"></i>
-        </button>
-      </a>
-      <a href="http://0.0.0.0:5000/multivariate_analysis">
-        <button class="switch-btn switch-multivariate" title="Multivariate Analysis">
-          <i class="fa fa-line-chart" aria-hidden="true"></i>
-        </button>
-      </a>
-    </div>
-    <div id="svg-container" class="col-sm-10"></div>
-    <div id="option-menu" class="col-sm-2">
-      <div id="language-menu">
-        <div class="menu-heading">Languages</div>
-        <input type="radio" name="language" value="english" id="r1"/><label for="r1"><span></span>English</label><br />
-        <input type="radio" name="language" value="hindi" id="r2" checked /><label for="r2"><span></span>Hindi</label><br />
+  </head>
+  
+  <body onload='main()' oncontextmenu="return false;">
+    <div id="main-container" class="container row">
+      <div class="switch-menu">
+        <a href="http://0.0.0.0:5000">
+          <button class="switch-btn home-btn" title="Home">
+            <i class="fa fa-home" aria-hidden="true"></i>
+          </button>
+        </a>
+        <a href="http://0.0.0.0:5000/multivariate_analysis">
+          <button class="switch-btn switch-multivariate" title="Multivariate Analysis">
+            <i class="fa fa-line-chart" aria-hidden="true"></i>
+          </button>
+        </a>
       </div>
-      <div class="word-input-container">
-        <div class="input-group">
-          <input type="text" class="form-control word-input" name="word-text" placeholder="Enter Word Here" aria-describedby="basic-addon2">
-            <span class="input-group-addon btn-span" id="basic-addon2">
-              <button class="btn-word-input" onclick="getWord(document.getElementsByName('word-text'))">
-                <i class="fa fa-refresh" aria-hidden="true"></i>
+      <div id="svg-container" class="col-sm-10"></div>
+      <div id="option-menu" class="col-sm-2">
+        <div id="language-menu">
+          <div class="menu-heading">Languages</div>
+          <input type="radio" name="language" value="english" id="r1"/><label for="r1"><span></span>English</label><br />
+          <input type="radio" name="language" value="hindi" id="r2" checked /><label for="r2"><span></span>Hindi</label><br />
+        </div>
+        <div class="word-input-container">
+          <div class="input-group">
+            <input type="text" class="form-control word-input" name="word-text" placeholder="Enter Word Here" aria-describedby="basic-addon2">
+              <span class="input-group-addon btn-span" id="basic-addon2">
+                <button class="btn-word-input" onclick="getWord(document.getElementsByName('word-text'))">
+                  <i class="fa fa-refresh" aria-hidden="true"></i>
+                </button>
+              </span>
+          </div>
+        </div>
+        <div id="words-menu">
+          <div class="menu-heading">Sample Words</div>
+          <div id="sample-words-container">
+            <div id="hindi-words">
+              <select id="hindi-words-list" class="word-list">
+                <option value="स्नेह">स्नेह</option>
+                <option value="चीन">चीन</option>
+                <option value="मौसम">मौसम</option>
+                <option value="मोबाइल">मोबाइल</option>
+                <option value="कार्यक्रम">कार्यक्रम</option>
+              </select>
+              <button class="sample-menu-btn" onclick="getSampleWord('hindi')"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+            </div>
+            <div id="english-words">
+              <select id="english-words-list" class="word-list">
+                <option value="school" selected="selected">school</option>
+                <option value="samsung">samsung</option>
+                <option value="god">god</option>
+                <option value="india">india</option>
+                <option value="independence">independence</option>
+              </select>
+              <button class="sample-menu-btn" onclick="getSampleWord('english')"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
+        <div id="bottom-menu">
+          <button id="reset-btn" class="bottom-btns" onclick="resetWindow()">Reset</button>
+        </div>
+      </div>
+      <div class="modal fade" id="myModal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"></span>
               </button>
-            </span>
-        </div>
-      </div>
-      <div id="words-menu">
-        <div class="menu-heading">Sample Words</div>
-        <div id="sample-words-container">
-          <div id="hindi-words">
-            <select id="hindi-words-list" class="word-list">
-              <option value="स्नेह">स्नेह</option>
-              <option value="चीन">चीन</option>
-              <option value="मौसम">मौसम</option>
-              <option value="मोबाइल">मोबाइल</option>
-              <option value="कार्यक्रम">कार्यक्रम</option>
-            </select>
-            <button class="sample-menu-btn" onclick="getSampleWord('hindi')"><i class="fa fa-refresh" aria-hidden="true"></i></button>
-          </div>
-          <div id="english-words">
-            <select id="english-words-list" class="word-list">
-              <option value="school" selected="selected">school</option>
-              <option value="samsung">samsung</option>
-              <option value="god">god</option>
-              <option value="india">india</option>
-              <option value="independence">independence</option>
-            </select>
-            <button class="sample-menu-btn" onclick="getSampleWord('english')"><i class="fa fa-refresh" aria-hidden="true"></i></button>
-          </div>
-        </div>
-      </div>
-      <div id="bottom-menu">
-        <button id="reset-btn" class="bottom-btns" onclick="resetWindow()">Reset</button>
-      </div>
+              <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+              <p id="modal-message"></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary modal-btn" data-dismiss="modal">Close</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
     </div>
-    <div class="modal fade" id="myModal">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true"></span>
-            </button>
-            <h4 class="modal-title"></h4>
-          </div>
-          <div class="modal-body">
-            <p id="modal-message"></p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary modal-btn" data-dismiss="modal">Close</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-  </div>
-</body>
+  </body>
 </html>
