@@ -51,7 +51,7 @@ def multivariate_analyse():
         'data', 'multivariate', 'multivariate.csv'
     ), 'w+') as csvfile:
         fieldnames = [
-            'corpus_size', 'bilingual_size', 'mean_square_error', 'wordsim_dataset',
+            'corpus_size', 'bilingual_size', 'red_mean_sq_error', 'wordsim_dataset',
             'correlation_score', 'p_value', 'exec_time'
         ]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -156,7 +156,7 @@ def multivariate_analyse():
                         writer.writerow({
                             'corpus_size': corpus,
                             'bilingual_size': bilingual,
-                            'mean_square_error': (
+                            'red_mean_sq_error': (
                                 vsm.obtain_mean_square_error_from_dataset(
                                     dataset_path=os.path.join(
                                         'data',
