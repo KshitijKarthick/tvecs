@@ -213,6 +213,13 @@ input[type="radio"]:checked + label span {
   font-size: 19px;
 }
 
+.switch-distances i {
+  font-size: 19px;
+  color: inherit;
+  position: relative;
+  margin-top: 0;
+}
+
 /* Index Page Style */
 #tv-main-container {
   background: url("../images/index_lighter.png");
@@ -265,11 +272,6 @@ input[type="radio"]:checked + label span {
   box-shadow: 0 0 10px rgb(53, 140, 131); 
   font-size: 130px;
   color: #004D40;
-}
-
-#tv-intra-lang-btn img {
-  height: 130px;
-  margin-bottom: 10px;
 }
 
 #tv-cross-lang {
