@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>T-Vecs Word Distances</title>
+    <link rel="icon" href="../images/favicon_trex.ico"/>
     <script type="text/javascript" src="js/dist/vivagraph.min.js"></script>
     <script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -177,7 +178,7 @@
     renderer.run();
 
     function processInput() {
-        var english_word = $('#english-word-input').val().trim(),
+        var english_word = $('#english-word-input').val().trim().toLowerCase(),
             hindi_word = $('#hindi-word-input').val().trim();
 
         if (english_word && hindi_word) {
@@ -230,6 +231,15 @@
       $('#modal-message').html(alertMsg);
       $('#myModal').modal('toggle');
     }
+
+    $(document).ready(function() {
+        $('input').keydown(function(e) {
+          if(e.keyCode === 13) {
+            processInput();
+          }
+        });
+      });
+
   </script>
 </body>
 </html>
