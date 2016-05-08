@@ -29,13 +29,19 @@ Install as a Package
         # Install package
         sudo python setup.py install
 
-        # Usage from cmd line
+        # Usage from cmd line without recommendations menu
         tvecs -c ./config.json
 
+        # Usage from cmd line with recommendations menu
+        tvecs -c ./config.json -r
+
+        # Usage without config file, with models, without recommendations menu
         tvecs -l1 english -l2 hindi -m1 ./data/models/t-vex-english-models -m2 ./data/models/t-vex-hindi-models
 
-        # Usage from python
+        # Usage without config file, with models, with recommendations menu
+        tvecs -r -l1 english -l2 hindi -m1 ./data/models/t-vex-english-models -m2 ./data/models/t-vex-hindi-models
 
+        # Usage from python
         import tvecs.vector_space_mapper.vector_space_mapper as vm
 
 
@@ -93,8 +99,8 @@ Corpus Download details
 
 http://www.corpora.heliohost.org/download.html
 
-| We are focusing on [English, Hindi]
-| other possible prospects we could look into Kannada, Tamil languages
+We are focusing on [English, Hindi]
+other possible prospects we could look into Kannada, Tamil languages
 
 Ensure Model is downloaded and extracted in the t-vex directory
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -131,8 +137,9 @@ T-Vecs Driver Module Cmd Line Args
 
     $ python2 -m tvecs --help
 
-    usage: t-vecs.py [-h] [-v] [-s] [-i ITER] [-m1 MODEL1] [-m2 MODEL2]
-                     [-l1 LANGUAGE1] [-l2 LANGUAGE2] [-c CONFIG]
+    usage: __main__.py [-h] [-v] [-s] [-i ITER] [-m1 MODEL1] [-m2 MODEL2]
+                   [-l1 LANGUAGE1] [-l2 LANGUAGE2] [-c CONFIG]
+                   [-b BILINGUAL_DICT] [-r]
 
     Script used to generate models
 
@@ -140,17 +147,22 @@ T-Vecs Driver Module Cmd Line Args
       -h, --help            show this help message and exit
       -v, --verbose         increase output verbosity
       -s, --silent          silence all logging
-      -i ITER, --iter ITER  number of word2vec iter
+      -i ITER, --iter ITER  number of Word2Vec iterations
       -m1 MODEL1, --model1 MODEL1
                             pre-computed model file path
       -m2 MODEL2, --model2 MODEL2
                             pre-computed model file path
       -l1 LANGUAGE1, --language1 LANGUAGE1
-                            Language name of model 1/ text 1
+                            language name of model 1/ text 1
       -l2 LANGUAGE2, --l2 LANGUAGE2
-                            Language name of model 2/ text 2
+                            language name of model 2/ text 2
       -c CONFIG, --config CONFIG
                             config file path
+      -b BILINGUAL_DICT, --bilingual BILINGUAL_DICT
+                            bilingual dictionary path
+      -r, --recommendations
+                            provide recommendations
+
 
 Config File Format
 ''''''''''''''''''

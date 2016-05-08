@@ -153,7 +153,7 @@ def args_parser():
     parser.add_argument(
         "-i",
         "--iter",
-        help="number of word2vec iter",
+        help="number of Word2Vec iterations",
         default=5,
         action="store"
     )
@@ -175,14 +175,14 @@ def args_parser():
         "-l1",
         "--language1",
         dest="language1",
-        help="Language name of model 1/ text 1",
+        help="language name of model 1/ text 1",
         action="store"
     )
     parser.add_argument(
         "-l2",
         "--l2",
         dest="language2",
-        help="Language name of model 2/ text 2",
+        help="language name of model 2/ text 2",
         action="store"
     )
     parser.add_argument(
@@ -198,6 +198,13 @@ def args_parser():
         dest="bilingual_dict",
         help="bilingual dictionary path",
         action="store"
+    )
+    parser.add_argument(
+        "-r",
+        "--recommendations",
+        dest="recommendations",
+        help="provide recommendations",
+        action="store_true"
     )
     args = parser.parse_args()
     logger = log.initialise('TVecs')
@@ -276,6 +283,22 @@ def args_parser():
     new_time = time.time()
     loading_time = new_time - old_time
     logger.info("Execution Time: " + str(loading_time))
+    if args.recommendations is True:
+        logger.info(
+            "Recommendation Engine: %s => %s" % (
+                args.language1, args.language2
+            )
+        )
+        while int(raw_input(
+            '\nEnter your Choice:\n1> Recommendation\n2> Exit\n\nChoice: '
+        )) == 1:
+            word = raw_input(
+                "\nEnter word in Language %s: " % args.language1
+            )
+            tvecs_vm.get_recommendations_from_word(
+                word,
+                pretty_print=True
+            )
 
 
 def evaluate(logger, args):
