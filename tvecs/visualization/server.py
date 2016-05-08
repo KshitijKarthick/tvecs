@@ -101,7 +101,7 @@ class Server(object):
 
         """
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
-
+        word = word.lower()
         trword = word
         if word in self.cached_dictionary:
             return json.dumps(self.cached_dictionary[word])
@@ -141,9 +141,9 @@ class Server(object):
         .. seealso::
             * :meth:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.obtain_cosine_similarity`
         """
-
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
-
+        word1 = word1.lower()
+        word2 = word2.lower()
         vm = self.cross_lang_vm.get((language1, language2))
         similarity = None
         if vm is not None:
@@ -178,6 +178,7 @@ class Server(object):
         .. seealso::
             * :class:`gensim.models.Word2Vec`
         """
+        word = word.lower()
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
         model = self.model.get(language)
         if model is not None:
@@ -215,6 +216,7 @@ class Server(object):
             * :mod:`tvecs.vector_space_mapper.vector_space_mapper`
         """
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
+        word = word.lower()
         vm = self.cross_lang_vm.get((lang1, lang2))
         data = None
         if vm is not None:
