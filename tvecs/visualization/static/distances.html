@@ -226,6 +226,15 @@
       $('#modal-message').html(alertMsg);
       $('#myModal').modal('toggle');
     }
+
+    $(document).ready(function() {
+        $('input').keydown(function(e) {
+          if(e.keyCode === 13) {
+            processInput();
+          }
+        });
+      });
+
   </script>
 </body>
 </html>
