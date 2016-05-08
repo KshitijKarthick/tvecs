@@ -121,6 +121,7 @@ class Server(object):
 
     @cherrypy.expose
     def get_distance(self, word1, word2, language1, language2):
+
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
 
         vm = self.cross_lang_vm.get((language1, language2))
@@ -131,8 +132,8 @@ class Server(object):
         distance = 1 - similarity if similarity is not None else None
         return json.dumps(
             {
-                '%s_word'%(language1): word1,
-                '%s_word'%(language2): word2,
+                'word1': word1,
+                'word2': word2,
                 'distance': distance
             }
         )

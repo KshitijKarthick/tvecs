@@ -205,18 +205,18 @@
             tvecsAlert("One or both of the entered words are misspelt or not present in the vocabulary");
         }
         else {
-            if(nodes.indexOf(data.english_word) === -1) {
-                nodes.push(data.english_word);
-                graph.addNode(data.english_word, {id: data.english_word});
+            if(nodes.indexOf(data.word1) === -1) {
+                nodes.push(data.word1);
+                graph.addNode(data.word1, {id: data.word1});
             }
-            if(nodes.indexOf(data.hindi_word) === -1) {
-                nodes.push(data.hindi_word);
-                graph.addNode(data.hindi_word, {id: data.hindi_word});
+            if(nodes.indexOf(data.word2) === -1) {
+                nodes.push(data.word2);
+                graph.addNode(data.word2, {id: data.word2});
             }
 
-            if(edges.indexOf(data.english_word+data.hindi_word) === -1) {
-                edges.push(data.english_word+data.hindi_word);
-                graph.addLink(data.english_word, data.hindi_word, {id: data.english_word+data.hindi_word, distance: data.distance.toFixed(2), connectionStrength: data.distance});
+            if(edges.indexOf(data.word1+data.word2) === -1) {
+                edges.push(data.word1+data.word2);
+                graph.addLink(data.word1, data.word2, {id: data.word1+data.word2, distance: data.distance.toFixed(2), connectionStrength: data.distance});
             }
         }
     }
