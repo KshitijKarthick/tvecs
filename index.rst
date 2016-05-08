@@ -161,8 +161,6 @@ The main documentation for the site is organized into a couple sections:
 	| 54708929      | 4516             | MTurk-287         | 0.5579             | 4.17e-22   |
 	+---------------+------------------+-------------------+--------------------+------------+
 
-	   	
-
 
 Indices and tables
 ==================
