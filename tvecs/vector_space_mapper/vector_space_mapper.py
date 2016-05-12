@@ -30,6 +30,8 @@ class VectorSpaceMapper(object):
         :param model_2: Model constructed from Language 2 built using
             :mod:`tvecs.model_generator.model_generator`.
         :param bilingual_dict: Bilingual Dictionary for Language 1, Language 2.
+        :param encoding: Encoding utilised in the corpora
+        :type encoding: :mod:`String`
         :type model_1: :mod:`gensim.models.Word2Vec`
         :type model_2: :mod:`gensim.models.Word2Vec`
         :type bilingual_dict: :class:`List[(lang1, lang2), (lang1, lang2)]`
@@ -42,7 +44,7 @@ class VectorSpaceMapper(object):
 
     """
 
-    def __init__(self, model_1, model_2, bilingual_dict):
+    def __init__(self, model_1, model_2, bilingual_dict, encoding='utf-8'):
         """Constructor initialization for the vector space mapper."""
         try:
             self.logger = LOGGER
@@ -50,6 +52,7 @@ class VectorSpaceMapper(object):
             self.logger = log.initialise('T-Vecs.VectorSpaceMapper')
         self.model_1 = model_1
         self.model_2 = model_2
+        self.encoding = encoding
         self.lt = None
         self.bilingual_dict = bilingual_dict
         bilingual_dict = dict(bilingual_dict)
@@ -153,6 +156,7 @@ class VectorSpaceMapper(object):
             :return: Topn recommendations from Model 2.
             :rtype: :class:`List`
         """
+        word = word.decode(self.encoding)
         if self.lt is not None:
             try:
                 data = self.model_2.most_similar(
