@@ -206,7 +206,7 @@ class VectorSpaceMapper(object):
         API Documentation:
             :param dataset_path: Path for the test bilingual dictionary.
             :type dataset_path: :class:`String`
-            :return: Percentage of reduction of Mean Square Error after transformation.
+            :return: %% of reduction of Mean Square Error after transformation.
             :rtype: :class:`Float`
         """
         self.logger.info(
@@ -233,16 +233,20 @@ class VectorSpaceMapper(object):
             except KeyError:
                 pass
         score = metrics.mean_squared_error(expected, actual)
-        score_with_tr = metrics.mean_squared_error(expected_with_tr, actual_with_tr)
+        score_with_tr = metrics.mean_squared_error(
+            expected_with_tr, actual_with_tr
+        )
         self.logger.info(
             'Mean Square Error for Dataset without transformation: %s', score
         )
         self.logger.info(
-            'Mean Square Error for Dataset with transformation: %s', score_with_tr
+            'Mean Square Error for Dataset'
+            ' with transformation: %s', score_with_tr
         )
         error_reduction = ((score - score_with_tr) / score) * 100
         self.logger.info(
-            'Reduction in Mean Square Error with transformation: %s %%', error_reduction
+            'Reduction in Mean Square Error'
+            ' with transformation: %s %%', error_reduction
         )
         return error_reduction
 
