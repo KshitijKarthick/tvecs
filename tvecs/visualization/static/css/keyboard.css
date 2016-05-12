@@ -1,6 +1,6 @@
 #keyboardInputMaster {
   position:absolute;
-  font:normal 11px Arial,sans-serif;
+  font:normal 11px 'Raleway',sans-serif;
   border-top:1px solid #eeeeee;
   border-right:1px solid #888888;
   border-bottom:1px solid #444444;
@@ -13,7 +13,7 @@
   box-shadow:0px 2px 10px #444444;
   opacity:0.95;
   filter:alpha(opacity=95);
-  background-color:#dddddd;
+  background-color:#EC7724;
   text-align:left;
   z-index:1000000;
   width:auto;
@@ -30,7 +30,7 @@
   position:static;
   color:#000000;
   background:transparent;
-  font:normal 11px Arial,sans-serif;
+  font:normal 11px 'Raleway',sans-serif;
   width:auto;
   height:auto;
   min-width:0;
@@ -64,7 +64,7 @@
 
 #keyboardInputMaster thead tr th {
   padding:0.3em 0.3em 0.1em 0.3em;
-  background-color:#999999;
+  background-color:#F7F6EC;
   white-space:nowrap;
   text-align:right;
   -webkit-border-radius:0.6em 0.6em 0px 0px;
@@ -190,12 +190,12 @@
   padding:0px 0.45em;
   white-space:pre;
   height:1.8em;
-  font-family:'Lucida Console','Arial Unicode MS',monospace;
+  font-family:'Lucida Console',''Raleway' Unicode MS',monospace;
   border-top:1px solid #e5e5e5;
   border-right:1px solid #5d5d5d;
   border-bottom:1px solid #5d5d5d;
   border-left:1px solid #e5e5e5;
-  background-color:#eeeeee;
+  background-color:#F7F6EC;
   cursor:default;
   min-width:0.75em;
   -webkit-border-radius:0.2em;
@@ -268,4 +268,6 @@
   margin: 0px 3px;
   vertical-align: middle;
   cursor: pointer;
+  margin-left: 6px;
+  margin-top: 13px;
 }
