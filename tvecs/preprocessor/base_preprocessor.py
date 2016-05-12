@@ -37,6 +37,13 @@ class BasePreprocessor(object):
         :type corpus_dir_path: :class:`String`
         :type encoding: :class:`String`
         :type need_preprocessing: :class:`Boolean`
+
+
+    Private Methods
+        .. automethod:: _extract_corpus_data
+        .. automethod:: _clean_word
+        .. automethod:: _tokenize_sentences
+        .. automethod:: _tokenize_words
     """
 
     __metaclass__ = ABCMeta
