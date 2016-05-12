@@ -30,6 +30,8 @@ class VectorSpaceMapper(object):
         :param model_2: Model constructed from Language 2 built using
             :mod:`tvecs.model_generator.model_generator`.
         :param bilingual_dict: Bilingual Dictionary for Language 1, Language 2.
+        :param encoding: Encoding utilised in the corpora
+        :type encoding: :mod:`String`
         :type model_1: :mod:`gensim.models.Word2Vec`
         :type model_2: :mod:`gensim.models.Word2Vec`
         :type bilingual_dict: :class:`List[(lang1, lang2), (lang1, lang2)]`
@@ -42,7 +44,7 @@ class VectorSpaceMapper(object):
 
     """
 
-    def __init__(self, model_1, model_2, bilingual_dict):
+    def __init__(self, model_1, model_2, bilingual_dict, encoding='utf-8'):
         """Constructor initialization for the vector space mapper."""
         try:
             self.logger = LOGGER
@@ -50,6 +52,7 @@ class VectorSpaceMapper(object):
             self.logger = log.initialise('T-Vecs.VectorSpaceMapper')
         self.model_1 = model_1
         self.model_2 = model_2
+        self.encoding = encoding
         self.lt = None
         self.bilingual_dict = bilingual_dict
         bilingual_dict = dict(bilingual_dict)
@@ -153,6 +156,7 @@ class VectorSpaceMapper(object):
             :return: Topn recommendations from Model 2.
             :rtype: :class:`List`
         """
+        word = word.decode(self.encoding)
         if self.lt is not None:
             try:
                 data = self.model_2.most_similar(
@@ -202,7 +206,7 @@ class VectorSpaceMapper(object):
         API Documentation:
             :param dataset_path: Path for the test bilingual dictionary.
             :type dataset_path: :class:`String`
-            :return: Percentage of reduction of Mean Square Error after transformation.
+            :return: %% of reduction of Mean Square Error after transformation.
             :rtype: :class:`Float`
         """
         self.logger.info(
@@ -229,16 +233,20 @@ class VectorSpaceMapper(object):
             except KeyError:
                 pass
         score = metrics.mean_squared_error(expected, actual)
-        score_with_tr = metrics.mean_squared_error(expected_with_tr, actual_with_tr)
+        score_with_tr = metrics.mean_squared_error(
+            expected_with_tr, actual_with_tr
+        )
         self.logger.info(
             'Mean Square Error for Dataset without transformation: %s', score
         )
         self.logger.info(
-            'Mean Square Error for Dataset with transformation: %s', score_with_tr
+            'Mean Square Error for Dataset'
+            ' with transformation: %s', score_with_tr
         )
         error_reduction = ((score - score_with_tr) / score) * 100
         self.logger.info(
-            'Reduction in Mean Square Error with transformation: %s %%', error_reduction
+            'Reduction in Mean Square Error'
+            ' with transformation: %s %%', error_reduction
         )
         return error_reduction
 

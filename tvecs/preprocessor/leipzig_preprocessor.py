@@ -36,6 +36,13 @@ class LeipzigPreprocessor(BasePreprocessor):
         :type limit: :class:`Integer`
         :type need_preprocessing: :class:`Boolean`
 
+
+    Private Methods
+        .. automethod:: _extract_corpus_data
+        .. automethod:: _clean_word
+        .. automethod:: _tokenize_sentences
+        .. automethod:: _tokenize_words
+
     .. seealso::
         * :class:`tvecs.preprocessor.base_preprocessor.BasePreprocessor`
     """

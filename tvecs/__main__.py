@@ -268,18 +268,17 @@ def args_parser():
         'Evaluation of Training Dataset'
     )
     tvecs_vm.obtain_mean_square_error_from_dataset(
-        dataset_path=os.path.join(
-            'data', 'bilingual_dictionary', 'english_hindi_train_bd'
+        dataset_path=args.bilingual_dict
+    )
+    fpath, fname = ntpath.split(args.bilingual_dict)
+    test_fname = fname.replace('train', 'test')
+    if os.path.exists(os.path.join(fpath, test_fname)):
+        logger.info(
+            'Evaluation of Testing Dataset'
         )
-    )
-    logger.info(
-        'Evaluation of Testing Dataset'
-    )
-    tvecs_vm.obtain_mean_square_error_from_dataset(
-        dataset_path=os.path.join(
-            'data', 'bilingual_dictionary', 'english_hindi_test_bd'
+        tvecs_vm.obtain_mean_square_error_from_dataset(
+            dataset_path=os.path.join(fpath, fname)
         )
-    )
     new_time = time.time()
     loading_time = new_time - old_time
     logger.info("Execution Time: " + str(loading_time))
