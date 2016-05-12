@@ -124,7 +124,8 @@ class Server(object):
         """
         Retrieve cosine distance between word1 and word2.
 
-        - word1 and word2 have to be in the vocabulary of language1 and language2, respectively.
+        - word1 and word2 have to be in the vocabulary
+          of language1 and language2, respectively.
 
         API Documentation
             :param word1: A word in language1's vocabulary
@@ -138,8 +139,10 @@ class Server(object):
             :return: Dictionary with keys 'word1', 'word2', and 'distance'
             :rtype: :class:`Dictionary`
 
+        .. py:currentmodule:: tvecs.vector_space_mapper.vector_space_mapper
+
         .. seealso::
-            * :meth:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.obtain_cosine_similarity`
+            * :func:`VectorSpaceMapper.obtain_cosine_similarity`
         """
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
         word1 = word1.lower()
