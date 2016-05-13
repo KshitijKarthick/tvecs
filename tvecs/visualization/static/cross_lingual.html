@@ -302,12 +302,14 @@
         <div class="word-input-container">
           <div class="input-group">
             <input type="text" class="form-control word-input keyboardInput" name="word-text" placeholder="Enter Word Here" aria-describedby="basic-addon2">
-            <div>
+<!--        <div>
               <span class="input-group-addon btn-span" id="basic-addon2">
-                <button class="btn-word-input" onclick="getWord(document.getElementsByName('word-text'))">
+                <button class="btn-word-input" onclick="getWord(document.getElementsByName('word-text'))"> 
+-->            
+            <div id='submit-button'>
+                <button class="sample-menu-btn" onclick="getWord(document.getElementsByName('word-text'))">
                   <i class="fa fa-refresh" aria-hidden="true"></i>
                 </button>
-              </span>
             </div>
           </div>
         </div>
@@ -332,7 +334,8 @@
                 <option value="india">india</option>
                 <option value="independence">independence</option>
               </select>
-              <button class="sample-menu-btn" onclick="getSampleWord('english')"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                <button class="sample-menu-btn" onclick="getSampleWord('english')">
+                <i class="fa fa-refresh" aria-hidden="true"></i></button>
             </div>
           </div>
         </div>

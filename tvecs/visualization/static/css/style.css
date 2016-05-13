@@ -89,6 +89,7 @@ svg {
   height: 100%;
   font-size: 20px;
   padding: 10px 15px 10px 15px;
+  margin-top: 20px;
 }
 
 .btn-word-input:focus {
@@ -423,4 +424,13 @@ input[type="radio"]:checked + label span {
   padding: 10px;
   width: 100%;
   background: #fff;
+}
+
+#submit-button {
+  padding-left: 50px;
+  margin-top: 20px;
+}
+
+.center {
+  text-align: center;
 }

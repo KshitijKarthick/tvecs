@@ -9,6 +9,8 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/font-awesome/css/font-awesome.min.css">
+    <script type="text/javascript" src="js/keyboard.js" charset="UTF-8"></script>
+    <link rel="stylesheet" type="text/css" href="css/keyboard.css">
     <link href='https://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css'>
     <link href="css/toastr.css" rel="stylesheet">
     <script src="js/toastr.js"></script>
@@ -34,7 +36,7 @@
     </div>
     <div id="svg-container" class="col-sm-10"></div>
     <div id="option-menu" class="col-sm-2">
-      <center><h4>Distances</h4></center>
+      <div class="menu-heading center">Distances</div>
       <div class="word-input-container">
         <div class="input-group">
           <input type="text" class="form-control word-input" id="english-word-input" name="word-text" placeholder="English Word" aria-describedby="basic-addon2">
@@ -42,9 +44,11 @@
       </div>
       <div class="word-input-container">
         <div class="input-group">
-          <input type="text" class="form-control word-input" name="word-text" id="hindi-word-input" placeholder="Hindi Word" aria-describedby="basic-addon2">
+          <input type="text" class="form-control word-input keyboardInput" name="word-text" id="hindi-word-input" placeholder="Hindi Word" aria-describedby="basic-addon2">
+          <div>
             <span class="input-group-addon btn-span" id="basic-addon2">
             </span>
+          </div>
         </div>
       </div>
       <div>
