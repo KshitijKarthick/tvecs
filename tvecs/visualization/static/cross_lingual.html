@@ -9,6 +9,8 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <script type="text/javascript" src="js/dist/vivagraph.min.js"></script>
+    <script type="text/javascript" src="js/keyboard.js" charset="UTF-8"></script>
+    <link rel="stylesheet" type="text/css" href="css/keyboard.css">
     <link rel="stylesheet" href="resources/font-awesome/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css'>
     <link href="css/toastr.css" rel="stylesheet">
@@ -263,6 +265,7 @@
         if (language === "english") {
           document.getElementById("english-words").style.display = "block";
           document.getElementById("hindi-words").style.display = "none";
+          document.getElementById("english-words").style.marginLeft = "-15px"
         }
         else {
           document.getElementById("english-words").style.display = "none";
@@ -271,7 +274,6 @@
       }
     </script>
   </head>
-  
   <body onload='main()' oncontextmenu="return false;">
     <div id="main-container" class="container row">
       <div class="switch-menu">
@@ -300,12 +302,16 @@
         </div>
         <div class="word-input-container">
           <div class="input-group">
-            <input type="text" class="form-control word-input" name="word-text" placeholder="Enter Word Here" aria-describedby="basic-addon2">
+            <input type="text" class="form-control word-input keyboardInput" name="word-text" placeholder="Enter Word Here" aria-describedby="basic-addon2">
+<!--        <div>
               <span class="input-group-addon btn-span" id="basic-addon2">
-                <button class="btn-word-input" onclick="getWord(document.getElementsByName('word-text'))">
+                <button class="btn-word-input" onclick="getWord(document.getElementsByName('word-text'))"> 
+-->            
+            <div id='submit-button'>
+                <button class="sample-menu-btn" onclick="getWord(document.getElementsByName('word-text'))">
                   <i class="fa fa-refresh" aria-hidden="true"></i>
                 </button>
-              </span>
+            </div>
           </div>
         </div>
         <div id="words-menu">
@@ -329,7 +335,8 @@
                 <option value="india">india</option>
                 <option value="independence">independence</option>
               </select>
-              <button class="sample-menu-btn" onclick="getSampleWord('english')"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                <button class="sample-menu-btn" onclick="getSampleWord('english')">
+                <i class="fa fa-refresh" aria-hidden="true"></i></button>
             </div>
           </div>
         </div>
