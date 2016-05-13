@@ -85,17 +85,21 @@ The main documentation for the site is organized into a couple sections:
 		seqdiag {
 			client  -> server [label = "GET /index.html"];
 			client <-- server [label = "Visualization Demo"];
-			client  -> server [label = "GET /lingual_semantics.html"];
-			client <-- server [label = "Intra-Lingual Demo"];
-			client  -> server [label = "GET /retrieve_recommendations => language & word sent"];
-			server  -> server [label = "Load Word2Vec Model & Obtain recommendations"];
-			client <-- server [label = "JSON Response => Intra-lingual Recommendations"];
 			client  -> server [label = "GET /cross_lingual.html"];
 			client <-- server [label = "Cross Lingual Demo"];
 			client  -> server [label = "GET /get_cross_lingual_recommendations => lang1, lang2 & word sent"];
 			server  -> vector_space_mapper [label = "Request for cross lingual Recommendations"];
 			server <-- vector_space_mapper [label = "Cross Lingual Recommendations"];
 			client <-- server [label = "JSON Response => Cross-lingual Recommendations"];
+			client  -> server [label = "GET /retrieve_recommendations => language & word sent"];
+			server  -> server [label = "Load Word2Vec Model & Obtain recommendations"];
+			client <-- server [label = "JSON Response => Intra-lingual Recommendations"];
+			client  -> server [label = "GET /distances.html"];
+			client <-- server [label = "Semantic Word Distances"];
+			client  -> server [label = "GET /get_distance => lang1, lang2, word1 & word2 sent"];
+			server  -> vector_space_mapper [label = "Request for cosine similarity"];
+			server <-- vector_space_mapper [label = "Cosine similarity b/w words"];
+			client <-- server [label = "JSON Response => Distance b/w words"];
 			client  -> server [label = "GET /multivariate_analysis.html"];
 			client <-- server [label = "Multivariate Analysis Visualization"];
 
