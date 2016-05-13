@@ -30,8 +30,26 @@ class TestVectorSpaceMapper:
 
     def setup_class(cls):
         """
-        Used to create a :mod:`tvecs.vector_space_mapper.vector_space_mapper`.
+        | *Test Suite ID* : V
+        |
+        | *Test Case Number* : 01
+        |
+        | *Description* : Create an instance of :mod:`tvecs.vector_space_mapper.vector_space_mapper`
+        |
+        | *Preconditions* : Corpus data for both languages, and bilingual dictionary exists
+        |
+        | *Test Parameters* : model_1, model_2, bilingual_dict
+        |
+        | *Test Data* : model_1 = English, model_2 = Hindi, bilingual_dict = 'data/bilingual_dictionary/english_hindi_train_bd'
+        |
+        | *Expected Result* : Vector Space Mapping created
+        |
+        | *Actual Result* : Vector Space Mapping created
+        |
+        | **Status : Pass**
+        |
 
+    
         - Learns transformation between two models
             - :mod:`tvecs.model_generator.model_generator`
             - :mod:`tvecs.model_generator.model_generator`
@@ -76,7 +94,29 @@ class TestVectorSpaceMapper:
             )
 
     def teardown_class(cls):
-        """Delete models after construction."""
+        """
+        | *Test Suite ID* : V
+        |
+        | *Test Case Number* : 02
+        |
+        | *Description* : Delete models after construction to remove residual of setup_test [Test Case Number 01]
+        |
+        | *Preconditions* : model1 and model2 exist 
+        |
+        | *Test Parameters* : model1 and model2 file paths
+        |
+        | *Test Data* : 
+        |   model1 file path = 'tests/resources/model1'
+        |   model2 file path = 'tests/resources/model2'
+        |
+        | *Expected Result* : Models deleted
+        |
+        | *Actual Result* : Models deleted
+        |
+        | **Status : Pass**
+        |
+
+        """
         try:
             os.remove(
                 os.path.join('tests', 'resources', 'model_1')
@@ -89,9 +129,26 @@ class TestVectorSpaceMapper:
 
     def test_english_extract_vectors_and_words(self):
         """
-        Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._extract_vectors_and_words`.
+        | *Test Suite ID* : V
+        |
+        | *Test Case Number* : 03
+        |
+        | *Description* : Verify the data structure for the response of the function for English model.
+        |                 Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._extract_vectors_and_words`
+        |
+        | *Preconditions* : The English model exists
+        |
+        | *Test Parameters* : model_1 and expected_list[keys]
+        |
+        | *Test Data* : model_1 is English model, expected_list[keys] = {u'has', u'have', u'\u0915\u093e'}
+        |
+        | *Expected Result* : Data structure consists of 1 vector of 100 dimensions if word exists in model, else None
+        |
+        | *Actual Result* : Data structure consists of 1 vector of 100 dimensions if word exists in model, else None
+        |
+        | **Status : Pass**
+        |
 
-        Verify the data structure for the response of the function for English model.
         """
         obj = self.__class__.testing_obj
         expected_list = {
@@ -114,9 +171,28 @@ class TestVectorSpaceMapper:
 
     def test_hindi_extract_vectors_and_words(self):
         """
-        Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._extract_vectors_and_words`.
+        | *Test Suite ID* : V
+        |
+        | *Test Case Number* : 04
+        |
+        | *Description* : Verify the data structure for the response of the function for Hindi model.
+        |                 Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._extract_vectors_and_words`
+        |
+        | *Preconditions* : The Hindi model exists
+        |
+        |
+        | *Test Parameters* : model_2 and expected_list[keys]
+        |
+        | *Test Data* : model_2 is Hindi model, expected_list[keys] = {u'\u0915\u093e', u'\u0925\u0940', u'english'}
+        |
+        | *Expected Result* : Data structure consists of 1 vector of 100 dimensions if word exists in model, else None
+        |
+        | *Actual Result* : Data structure consists of 1 vector of 100 dimensions if word exists in model, else None
+        |
+        | **Status : Pass**
+        |
 
-        Verify the data structure for the response of the function for Hindi model.
+
         """
         obj = self.__class__.testing_obj
         expected_list = {
@@ -139,9 +215,27 @@ class TestVectorSpaceMapper:
 
     def test_predict_vec_from_word(self):
         """
-        Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._predict_vec_from_word`.
+        | *Test Suite ID* : V
+        |
+        | *Test Case Number* : 05
+        |
+        | *Description* : Verify the data structure for the response of the function given a word.
+        |                 Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._predict_vec_from_word`
+        |
+        | *Preconditions* : English model exists 
+        |
+        | *Test Parameters* : word passed to _predict_vec_from_word
+        |
+        | *Test Data* : word = u'has'
+        |
+        | *Expected Result* : Data structure consists of 1 vector of 100 dimensions if word exists in model, else None
+        |
+        | *Actual Result* : Data structure consists of 1 vector of 100 dimensions if word exists in model, else None
+        |
+        | **Status : Pass**
+        |
 
-         Verify the data structure for the response of the function given a word.
+
         """
         obj = self.__class__.testing_obj
         expected = (100,)
@@ -150,9 +244,26 @@ class TestVectorSpaceMapper:
 
     def test_predict_vec_from_vec(self):
         """
-        Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._predict_vec_from_vec`.
+        | *Test Suite ID* : V
+        |
+        | *Test Case Number* : 06
+        |
+        | *Description* : Verify the data structure for the response of the function given a vector.
+        |                 Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._predict_vec_from_vec`
+        |
+        | *Preconditions* : English model exists 
+        |
+        | *Test Parameters* : vector passed to _predict_vec_from_vec
+        |
+        | *Test Data* : vector = obj.model_1['has']
+        |
+        | *Expected Result* : Data structure consists of 1 vector of 100 dimensions if word exists in model, else None
+        |
+        | *Actual Result* : Data structure consists of 1 vector of 100 dimensions if word exists in model, else None
+        |
+        | **Status : Pass**
+        |
 
-        Verify the data structure for the response of the function given a vector.
         """
         obj = self.__class__.testing_obj
         expected_shape = (100,)
@@ -163,12 +274,30 @@ class TestVectorSpaceMapper:
 
     def test_predict_vec_from_word_and_vec_match(self):
         """
-        Test following functions.
+        | *Test Suite ID* : V
+        |
+        | *Test Case Number* : 07
+        |
+        | *Description* : Verify both functions provide same predictions.
+        |                 Test following functions:
+        |                    - :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._predict_vec_from_vec`.
+        |                    - :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._predict_vec_from_word`.
+        |
+        | *Preconditions* : English model exists
+        |
+        | *Test Parameters* : vector passed to _predict_vec_from_vec, word passed to _predict_vec_from_word
+        |
+        | *Test Data* : vector = obj.model_1['has'], word = 'has'
+        |
+        | *Expected Result* : Vector prediction matches
+        |
+        | *Actual Result* : Vector prediction matches
+        |
+        | **Status : Pass**
+        |
 
-         - :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._predict_vec_from_vec`.
-         - :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper._predict_vec_from_word`.
 
-        Verify both functions provide same predictions.
+
         """
         obj = self.__class__.testing_obj
         result = obj._predict_vec_from_vec(
@@ -181,9 +310,27 @@ class TestVectorSpaceMapper:
 
     def test_num_recom_from_get_recommendations_from_word(self):
         """
-        Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_word`.
+        | *Test Suite ID* : V
+        |
+        | *Test Case Number* : 08
+        |
+        | *Description* : Verify number of recommendations conform to the number of recommendations requested.
+        |                 Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_word`
+        |
+        | *Preconditions* : English and Hindi models exist
+        |
+        | *Test Parameters* : num_recommendations
+        |
+        | *Test Data* : num_recommendations = random.randint(1,10)
+        |
+        | *Expected Result* : The number of recommendations returned is equal to the number of recommendations requested
+        |
+        | *Actual Result* : The number of recommendations returned is equal to the number of recommendations requested
+        |
+        | **Status : Pass**
+        |
+        
 
-        Verify number of recommendations conform to the number of recommendations requested.
         """
         obj = self.__class__.testing_obj
         num_recommendations = random.randint(1, 10)
@@ -193,9 +340,26 @@ class TestVectorSpaceMapper:
 
     def test_num_recom_from_get_recommendations_from_vec(self):
         """
-        Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_vec`.
+        | *Test Suite ID* : V
+        |
+        | *Test Case Number* : 09
+        |
+        | *Description* : Verify number of recommendations conform to the number of recommendations requested.
+        |                 Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_vec`
+        |
+        | *Preconditions* : English and Hindi models exist
+        |
+        | *Test Parameters* : num_recommendations
+        |
+        | *Test Data* : num_recommendations = random.randint(1,10)
+        |
+        | *Expected Result* : The number of recommendations returned is equal to the number of recommendations requested
+        |
+        | *Actual Result* : The number of recommendations returned is equal to the number of recommendations requested
+        |
+        | **Status : Pass**
+        |
 
-        Verify number of recommendations conform to the number of recommendations requested.
         """
         obj = self.__class__.testing_obj
         num_recommendations = random.randint(1, 10)
@@ -205,9 +369,26 @@ class TestVectorSpaceMapper:
 
     def test_get_recommendations_from_word(self):
         """
-        Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_word`.
+        | *Test Suite ID* : V
+        |
+        | *Test Case Number* : 10
+        |
+        | *Description* : Verify the response type of the word and distance returned from the function.
+        |                 Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_word`
+        |
+        | *Preconditions* : English and Hindi models exist
+        |
+        | *Test Parameters* : word passed to get_recommendations_from_word
+        |
+        | *Test Data* : word = 'has'
+        |
+        | *Expected Result* : word_type is unicode, and dist_type is float
+        |
+        | *Actual Result* : word_type is unicode, and dist_type is float
+        |
+        | **Status : Pass**
+        |
 
-        Verify the response type from the function.
         """
         obj = self.__class__.testing_obj
         result = obj.get_recommendations_from_word('has')
@@ -218,9 +399,26 @@ class TestVectorSpaceMapper:
 
     def test_get_recommendations_from_vec(self):
         """
-        Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_vec`.
+        | *Test Suite ID* : V
+        |
+        | *Test Case Number* : 11
+        |
+        | *Description* : Verify the response type of the word and distance returned from the function.
+        |                 Test :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_vec
+        |
+        | *Preconditions* : English and Hindi models exist
+        |
+        | *Test Parameters* : vector passed to get_recommendations_from_vec
+        |
+        | *Test Data* : vector = obj.model_1['has']
+        |
+        | *Expected Result* : word_type is unicode, and dist_type is float
+        |
+        | *Actual Result* : word_type is unicode, and dist_type is float
+        |
+        | **Status : Pass**
+        |
 
-        Verify the response type from the function.
         """
         obj = self.__class__.testing_obj
         result = obj.get_recommendations_from_vec(obj.model_1['has'])
@@ -231,12 +429,28 @@ class TestVectorSpaceMapper:
 
     def test_get_recommendations_from_vec_and_word_match(self):
         """
-        Test following functions.
+        | *Test Suite ID* : V
+        |
+        | *Test Case Number* : 12
+        |
+        | *Description* : Verify the results from both functions match.
+        |                 Test following functions:
+        |                   - :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_vec`
+        |                   - :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_word`
+        |
+        | *Preconditions* : English and Hindi models exist
+        |
+        | *Test Parameters* : word passed to get_recommendations_from_word, and vector passed to get_recommendations_from_vec
+        |
+        | *Test Data* : word = 'has', vector = obj.model_1['has']
+        |
+        | *Expected Result* : Recommendations match
+        |
+        | *Actual Result* : Recommendations match
+        |
+        | **Status : Pass**
+        |
 
-         - :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_vec`
-         - :func:`tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_word`
-
-        Verify the results from both functions match.
         """
         obj = self.__class__.testing_obj
         result = dict(obj.get_recommendations_from_word('has'))
