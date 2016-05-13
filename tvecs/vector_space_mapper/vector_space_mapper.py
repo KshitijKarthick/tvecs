@@ -156,7 +156,10 @@ class VectorSpaceMapper(object):
             :return: Topn recommendations from Model 2.
             :rtype: :class:`List`
         """
-        word = word.decode(self.encoding)
+        try:
+            word = word.decode(self.encoding)
+        except UnicodeEncodeError:
+            pass
         if self.lt is not None:
             try:
                 data = self.model_2.most_similar(
