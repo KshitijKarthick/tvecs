@@ -89,7 +89,6 @@ svg {
   height: 100%;
   font-size: 20px;
   padding: 10px 15px 10px 15px;
-  margin-top: 20px;
 }
 
 .btn-word-input:focus {
@@ -422,15 +421,27 @@ input[type="radio"]:checked + label span {
   left: 0;
   z-index: 10;
   padding: 10px;
-  width: 100%;
-  background: #fff;
+  height: 58px;
+  width: 99%;
+  background: url("../images/background.png");
+  background-size: 30%;
+  border-bottom: 3px solid rgba(138, 98, 74, 0.44);
 }
 
-#submit-button {
-  padding-left: 50px;
-  margin-top: 20px;
+.submit-btn {
+  text-align: center;
+  width: 177px;
+  margin-top: 10px;
 }
 
 .center {
   text-align: center;
+}
+
+.submit-menu-btn {
+  width: 100%;
+}
+
+#english-word-input {
+  width: 89% !important;
 }

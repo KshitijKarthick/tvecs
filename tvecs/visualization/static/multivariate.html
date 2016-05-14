@@ -25,10 +25,17 @@
                 margin-bottom: 0px;
             }
 
+            .viz {
+            	text-align: center !important;
+    			border: 2px solid #FFCFAE;
+    			background: #fff;
+            }
+
             svg {
             	font: 10px sans-serif !important;
-                padding-left: 20px;
-                height: 540px;
+    			padding-left: 10%;
+    			padding-top: 20px;
+    			height: 540px;
             }
 
             text {
@@ -64,25 +71,32 @@
             	text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
                 fill: #291E14;
             }
+
+            a {
+            	color: #667D23 !important;
+            }
         </style>
     </head>
     <body>
-		<div class="switch-menu">
-      		<a href="http://0.0.0.0:5000">
-        		<button class="switch-btn home-btn" title="Home">
-          			<i class="fa fa-home" aria-hidden="true"></i>
-        		</button>
-      		</a>
-	        <a href="http://0.0.0.0:5000/cross_lingual">
-	            <button class="switch-btn switch-cross-lang" title="Cross-Lingual Sementic Space">
-	              <i class="fa fa-language" aria-hidden="true"></i>
-	            </button>
-	        </a>
-	        <a href="http://0.0.0.0:5000/distances">
-      			<button class="switch-btn switch-distances" title="Distances">
-        			<i class="fa fa-map-marker tv-chart"></i>
-      			</button>
-    		</a>
+    	<div id="main-container">
+    		<div id="multivariate-header">
+    		<div class="switch-menu">
+	      		<a href="http://0.0.0.0:5000">
+	        		<button class="switch-btn home-btn" title="Home">
+	          			<i class="fa fa-home" aria-hidden="true"></i>
+	        		</button>
+	      		</a>
+		        <a href="http://0.0.0.0:5000/cross_lingual">
+		            <button class="switch-btn switch-cross-lang" title="Cross-Lingual Sementic Space">
+		              <i class="fa fa-language" aria-hidden="true"></i>
+		            </button>
+		        </a>
+		        <a href="http://0.0.0.0:5000/distances">
+	      			<button class="switch-btn switch-distances" title="Distances">
+	        			<i class="fa fa-map-marker tv-chart"></i>
+	      			</button>
+	    		</a>
+    		</div>
     	</div>
     	<h1>Exploring T-Vecs Models</h1>
         </br>
@@ -99,14 +113,17 @@
     	<p><small><a href="http://bl.ocks.org/jasondavies/1341281">Credits: Parallel Coordinates by jasondavies</a></small></p>
     		<table align="center">
     			<tr><td>ID</td><td>Dataset</td></tr>
-    			<tr><td>0</td><td>EN-RG-30</td></tr>
+    			<tr><td>0</td><td>EN-MC-30</td></tr>
     			<tr><td>1</td><td>EN-RG-65</td></tr>
     			<tr><td>2</td><td>wordsim_relatedness_goldstandard</td></tr>
     			<tr><td>3</td><td>MEN_dataset_natural_form_full</td></tr>
     			<tr><td>4</td><td>Mturk</td></tr>
     		</table>
+    	</div>
+    	
     	<script src="/js/d3.min.js"></script>
     	<script>
+
             var margin = {
                 top : 30,
                 right : 10,
@@ -174,6 +191,15 @@
                     }) ? null : "none";
                 });
             }
+
+            $(window).on("scroll", function() {
+    			if ($(this).scrollTop() > 100) {
+       				$("header").css("background","#252525");
+    			}
+    			else {
+       				$("header").css("background","#fff");
+    			}
+ 			});
         </script>
     </body>
 </html>
