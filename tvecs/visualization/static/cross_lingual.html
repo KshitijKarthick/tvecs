@@ -265,7 +265,6 @@
         if (language === "english") {
           document.getElementById("english-words").style.display = "block";
           document.getElementById("hindi-words").style.display = "none";
-          document.getElementById("english-words").style.marginLeft = "-15px"
         }
         else {
           document.getElementById("english-words").style.display = "none";
@@ -306,12 +305,13 @@
 <!--        <div>
               <span class="input-group-addon btn-span" id="basic-addon2">
                 <button class="btn-word-input" onclick="getWord(document.getElementsByName('word-text'))"> 
--->            
-            <div id='submit-button'>
-                <button class="sample-menu-btn" onclick="getWord(document.getElementsByName('word-text'))">
-                  <i class="fa fa-refresh" aria-hidden="true"></i>
+-->          
+          </div>
+          <div class="submit-btn">
+                <button class="sample-menu-btn submit-menu-btn" onclick="getWord(document.getElementsByName('word-text'))">
+                  Change Word
+                  <!-- <i class="fa fa-refresh" aria-hidden="true"></i> -->
                 </button>
-            </div>
           </div>
         </div>
         <div id="words-menu">
