@@ -13,12 +13,15 @@ import os
 import gensim
 
 from tvecs.logger import init_logger as log
-from tvecs.preprocessor import hccorpus_preprocessor as pre
+from tvecs.preprocessor.hccorpus_preprocessor import HcCorpusPreprocessor
+from tvecs.preprocessor.emille_preprocessor import EmilleCorpusPreprocessor
+from tvecs.preprocessor.leipzig_preprocessor import LeipzigPreprocessor
 
 LOGGER = log.initialise('TVecs.ModelGeneration')
 
 
 def generate_model(
+        preprocessor_type,
         language,
         corpus_fname,
         corpus_dir_path='.',
@@ -31,6 +34,8 @@ def generate_model(
     Function used to preprocess and generate models.
 
     API Documentation
+        :param preprocessor_type: Class Name for preprocessor.
+        :type preprocessor_type: :class:`String`
         :param language: Language for which model is generated.
         :type language: :class:`String`
         :param corpus_fname: Corpus Filename
@@ -52,7 +57,15 @@ def generate_model(
         :rtype: :mod:`gensim.models.Word2Vec`
     """
     LOGGER.info('Constructing Preprocessor Object')
-    preprocessor_obj = pre.HcCorpusPreprocessor(
+    if preprocessor_type == HcCorpusPreprocessor.__name__:
+        preprocessor_cl = HcCorpusPreprocessor
+    elif preprocessor_type == LeipzigPreprocessor.__name__:
+        preprocessor_type = LeipzigPreprocessor
+    elif preprocessor_type == EmilleCorpusPreprocessor.__name__:
+        preprocessor_type = EmilleCorpusPreprocessor
+    else:
+        raise ValueError("Invalid Preprocessor Type")
+    preprocessor_obj = preprocessor_cl(
         corpus_fname=corpus_fname,
         corpus_dir_path=corpus_dir_path,
         need_preprocessing=need_preprocessing,
@@ -80,7 +93,8 @@ def construct_model(
     API Documentation:
         :param preprocessed_corpus: Instance of SubClass of BasePreprocessor.
         :type preprocessed_corpus:
-            :class:`tvecs.preprocessor.hccorpus_preprocessor.HcCorpusPreprocessor`
+            Any class that inherits
+            from :class:`tvecs.preprocessor.base_preprocessor`
         :param language: Language for which model is generated.
         :type language: :class:`String`
         :param output_dir_path: Output Dir Path where model is stored.
@@ -96,7 +110,7 @@ def construct_model(
 
     .. seealso::
         * :mod:`gensim.models.Word2Vec`
-        * :mod:`tvecs.preprocessor.hccorpus_preprocessor`
+        * :mod:`tvecs.preprocessor.base_preprocessor`
     """
     LOGGER.info('Generating Model')
     model = gensim.models.Word2Vec(preprocessed_corpus, iter=iterations)
