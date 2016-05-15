@@ -19,7 +19,6 @@ class TestVectorSpaceMapper:
     """
     Unit Testing for :mod:`tvecs.vector_space_mapper.vector_space_mapper`.
 
-
     Test Cases considered for the following functions
         - :func:`VectorSpaceMapper.extract_vectors_and_words`
         - :func:`VectorSpaceMapper._predict_vec_from_word`
@@ -65,6 +64,7 @@ class TestVectorSpaceMapper:
         """
         try:
             model_1 = mod.generate_model(
+                preprocessor_type='HcCorpusPreprocessor',
                 language='english',
                 corpus_fname='test_english',
                 corpus_dir_path=os.path.join('tests', 'resources'),
@@ -73,6 +73,7 @@ class TestVectorSpaceMapper:
                 output_fname='model_1'
             )
             model_2 = mod.generate_model(
+                preprocessor_type='HcCorpusPreprocessor',
                 language='hindi',
                 corpus_fname='test_hindi',
                 corpus_dir_path=os.path.join('tests', 'resources'),
