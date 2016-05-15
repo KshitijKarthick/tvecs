@@ -80,7 +80,7 @@ The main documentation for the site is organized into a couple sections:
 	.. seqdiag::
 		:align: center
    		:desctable:
-   		:caption: Sequence Diagram for Visualization
+   		:caption: Sequence Diagram for Visualization Recommendations
 
 		seqdiag {
 			client  -> server [label = "GET /index.html"];
@@ -94,6 +94,20 @@ The main documentation for the site is organized into a couple sections:
 			client  -> server [label = "GET /retrieve_recommendations => language & word sent"];
 			server  -> server [label = "Load Word2Vec Model & Obtain recommendations"];
 			client <-- server [label = "JSON Response => Intra-lingual Recommendations"];
+
+		    client [description = "HTTP Client"];
+		    server [description = "CherryPy Server"];
+	        vector_space_mapper [description = "Maps Vector Spaces between 2 Models using a Bilingual Dictionary"];
+		}
+
+	.. seqdiag::
+		:align: center
+   		:desctable:
+   		:caption: Sequence Diagram for Visualization for Distances & Multivariate Analysis
+
+		seqdiag {
+			client  -> server [label = "GET /index.html"];
+			client <-- server [label = "Visualization Demo"];
 			client  -> server [label = "GET /distances.html"];
 			client <-- server [label = "Semantic Word Distances"];
 			client  -> server [label = "GET /get_distance => lang1, lang2, word1 & word2 sent"];
@@ -102,7 +116,6 @@ The main documentation for the site is organized into a couple sections:
 			client <-- server [label = "JSON Response => Distance b/w words"];
 			client  -> server [label = "GET /multivariate_analysis.html"];
 			client <-- server [label = "Multivariate Analysis Visualization"];
-
 		    client [description = "HTTP Client"];
 		    server [description = "CherryPy Server"];
 	        vector_space_mapper [description = "Maps Vector Spaces between 2 Models using a Bilingual Dictionary"];
