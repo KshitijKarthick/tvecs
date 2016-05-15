@@ -245,13 +245,54 @@ class TestEmilleCorpusPreprocessor:
         except NotImplementedError:
             pytest.fail('Not Implemented _tokenize_words function')
 
+    def test_extract_corpus_data(self):
+        """
+        Ensure functionality is implemented.
+
+        | *Test Suite ID* : E
+        |
+        | *Test Case Number* : 07
+        |
+        | *Description* : Ensure preprocessor can extract required corpus
+        |                 and remove unnecessary data.
+        |                 Test
+        |                 :func:`EmilleCorpusPreprocessor._extract_corpus_data`
+        |
+        | *Preconditions* : :class:`EmilleCorpusPreprocessor` instance exists
+        |
+        | *Test Parameters* : data passed to function.
+        |
+        | *Test Data* : data = "<p>अवध-स्कूल के चित्रों का सर्वाधिक विशिष्ट</p>
+        |               random text which needs to be removed during extraction
+        |               <p>बनाये गये हैं। चित्रों में पीले रंग का</p>
+        |               more random text"
+        |
+        | *Expected Result* : "अवध-स्कूल के चित्रों का सर्वाधिक " \
+        |                     "विशिष्ट. बनाये गये हैं। चित्रों में पीले रंग का"
+        |
+        | *Actual Result* : "अवध-स्कूल के चित्रों का सर्वाधिक " \
+        |                   "विशिष्ट. बनाये गये हैं। चित्रों में पीले रंग का"
+        |
+        | **Status : Pass**
+        |
+        """
+        testing_object = self.__class__.testing_obj
+        data = u"<p>अवध-स्कूल के चित्रों का सर्वाधिक विशिष्ट</p>" \
+            u"random text which needs to be removed during extraction" \
+            u"<p>बनाये गये हैं। चित्रों में पीले रंग का</p>" \
+            u"more random text"
+        expected = u"अवध-स्कूल के चित्रों का सर्वाधिक विशिष्ट. बनाये गये" \
+            u" हैं। चित्रों में पीले रंग का"
+        result = testing_object._extract_corpus_data(data=data)
+        assert result == expected, "_extract_corpus_data implementation failed"
+
     def test_english_tokenize_sentences(self):
         """
         Ensure sentence tokenize works as expected.
 
         | *Test Suite ID* : E
         |
-        | *Test Case Number* : 07
+        | *Test Case Number* : 08
         |
         | *Description* : Ensure that the sentence tokenize functionality
         |                 for English works as expected.
@@ -286,7 +327,7 @@ class TestEmilleCorpusPreprocessor:
 
         | *Test Suite ID* : E
         |
-        | *Test Case Number* : 08
+        | *Test Case Number* : 09
         |
         | *Description* : Ensure that the sentence tokenize functionality
         |                 works for Hindi as expected as expected.
@@ -396,7 +437,7 @@ class TestEmilleCorpusPreprocessor:
 
         | *Test Suite ID* : E
         |
-        | *Test Case Number* : 09
+        | *Test Case Number* : 10
         |
         | *Description* : Ensure that the word tokenize functionality
         |                 works as expected.
@@ -442,7 +483,7 @@ class TestEmilleCorpusPreprocessor:
 
         | *Test Suite ID* : E
         |
-        | *Test Case Number* : 10
+        | *Test Case Number* : 11
         |
         | *Description* : Ensure that the word level clean functionality
         |                 works for Hindi as expected.
@@ -500,7 +541,7 @@ class TestEmilleCorpusPreprocessor:
 
         | *Test Suite ID* : E
         |
-        | *Test Case Number* : 11
+        | *Test Case Number* : 12
         |
         | *Description* : Ensure that the word level clean functionality
         |                 works for English as expected
