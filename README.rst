@@ -26,23 +26,24 @@ Install as a Package
 
 ::
 
-        # Install package
-        sudo python setup.py install
+    # Install package
+    sudo python setup.py install
 
-        # Usage from cmd line without recommendations menu
-        tvecs -c ./config.json
+    # Usage from cmd line without recommendations menu
+    tvecs -c ./config.json
 
-        # Usage from cmd line with recommendations menu
-        tvecs -c ./config.json -r
+    # Usage from cmd line with recommendations menu
+    tvecs -c ./config.json -r
 
-        # Usage without config file, with models, without recommendations menu
-        tvecs -l1 english -l2 hindi -m1 ./data/models/t-vex-english-models -m2 ./data/models/t-vex-hindi-models
+    # Usage without config file, with models, without recommendations menu
+    tvecs -l1 english -l2 hindi -m1 ./data/models/t-vex-english-models -m2 ./data/models/t-vex-hindi-models
 
-        # Usage without config file, with models, with recommendations menu
-        tvecs -r -l1 english -l2 hindi -m1 ./data/models/t-vex-english-models -m2 ./data/models/t-vex-hindi-models
+    # Usage without config file, with models, with recommendations menu
+    tvecs -r -l1 english -l2 hindi -m1 ./data/models/t-vex-english-models -m2 ./data/models/t-vex-hindi-models
 
-        # Usage from python
-        import tvecs.vector_space_mapper.vector_space_mapper as vm
+    # Usage from python
+    import tvecs.vector_space_mapper.vector_space_mapper as vm
+
 
 
 Generate Documentation
@@ -50,45 +51,46 @@ Generate Documentation
 
 ::
 
-        # Generate HTML Documentation
-        make html
-        cd documentation/html && python -m SimpleHTTPServer
-        [ Open browser to localhost:8000 for visualization ]
+    # Generate HTML Documentation
+    make html
+    cd documentation/html && python -m SimpleHTTPServer
+    # [ Open browser to localhost:8000 for visualization ]
 
-        # Generate Man Pages
-        make man
-        cd documentation/man && man -l t-vecs.1
+    # Generate Man Pages
+    make man
+    cd documentation/man && man -l t-vecs.1
 
 
-        # Other Makefile options
-        make
+    # Other Makefile options
+    make
 
-        Please use `make <target>' where <target> is one of
-        html       to make standalone HTML files
-        dirhtml    to make HTML files named index.html in directories
-        singlehtml to make a single large HTML file
-        pickle     to make pickle files
-        json       to make JSON files
-        htmlhelp   to make HTML files and a HTML help project
-        qthelp     to make HTML files and a qthelp project
-        applehelp  to make an Apple Help Book
-        devhelp    to make HTML files and a Devhelp project
-        epub       to make an epub
-        epub3      to make an epub3
-        latex      to make LaTeX files, you can set PAPER=a4 or PAPER=letter
-        latexpdf   to make LaTeX files and run them through pdflatex
-        latexpdfja to make LaTeX files and run them through platex/dvipdfmx
-        text       to make text files
-        man        to make manual pages
-        texinfo    to make Texinfo files
-        info       to make Texinfo files and run them through makeinfo
-        gettext    to make PO message catalogs
-        changes    to make an overview of all changed/added/deprecated items
-        xml        to make Docutils-native XML files
-        pseudoxml  to make pseudoxml-XML files for display purposes
-        linkcheck  to check all external links for integrity
-        doctest    to run all doctests embedded in the documentation (if enabled)
-        coverage   to run coverage check of the documentation (if enabled)
+    Please use `make <target>' where <target> is one of
+    html       to make standalone HTML files
+    dirhtml    to make HTML files named index.html in directories
+    singlehtml to make a single large HTML file
+    pickle     to make pickle files
+    json       to make JSON files
+    htmlhelp   to make HTML files and a HTML help project
+    qthelp     to make HTML files and a qthelp project
+    applehelp  to make an Apple Help Book
+    devhelp    to make HTML files and a Devhelp project
+    epub       to make an epub
+    epub3      to make an epub3
+    latex      to make LaTeX files, you can set PAPER=a4 or PAPER=letter
+    latexpdf   to make LaTeX files and run them through pdflatex
+    latexpdfja to make LaTeX files and run them through platex/dvipdfmx
+    text       to make text files
+    man        to make manual pages
+    texinfo    to make Texinfo files
+    info       to make Texinfo files and run them through makeinfo
+    gettext    to make PO message catalogs
+    changes    to make an overview of all changed/added/deprecated items
+    xml        to make Docutils-native XML files
+    pseudoxml  to make pseudoxml-XML files for display purposes
+    linkcheck  to check all external links for integrity
+    doctest    to run all doctests embedded in the documentation (if enabled)
+    coverage   to run coverage check of the documentation (if enabled)
+
 
 
 Download Corpus
@@ -97,10 +99,15 @@ Download Corpus
 Corpus Download details
 '''''''''''''''''''''''
 
-http://www.corpora.heliohost.org/download.html
-
 We are focusing on [English, Hindi]
 other possible prospects we could look into Kannada, Tamil languages
+
+
+- HcCorpora http://www.corpora.heliohost.org/download.html
+- Emille Corpora http://www.emille.lancs.ac.uk/
+- Leipzig Corpora http://corpora.uni-leipzig.de/
+
+
 
 Ensure Model is downloaded and extracted in the t-vex directory
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -113,19 +120,19 @@ Execution
 
 ::
 
-      # Preprocessing, Model Generation, Bilingual Generation, Vector Space Mapping between two languages english hindi from the corpus using the config file
+    # Preprocessing, Model Generation, Bilingual Generation, Vector Space Mapping between two languages english hindi from the corpus using the config file
 
-        python2 -im tvecs -c config.json
+    python2 -im tvecs -c config.json
 
-        # [ utilise the dictionary tvex_calls which contains results of every step performed ]
+    # [ utilise the dictionary tvex_calls which contains results of every step performed ]
 
-      # Bilingual generation, Vector space mapping between two languages english hindi providing the models
+    # Bilingual generation, Vector space mapping between two languages english hindi providing the models
 
-        python2 -im tvecs -l1 english -l2 hindi -m1 ./data/models/t-vex-english-model -m2 ./data/models/t-vex-hindi-model
+    python2 -im tvecs -l1 english -l2 hindi -m1 ./data/models/t-vex-english-model -m2 ./data/models/t-vex-hindi-model
 
-        python2 -im tvecs -c config.json
+    python2 -im tvecs -c config.json
 
-        # [ utilise the dictionary tvex_calls which contains results of every step performed ]
+    # [ utilise the dictionary tvex_calls which contains results of every step performed ]
 
 Usage Details
 ~~~~~~~~~~~~~
