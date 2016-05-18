@@ -93,8 +93,8 @@ Generate Documentation
 
 
 
-Download Corpus
-~~~~~~~~~~~~~~~
+Data
+~~~~
 
 Corpus Download details
 '''''''''''''''''''''''
@@ -102,11 +102,33 @@ Corpus Download details
 We are focusing on [English, Hindi]
 other possible prospects we could look into Kannada, Tamil languages
 
+Sources
+    - HcCorpora http://www.corpora.heliohost.org/download.html
+    - Emille Corpora http://www.emille.lancs.ac.uk/
+    - Leipzig Corpora http://corpora.uni-leipzig.de/
 
-- HcCorpora http://www.corpora.heliohost.org/download.html
-- Emille Corpora http://www.emille.lancs.ac.uk/
-- Leipzig Corpora http://corpora.uni-leipzig.de/
 
+Bilingual Dictionary details
+''''''''''''''''''''''''''''
+
+Provided in the repository, data/bilingual_dictionary.
+Compiled using the following sources.
+
+Credits
+    - Shabdakosh http://www.shabdkosh.com/content/category/downloads/
+    - Dicts Corpora http://dicts.info/dictlist1.php?l=Hindi
+
+
+Evaluation Dataset details
+''''''''''''''''''''''''''
+
+Human relatedness judgement score datasets provided in data/evaluate
+
+Credits
+    - wordsim_relatedness_goldstandard
+    - MEN_dataset_natural_form_full
+    - Mturk_287
+    - Mturk_771
 
 
 Ensure Model is downloaded and extracted in the t-vex directory
