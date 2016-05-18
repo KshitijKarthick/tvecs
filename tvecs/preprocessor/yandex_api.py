@@ -59,7 +59,11 @@ def get_translation(word, from_to):
         'key': '<Enter Key Here>',
         'text': word
     }
-    return json.loads(requests.get(base_url, params=options).text)["text"][0]
+    response = requests.get(base_url, params=options)
+    if response.status_code is 200:
+        return json.loads(response.text)["text"][0]
+    else:
+        return ""
 
 
 def yandex_api(lang_translate, input_score_path, output_score_path):
