@@ -43,7 +43,8 @@ def multivariate_analyse():
     wordsim_datasets = [
         ('wordsim_relatedness_goldstandard.txt_translate', dir_path),
         ('MEN_dataset_natural_form_full_translate', dir_path),
-        ('Mturk_287.txt_translate', dir_path)
+        ('Mturk_287.txt_translate', dir_path),
+        ('MTURK-771.csv_translate', dir_path)
     ]
     with open(os.path.join(
         'data', 'multivariate', 'multivariate.csv'
