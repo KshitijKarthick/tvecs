@@ -40,7 +40,8 @@ setup(
         'scipy>=0.14.0',
         'scikit-learn>=0.15.2'
         'beautifulsoup4>=4.4.1',
-        'pytest>=2.9.1'
+        'pytest>=2.9.1',
+        'html5lib>=0.9999999'
     ],
     use_2to3=True,
     classifiers=[
