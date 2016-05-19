@@ -11,4 +11,4 @@ install:
   - "pip install -r requirements.txt"
   - "python setup.py install"
 # command to run tests
-script: pytest
+script: py.test
