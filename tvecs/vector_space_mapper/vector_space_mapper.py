@@ -159,6 +159,9 @@ class VectorSpaceMapper(object):
         data = None
         try:
             word = word.decode(self.encoding)
+        except AttributeError:
+            # Handle Python3 errors
+            pass
         except UnicodeEncodeError:
             pass
         if self.lt is not None:
