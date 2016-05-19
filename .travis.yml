@@ -1,12 +1,13 @@
 language: python
-sudo: required
 cache: pip
-python:
-  - "2.7_with_system_site_packages"
-before_install:
-  - "sudo apt-get install -qq gfortran libblas-dev liblapack-dev python-scipy"
-# command to install dependencies
+virtualenv:
+  system_site_packages: true
+env:
+  matrix:
+    - PYTHON_VERSION="2.7" SCIPY_VERSION="0.14.0" SKLEARN_VERSION="0.15.2"
+    - PYTHON_VERSION="3.4" LATEST="true"
 install: 
+  - "source CI/install.sh"
   - "pip install -r requirements.txt"
   - "python setup.py install"
 # command to run tests

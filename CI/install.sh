@@ -32,7 +32,7 @@ if [[ "$LATEST" == "true" ]]; then
         scikit-learn cython
 else
     conda create -n testenv --yes python=$PYTHON_VERSION pip nose \
-        numpy=$NUMPY_VERSION scipy=$SCIPY_VERSION \
+        scipy=$SCIPY_VERSION \
         scikit-learn=$SKLEARN_VERSION cython
 fi
 
@@ -45,7 +45,6 @@ fi
 # Build gplearn in the install.sh script to collapse the verbose
 # build output in the travis output when it succeeds.
 python --version
-python -c "import numpy; print('numpy %s' % numpy.__version__)"
 python -c "import scipy; print('scipy %s' % scipy.__version__)"
 python -c "import sklearn; print('sklearn %s' % sklearn.__version__)"
 python setup.py build_ext --inplace
