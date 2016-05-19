@@ -29,13 +29,14 @@
             	text-align: center !important;
     			border: 2px solid #FFCFAE;
     			background: #fff;
+    			padding-left: 50px;
+    			padding-top: 50px;
             }
 
             svg {
             	font: 10px sans-serif !important;
-    			padding-left: 10%;
     			padding-top: 20px;
-    			height: 540px;
+    			overflow: visible !important;
             }
 
             text {
@@ -135,8 +136,7 @@
 
             var line = d3.svg.line(), axis = d3.svg.axis().orient("left"), background, foreground;
 
-            var svg = d3.select(".viz").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr(
-                    "transform", "translate(" + margin.left + "," + margin.top + ")");
+            var svg = d3.select(".viz").append("svg").attr("viewBox", "0 0 1300 520").append("g");
 
             d3.csv("/resources/multivariate.csv", function(error, cars) {
 
