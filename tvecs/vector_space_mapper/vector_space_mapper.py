@@ -156,8 +156,12 @@ class VectorSpaceMapper(object):
             :return: Topn recommendations from Model 2.
             :rtype: :class:`List`
         """
+        data = None
         try:
             word = word.decode(self.encoding)
+        except AttributeError:
+            # Handle Python3 errors
+            pass
         except UnicodeEncodeError:
             pass
         if self.lt is not None:
@@ -173,7 +177,7 @@ class VectorSpaceMapper(object):
         else:
             logging.error('First Map Vector Spaces')
             data = None
-        if pretty_print is True:
+        if pretty_print is True and data is not None:
             print "\n%s\t=>\t%s\n" % ("Word", "Score")
             for prediction in data:
                 print "%s\t=>\t%s" % (prediction[0], prediction[1])

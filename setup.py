@@ -1,7 +1,7 @@
 #!/usr/bin/python2.7
 # -*- coding: utf-8 -*-
 
-"""Map words across different semantic vector spaces."""
+"""Setuptools Module."""
 
 import os
 
@@ -34,14 +34,14 @@ setup(
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
     install_requires=[
-        'gensim >= 0.12.4',
-        'nltk >= 3.1',
-        'regex >= 2016.3.2',
-        'scipy >= 0.17.0',
-        'sklearn >= 0.0',
-        'beautifulsoup4 >= 4.4.1',
-        'pytest >= 2.9.1',
-        'PyDictionary >= 1.5.2'
+        'gensim>=0.12.4',
+        'nltk>=3.1',
+        'regex>=2016.3.2',
+        'scipy>=0.14.0',
+        'scikit-learn>=0.15.2'
+        'beautifulsoup4>=4.4.1',
+        'pytest>=2.9.1',
+        'html5lib>=0.9999999'
     ],
     use_2to3=True,
     classifiers=[
