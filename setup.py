@@ -1,7 +1,7 @@
 #!/usr/bin/python2.7
 # -*- coding: utf-8 -*-
 
-"""Map words across different semantic vector spaces."""
+"""Setuptools Module."""
 
 import os
 
