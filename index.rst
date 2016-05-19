@@ -22,7 +22,6 @@ The main documentation for the site is organized into a couple sections:
 .. _dev-docs:
 
 	.. toctree::
-		:numbered:
 		:titlesonly:
 		:caption: Development Documentation
 		
@@ -33,7 +32,6 @@ The main documentation for the site is organized into a couple sections:
 .. _test-docs:
 
 	.. toctree::
-		:numbered:
 		:caption: Testing Documentation
 		
 		_test_docs/modules
@@ -43,7 +41,6 @@ The main documentation for the site is organized into a couple sections:
 .. _dev-seq-diagr:
 
    	.. toctree::
-   		:numbered:
    		:caption: Sequence Diagrams
 
 
@@ -148,7 +145,6 @@ The main documentation for the site is organized into a couple sections:
 .. _dev-inh-diagr:
 
    	.. toctree::
-   		:numbered:
    		:caption: Inheritance Diagrams
 
 	.. inheritance-diagram:: tvecs.preprocessor.base_preprocessor.BasePreprocessor  tvecs.preprocessor.hccorpus_preprocessor.HcCorpusPreprocessor tvecs.preprocessor.leipzig_preprocessor.LeipzigPreprocessor tvecs.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor
@@ -157,7 +153,6 @@ The main documentation for the site is organized into a couple sections:
 .. _dev-experimental-results:
 
 	.. toctree::
-		:numbered:
 		:caption: Experimental Results
 
 	+---------------+------------------+-------------------+--------------------+------------+
