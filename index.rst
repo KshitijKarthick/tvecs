@@ -3,6 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+.. image:: https://travis-ci.com/KshitijKarthick/t-vecs.svg?token=VggrSpSPKNvYqbzcb3Tt&branch=master
+    :target: https://travis-ci.com/KshitijKarthick/t-vecs
+    :align: right
+
 Welcome to T-Vecs's documentation!
 ==================================
 
