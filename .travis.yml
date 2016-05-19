@@ -1,6 +1,11 @@
 language: python
 cache: pip
 sudo: required
+addons:
+  apt:
+    packages:
+      - gfortran
+      - libgfortran3
 virtualenv:
   system_site_packages: true
 env:
