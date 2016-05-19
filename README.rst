@@ -1,6 +1,9 @@
 T-Vecs
 ======
 
+.. image:: https://travis-ci.com/KshitijKarthick/t-vecs.svg?token=VggrSpSPKNvYqbzcb3Tt&branch=master
+    :target: https://travis-ci.com/KshitijKarthick/t-vecs
+
 Setup Environment
 ~~~~~~~~~~~~~~~~~
 
