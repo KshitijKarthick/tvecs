@@ -8,7 +8,6 @@ import codecs
 import cherrypy
 import ConfigParser
 from gensim.models import Word2Vec
-from PyDictionary import PyDictionary
 from jinja2 import Environment, FileSystemLoader
 
 from tvecs.preprocessor import yandex_api as yandex
@@ -100,6 +99,7 @@ class Server(object):
             :rtype: :class:`String`
 
         """
+        from PyDictionary import PyDictionary
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
         word = word.lower()
         trword = word

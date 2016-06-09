@@ -1,13 +1,20 @@
 language: python
-sudo: required
 cache: pip
-python:
-  - "2.7_with_system_site_packages"
-before_install:
-  - "sudo apt-get install -qq gfortran libblas-dev liblapack-dev python-scipy"
-# command to install dependencies
-install: 
+sudo: required
+addons:
+  apt:
+    packages:
+      - gfortran
+      - libgfortran3
+virtualenv:
+  system_site_packages: true
+env:
+  matrix:
+    - PYTHON_VERSION="2.7" SCIPY_VERSION="0.17.1" SKLEARN_VERSION="0.17.1"
+install:
+  - "source CI/install.sh"
   - "pip install -r requirements.txt"
-  - "python setup.py install"
+  - "python CI/download_tokenizer.py"
 # command to run tests
-script: pytest
+script:
+  - "py.test tests/*.py"

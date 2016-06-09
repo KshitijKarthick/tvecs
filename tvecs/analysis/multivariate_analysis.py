@@ -41,18 +41,17 @@ def multivariate_analyse():
         'data', 'evaluate'
     )
     wordsim_datasets = [
-        ('EN-MC-30.txt_translate', dir_path),
-        ('EN-RG-65.txt_translate', dir_path),
         ('wordsim_relatedness_goldstandard.txt_translate', dir_path),
         ('MEN_dataset_natural_form_full_translate', dir_path),
-        ('Mturk.txt_translate', dir_path)
+        ('Mturk_287.txt_translate', dir_path),
+        ('MTURK-771.csv_translate', dir_path)
     ]
     with open(os.path.join(
         'data', 'multivariate', 'multivariate.csv'
     ), 'w+') as csvfile:
         fieldnames = [
             'corpus_size', 'bilingual_size', 'red_mean_sq_error',
-            'wordsim_dataset', 'correlation_score', 'p_value', 'exec_time'
+            'evaluation_dataset', 'correlation_score', 'p_value', 'exec_time'
         ]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
@@ -165,7 +164,7 @@ def multivariate_analyse():
                                     )
                                 )
                             ),
-                            'wordsim_dataset': index,
+                            'evaluation_dataset': index,
                             'correlation_score': correlation_score,
                             'p_value': p_value,
                             'exec_time': (
