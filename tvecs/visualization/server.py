@@ -114,7 +114,7 @@ class Server(object):
             if meanings[1]:
                 self.cached_dictionary[word] = meanings
                 with codecs.open(
-                    'cached_dictionary', 'w', encoding='utf-8'
+                    cache_file_path, 'w', encoding='utf-8'
                 ) as f:
                     f.write(json.dumps(self.cached_dictionary))
             return json.dumps(meanings)
