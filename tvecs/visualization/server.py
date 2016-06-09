@@ -36,15 +36,15 @@ class Server(object):
                 'hindi', 'english'
             )
         }
-        cache_file_path = os.path.join(
+        self.cache_file_path = os.path.join(
             'tvecs', 'visualization', 'cached_dictionary'
         )
-        if not os.path.exists(cache_file_path):
+        if not os.path.exists(self.cache_file_path):
             json.dump({}, codecs.open(
                 cache_file_path, 'w', encoding='utf-8'
             ))
             self.cached_dictionary = {}
-        with codecs.open(cache_file_path, 'r', encoding='utf-8') as f:
+        with codecs.open(self.cache_file_path, 'r', encoding='utf-8') as f:
             self.cached_dictionary = json.load(f)
 
     @cherrypy.expose
@@ -114,7 +114,7 @@ class Server(object):
             if meanings[1]:
                 self.cached_dictionary[word] = meanings
                 with codecs.open(
-                    cache_file_path, 'w', encoding='utf-8'
+                    self.cache_file_path, 'w', encoding='utf-8'
                 ) as f:
                     f.write(json.dumps(self.cached_dictionary))
             return json.dumps(meanings)
