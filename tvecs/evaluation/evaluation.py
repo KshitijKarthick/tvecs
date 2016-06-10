@@ -88,23 +88,41 @@ def _load_vector_space_mapper(model_1_path, model_2_path, bilingual_path):
 
 if __name__ == '__main__':
     log.set_logger_normal(LOGGER)
-    LOGGER.info(
-        "Evaluation of T-Vecs Model against Human Semantic Similarity Score:"
-    )
-    CORRELATION_SCORE, P_VALUE = extract_correlation_coefficient(
-        score_data_path=os.path.join(
+    EVAL_DATASET = {
+        'Wordsim-253-REL': os.path.join(
             'data', 'evaluate',
             'wordsim_relatedness_goldstandard.txt_translate'
         ),
-        vsm=_load_vector_space_mapper(
-            model_1_path=os.path.join('data', 'models', 't-vex-english-model'),
-            model_2_path=os.path.join('data', 'models', 't-vex-hindi-model'),
-            bilingual_path=os.path.join(
-                'data', 'bilingual_dictionary', 'english_hindi_train_bd'
+        'MEN': os.path.join(
+            'data', 'evaluate', 'MEN_dataset_natural_form_full_translate'
+        ),
+        'MTurk-287': os.path.join(
+            'data', 'evaluate', 'Mturk_287.txt_translate'
+        ),
+        'MTurk-771': os.path.join(
+            'data', 'evaluate', 'MTURK-771.csv_translate'
+        )
+    }
+    for DATASET in EVAL_DATASET.keys():
+        LOGGER.info(
+            "Evaluation of T-Vecs Model against Human Semantic"
+            " Similarity Score %s Dataset:" % DATASET
+        )
+        CORRELATION_SCORE, P_VALUE = extract_correlation_coefficient(
+            score_data_path=EVAL_DATASET[DATASET],
+            vsm=_load_vector_space_mapper(
+                model_1_path=os.path.join(
+                    'data', 'models', 't-vex-english-model'
+                ),
+                model_2_path=os.path.join(
+                    'data', 'models', 't-vex-hindi-model'
+                ),
+                bilingual_path=os.path.join(
+                    'data', 'bilingual_dictionary', 'english_hindi_train_bd'
+                )
             )
         )
-    )
-    LOGGER.info(
-        "Correlation Score obtained: %s\nP-Value obtained: %s",
-        CORRELATION_SCORE, P_VALUE
-    )
+        LOGGER.info(
+            "Correlation Score obtained: %s\nP-Value obtained: %s",
+            CORRELATION_SCORE, P_VALUE
+        )
