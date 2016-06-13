@@ -1,5 +1,5 @@
 .. image:: https://travis-ci.com/KshitijKarthick/t-vecs.svg?token=VggrSpSPKNvYqbzcb3Tt&branch=master
-    :target: https://travis-ci.com/KshitijKarthick/t-vecs
+    :target: https://travis-ci.org/KshitijKarthick/tvecs
     :align: right
 
 T-Vecs
@@ -20,8 +20,8 @@ Setup Development Environment
 
 ::
 
-    git clone https://github.com/KshitijKarthick/t-vecs.git
-    cd t-vecs
+    git clone https://github.com/KshitijKarthick/tvecs.git
+    cd tvecs
     pip install -r requirements.txt
     # Only Model needs to be downloaded and extracted in the t-vex directory
 
@@ -32,7 +32,7 @@ Install as a Package
 ::
 
     # Install package
-    pip install git+https://github.com/KshitijKarthick/t-vecs.git
+    pip install git+https://github.com/KshitijKarthick/tvecs.git
 
     # Usage from cmd line without recommendations menu
     tvecs -c ./config.json
@@ -246,7 +246,7 @@ Generate Documentation
 
     # Generate Man Pages
     make man
-    cd documentation/man && man -l t-vecs.1
+    cd documentation/man && man -l tvecs.1
 
 
     # Other Makefile options
