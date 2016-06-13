@@ -5,8 +5,18 @@
 T-Vecs
 ======
 
-Setup Environment
-~~~~~~~~~~~~~~~~~
+Prerequisites
+~~~~~~~~~~~~~
+
+-  Python 2.7 setup and installed
+-  Pip setup and installed
+-  Ensure all dependencies of requirements.txt are satisfied
+-  Download nltk_data using nltk.download() -> only tokenizers required
+-  Download corpus and extract in specified directory
+
+
+Setup Development Environment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
@@ -15,15 +25,6 @@ Setup Environment
     pip install -r requirements.txt
     # Only Model needs to be downloaded and extracted in the t-vex directory
 
-Prerequisites
-~~~~~~~~~~~~~
-
--  Python 2.7 setup and installed
--  Pip setup and installed
--  Ensure all dependencies of requirements.txt are satisfied
--  Download nltk\_data using nltk.download() -> only tokenizers required
--  Download corpus and extract in specified directory
-
 
 Install as a Package
 ~~~~~~~~~~~~~~~~~~~~
@@ -31,7 +32,7 @@ Install as a Package
 ::
 
     # Install package
-    sudo python setup.py install
+    pip install git+https://github.com/KshitijKarthick/t-vecs.git
 
     # Usage from cmd line without recommendations menu
     tvecs -c ./config.json
@@ -45,7 +46,7 @@ Install as a Package
     # Usage without config file, with models, with recommendations menu
     tvecs -r -l1 english -l2 hindi -m1 ./data/models/t-vex-english-models -m2 ./data/models/t-vex-hindi-models
 
-    # Usage from python
+    # Usage from inside python as a library
     import tvecs.vector_space_mapper.vector_space_mapper as vm
 
 
