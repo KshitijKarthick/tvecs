@@ -1,4 +1,4 @@
-.. image:: https://travis-ci.com/KshitijKarthick/t-vecs.svg?token=VggrSpSPKNvYqbzcb3Tt&branch=master
+.. image:: https://travis-ci.org/KshitijKarthick/tvecs.svg?branch=master
     :target: https://travis-ci.org/KshitijKarthick/tvecs
     :align: right
 
