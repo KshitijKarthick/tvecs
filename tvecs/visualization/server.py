@@ -6,6 +6,7 @@ import os
 import json
 import codecs
 import cherrypy
+import argparse
 import ConfigParser
 from gensim.models import Word2Vec
 from jinja2 import Environment, FileSystemLoader
@@ -297,7 +298,23 @@ class Server(object):
 
 if __name__ == '__main__':
     """Setting up the Server with Specified Configuration"""
-
+    parser = argparse.ArgumentParser(
+      description='Obtain Server Configuration'
+    )
+    parser.add_argument(
+      '-c', '--config', dest='config',
+      help='Config File Path', action='store', type=str,
+      default=os.path.join('tvecs', 'visualization', 'server.conf')
+    )
+    parser.add_argument(
+      '-p', '--port', dest='port',
+      help='Port', action='store', type=int, default=None
+    )
+    parser.add_argument(
+      '-s', '--host', dest='host',
+      help='Host Name', action='store', type=str, default=None
+    )
+    args = parser.parse_args()
     server_config = ConfigParser.RawConfigParser()
     env = Environment(loader=FileSystemLoader('static'))
     conf = {
@@ -329,9 +346,13 @@ if __name__ == '__main__':
             )
         }
     }
-    server_config.read(os.path.join('tvecs', 'visualization', 'server.conf'))
-    server_port = server_config.get('Server', 'port')
-    server_host = server_config.get('Server', 'host')
+    server_port = args.port
+    server_host = args.host
+    server_config.read(args.config)
+    if args.port is None:
+      server_port = server_config.get('Server', 'port')
+    if args.host is None:
+      server_host = server_config.get('Server', 'host')
     thread_pool = server_config.get('Server', 'thread_pool')
     queue_size = server_config.get('Server', 'queue_size')
     cherrypy.config.update({'server.socket_host': server_host})
