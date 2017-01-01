@@ -41,7 +41,7 @@ class Server(object):
         )
         if not os.path.exists(self.cache_file_path):
             json.dump({}, codecs.open(
-                cache_file_path, 'w', encoding='utf-8'
+                self.cache_file_path, 'w', encoding='utf-8'
             ))
             self.cached_dictionary = {}
         with codecs.open(self.cache_file_path, 'r', encoding='utf-8') as f:
