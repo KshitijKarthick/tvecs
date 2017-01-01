@@ -26,7 +26,7 @@
         "english" : "hindi",
         "hindi" : "english"
       }
-        
+
       function main() {
 
         // Step 1. Create a graph:
@@ -64,7 +64,7 @@
           var ui = Viva.Graph.svg('svg');
           ui.appendChild(circle);
           ui.appendChild(text);
-              
+
           ui.addEventListener("mousedown", function(e){
             var item = node.id;
             var links = graph.getLinks(node.id);
@@ -91,7 +91,7 @@
             switch(e.which) {
               case 1: language = e.target.getAttribute("data-language");
                 $.ajax({
-                  url: 'http://0.0.0.0:5000/get_cross_lingual_recommendations',
+                  url: '/get_cross_lingual_recommendations',
                   data: {
                     'lang1': language,
                     'lang2': alternate[language],
@@ -104,7 +104,7 @@
                 break;
               case 3: language = e.target.getAttribute("data-language");
                 $.ajax({
-                  url: 'http://0.0.0.0:5000/retrieve_recommendations',
+                  url: '/retrieve_recommendations',
                   data: {
                     'language': language,
                     'word': node.id
@@ -115,7 +115,7 @@
                 break;
               default: alert("Invalid Event");
                 break;
-            }       
+            }
           });
 
           ui.addEventListener("mouseover", function(e){
@@ -126,7 +126,7 @@
             var printdef = function(data) {
               if(!data[1]) {
                 return;
-              }    
+              }
               trword = data[0]
               var definition = "" ;
               for (var part_of_speech in data[1]) {
@@ -154,7 +154,7 @@
             }
 
             $.ajax({
-              url: 'http://0.0.0.0:5000/retrieve_meaning',
+              url: '/retrieve_meaning',
               data: {
                 'language' : language,
                 'word' : node.id,
@@ -276,17 +276,17 @@
   <body onload='main()' oncontextmenu="return false;">
     <div id="main-container" class="container row">
       <div class="switch-menu">
-        <a href="http://0.0.0.0:5000">
+        <a href="/">
           <button class="switch-btn home-btn" title="Home">
             <i class="fa fa-home" aria-hidden="true"></i>
           </button>
         </a>
-        <a href="http://0.0.0.0:5000/multivariate_analysis">
+        <a href="/multivariate_analysis">
           <button class="switch-btn switch-multivariate" title="Multivariate Analysis">
             <i class="fa fa-line-chart" aria-hidden="true"></i>
           </button>
         </a>
-        <a href="http://0.0.0.0:5000/distances">
+        <a href="/distances">
           <button class="switch-btn switch-distances" title="Distances">
             <i class="fa fa-map-marker tv-chart"></i>
           </button>
@@ -304,8 +304,8 @@
             <input type="text" class="form-control word-input keyboardInput" name="word-text" placeholder="Enter Word Here" aria-describedby="basic-addon2">
 <!--        <div>
               <span class="input-group-addon btn-span" id="basic-addon2">
-                <button class="btn-word-input" onclick="getWord(document.getElementsByName('word-text'))"> 
--->          
+                <button class="btn-word-input" onclick="getWord(document.getElementsByName('word-text'))">
+-->
           </div>
           <div class="submit-btn">
                 <button class="sample-menu-btn submit-menu-btn" onclick="getWord(document.getElementsByName('word-text'))">

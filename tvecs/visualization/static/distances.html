@@ -18,17 +18,17 @@
 <body>
   <div id="main-container" class="container row">
     <div class="switch-menu">
-      <a href="http://0.0.0.0:5000">
+      <a href="/">
         <button class="switch-btn home-btn" title="Home">
           <i class="fa fa-home" aria-hidden="true"></i>
         </button>
       </a>
-      <a href="http://0.0.0.0:5000/cross_lingual">
+      <a href="//cross_lingual">
         <button class="switch-btn switch-cross-lang" title="Cross-Lingual Sementic Space">
           <i class="fa fa-language" aria-hidden="true"></i>
         </button>
       </a>
-      <a href="http://0.0.0.0:5000/multivariate_analysis">
+      <a href="/multivariate_analysis">
         <button class="switch-btn switch-multivariate" title="Multivariate Analysis">
           <i class="fa fa-line-chart" aria-hidden="true"></i>
         </button>
@@ -190,7 +190,7 @@
 
         if (english_word && hindi_word) {
             $.ajax(
-                'http://0.0.0.0:5000/get_distance',
+                '/get_distance',
                 {
                     data: {
                         word1: english_word,
