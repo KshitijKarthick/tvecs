@@ -18,13 +18,13 @@ import argparse
 import itertools as it
 from gensim.models import Word2Vec
 
-from logger import init_logger as log
-from model_generator import model_generator as model
-from preprocessor import emille_preprocessor as emilleprep
-from preprocessor import hccorpus_preprocessor as hcprep
-from preprocessor import leipzig_preprocessor as leipprep
-from vector_space_mapper import vector_space_mapper as vm
-from bilingual_generator import bilingual_generator as bg
+from tvecs.logger import init_logger as log
+from tvecs.model_generator import model_generator as model
+from tvecs.preprocessor import emille_preprocessor as emilleprep
+from tvecs.preprocessor import hccorpus_preprocessor as hcprep
+from tvecs.preprocessor import leipzig_preprocessor as leipprep
+from tvecs.vector_space_mapper import vector_space_mapper as vm
+from tvecs.bilingual_generator import bilingual_generator as bg
 
 
 def preprocess_corpus(*args, **kwargs):

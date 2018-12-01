@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from collections import defaultdict
 from nltk.tokenize import sent_tokenize
 
-from base_preprocessor import BasePreprocessor
+from tvecs.preprocessor.base_preprocessor import BasePreprocessor
 from tvecs.logger import init_logger as log
 
 LOGGER = log.initialise('TVecs.Preprocessor')

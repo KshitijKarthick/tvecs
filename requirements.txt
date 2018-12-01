@@ -14,4 +14,4 @@ PyDictionary >= 1.5.2
 setuptools >= 20.7.0
 sphinxcontrib-seqdiag >= 0.8.5
 sphinxcontrib-actdiag >= 0.8.5
-pattern >= 2.6
+# pattern >= 2.6
