@@ -13,7 +13,7 @@
     }],
     "model": null
   },
-  "bilingual_dict": "./data/bilingual_dict/english_hindi_train_bd",
+  "bilingual_dict": "./data/bilingual_dictionary/english_hindi_train_bd",
   "iterations": 5,
   "silent": false,
   "verbose": false

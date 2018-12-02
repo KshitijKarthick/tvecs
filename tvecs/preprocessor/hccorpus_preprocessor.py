@@ -98,7 +98,7 @@ class HcCorpusPreprocessor(BasePreprocessor):
         - Remove punctuations.
         - Remove English words from Non-English corpus data.
         """
-        if self.language is "english":
+        if self.language == "english":
             regex = r"((\p{P}+)|(\p{S}+)|([0-9]+))"
         else:
             regex = r"((\p{P}+)|(\p{S}+)|([0-9]+)|([A-Za-z]))"

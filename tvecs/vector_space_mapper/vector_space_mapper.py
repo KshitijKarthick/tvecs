@@ -178,10 +178,10 @@ class VectorSpaceMapper(object):
             logging.error('First Map Vector Spaces')
             data = None
         if pretty_print is True and data is not None:
-            print "\n%s\t=>\t%s\n" % ("Word", "Score")
+            print("\n%s\t=>\t%s\n" % ("Word", "Score"))
             for prediction in data:
-                print "%s\t=>\t%s" % (prediction[0], prediction[1])
-            print "\n"
+                print("%s\t=>\t%s" % (prediction[0], prediction[1]))
+            print("\n")
         return data
 
     def obtain_cosine_similarity(self, word_1, word_2):

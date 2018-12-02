@@ -314,14 +314,14 @@ def evaluate(logger, args):
                     fname = ntpath.split(fpath)[1]
                     logger.info("Preprocessing %s : %s", language, fpath)
                     res.append(
-                        func(
+                        iter(func(
                             corpus_fname=fname,
                             preprocessor_type=preprocessor_type,
                             corpus_dir_path=ntpath.split(fpath)[0],
                             encoding='utf-8',
                             need_preprocessing=True,
                             language=language
-                        )
+                        ))
                     )
                 return it.chain(*res)
             tvex_calls[func_name]['result'] = (
