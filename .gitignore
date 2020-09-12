@@ -10,6 +10,10 @@
 .pytest_cache
 venv
 
+.pytest_cache
+.vscode
+.idea
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

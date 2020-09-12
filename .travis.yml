@@ -5,7 +5,8 @@ services:
 
 before_install:
   - docker build -t "tvecs" -f Dockerfile .
-  - docker run -it --name "tvecs" tvecs py.test
+  - docker run -it tvecs py.test
+  - docker run -it -p 5000:5000 tvecs
 
 script:
-  - bundle exec rake test
+  - curl 127.0.0.1:5000
