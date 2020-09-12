@@ -1,0 +1,29 @@
+tvecs.bilingual\_generator package
+==================================
+
+Submodules
+----------
+
+tvecs.bilingual\_generator.bilingual\_generator module
+------------------------------------------------------
+
+.. automodule:: tvecs.bilingual_generator.bilingual_generator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+tvecs.bilingual\_generator.cluster module
+-----------------------------------------
+
+.. automodule:: tvecs.bilingual_generator.cluster
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: tvecs.bilingual_generator
+   :members:
+   :undoc-members:
+   :show-inheritance:

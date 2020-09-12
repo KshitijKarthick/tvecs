@@ -1,0 +1,450 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>tvecs.vector_space_mapper package &mdash; T-Vecs 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="tvecs.visualization package" href="tvecs.visualization.html" />
+    <link rel="prev" title="tvecs.preprocessor package" href="tvecs.preprocessor.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> T-Vecs
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Usage Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">T-Vecs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">tvecs</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="tvecs.html">tvecs package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="tvecs.analysis.html">tvecs.analysis package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tvecs.bilingual_generator.html">tvecs.bilingual_generator package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tvecs.evaluation.html">tvecs.evaluation package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tvecs.logger.html">tvecs.logger package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tvecs.model_generator.html">tvecs.model_generator package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tvecs.preprocessor.html">tvecs.preprocessor package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">tvecs.vector_space_mapper package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tvecs.visualization.html">tvecs.visualization package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Testing Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../_test_docs/modules.html">tests</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">T-Vecs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">tvecs</a> &raquo;</li>
+        
+          <li><a href="tvecs.html">tvecs package</a> &raquo;</li>
+        
+      <li>tvecs.vector_space_mapper package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/_dev_docs/tvecs.vector_space_mapper.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tvecs-vector-space-mapper-package">
+<h1>tvecs.vector_space_mapper package<a class="headerlink" href="#tvecs-vector-space-mapper-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-tvecs.vector_space_mapper.vector_space_mapper">
+<span id="tvecs-vector-space-mapper-vector-space-mapper-module"></span><h2>tvecs.vector_space_mapper.vector_space_mapper module<a class="headerlink" href="#module-tvecs.vector_space_mapper.vector_space_mapper" title="Permalink to this headline">¶</a></h2>
+<p>Module to map two Vector Spaces using a bilingual dictionary.</p>
+<dl class="py class">
+<dt id="tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper">
+<em class="property">class </em><code class="sig-prename descclassname">tvecs.vector_space_mapper.vector_space_mapper.</code><code class="sig-name descname">VectorSpaceMapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model_1</span></em>, <em class="sig-param"><span class="n">model_2</span></em>, <em class="sig-param"><span class="n">bilingual_dict</span></em>, <em class="sig-param"><span class="n">encoding</span><span class="o">=</span><span class="default_value">'utf-8'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tvecs/vector_space_mapper/vector_space_mapper.html#VectorSpaceMapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to map two vector spaces together.</p>
+<ul class="simple">
+<li><p>Vector spaces obtained using the two Word2Vec models.</p></li>
+<li><p>Bilingual Dict used to map semantic embeddings between vector spaces.</p></li>
+<li><dl class="simple">
+<dt>Linear Regression utilised for the mapping from</dt><dd><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.linear_model</span></code></p>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="simple">
+<dt>API Documentation:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param model_1</dt>
+<dd class="field-odd"><p>Model constructed from Language 1 built using
+<a class="reference internal" href="tvecs.model_generator.html#module-tvecs.model_generator.model_generator" title="tvecs.model_generator.model_generator"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tvecs.model_generator.model_generator</span></code></a>.</p>
+</dd>
+<dt class="field-even">param model_2</dt>
+<dd class="field-even"><p>Model constructed from Language 2 built using
+<a class="reference internal" href="tvecs.model_generator.html#module-tvecs.model_generator.model_generator" title="tvecs.model_generator.model_generator"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tvecs.model_generator.model_generator</span></code></a>.</p>
+</dd>
+<dt class="field-odd">param bilingual_dict</dt>
+<dd class="field-odd"><p>Bilingual Dictionary for Language 1, Language 2.</p>
+</dd>
+<dt class="field-even">param encoding</dt>
+<dd class="field-even"><p>Encoding utilised in the corpora</p>
+</dd>
+<dt class="field-odd">type encoding</dt>
+<dd class="field-odd"><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">String</span></code></p>
+</dd>
+<dt class="field-even">type model_1</dt>
+<dd class="field-even"><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gensim.models.Word2Vec</span></code></p>
+</dd>
+<dt class="field-odd">type model_2</dt>
+<dd class="field-odd"><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gensim.models.Word2Vec</span></code></p>
+</dd>
+<dt class="field-even">type bilingual_dict</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List[(lang1,</span> <span class="pre">lang2),</span> <span class="pre">(lang1,</span> <span class="pre">lang2)]</span></code></p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="tvecs.model_generator.html#module-tvecs.model_generator.model_generator" title="tvecs.model_generator.model_generator"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tvecs.model_generator.model_generator</span></code></a></p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gensim.models.Word2Vec</span></code></p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.linear_model</span></code></p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.spatial.distance</span></code></p></li>
+</ul>
+</div>
+<dl class="py method">
+<dt id="tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_vec">
+<code class="sig-name descname">get_recommendations_from_vec</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vector</span></em>, <em class="sig-param"><span class="n">topn</span><span class="o">=</span><span class="default_value">10</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tvecs/vector_space_mapper/vector_space_mapper.html#VectorSpaceMapper.get_recommendations_from_vec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_vec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get topn most similar words from model-2 [language 2].</p>
+<ul class="simple">
+<li><p>Vector for the word in Model 1 [Language 1] should be provided</p></li>
+</ul>
+<dl class="simple">
+<dt>API Documentation:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param vector</dt>
+<dd class="field-odd"><p>Input a vector from Model 1,
+recommendations provided from Model 2.</p>
+</dd>
+<dt class="field-even">param topn</dt>
+<dd class="field-even"><p>Number of recommendations to be provided.</p>
+</dd>
+<dt class="field-odd">type vector</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.array</span></code></p>
+</dd>
+<dt class="field-even">type topn</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Integer</span></code></p>
+</dd>
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>Topn recommendations from Model 2.</p>
+</dd>
+<dt class="field-even">rtype</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_word">
+<code class="sig-name descname">get_recommendations_from_word</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">word</span></em>, <em class="sig-param"><span class="n">topn</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">pretty_print</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tvecs/vector_space_mapper/vector_space_mapper.html#VectorSpaceMapper.get_recommendations_from_word"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.get_recommendations_from_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get topn most similar words from model-2 [language 2].</p>
+<ul class="simple">
+<li><p>Word from Model 1 [Language 1] should be provided</p></li>
+</ul>
+<dl class="simple">
+<dt>API Documentation:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param word</dt>
+<dd class="field-odd"><p>Input a word from Model 1,
+recommendations provided from Model 2.</p>
+</dd>
+<dt class="field-even">param topn</dt>
+<dd class="field-even"><p>Number of recommendations to be provided.</p>
+</dd>
+<dt class="field-odd">param pretty_print</dt>
+<dd class="field-odd"><p>Pretty Print the recommendations correctly.</p>
+</dd>
+<dt class="field-even">type pretty_print</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Boolean</span></code></p>
+</dd>
+<dt class="field-odd">type word</dt>
+<dd class="field-odd"><p>String expected [ usually unicode preferred ]</p>
+</dd>
+<dt class="field-even">type topn</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Integer</span></code></p>
+</dd>
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>Topn recommendations from Model 2.</p>
+</dd>
+<dt class="field-even">rtype</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.map_vector_spaces">
+<code class="sig-name descname">map_vector_spaces</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tvecs/vector_space_mapper/vector_space_mapper.html#VectorSpaceMapper.map_vector_spaces"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.map_vector_spaces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform linear regression upon the semantic embeddings.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Semantic embeddings obtained from vector space of corresponding</dt><dd><p>bilingual words of the same language.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.obtain_cosine_similarity">
+<code class="sig-name descname">obtain_cosine_similarity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">word_1</span></em>, <em class="sig-param"><span class="n">word_2</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tvecs/vector_space_mapper/vector_space_mapper.html#VectorSpaceMapper.obtain_cosine_similarity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.obtain_cosine_similarity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain cosine similarity.</p>
+<ul class="simple">
+<li><p>Cosine Similarity between word_2 and predicted word using word_1</p></li>
+</ul>
+<dl class="simple">
+<dt>API Documentation:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param word_1</dt>
+<dd class="field-odd"><p>Used to predict possible vector from Model 2
+using word from Model 1.</p>
+</dd>
+<dt class="field-even">param word_2</dt>
+<dd class="field-even"><p>Used for comparison in cosine similarity.</p>
+</dd>
+<dt class="field-odd">type word_1</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">String</span></code></p>
+</dd>
+<dt class="field-even">type word_2</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">String</span></code></p>
+</dd>
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>Cosine similarity between predicted word and actual word.</p>
+</dd>
+<dt class="field-even">rtype</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Float</span></code></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.obtain_mean_square_error_from_dataset">
+<code class="sig-name descname">obtain_mean_square_error_from_dataset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataset_path</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tvecs/vector_space_mapper/vector_space_mapper.html#VectorSpaceMapper.obtain_mean_square_error_from_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tvecs.vector_space_mapper.vector_space_mapper.VectorSpaceMapper.obtain_mean_square_error_from_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain Mean Square Error from bilingual dataset.</p>
+<dl class="simple">
+<dt>API Documentation:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param dataset_path</dt>
+<dd class="field-odd"><p>Path for the test bilingual dictionary.</p>
+</dd>
+<dt class="field-even">type dataset_path</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">String</span></code></p>
+</dd>
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>%% of reduction of Mean Square Error after transformation.</p>
+</dd>
+<dt class="field-even">rtype</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Float</span></code></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tvecs.vector_space_mapper">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-tvecs.vector_space_mapper" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tvecs.visualization.html" class="btn btn-neutral float-right" title="tvecs.visualization package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tvecs.preprocessor.html" class="btn btn-neutral float-left" title="tvecs.preprocessor package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2016, Kshitij Karthick, Ravi Kumar L, Prateeksha, Prarthana Sannamani
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

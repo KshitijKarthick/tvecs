@@ -1,0 +1,53 @@
+tvecs.preprocessor package
+==========================
+
+Submodules
+----------
+
+tvecs.preprocessor.base\_preprocessor module
+--------------------------------------------
+
+.. automodule:: tvecs.preprocessor.base_preprocessor
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+tvecs.preprocessor.emille\_preprocessor module
+----------------------------------------------
+
+.. automodule:: tvecs.preprocessor.emille_preprocessor
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+tvecs.preprocessor.hccorpus\_preprocessor module
+------------------------------------------------
+
+.. automodule:: tvecs.preprocessor.hccorpus_preprocessor
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+tvecs.preprocessor.leipzig\_preprocessor module
+-----------------------------------------------
+
+.. automodule:: tvecs.preprocessor.leipzig_preprocessor
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+tvecs.preprocessor.yandex\_api module
+-------------------------------------
+
+.. automodule:: tvecs.preprocessor.yandex_api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: tvecs.preprocessor
+   :members:
+   :undoc-members:
+   :show-inheritance:

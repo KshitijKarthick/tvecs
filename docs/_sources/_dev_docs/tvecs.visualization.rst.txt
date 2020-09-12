@@ -1,0 +1,21 @@
+tvecs.visualization package
+===========================
+
+Submodules
+----------
+
+tvecs.visualization.server module
+---------------------------------
+
+.. automodule:: tvecs.visualization.server
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: tvecs.visualization
+   :members:
+   :undoc-members:
+   :show-inheritance:

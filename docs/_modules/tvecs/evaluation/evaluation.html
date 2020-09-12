@@ -1,0 +1,339 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>tvecs.evaluation.evaluation &mdash; T-Vecs 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> T-Vecs
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Usage Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html">T-Vecs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_dev_docs/modules.html">tvecs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Testing Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_test_docs/modules.html">tests</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">T-Vecs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>tvecs.evaluation.evaluation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for tvecs.evaluation.evaluation</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python2.7</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;Module to Evaluate T-Vecs model against Human Semantic Similarity Score.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">codecs</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">pearsonr</span>
+<span class="kn">from</span> <span class="nn">gensim.models</span> <span class="kn">import</span> <span class="n">Word2Vec</span>
+
+<span class="kn">from</span> <span class="nn">tvecs.logger</span> <span class="kn">import</span> <span class="n">init_logger</span> <span class="k">as</span> <span class="n">log</span>
+<span class="kn">from</span> <span class="nn">tvecs.bilingual_generator</span> <span class="kn">import</span> <span class="n">bilingual_generator</span> <span class="k">as</span> <span class="n">bg</span>
+<span class="kn">from</span> <span class="nn">tvecs.vector_space_mapper.vector_space_mapper</span> <span class="kn">import</span> <span class="n">VectorSpaceMapper</span>
+
+<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">initialise</span><span class="p">(</span><span class="s1">&#39;TVecs.Evaluation&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="extract_correlation_coefficient"><a class="viewcode-back" href="../../../_dev_docs/tvecs.evaluation.html#tvecs.evaluation.evaluation.extract_correlation_coefficient">[docs]</a><span class="k">def</span> <span class="nf">extract_correlation_coefficient</span><span class="p">(</span><span class="n">score_data_path</span><span class="p">,</span> <span class="n">vsm</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract Human Score, Word1, Word2. Compute T-Vecs Score.</span>
+
+<span class="sd">    API Documentation</span>
+<span class="sd">        :param score_data_path: File generated by preprocessor/yandex</span>
+<span class="sd">        :param vsm: Vector spaces mapped using 2 models.</span>
+<span class="sd">        :type score_data_path: :class:`String`</span>
+<span class="sd">        :type vsm: :mod:`tvecs.vector_space_mapper.vector_space_mapper`</span>
+<span class="sd">        :return: Returns (Correlation coefficient, P-Value)</span>
+<span class="sd">        :rtype: :class:`Tuple(Float, Float)`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="s1">&#39;Extracting Human Score from score data path: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">score_data_path</span>
+    <span class="p">)</span>
+    <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">score_data_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">score_file</span><span class="p">:</span>
+        <span class="n">human_score</span><span class="p">,</span> <span class="n">calculated_score</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">[</span>
+            <span class="p">[</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">],</span> <span class="n">vsm</span><span class="o">.</span><span class="n">obtain_cosine_similarity</span><span class="p">(</span>
+                    <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="p">)</span>
+            <span class="p">]</span>
+            <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">score_file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+        <span class="p">])</span>
+        <span class="n">human_score</span><span class="p">,</span> <span class="n">calculated_score</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">[[</span>
+            <span class="nb">float</span><span class="p">(</span><span class="n">hs</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">cs</span><span class="p">)</span>
+        <span class="p">]</span> <span class="k">for</span> <span class="n">hs</span><span class="p">,</span> <span class="n">cs</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+            <span class="n">human_score</span><span class="p">,</span> <span class="n">calculated_score</span>
+        <span class="p">)</span> <span class="k">if</span> <span class="n">hs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">cs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">get_correlation_coefficient</span><span class="p">(</span>
+            <span class="nb">list</span><span class="p">(</span><span class="n">human_score</span><span class="p">),</span> <span class="nb">list</span><span class="p">(</span><span class="n">calculated_score</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_correlation_coefficient"><a class="viewcode-back" href="../../../_dev_docs/tvecs.evaluation.html#tvecs.evaluation.evaluation.get_correlation_coefficient">[docs]</a><span class="k">def</span> <span class="nf">get_correlation_coefficient</span><span class="p">(</span><span class="n">human_score</span><span class="p">,</span> <span class="n">calculated_score</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Measure correlation using Pearson&#39;s Coefficient.</span>
+
+<span class="sd">    - The correlation is between the T-Vecs Model and</span>
+<span class="sd">    - Human Semantic Similarity Score.</span>
+
+<span class="sd">    API Documentation:</span>
+<span class="sd">        :param human_score: List of human scores.</span>
+<span class="sd">        :param calculated_score: List of calculated scores.</span>
+<span class="sd">        :type human_score: :class:`List`</span>
+<span class="sd">        :type calculated_score: :class:`List`</span>
+<span class="sd">        :return: (Correlation Coefficient, P-Value)</span>
+<span class="sd">        :rtype: :class:`Tuple(Float, Float)`</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        * correlation_coefficient - Measure of degree of relatedness</span>
+<span class="sd">          between two variables</span>
+<span class="sd">        * p-value - The null hypothesis is that the</span>
+<span class="sd">          two variables are uncorrelated. The p-value is a number between zero</span>
+<span class="sd">          and one that represents the probability that your data would have</span>
+<span class="sd">          arisen if the null hypothesis were true.</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        * :mod:`scipy.stats`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Computing Correlation Coefficient b/w human, t-vecs score&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pearsonr</span><span class="p">(</span><span class="n">human_score</span><span class="p">,</span> <span class="n">calculated_score</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">_load_vector_space_mapper</span><span class="p">(</span><span class="n">model_1_path</span><span class="p">,</span> <span class="n">model_2_path</span><span class="p">,</span> <span class="n">bilingual_path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Build a vector space mapper from model 1,2 and bilingual dict.&quot;&quot;&quot;</span>
+    <span class="n">model_1</span> <span class="o">=</span> <span class="n">Word2Vec</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_1_path</span><span class="p">)</span>
+    <span class="n">model_2</span> <span class="o">=</span> <span class="n">Word2Vec</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_2_path</span><span class="p">)</span>
+    <span class="n">bilingual_dict</span> <span class="o">=</span> <span class="n">bg</span><span class="o">.</span><span class="n">load_bilingual_dictionary</span><span class="p">(</span><span class="n">bilingual_path</span><span class="p">)</span>
+    <span class="n">tvecs_vm</span> <span class="o">=</span> <span class="n">VectorSpaceMapper</span><span class="p">(</span><span class="n">model_1</span><span class="p">,</span> <span class="n">model_2</span><span class="p">,</span> <span class="n">bilingual_dict</span><span class="p">)</span>
+    <span class="n">tvecs_vm</span><span class="o">.</span><span class="n">map_vector_spaces</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">tvecs_vm</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">set_logger_normal</span><span class="p">(</span><span class="n">LOGGER</span><span class="p">)</span>
+    <span class="n">EVAL_DATASET</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;Wordsim-253-REL&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;evaluate&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;wordsim_relatedness_goldstandard.txt_translate&#39;</span>
+        <span class="p">),</span>
+        <span class="s1">&#39;MEN&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;evaluate&#39;</span><span class="p">,</span> <span class="s1">&#39;MEN_dataset_natural_form_full_translate&#39;</span>
+        <span class="p">),</span>
+        <span class="s1">&#39;MTurk-287&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;evaluate&#39;</span><span class="p">,</span> <span class="s1">&#39;Mturk_287.txt_translate&#39;</span>
+        <span class="p">),</span>
+        <span class="s1">&#39;MTurk-771&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;evaluate&#39;</span><span class="p">,</span> <span class="s1">&#39;MTURK-771.csv_translate&#39;</span>
+        <span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="n">DATASET</span> <span class="ow">in</span> <span class="n">EVAL_DATASET</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;Evaluation of T-Vecs Model against Human Semantic&quot;</span>
+            <span class="s2">&quot; Similarity Score </span><span class="si">%s</span><span class="s2"> Dataset:&quot;</span> <span class="o">%</span> <span class="n">DATASET</span>
+        <span class="p">)</span>
+        <span class="n">CORRELATION_SCORE</span><span class="p">,</span> <span class="n">P_VALUE</span> <span class="o">=</span> <span class="n">extract_correlation_coefficient</span><span class="p">(</span>
+            <span class="n">score_data_path</span><span class="o">=</span><span class="n">EVAL_DATASET</span><span class="p">[</span><span class="n">DATASET</span><span class="p">],</span>
+            <span class="n">vsm</span><span class="o">=</span><span class="n">_load_vector_space_mapper</span><span class="p">(</span>
+                <span class="n">model_1_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;models&#39;</span><span class="p">,</span> <span class="s1">&#39;t-vex-english-model&#39;</span>
+                <span class="p">),</span>
+                <span class="n">model_2_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;models&#39;</span><span class="p">,</span> <span class="s1">&#39;t-vex-hindi-model&#39;</span>
+                <span class="p">),</span>
+                <span class="n">bilingual_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;bilingual_dictionary&#39;</span><span class="p">,</span> <span class="s1">&#39;english_hindi_train_bd&#39;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;Correlation Score obtained: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">P-Value obtained: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">CORRELATION_SCORE</span><span class="p">,</span> <span class="n">P_VALUE</span>
+        <span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2016, Kshitij Karthick, Ravi Kumar L, Prateeksha, Prarthana Sannamani
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

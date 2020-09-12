@@ -1,0 +1,789 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>tests.test_hccorpus_preprocessor &mdash; T-Vecs 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> T-Vecs
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Usage Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">T-Vecs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../_dev_docs/modules.html">tvecs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Testing Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../_test_docs/modules.html">tests</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">T-Vecs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>tests.test_hccorpus_preprocessor</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for tests.test_hccorpus_preprocessor</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python2.7</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Unit Test Cases for :mod:`tvecs.preprocessor.hccorpus_preprocessor`.</span>
+
+<span class="sd">.. py:currentmodule:: tvecs.preprocessor.hccorpus_preprocessor</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pytest</span>
+
+<span class="kn">from</span> <span class="nn">tvecs.preprocessor.hccorpus_preprocessor</span> <span class="kn">import</span> <span class="n">HcCorpusPreprocessor</span>
+
+
+<div class="viewcode-block" id="TestHcCorpusPreprocessor"><a class="viewcode-back" href="../../_test_docs/tests.html#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor">[docs]</a><span class="k">class</span> <span class="nc">TestHcCorpusPreprocessor</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Unit Testing for module :mod:`tvecs.preprocessor.hccorpus_preprocessor`.</span>
+
+<span class="sd">    Test Cases considered for the following functions</span>
+<span class="sd">        - :func:`HcCorpusPreprocessor._extract_corpus_data`</span>
+<span class="sd">        - :func:`HcCorpusPreprocessor._clean_word`</span>
+<span class="sd">        - :func:`HcCorpusPreprocessor._tokenize_sentences`</span>
+<span class="sd">        - :func:`HcCorpusPreprocessor._tokenize_words`</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        * :mod:`tvecs.preprocessor.base_preprocessor`</span>
+<span class="sd">        * :mod:`pytest`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TestHcCorpusPreprocessor.setup_class"><a class="viewcode-back" href="../../_test_docs/tests.html#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.setup_class">[docs]</a>    <span class="k">def</span> <span class="nf">setup_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setup Unit Testing for :class:`HcCorpusPreprocessor`.</span>
+
+<span class="sd">        | *Test Suite ID* : H</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Case Number* : 01</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Description* : Create an instance of class HcCorpusPreprocessor.</span>
+<span class="sd">        |                 Tests :class:`HcCorpusPreprocessor`.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Preconditions* : BaseProcessor exists.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Parameters* : corpus_fname, corpus_dir_path, need_preprocessing</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Data* :</span>
+<span class="sd">        |    corpus_fname=&#39;test_hccorpus_corpus&#39;,</span>
+<span class="sd">        |    corpus_dir_path=&#39;tests/resources&#39;,</span>
+<span class="sd">        |    need_preprocessing=True</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Expected Result* : Instance of :class:`HcCorpusPreprocessor` created</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Actual Result* : Instance of :class:`HcCorpusPreprocessor` created</span>
+<span class="sd">        |</span>
+<span class="sd">        | **Status : Pass**</span>
+<span class="sd">        |</span>
+
+<span class="sd">        API Documentation:</span>
+<span class="sd">            :param cls: Class level scope</span>
+<span class="sd">            :type cls: :class:`TestHcCorpusPreprocessor`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">testing_obj</span> <span class="o">=</span> <span class="n">HcCorpusPreprocessor</span><span class="p">(</span>
+                <span class="n">corpus_fname</span><span class="o">=</span><span class="s1">&#39;test_hccorpus_corpus&#39;</span><span class="p">,</span>
+                <span class="n">corpus_dir_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;tests&#39;</span><span class="p">,</span> <span class="s1">&#39;resources&#39;</span><span class="p">),</span>
+                <span class="n">need_preprocessing</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">BaseException</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="n">pytest</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span>
+                <span class="s1">&#39;Pre-processing </span><span class="si">%s</span><span class="s1"> failed : </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span>
+                    <span class="s1">&#39;test_hccorpus_corpus&#39;</span><span class="p">,</span> <span class="n">err</span><span class="o">.</span><span class="n">message</span>
+                <span class="p">)</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestHcCorpusPreprocessor.teardown_class"><a class="viewcode-back" href="../../_test_docs/tests.html#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.teardown_class">[docs]</a>    <span class="k">def</span> <span class="nf">teardown_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete temp files generated for tests.</span>
+
+<span class="sd">        | *Test Suite ID* : H</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Case Number* : 02</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Description* : Delete the generated preprocessed file.</span>
+<span class="sd">        |                 test_hccorpus_corpus_processed to remove file.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Preconditions* : Preprocessed test_hccorpus_corpus_processed</span>
+<span class="sd">        |                   file exists in the specified path.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Parameters* : Preprocessed file path.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Data* : path=&#39;tests/resources/test_hccorpus_corpus_processed&#39;</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Expected Result* : Preprocessed file</span>
+<span class="sd">        |                     test_hccorpus_corpus_processed is deleted.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Actual Result* : Preprocessed file</span>
+<span class="sd">        |                   test_hccorpus_corpus_processed is deleted.</span>
+<span class="sd">        |</span>
+<span class="sd">        | **Status : Pass**</span>
+<span class="sd">        |</span>
+
+
+<span class="sd">        API Documentation:</span>
+<span class="sd">            :param cls: Class level scope</span>
+<span class="sd">            :type cls: :class:`TestHcCorpusPreprocessor`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="s1">&#39;tests&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;resources&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;test_hccorpus_corpus.</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="s1">&#39;preprocessed&#39;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">):</span>
+            <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="TestHcCorpusPreprocessor.test_implement_extract_corpus_data"><a class="viewcode-back" href="../../_test_docs/tests.html#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_implement_extract_corpus_data">[docs]</a>    <span class="k">def</span> <span class="nf">test_implement_extract_corpus_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ensure functionality is implemented.</span>
+
+<span class="sd">        | *Test Suite ID* : H</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Case Number* : 03</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Description* : Ensure the corpus data extract functionality</span>
+<span class="sd">        |                 is implemented in the class.</span>
+<span class="sd">        |                 Test</span>
+<span class="sd">        |                 :func:`HcCorpusPreprocessor._extract_corpus_data`.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Preconditions* : :class:`HcCorpusPreprocessor` instance exists.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Parameters* : data passed to function.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Data* : data=&#39;&#39;</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Expected Result* : NotImplementedError exception is not raised.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Actual Result* : NotImplementedError exception is not raised.</span>
+<span class="sd">        |</span>
+<span class="sd">        | **Status : Pass**</span>
+<span class="sd">        |</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">testing_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">testing_obj</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">testing_object</span><span class="o">.</span><span class="n">_extract_corpus_data</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
+            <span class="n">pytest</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span><span class="s1">&#39;Not Implemented _extract_corpus_data function&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestHcCorpusPreprocessor.test_implement_clean_word"><a class="viewcode-back" href="../../_test_docs/tests.html#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_implement_clean_word">[docs]</a>    <span class="k">def</span> <span class="nf">test_implement_clean_word</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ensure functionality is implemented.</span>
+
+<span class="sd">        | *Test Suite ID* : H</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Case Number* : 04</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Description* : Ensure that the word level clean functionality</span>
+<span class="sd">        |                 is implemented in the class.</span>
+<span class="sd">        |                 Tests :func:`HcCorpusPreprocessor._clean_word`.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Preconditions* : :class:`HcCorpusPreprocessor` instance exists.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Parameters* : word passed to function.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Data* : word=&#39;&#39;</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Expected Result* : NotImplementedError exception is not raised.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Actual Result* : NotImplementedError exception is not raised.</span>
+<span class="sd">        |</span>
+<span class="sd">        | **Status : Pass**</span>
+<span class="sd">        |</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">testing_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">testing_obj</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">testing_object</span><span class="o">.</span><span class="n">_clean_word</span><span class="p">(</span><span class="n">word</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
+            <span class="n">pytest</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span><span class="s1">&#39;Not Implemented _clean_word function&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestHcCorpusPreprocessor.test_implement_tokenize_sentences"><a class="viewcode-back" href="../../_test_docs/tests.html#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_implement_tokenize_sentences">[docs]</a>    <span class="k">def</span> <span class="nf">test_implement_tokenize_sentences</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ensure functionality is implemented.</span>
+
+<span class="sd">        | *Test Suite ID* : H</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Case Number* : 05</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Description* : Ensure that the sentence tokenize functionality</span>
+<span class="sd">        |                 is implemented in the class.</span>
+<span class="sd">        |                 Test :func:`HcCorpusPreprocessor._tokenize_sentences`</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Preconditions* : HcCorpusPreprocessor class instance exists.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Parameters* : data passed to function.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Data* : data=&#39;&#39;</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Expected Result* : NotImplementedError exception is not raised.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Actual Result* : NotImplementedError exception is not raised.</span>
+<span class="sd">        |</span>
+<span class="sd">        | **Status : Pass**</span>
+<span class="sd">        |</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">testing_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">testing_obj</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">testing_object</span><span class="o">.</span><span class="n">_tokenize_sentences</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
+            <span class="n">pytest</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span><span class="s1">&#39;Not Implemented _tokenize_sentences function&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestHcCorpusPreprocessor.test_implement_tokenize_words"><a class="viewcode-back" href="../../_test_docs/tests.html#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_implement_tokenize_words">[docs]</a>    <span class="k">def</span> <span class="nf">test_implement_tokenize_words</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ensure functionality is implemented.</span>
+
+<span class="sd">        | *Test Suite ID* : H</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Case Number* : 06</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Description* : Ensure that the word tokenize functionality</span>
+<span class="sd">        |                 is implemented in the class.</span>
+<span class="sd">        |                 Tests :func:`HcCorpusPreprocessor._tokenize_words`.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Preconditions* : :class:`HcCorpusPreprocessor` class instance exists</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Parameters* : sentence passed to function.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Data* : sentence=&#39;&#39;</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Expected Result* : NotImplementedError exception is not raised.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Actual Result* : NotImplementedError exception is not raised.</span>
+<span class="sd">        |</span>
+<span class="sd">        | **Status : Pass**</span>
+<span class="sd">        |</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">testing_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">testing_obj</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">testing_object</span><span class="o">.</span><span class="n">_tokenize_words</span><span class="p">(</span><span class="n">sentence</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
+            <span class="n">pytest</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span><span class="s1">&#39;Not Implemented _tokenize_words function&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestHcCorpusPreprocessor.test_extract_corpus_data"><a class="viewcode-back" href="../../_test_docs/tests.html#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_extract_corpus_data">[docs]</a>    <span class="k">def</span> <span class="nf">test_extract_corpus_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ensure functionality is implemented.</span>
+
+<span class="sd">        | *Test Suite ID* : H</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Case Number* : 07</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Description* : Ensure preprocessor can extract required corpus</span>
+<span class="sd">        |                 and remove unnecessary data.</span>
+<span class="sd">        |                 Test</span>
+<span class="sd">        |                 :func:`HcCorpusPreprocessor._extract_corpus_data`.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Preconditions* : :class:`HcCorpusPreprocessor` class instance exists</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Parameters* : data passed to function.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Data* : data = &#39;blogspot.com\t2011/10/01\t3\t0\t&#39; \</span>
+<span class="sd">        |                      &#39;We love you Mr. Brown.&#39; \</span>
+<span class="sd">        |    &#39;blogspot.com\t2012/01/01\t3\t0\tIf I were a bear,&#39;</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Expected Result* : &#39;We love you Mr. Brown.. If I were a bear,&#39;</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Actual Result* : &#39;We love you Mr. Brown.. If I were a bear,&#39;</span>
+<span class="sd">        |</span>
+<span class="sd">        | **Status : Pass**</span>
+<span class="sd">        |</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">testing_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">testing_obj</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;blogspot.com</span><span class="se">\t</span><span class="s2">2011/10/01</span><span class="se">\t</span><span class="s2">3</span><span class="se">\t</span><span class="s2">0</span><span class="se">\t</span><span class="s2">We love you Mr. Brown.</span>
+<span class="s2">            blogspot.com</span><span class="se">\t</span><span class="s2">2012/01/01</span><span class="se">\t</span><span class="s2">3</span><span class="se">\t</span><span class="s2">0</span><span class="se">\t</span><span class="s2">If I were a bear,&quot;&quot;&quot;</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="s1">&#39;We love you Mr. Brown.. If I were a bear,&#39;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">testing_object</span><span class="o">.</span><span class="n">_extract_corpus_data</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="n">expected</span><span class="p">,</span> <span class="s2">&quot;_extract_corpus_data implementation failed&quot;</span></div>
+
+<div class="viewcode-block" id="TestHcCorpusPreprocessor.test_english_tokenize_sentences"><a class="viewcode-back" href="../../_test_docs/tests.html#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_english_tokenize_sentences">[docs]</a>    <span class="k">def</span> <span class="nf">test_english_tokenize_sentences</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ensure sentence tokenize works as expected.</span>
+
+<span class="sd">        | *Test Suite ID* : H</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Case Number* : 08</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Description* : Ensure that the sentence tokenize functionality</span>
+<span class="sd">        |                 for English works as expected.</span>
+<span class="sd">        |                 Test :func:`HcCorpusPreprocessor._tokenize_sentences`</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Preconditions* : :class:`HcCorpusPreprocessor` instance must exist.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Parameters* : data, which is in English.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Data* : data = &#39;We love you Mr. Brown.. If I were a bear,&#39;</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Expected Result* : [&#39;We love you Mr. Brown..&#39;, &#39;If I were a bear,&#39;]</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Actual Result* : [&#39;We love you Mr. Brown..&#39;, &#39;If I were a bear,&#39;]</span>
+<span class="sd">        |</span>
+<span class="sd">        | **Status: Pass**</span>
+<span class="sd">        |</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">testing_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">testing_obj</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="s1">&#39;We love you Mr. Brown.. If I were a bear,&#39;</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;We love you Mr. Brown..&#39;</span><span class="p">,</span> <span class="s1">&#39;If I were a bear,&#39;</span><span class="p">]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">testing_object</span><span class="o">.</span><span class="n">_tokenize_sentences</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+        <span class="n">assert_err_msg</span> <span class="o">=</span> <span class="s2">&quot;_tokenize_sentences failed for english language&quot;</span>
+        <span class="k">assert</span> <span class="n">expected</span> <span class="o">==</span> <span class="n">result</span><span class="p">,</span> <span class="n">assert_err_msg</span></div>
+
+<div class="viewcode-block" id="TestHcCorpusPreprocessor.test_hindi_tokenize_sentences"><a class="viewcode-back" href="../../_test_docs/tests.html#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_hindi_tokenize_sentences">[docs]</a>    <span class="k">def</span> <span class="nf">test_hindi_tokenize_sentences</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ensure tokenize sentences works for hindi corpus.</span>
+
+<span class="sd">        | *Test Suite ID* : E</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Case Number* : 09</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Description* : Ensure that the sentence tokenize functionality</span>
+<span class="sd">        |                 works for Hindi as expected as expected.</span>
+<span class="sd">        |                 Test :func:`HcCorpusPreprocessor._tokenize_sentences`</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Preconditions* : HcCorpisCorpusPreprocessor class instance exists</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Parameters* : data, which is in Hindi</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Data* : data = u&quot;ये कहानी तो मेरे को मेरे&quot; \</span>
+<span class="sd">        |       u&quot; नाना ने सुनाई थी. गरमी का मौसम था …..&quot; \</span>
+<span class="sd">        |       u&quot; सभी नदियाँ, तालाब , कुँए सूख गये थे.&quot; \</span>
+<span class="sd">        |       u&quot; पानी का नामोनिशान तक ना था.&quot; \</span>
+<span class="sd">        |       u&quot; तेज धूप से मुझे बहुत प्यास लग गयी थी ,&quot; \</span>
+<span class="sd">        |       u&quot; पानी की तलाश में इधर-उधर उड़ता रहा .&quot; \</span>
+<span class="sd">        |       u&quot; थक-हार कर एक पेड़ पर जा बैठा तो मुझे&quot; \</span>
+<span class="sd">        |       u&quot; एक घड़ा दिखाई दिया .&quot; \</span>
+<span class="sd">        |       u&quot; घड़े में पानी बहुत नीचे था और मेरी चोंच&quot; \</span>
+<span class="sd">        |       u&quot; पानी तक नहीं पहुँच पा रही थी .&quot; \</span>
+<span class="sd">        |       u&quot; मैं आसपास बिखरे पड़े कंकड़-पत्थर चोंच से&quot; \</span>
+<span class="sd">        |       u&quot; ला-लाकर घड़े में डालने लगा बस क्या था !&quot; \</span>
+<span class="sd">        |       u&quot; पानी धीरे-धीरे घड़े के मुँह तक आ गया । मैंने&quot; \</span>
+<span class="sd">        |       u&quot; पानी पीकर अपनी प्यास बुझायी और उड़ गया .&quot;</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Expected Result* : [</span>
+<span class="sd">        |    u&#39;ये कहानी तो मेरे को मेरे नाना ने सुनाई थी.&#39;,</span>
+<span class="sd">        |    u&#39;गरमी का मौसम था ….. सभी नदियाँ, तालाब , कुँए सूख गये थे.&#39;,</span>
+<span class="sd">        |    u&#39;पानी का नामोनिशान तक ना था.&#39;,</span>
+<span class="sd">        |    u&#39;तेज धूप से मुझे बहुत प्यास लग गयी थी ,&#39; \</span>
+<span class="sd">        |    u&#39; पानी की तलाश में इधर-उधर उड़ता रहा .&#39;,</span>
+<span class="sd">        |    u&#39;थक-हार कर एक पेड़ पर जा बैठा तो मुझे एक घड़ा दिखाई दिया .&#39;,</span>
+<span class="sd">        |    u&#39;घड़े में पानी बहुत नीचे था और मेरी चोंच पानी&#39; \</span>
+<span class="sd">        |    u&#39; तक नहीं पहुँच पा रही थी .&#39;,</span>
+<span class="sd">        |    u&#39;मैं आसपास बिखरे पड़े कंकड़-पत्थर चोंच से ला-लाकर&#39; \</span>
+<span class="sd">        |    u&#39; घड़े में डालने लगा बस क्या था !&#39;,</span>
+<span class="sd">        |    u&#39;पानी धीरे-धीरे घड़े के मुँह तक आ गया&#39;,</span>
+<span class="sd">        |    u&#39;मैंने पानी पीकर अपनी प्यास बुझायी और उड़ गया .&#39;</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Actual Result* : [</span>
+<span class="sd">        |    u&#39;ये कहानी तो मेरे को मेरे नाना ने सुनाई थी.&#39;,</span>
+<span class="sd">        |    u&#39;गरमी का मौसम था ….. सभी नदियाँ, तालाब , कुँए सूख गये थे.&#39;,</span>
+<span class="sd">        |    u&#39;पानी का नामोनिशान तक ना था.&#39;,</span>
+<span class="sd">        |    u&#39;तेज धूप से मुझे बहुत प्यास लग गयी थी ,&#39; \</span>
+<span class="sd">        |    u&#39; पानी की तलाश में इधर-उधर उड़ता रहा .&#39;,</span>
+<span class="sd">        |    u&#39;थक-हार कर एक पेड़ पर जा बैठा तो मुझे एक घड़ा दिखाई दिया .&#39;,</span>
+<span class="sd">        |    u&#39;घड़े में पानी बहुत नीचे था और मेरी चोंच&#39; \</span>
+<span class="sd">        |    u&#39; पानी तक नहीं पहुँच पा रही थी .&#39;,</span>
+<span class="sd">        |    u&#39;मैं आसपास बिखरे पड़े कंकड़-पत्थर चोंच से ला-लाकर घड़े&#39; \</span>
+<span class="sd">        |    u&#39; में डालने लगा बस क्या था !&#39;,</span>
+<span class="sd">        |    u&#39;पानी धीरे-धीरे घड़े के मुँह तक आ गया&#39;,</span>
+<span class="sd">        |    u&#39;मैंने पानी पीकर अपनी प्यास बुझायी और उड़ गया .&#39;</span>
+<span class="sd">        |</span>
+<span class="sd">        | **Status: Pass**</span>
+<span class="sd">        |</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">testing_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">testing_obj</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="sa">u</span><span class="s2">&quot;ये कहानी तो मेरे को मेरे नाना ने सुनाई&quot;</span> \
+               <span class="sa">u</span><span class="s2">&quot; थी. गरमी का मौसम था …..&quot;</span> \
+               <span class="sa">u</span><span class="s2">&quot; सभी नदियाँ, तालाब , कुँए सूख गये थे.&quot;</span> \
+               <span class="sa">u</span><span class="s2">&quot; पानी का नामोनिशान तक ना था.&quot;</span> \
+               <span class="sa">u</span><span class="s2">&quot; तेज धूप से मुझे बहुत प्यास लग गयी थी ,&quot;</span> \
+               <span class="sa">u</span><span class="s2">&quot; पानी की तलाश में इधर-उधर उड़ता रहा .&quot;</span> \
+               <span class="sa">u</span><span class="s2">&quot; थक-हार कर एक पेड़ पर जा बैठा तो मुझे&quot;</span> \
+               <span class="sa">u</span><span class="s2">&quot; एक घड़ा दिखाई दिया .&quot;</span> \
+               <span class="sa">u</span><span class="s2">&quot; घड़े में पानी बहुत नीचे था और मेरी चोंच&quot;</span> \
+               <span class="sa">u</span><span class="s2">&quot; पानी तक नहीं पहुँच पा रही थी .&quot;</span> \
+               <span class="sa">u</span><span class="s2">&quot; मैं आसपास बिखरे पड़े कंकड़-पत्थर चोंच से&quot;</span> \
+               <span class="sa">u</span><span class="s2">&quot; ला-लाकर घड़े में डालने लगा बस क्या था !&quot;</span> \
+               <span class="sa">u</span><span class="s2">&quot; पानी धीरे-धीरे घड़े के मुँह तक आ गया ।&quot;</span> \
+               <span class="sa">u</span><span class="s2">&quot; मैंने पानी पीकर अपनी प्यास बुझायी और उड़ गया .&quot;</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="sa">u</span><span class="s1">&#39;ये कहानी तो मेरे को मेरे नाना ने सुनाई थी.&#39;</span><span class="p">,</span>
+            <span class="sa">u</span><span class="s1">&#39;गरमी का मौसम था ….. सभी नदियाँ, तालाब , कुँए सूख गये थे.&#39;</span><span class="p">,</span>
+            <span class="sa">u</span><span class="s1">&#39;पानी का नामोनिशान तक ना था.&#39;</span><span class="p">,</span>
+            <span class="sa">u</span><span class="s1">&#39;तेज धूप से मुझे बहुत प्यास लग गयी थी , पानी&#39;</span>
+            <span class="sa">u</span><span class="s1">&#39; की तलाश में इधर-उधर उड़ता रहा .&#39;</span><span class="p">,</span>
+            <span class="sa">u</span><span class="s1">&#39;थक-हार कर एक पेड़ पर जा बैठा तो मुझे एक घड़ा दिखाई दिया .&#39;</span><span class="p">,</span>
+            <span class="sa">u</span><span class="s1">&#39;घड़े में पानी बहुत नीचे था और मेरी चोंच पानी तक नहीं&#39;</span>
+            <span class="sa">u</span><span class="s1">&#39; पहुँच पा रही थी .&#39;</span><span class="p">,</span>
+            <span class="sa">u</span><span class="s1">&#39;मैं आसपास बिखरे पड़े कंकड़-पत्थर चोंच से ला-लाकर&#39;</span>
+            <span class="sa">u</span><span class="s1">&#39; घड़े में डालने लगा बस क्या था !&#39;</span><span class="p">,</span>
+            <span class="sa">u</span><span class="s1">&#39;पानी धीरे-धीरे घड़े के मुँह तक आ गया&#39;</span><span class="p">,</span>
+            <span class="sa">u</span><span class="s1">&#39;मैंने पानी पीकर अपनी प्यास बुझायी और उड़ गया .&#39;</span>
+        <span class="p">]</span>
+        <span class="n">testing_object</span><span class="o">.</span><span class="n">language</span> <span class="o">=</span> <span class="s1">&#39;hindi&#39;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">testing_object</span><span class="o">.</span><span class="n">_tokenize_sentences</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+        <span class="n">testing_object</span><span class="o">.</span><span class="n">language</span> <span class="o">=</span> <span class="s1">&#39;english&#39;</span>
+        <span class="n">max_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">expected</span><span class="p">)</span> <span class="k">else</span> <span class="nb">len</span><span class="p">(</span>
+            <span class="n">expected</span>
+        <span class="p">)</span>
+        <span class="n">assert_err_msg</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;_tokenize_sentences failed for hindi language: </span><span class="si">%s</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_len</span><span class="p">):</span>
+                <span class="k">assert</span> <span class="n">expected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">assert_err_msg</span> <span class="o">%</span> <span class="p">(</span>
+                    <span class="s1">&#39;Line =&gt; &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">IndexError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="n">pytest</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span><span class="n">assert_err_msg</span> <span class="o">%</span> <span class="n">err</span><span class="o">.</span><span class="n">message</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestHcCorpusPreprocessor.test_tokenize_words"><a class="viewcode-back" href="../../_test_docs/tests.html#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_tokenize_words">[docs]</a>    <span class="k">def</span> <span class="nf">test_tokenize_words</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test tokenize word functionality.</span>
+
+<span class="sd">        | *Test Suite ID* : H</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Case Number* : 10</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Description* : Ensure that the word tokenize functionality</span>
+<span class="sd">        |                 works as expected.</span>
+<span class="sd">        |                 Tests :func:`HcCorpusPreprocessor._tokenize_words`</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Preconditions* : :class:`HcCorpusPreprocessor` instance must exist.</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Parameters* : data, which is in Hindi</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Data* : data = u&#39;मैं आसपास बिखरे पड़े कंकड़-पत्थर चोंच से&#39; \</span>
+<span class="sd">                               u&#39; ला-लाकर घड़े में डालने लगा बस क्या था !&#39;</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Expected Result* : [</span>
+<span class="sd">        |     u&quot;मैं&quot;, u&quot;आसपास&quot;, u&quot;बिखरे&quot;, u&quot;पड़े&quot;, u&quot;कंकड़-पत्थर&quot;,</span>
+<span class="sd">        |     u&quot;चोंच&quot;, u&quot;से&quot;, u&quot;ला-लाकर&quot;,</span>
+<span class="sd">        |     u&quot;घड़े&quot;, u&quot;में&quot;, u&quot;डालने&quot;, u&quot;लगा&quot;, u&quot;बस&quot;, u&quot;क्या&quot;, u&quot;था&quot;, u&quot;!&quot;</span>
+<span class="sd">        | ]</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Actual Result* : [</span>
+<span class="sd">        |    u&quot;मैं&quot;, u&quot;आसपास&quot;, u&quot;बिखरे&quot;, u&quot;पड़े&quot;, u&quot;कंकड़-पत्थर&quot;,</span>
+<span class="sd">        |    u&quot;चोंच&quot;, u&quot;से&quot;, u&quot;ला-लाकर&quot;,</span>
+<span class="sd">        |    u&quot;घड़े&quot;, u&quot;में&quot;, u&quot;डालने&quot;, u&quot;लगा&quot;, u&quot;बस&quot;, u&quot;क्या&quot;, u&quot;था&quot;, u&quot;!&quot;</span>
+<span class="sd">        | ]</span>
+<span class="sd">        |</span>
+<span class="sd">        | **Status : Pass**</span>
+<span class="sd">        |</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">testing_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">testing_obj</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;मैं आसपास बिखरे पड़े कंकड़-पत्थर चोंच से&#39;</span> \
+               <span class="sa">u</span><span class="s1">&#39; ला-लाकर घड़े में डालने लगा बस क्या था !&#39;</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="sa">u</span><span class="s2">&quot;मैं&quot;</span><span class="p">,</span> <span class="sa">u</span><span class="s2">&quot;आसपास&quot;</span><span class="p">,</span> <span class="sa">u</span><span class="s2">&quot;बिखरे&quot;</span><span class="p">,</span> <span class="sa">u</span><span class="s2">&quot;पड़े&quot;</span><span class="p">,</span> <span class="sa">u</span><span class="s2">&quot;कंकड़-पत्थर&quot;</span><span class="p">,</span> <span class="sa">u</span><span class="s2">&quot;चोंच&quot;</span><span class="p">,</span>
+            <span class="sa">u</span><span class="s2">&quot;से&quot;</span><span class="p">,</span> <span class="sa">u</span><span class="s2">&quot;ला-लाकर&quot;</span><span class="p">,</span> <span class="sa">u</span><span class="s2">&quot;घड़े&quot;</span><span class="p">,</span> <span class="sa">u</span><span class="s2">&quot;में&quot;</span><span class="p">,</span> <span class="sa">u</span><span class="s2">&quot;डालने&quot;</span><span class="p">,</span>
+            <span class="sa">u</span><span class="s2">&quot;लगा&quot;</span><span class="p">,</span> <span class="sa">u</span><span class="s2">&quot;बस&quot;</span><span class="p">,</span> <span class="sa">u</span><span class="s2">&quot;क्या&quot;</span><span class="p">,</span> <span class="sa">u</span><span class="s2">&quot;था&quot;</span><span class="p">,</span> <span class="sa">u</span><span class="s2">&quot;!&quot;</span>
+        <span class="p">]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">testing_object</span><span class="o">.</span><span class="n">_tokenize_words</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="n">expected</span><span class="p">,</span> <span class="s2">&quot;_tokenize_words failed&quot;</span></div>
+
+<div class="viewcode-block" id="TestHcCorpusPreprocessor.test_hindi_clean_word"><a class="viewcode-back" href="../../_test_docs/tests.html#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_hindi_clean_word">[docs]</a>    <span class="k">def</span> <span class="nf">test_hindi_clean_word</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test clean word functionality for hindi.</span>
+
+<span class="sd">        | *Test Suite ID* : H</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Case Number* : 11</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Description* : Ensure that the word level clean functionality</span>
+<span class="sd">        |                 works for Hindi as expected.</span>
+<span class="sd">        |                 Tests :func:`HcCorpusPreprocessor._clean_word`</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Preconditions* : :class:`HcCorpusPreprocessor` class instance exists</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Parameters* : data, which is in Hindi</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Data* : data = [</span>
+<span class="sd">        |    u&#39;मैं&#39;, u&#39;आसपास&#39;, u&#39;बिखरे&#39;, u&#39;पड़े&#39;, u&#39;कंकड़-पत्थर,&#39;,</span>
+<span class="sd">        |    u&#39;चोंच&#39;, u&#39;से&#39;, u&#39;ला-लाकर&#39;, u&#39;घड़े&#39;, u&#39;में!&#39;,</span>
+<span class="sd">        |    u&#39;Bleh&#39;, u&#39;डालने&#39;, u&#39;लगा&#39;, u&#39;बस.&#39;, u&#39;क्या&#39;, u&#39;था&#39;, u&#39;!&#39;</span>
+<span class="sd">        | ]</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Expected Result* : [</span>
+<span class="sd">        |    [u&#39;मैं&#39;], [u&#39;आसपास&#39;], [u&#39;बिखरे&#39;], [u&#39;पड़े&#39;], [u&#39;कंकड़&#39;, u&#39;पत्थर&#39;],</span>
+<span class="sd">        |    [u&#39;चोंच&#39;], [u&#39;से&#39;], [u&#39;ला&#39;, u&#39;लाकर&#39;], [u&#39;घड़े&#39;],</span>
+<span class="sd">        |    [u&#39;में&#39;], [], [u&#39;डालने&#39;], [u&#39;लगा&#39;], [u&#39;बस&#39;],</span>
+<span class="sd">        |    [u&#39;क्या&#39;], [u&#39;था&#39;], []</span>
+<span class="sd">        | ]</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Actual Result* : [</span>
+<span class="sd">        |     [u&#39;मैं&#39;], [u&#39;आसपास&#39;], [u&#39;बिखरे&#39;], [u&#39;पड़े&#39;],</span>
+<span class="sd">        |     [u&#39;कंकड़&#39;, u&#39;पत्थर&#39;], [u&#39;चोंच&#39;], [u&#39;से&#39;],</span>
+<span class="sd">        |     [u&#39;ला&#39;, u&#39;लाकर&#39;], [u&#39;घड़े&#39;], [u&#39;में&#39;], [], [u&#39;डालने&#39;], [u&#39;लगा&#39;],</span>
+<span class="sd">        |     [u&#39;बस&#39;], [u&#39;क्या&#39;], [u&#39;था&#39;], []</span>
+<span class="sd">        | ]</span>
+<span class="sd">        |</span>
+<span class="sd">        | **Status: Pass**</span>
+<span class="sd">        |</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">testing_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">testing_obj</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="sa">u</span><span class="s1">&#39;मैं&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;आसपास&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;बिखरे&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;पड़े&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;कंकड़-पत्थर,&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;चोंच&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;से&#39;</span><span class="p">,</span>
+            <span class="sa">u</span><span class="s1">&#39;ला-लाकर&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;घड़े&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;में!&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;Bleh&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;डालने&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;लगा&#39;</span><span class="p">,</span>
+            <span class="sa">u</span><span class="s1">&#39;बस.&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;क्या&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;था&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;!&#39;</span>
+        <span class="p">]</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;मैं&#39;</span><span class="p">],</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;आसपास&#39;</span><span class="p">],</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;बिखरे&#39;</span><span class="p">],</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;पड़े&#39;</span><span class="p">],</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;कंकड़&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;पत्थर&#39;</span><span class="p">],</span>
+            <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;चोंच&#39;</span><span class="p">],</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;से&#39;</span><span class="p">],</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;ला&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;लाकर&#39;</span><span class="p">],</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;घड़े&#39;</span><span class="p">],</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;में&#39;</span><span class="p">],</span>
+            <span class="p">[],</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;डालने&#39;</span><span class="p">],</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;लगा&#39;</span><span class="p">],</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;बस&#39;</span><span class="p">],</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;क्या&#39;</span><span class="p">],</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;था&#39;</span><span class="p">],</span> <span class="p">[]</span>
+        <span class="p">]</span>
+        <span class="n">testing_object</span><span class="o">.</span><span class="n">language</span> <span class="o">=</span> <span class="s1">&#39;hindi&#39;</span>
+        <span class="n">assert_err_msg</span> <span class="o">=</span> <span class="s2">&quot;_clean_word function failed for Hindi&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">testing_object</span><span class="o">.</span><span class="n">_clean_word</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="n">expected</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">assert_err_msg</span>
+        <span class="n">testing_object</span><span class="o">.</span><span class="n">language</span> <span class="o">=</span> <span class="s1">&#39;english&#39;</span></div>
+
+<div class="viewcode-block" id="TestHcCorpusPreprocessor.test_english_clean_word"><a class="viewcode-back" href="../../_test_docs/tests.html#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_english_clean_word">[docs]</a>    <span class="k">def</span> <span class="nf">test_english_clean_word</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test clean word functionality for english.</span>
+
+<span class="sd">        | *Test Suite ID* : H</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Case Number* : 12</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Description* : Ensure that the word level clean functionality</span>
+<span class="sd">        |                 works for English as expected.</span>
+<span class="sd">        |                 Tests :func:`HcCorpusPreprocessor._clean_word`</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Preconditions* : :class:`HcCorpusPreprocessor` class instance exists</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Parameters* : data, which is in English</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Test Data* : data = [</span>
+<span class="sd">        |    &#39;Typed&#39;, &#39;essays&#39;, &#39;are&#39;, &#39;preferred&#39;, &#39;but&#39;,</span>
+<span class="sd">        |    &#39;this&#39;, &#39;is&#39;, &#39;not&#39;, &#39;essential.&#39;, &quot;you&#39;ll&quot;,</span>
+<span class="sd">        |    &quot;tables&#39;&quot;, &#39;ice-cream&#39;, u&quot;they’re&quot;</span>
+<span class="sd">        | ]</span>
+<span class="sd">        | *Expected Result* : [</span>
+<span class="sd">        |    [&#39;typed&#39;], [&#39;essays&#39;], [&#39;are&#39;], [&#39;preferred&#39;],</span>
+<span class="sd">        |    [&#39;but&#39;], [&#39;this&#39;], [&#39;is&#39;], [&#39;not&#39;], [&#39;essential&#39;],</span>
+<span class="sd">        |    [&#39;you&#39;], [&#39;tables&#39;], [&#39;ice&#39;, &#39;cream&#39;], [u&quot;they&quot;]</span>
+<span class="sd">        | ]</span>
+<span class="sd">        |</span>
+<span class="sd">        | *Actual Result*: [</span>
+<span class="sd">        |     [&#39;typed&#39;], [&#39;essays&#39;], [&#39;are&#39;], [&#39;preferred&#39;],</span>
+<span class="sd">        |     [&#39;but&#39;], [&#39;this&#39;], [&#39;is&#39;], [&#39;not&#39;], [&#39;essential&#39;],</span>
+<span class="sd">        |     [&#39;you&#39;], [&#39;tables&#39;], [&#39;ice&#39;, &#39;cream&#39;], [u&quot;they&quot;]</span>
+<span class="sd">        | ]</span>
+<span class="sd">        |</span>
+<span class="sd">        | **Status: Pass**</span>
+<span class="sd">        |</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">testing_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">testing_obj</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;Typed&#39;</span><span class="p">,</span> <span class="s1">&#39;essays&#39;</span><span class="p">,</span> <span class="s1">&#39;are&#39;</span><span class="p">,</span> <span class="s1">&#39;preferred&#39;</span><span class="p">,</span> <span class="s1">&#39;but&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;this&#39;</span><span class="p">,</span> <span class="s1">&#39;is&#39;</span><span class="p">,</span> <span class="s1">&#39;not&#39;</span><span class="p">,</span> <span class="s1">&#39;essential.&#39;</span><span class="p">,</span> <span class="s2">&quot;you&#39;ll&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;tables&#39;&quot;</span><span class="p">,</span> <span class="s1">&#39;ice-cream&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s2">&quot;they’re&quot;</span>
+        <span class="p">]</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">[</span><span class="s1">&#39;typed&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;essays&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;are&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;preferred&#39;</span><span class="p">],</span>
+            <span class="p">[</span><span class="s1">&#39;but&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;this&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;is&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;not&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;essential&#39;</span><span class="p">],</span>
+            <span class="p">[</span><span class="s1">&#39;you&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;tables&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;ice&#39;</span><span class="p">,</span> <span class="s1">&#39;cream&#39;</span><span class="p">],</span> <span class="p">[</span><span class="sa">u</span><span class="s2">&quot;they&quot;</span><span class="p">]</span>
+        <span class="p">]</span>
+        <span class="n">assert_err_msg</span> <span class="o">=</span> <span class="s2">&quot;_clean_word function failed for English&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">testing_object</span><span class="o">.</span><span class="n">_clean_word</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="n">expected</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">assert_err_msg</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2016, Kshitij Karthick, Ravi Kumar L, Prateeksha, Prarthana Sannamani
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
