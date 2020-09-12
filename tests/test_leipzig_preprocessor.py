@@ -64,7 +64,7 @@ class TestLeipzigPreprocessor:
         except BaseException as err:
             pytest.fail(
                 'Pre-processing %s failed : %s' % (
-                    'test_leipzig_corpus', err.message
+                    'test_leipzig_corpus', err
                 )
             )
 

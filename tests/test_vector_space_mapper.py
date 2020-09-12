@@ -83,7 +83,7 @@ class TestVectorSpaceMapper:
             )
         except Exception as err:
             pytest.fail(
-                'Model construction failed: %s' % err.message
+                'Model construction failed: %s' % err
             )
         try:
             bilingual_dict = bg.load_bilingual_dictionary(
@@ -93,7 +93,7 @@ class TestVectorSpaceMapper:
             )
         except Exception as err:
             pytest.fail(
-                'Bilingual Dictionary Construction failed: %s' % err.message
+                'Bilingual Dictionary Construction failed: %s' % err
             )
         try:
                 cls.testing_obj = VectorSpaceMapper(
@@ -102,7 +102,7 @@ class TestVectorSpaceMapper:
                 cls.testing_obj.map_vector_spaces()
         except BaseException as err:
             pytest.fail(
-                'Vector Space Mapping failed : %s' % err.message
+                'Vector Space Mapping failed : %s' % err
             )
 
     def teardown_class(cls):

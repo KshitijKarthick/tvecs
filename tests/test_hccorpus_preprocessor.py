@@ -67,7 +67,7 @@ class TestHcCorpusPreprocessor:
         except BaseException as err:
             pytest.fail(
                 'Pre-processing %s failed : %s' % (
-                    'test_hccorpus_corpus', err.message
+                    'test_hccorpus_corpus', err
                 )
             )
 
@@ -418,7 +418,7 @@ class TestHcCorpusPreprocessor:
                     'Line => ' + str(i)
                 )
         except IndexError as err:
-            pytest.fail(assert_err_msg % err.message)
+            pytest.fail(assert_err_msg % err)
 
     def test_tokenize_words(self):
         """
