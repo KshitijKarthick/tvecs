@@ -1,13 +1,11 @@
-numpy
-CherryPy
-gensim
+numpy==1.19.2
+CherryPy==18.6.0
+gensim==3.8.3
 Jinja2
-nltk
-# scipy == 0.17.1
-scipy
+nltk==3.5
+scipy==1.5.2
 regex
-# scikit-learn == 0.17.1
-scikit-learn
+scikit-learn==0.23.2
 html5lib
 beautifulsoup4
 PyDictionary
