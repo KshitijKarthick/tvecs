@@ -90,7 +90,7 @@ class VectorSpaceMapper(object):
             except KeyError:
                 vec = None
             vector_list.append(vec)
-        return vector_list, word_list
+        return vector_list, list(word_list)
 
     def map_vector_spaces(self):
         """

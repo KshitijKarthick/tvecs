@@ -7,9 +7,12 @@ import json
 import codecs
 import cherrypy
 import argparse
-import ConfigParser
+import configparser
 from gensim.models import Word2Vec
+from nltk.tokenize import word_tokenize
 from jinja2 import Environment, FileSystemLoader
+from cherrypy.lib.static import serve_file
+from functools import reduce
 
 from tvecs.preprocessor import yandex_api as yandex
 from tvecs.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
@@ -51,37 +54,37 @@ class Server(object):
     @cherrypy.expose
     def index(self):
         """Semantic spac visualization html returned."""
-        return file(os.path.join(
+        return serve_file(os.path.abspath(os.path.join(
             'tvecs', 'visualization', 'static', 'index.html'
-        ))
+        )))
 
     @cherrypy.expose
     def multivariate_analysis(self):
         """Parallel Coordinates for multivariate analysis html page return."""
-        return file(os.path.join(
+        return serve_file(os.path.abspath(os.path.join(
             'tvecs', 'visualization', 'static', 'multivariate.html')
-        )
+        ))
 
     @cherrypy.expose
     def cross_lingual(self):
         """Cross Lingual recommender html returned."""
-        return file(os.path.join(
+        return serve_file(os.path.abspath(os.path.join(
             'tvecs', 'visualization', 'static', 'cross_lingual.html')
-        )
+        ))
 
     @cherrypy.expose
     def distances(self):
         """Visualization with distances html returned."""
-        return file(os.path.join(
+        return serve_file(os.path.abspath(os.path.join(
             'tvecs', 'visualization', 'static', 'distances.html')
-        )
+        ))
 
     @cherrypy.expose
     def lingual_semantics(self):
         """Semantically related words in same language returned."""
-        return file(os.path.join(
+        return serve_file(os.path.abspath(os.path.join(
             'tvecs', 'visualization', 'static', 'intra_language.html')
-        )
+        ))
 
     def retrieve_meaning(self, language, word):
         """
@@ -220,12 +223,17 @@ class Server(object):
             * :mod:`tvecs.vector_space_mapper.vector_space_mapper`
         """
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
-        word = word.lower()
+        sentence = word_tokenize(word.lower())
         vm = self.cross_lang_vm.get((lang1, lang2))
         data = None
         if vm is not None:
+            result_vec = reduce(
+                lambda x, y: x + y, [
+                    self.model[lang1][word] for word in sentence
+                ]
+            )
             data = Server._recommend(
-                word, int(topn), fn=vm.get_recommendations_from_word
+                result_vec, int(topn), fn=vm.get_recommendations_from_vec
             )
         return data
 
@@ -315,7 +323,7 @@ if __name__ == '__main__':
       help='Host Name', action='store', type=str, default=None
     )
     args = parser.parse_args()
-    server_config = ConfigParser.RawConfigParser()
+    server_config = configparser.RawConfigParser()
     env = Environment(loader=FileSystemLoader('static'))
     conf = {
         '/': {

@@ -2,7 +2,8 @@ FROM ubuntu:latest
 
 # Install python and pip
 RUN apt-get update \
- && apt-get -y install python-pip python-dev git wget \
+ && apt-get -y install python3-pip python3-dev git wget \
+ && apt-get -y install gfortran libopenblas-dev liblapack-dev \
  && apt-get -y autoremove \
  && rm -rf /var/lib/apt/lists/*
 

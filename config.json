@@ -2,14 +2,14 @@
   "language1": {
     "name": "english",
     "corpora": [{
-      "./data/corpus/English/all.txt": "HcCorpusPreprocessor"
+      "./data/corpus/English/small.txt": "HcCorpusPreprocessor"
     }],
     "model": null
   },
   "language2":{
     "name": "hindi",
     "corpora": [{
-      "./data/corpus/Hindi/all.txt": "HcCorpusPreprocessor"
+      "./data/corpus/Hindi/small.txt": "HcCorpusPreprocessor"
     }],
     "model": null
   },
