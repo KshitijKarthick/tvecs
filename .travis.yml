@@ -10,7 +10,7 @@ virtualenv:
   system_site_packages: true
 env:
   matrix:
-    - PYTHON_VERSION="3.6" SCIPY_VERSION="1.5.2" SKLEARN_VERSION="0.23.2"
+    - PYTHON_VERSION="3.5.1" SCIPY_VERSION="1.5.2" SKLEARN_VERSION="0.23.2"
 install:
   - "source CI/install.sh"
   - "pip install -r requirements.txt"
