@@ -9,6 +9,9 @@
 *.pyc
 .pytest_cache
 venv
+_dev_docs
+_test_docs
+_documentation
 
 .pytest_cache
 .vscode

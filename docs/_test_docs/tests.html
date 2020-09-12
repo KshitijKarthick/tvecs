@@ -1,0 +1,2042 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>tests package &mdash; T-Vecs 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="tests" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> T-Vecs
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Usage Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">T-Vecs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../_dev_docs/modules.html">tvecs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Testing Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">tests</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">tests package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-tests.test_emille_preprocessor">tests.test_emille_preprocessor module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-tests.test_hccorpus_preprocessor">tests.test_hccorpus_preprocessor module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-tests.test_leipzig_preprocessor">tests.test_leipzig_preprocessor module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-tests.test_vector_space_mapper">tests.test_vector_space_mapper module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">T-Vecs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">tests</a> &raquo;</li>
+        
+      <li>tests package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/_test_docs/tests.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tests-package">
+<h1>tests package<a class="headerlink" href="#tests-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-tests.test_emille_preprocessor">
+<span id="tests-test-emille-preprocessor-module"></span><h2>tests.test_emille_preprocessor module<a class="headerlink" href="#module-tests.test_emille_preprocessor" title="Permalink to this headline">¶</a></h2>
+<p>Unit Test Cases for <a class="reference internal" href="../_dev_docs/tvecs.preprocessor.html#module-tvecs.preprocessor.emille_preprocessor" title="tvecs.preprocessor.emille_preprocessor"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tvecs.preprocessor.emille_preprocessor</span></code></a>.</p>
+<dl class="py class">
+<dt id="tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor">
+<em class="property">class </em><code class="sig-prename descclassname">tests.test_emille_preprocessor.</code><code class="sig-name descname">TestEmilleCorpusPreprocessor</code><a class="reference internal" href="../_modules/tests/test_emille_preprocessor.html#TestEmilleCorpusPreprocessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Unit Testing for module <a class="reference internal" href="../_dev_docs/tvecs.preprocessor.html#module-tvecs.preprocessor.emille_preprocessor" title="tvecs.preprocessor.emille_preprocessor"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tvecs.preprocessor.emille_preprocessor</span></code></a>.</p>
+<dl class="simple">
+<dt>Test Cases considered for the following functions</dt><dd><ul class="simple">
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">EmilleCorpusPreprocessor._extract_corpus_data()</span></code></p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">EmilleCorpusPreprocessor._clean_word()</span></code></p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">EmilleCorpusPreprocessor._tokenize_sentences()</span></code></p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">EmilleCorpusPreprocessor._tokenize_words()</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../_dev_docs/tvecs.preprocessor.html#module-tvecs.preprocessor.base_preprocessor" title="tvecs.preprocessor.base_preprocessor"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tvecs.preprocessor.base_preprocessor</span></code></a></p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">pytest</span></code></p></li>
+</ul>
+</div>
+<dl class="py method">
+<dt id="tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.setup_class">
+<code class="sig-name descname">setup_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_emille_preprocessor.html#TestEmilleCorpusPreprocessor.setup_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.setup_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup Unit Testing for <code class="xref py py-class docutils literal notranslate"><span class="pre">EmilleCorpusPreprocessor</span></code>.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : E.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 01</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Create an instance of class EmilleCorpusPreprocessor</div>
+<div class="line-block">
+<div class="line">Tests <code class="xref py py-class docutils literal notranslate"><span class="pre">EmilleCorpusPreprocessor</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : BaseProcessor exists</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : corpus_fname, corpus_dir_path, need_preprocessing</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> :</div>
+<div class="line-block">
+<div class="line">corpus_fname=’test_emille_corpus’,</div>
+<div class="line">corpus_dir_path=’tests/resources’,</div>
+<div class="line">need_preprocessing=True</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Expected Result</em> : Instance of</div>
+<div class="line-block">
+<div class="line"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmilleCorpusPreprocessor</span></code> created</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Actual Result</em> : Instance of</div>
+<div class="line-block">
+<div class="line"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmilleCorpusPreprocessor</span></code> created</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+<dl class="simple">
+<dt>API Documentation:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param cls</dt>
+<dd class="field-odd"><p>Class level scope</p>
+</dd>
+<dt class="field-even">type cls</dt>
+<dd class="field-even"><p><a class="reference internal" href="#tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor" title="tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TestEmilleCorpusPreprocessor</span></code></a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.teardown_class">
+<code class="sig-name descname">teardown_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_emille_preprocessor.html#TestEmilleCorpusPreprocessor.teardown_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.teardown_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete temp files generated for tests.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : E.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 02</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Delete the generated preprocessed file</div>
+<div class="line-block">
+<div class="line">test_emille_corpus_processed to remove residual file.</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : Preprocessed test_emille_corpus_processed</div>
+<div class="line-block">
+<div class="line">file exists in the specified path</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Test Parameters</em> : Preprocessed file path</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : path=’tests/resources/test_emille_corpus_processed’</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : Preprocessed file</div>
+<div class="line-block">
+<div class="line">test_emille_corpus_processed is deleted</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Actual Result</em> : Preprocessed file</div>
+<div class="line-block">
+<div class="line">test_emille_corpus_processed is deleted</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+<dl class="simple">
+<dt>API Documentation:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param cls</dt>
+<dd class="field-odd"><p>Class level scope</p>
+</dd>
+<dt class="field-even">type cls</dt>
+<dd class="field-even"><p><a class="reference internal" href="#tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor" title="tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TestEmilleCorpusPreprocessor</span></code></a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.test_english_clean_word">
+<code class="sig-name descname">test_english_clean_word</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_emille_preprocessor.html#TestEmilleCorpusPreprocessor.test_english_clean_word"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.test_english_clean_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test clean word functionality for english.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : E</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 12</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure that the word level clean functionality</div>
+<div class="line-block">
+<div class="line">works for English as expected</div>
+<div class="line">Tests <code class="xref py py-func docutils literal notranslate"><span class="pre">EmilleCorpusPreprocessor._clean_word()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : EmilleCorpusPreprocessor class instance must exist</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : data, which is in English</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : data = [</div>
+<div class="line-block">
+<div class="line">‘Typed’, ‘essays’, ‘are’, ‘preferred’, ‘but’,</div>
+<div class="line">‘this’, ‘is’, ‘not’, ‘essential.’, “you’ll”,</div>
+<div class="line">“tables’”, ‘ice-cream’, u”they’re”</div>
+</div>
+<div class="line">]</div>
+<div class="line"><em>Expected Result</em> : [</div>
+<div class="line-block">
+<div class="line">[‘typed’], [‘essays’], [‘are’], [‘preferred’],</div>
+<div class="line">[‘but’], [‘this’], [‘is’], [‘not’], [‘essential’],</div>
+<div class="line">[‘you’], [‘tables’], [‘ice’, ‘cream’], [u”they”]</div>
+</div>
+<div class="line">]</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em>: [</div>
+<div class="line-block">
+<div class="line">[‘typed’], [‘essays’], [‘are’], [‘preferred’],</div>
+<div class="line">[‘but’], [‘this’], [‘is’], [‘not’], [‘essential’],</div>
+<div class="line">[‘you’], [‘tables’], [‘ice’, ‘cream’], [u”they”]</div>
+</div>
+<div class="line">]</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status: Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.test_english_tokenize_sentences">
+<code class="sig-name descname">test_english_tokenize_sentences</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_emille_preprocessor.html#TestEmilleCorpusPreprocessor.test_english_tokenize_sentences"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.test_english_tokenize_sentences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure sentence tokenize works as expected.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : E</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 08</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure that the sentence tokenize functionality</div>
+<div class="line-block">
+<div class="line">for English works as expected.</div>
+<div class="line">Test</div>
+<div class="line"><code class="xref py py-func docutils literal notranslate"><span class="pre">EmilleCorpusPreprocessor._tokenize_sentences()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : EmilleCorpusPreprocessor class instance exists</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : data, which is in English</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : data = ‘We love you Mr. Brown.. If I were a bear,’</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : [‘We love you Mr. Brown..’, ‘If I were a bear,’]</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : [‘We love you Mr. Brown..’, ‘If I were a bear,’]</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status: Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.test_extract_corpus_data">
+<code class="sig-name descname">test_extract_corpus_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_emille_preprocessor.html#TestEmilleCorpusPreprocessor.test_extract_corpus_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.test_extract_corpus_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure functionality is implemented.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : E</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 07</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure preprocessor can extract required corpus</div>
+<div class="line-block">
+<div class="line">and remove unnecessary data.</div>
+<div class="line">Test</div>
+<div class="line"><code class="xref py py-func docutils literal notranslate"><span class="pre">EmilleCorpusPreprocessor._extract_corpus_data()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : <code class="xref py py-class docutils literal notranslate"><span class="pre">EmilleCorpusPreprocessor</span></code> instance exists</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : data passed to function.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : data = “&lt;p&gt;अवध-स्कूल के चित्रों का सर्वाधिक विशिष्ट&lt;/p&gt;</div>
+<div class="line-block">
+<div class="line">random text which needs to be removed during extraction</div>
+<div class="line">&lt;p&gt;बनाये गये हैं। चित्रों में पीले रंग का&lt;/p&gt;</div>
+<div class="line">more random text”</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Expected Result</em> : “अवध-स्कूल के चित्रों का सर्वाधिक ”         |                     “विशिष्ट. बनाये गये हैं। चित्रों में पीले रंग का”</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : “अवध-स्कूल के चित्रों का सर्वाधिक ”         |                   “विशिष्ट. बनाये गये हैं। चित्रों में पीले रंग का”</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.test_hindi_clean_word">
+<code class="sig-name descname">test_hindi_clean_word</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_emille_preprocessor.html#TestEmilleCorpusPreprocessor.test_hindi_clean_word"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.test_hindi_clean_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test clean word functionality for hindi.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : E</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 11</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure that the word level clean functionality</div>
+<div class="line-block">
+<div class="line">works for Hindi as expected.</div>
+<div class="line">Tests <code class="xref py py-func docutils literal notranslate"><span class="pre">EmilleCorpusPreprocessor._clean_word()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : EmilleCorpusPreprocessor class instance must exist</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : data, which is in Hindi</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : data = [</div>
+<div class="line-block">
+<div class="line">u’मैं’, u’आसपास’, u’बिखरे’, u’पड़े’, u’कंकड़-पत्थर,’,</div>
+<div class="line">u’चोंच’, u’से’, u’ला-लाकर’, u’घड़े’, u’में!’,</div>
+<div class="line">u’Bleh’, u’डालने’, u’लगा’, u’बस.’, u’क्या’, u’था’, u’!’</div>
+</div>
+<div class="line">]</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : [</div>
+<div class="line-block">
+<div class="line">[u’मैं’], [u’आसपास’], [u’बिखरे’], [u’पड़े’], [u’कंकड़’, u’पत्थर’],</div>
+<div class="line">[u’चोंच’], [u’से’], [u’ला’, u’लाकर’], [u’घड़े’],</div>
+<div class="line">[u’में’], [], [u’डालने’], [u’लगा’], [u’बस’],</div>
+<div class="line">[u’क्या’], [u’था’], []</div>
+</div>
+<div class="line">]</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : [</div>
+<div class="line-block">
+<div class="line">[u’मैं’], [u’आसपास’], [u’बिखरे’], [u’पड़े’],</div>
+<div class="line">[u’कंकड़’, u’पत्थर’], [u’चोंच’], [u’से’],</div>
+<div class="line">[u’ला’, u’लाकर’], [u’घड़े’], [u’में’], [], [u’डालने’], [u’लगा’],</div>
+<div class="line">[u’बस’], [u’क्या’], [u’था’], []</div>
+</div>
+<div class="line">]</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status: Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.test_hindi_tokenize_sentences">
+<code class="sig-name descname">test_hindi_tokenize_sentences</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_emille_preprocessor.html#TestEmilleCorpusPreprocessor.test_hindi_tokenize_sentences"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.test_hindi_tokenize_sentences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure tokenize sentences works for hindi corpus.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : E</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 09</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure that the sentence tokenize functionality</div>
+<div class="line-block">
+<div class="line">works for Hindi as expected as expected.</div>
+<div class="line">Test</div>
+<div class="line"><code class="xref py py-func docutils literal notranslate"><span class="pre">EmilleCorpusPreprocessor._tokenize_sentences()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : EmilleCorpusPreprocessor class instance exists</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : data, which is in Hindi</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : data = u”ये कहानी तो मेरे को मेरे”         |       u” नाना ने सुनाई थी. गरमी का मौसम था …..”         |       u” सभी नदियाँ, तालाब , कुँए सूख गये थे.”         |       u” पानी का नामोनिशान तक ना था.”         |       u” तेज धूप से मुझे बहुत प्यास लग गयी थी ,”         |       u” पानी की तलाश में इधर-उधर उड़ता रहा .”         |       u” थक-हार कर एक पेड़ पर जा बैठा तो मुझे”         |       u” एक घड़ा दिखाई दिया .”         |       u” घड़े में पानी बहुत नीचे था और मेरी चोंच”         |       u” पानी तक नहीं पहुँच पा रही थी .”         |       u” मैं आसपास बिखरे पड़े कंकड़-पत्थर चोंच से”         |       u” ला-लाकर घड़े में डालने लगा बस क्या था !”         |       u” पानी धीरे-धीरे घड़े के मुँह तक आ गया । मैंने”         |       u” पानी पीकर अपनी प्यास बुझायी और उड़ गया .”</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : [</div>
+<div class="line-block">
+<div class="line">u’ये कहानी तो मेरे को मेरे नाना ने सुनाई थी.’,</div>
+<div class="line">u’गरमी का मौसम था ….. सभी नदियाँ, तालाब , कुँए सूख गये थे.’,</div>
+<div class="line">u’पानी का नामोनिशान तक ना था.’,</div>
+<div class="line">u’तेज धूप से मुझे बहुत प्यास लग गयी थी ,’         |    u’ पानी की तलाश में इधर-उधर उड़ता रहा .’,</div>
+<div class="line">u’थक-हार कर एक पेड़ पर जा बैठा तो मुझे एक घड़ा दिखाई दिया .’,</div>
+<div class="line">u’घड़े में पानी बहुत नीचे था और मेरी चोंच पानी’         |    u’ तक नहीं पहुँच पा रही थी .’,</div>
+<div class="line">u’मैं आसपास बिखरे पड़े कंकड़-पत्थर चोंच से ला-लाकर’         |    u’ घड़े में डालने लगा बस क्या था !’,</div>
+<div class="line">u’पानी धीरे-धीरे घड़े के मुँह तक आ गया’,</div>
+<div class="line">u’मैंने पानी पीकर अपनी प्यास बुझायी और उड़ गया .’</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Actual Result</em> : [</div>
+<div class="line-block">
+<div class="line">u’ये कहानी तो मेरे को मेरे नाना ने सुनाई थी.’,</div>
+<div class="line">u’गरमी का मौसम था ….. सभी नदियाँ, तालाब , कुँए सूख गये थे.’,</div>
+<div class="line">u’पानी का नामोनिशान तक ना था.’,</div>
+<div class="line">u’तेज धूप से मुझे बहुत प्यास लग गयी थी ,’         |    u’ पानी की तलाश में इधर-उधर उड़ता रहा .’,</div>
+<div class="line">u’थक-हार कर एक पेड़ पर जा बैठा तो मुझे एक घड़ा दिखाई दिया .’,</div>
+<div class="line">u’घड़े में पानी बहुत नीचे था और मेरी चोंच’         |    u’ पानी तक नहीं पहुँच पा रही थी .’,</div>
+<div class="line">u’मैं आसपास बिखरे पड़े कंकड़-पत्थर चोंच से ला-लाकर घड़े’         |    u’ में डालने लगा बस क्या था !’,</div>
+<div class="line">u’पानी धीरे-धीरे घड़े के मुँह तक आ गया’,</div>
+<div class="line">u’मैंने पानी पीकर अपनी प्यास बुझायी और उड़ गया .’</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><strong>Status: Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.test_implement_clean_word">
+<code class="sig-name descname">test_implement_clean_word</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_emille_preprocessor.html#TestEmilleCorpusPreprocessor.test_implement_clean_word"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.test_implement_clean_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure functionality is implemented.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : E</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 04</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure that the word level clean functionality</div>
+<div class="line-block">
+<div class="line">is implemented in the class</div>
+<div class="line">Test <code class="xref py py-func docutils literal notranslate"><span class="pre">EmilleCorpusPreprocessor._clean_word()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : EmilleCorpusPreprocessor class instance exists</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : word passed to function</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : word=’’</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : NotImplementedError exception is not raised</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : NotImplementedError exception is not raised</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status : Pass</strong></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.test_implement_extract_corpus_data">
+<code class="sig-name descname">test_implement_extract_corpus_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_emille_preprocessor.html#TestEmilleCorpusPreprocessor.test_implement_extract_corpus_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.test_implement_extract_corpus_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure functionality is implemented.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : E</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 03</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure the corpus data extract functionality</div>
+<div class="line-block">
+<div class="line">is implemented in the class.</div>
+<div class="line">Test</div>
+<div class="line"><code class="xref py py-func docutils literal notranslate"><span class="pre">EmilleCorpusPreprocessor._extract_corpus_data()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : EmilleCorpusPreprocessor class instance exists</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : data passed to function</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : data=’’</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : NotImplementedError exception is not raised</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : NotImplementedError exception is not raised</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.test_implement_tokenize_sentences">
+<code class="sig-name descname">test_implement_tokenize_sentences</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_emille_preprocessor.html#TestEmilleCorpusPreprocessor.test_implement_tokenize_sentences"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.test_implement_tokenize_sentences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure functionality is implemented.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : E</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 05</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure that the sentence tokenize functionality</div>
+<div class="line-block">
+<div class="line">is implemented in the class.</div>
+<div class="line">Test</div>
+<div class="line"><code class="xref py py-func docutils literal notranslate"><span class="pre">EmilleCorpusPreprocessor._tokenize_sentences()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : EmilleCorpusPreprocessor class instance exists</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : data passed to function</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : data=’’</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : NotImplementedError exception is not raised</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : NotImplementedError exception is not raised</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.test_implement_tokenize_words">
+<code class="sig-name descname">test_implement_tokenize_words</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_emille_preprocessor.html#TestEmilleCorpusPreprocessor.test_implement_tokenize_words"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.test_implement_tokenize_words" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure functionality is implemented.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : E</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 06</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure that the word tokenize functionality</div>
+<div class="line-block">
+<div class="line">is implemented in the class.</div>
+<div class="line">Test <code class="xref py py-func docutils literal notranslate"><span class="pre">EmilleCorpusPreprocessor._tokenize_words()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : <code class="xref py py-class docutils literal notranslate"><span class="pre">EmilleCorpusPreprocessor</span></code> instance exists.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : sentence passed to function</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : sentence=’’</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : NotImplementedError exception is not raised.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : NotImplementedError exception is not raised.</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.test_tokenize_words">
+<code class="sig-name descname">test_tokenize_words</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_emille_preprocessor.html#TestEmilleCorpusPreprocessor.test_tokenize_words"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_emille_preprocessor.TestEmilleCorpusPreprocessor.test_tokenize_words" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test tokenize word functionality.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : E</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 10</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure that the word tokenize functionality</div>
+<div class="line-block">
+<div class="line">works as expected.</div>
+<div class="line">Test <code class="xref py py-func docutils literal notranslate"><span class="pre">EmilleCorpusPreprocessor._tokenize_words()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : EmilleCorpusPreprocessor class instance must exist</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : data, which is in Hindi</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : data = u’मैं आसपास बिखरे पड़े कंकड़-पत्थर चोंच से’                                u’ ला-लाकर घड़े में डालने लगा बस क्या था !’</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : [</div>
+<div class="line-block">
+<div class="line">u”मैं”, u”आसपास”, u”बिखरे”, u”पड़े”, u”कंकड़-पत्थर”,</div>
+<div class="line">u”चोंच”, u”से”, u”ला-लाकर”,</div>
+<div class="line">u”घड़े”, u”में”, u”डालने”, u”लगा”, u”बस”, u”क्या”, u”था”, u”!”</div>
+</div>
+<div class="line">]</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : [</div>
+<div class="line-block">
+<div class="line">u”मैं”, u”आसपास”, u”बिखरे”, u”पड़े”, u”कंकड़-पत्थर”,</div>
+<div class="line">u”चोंच”, u”से”, u”ला-लाकर”,</div>
+<div class="line">u”घड़े”, u”में”, u”डालने”, u”लगा”, u”बस”, u”क्या”, u”था”, u”!”</div>
+</div>
+<div class="line">]</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tests.test_hccorpus_preprocessor">
+<span id="tests-test-hccorpus-preprocessor-module"></span><h2>tests.test_hccorpus_preprocessor module<a class="headerlink" href="#module-tests.test_hccorpus_preprocessor" title="Permalink to this headline">¶</a></h2>
+<p>Unit Test Cases for <a class="reference internal" href="../_dev_docs/tvecs.preprocessor.html#module-tvecs.preprocessor.hccorpus_preprocessor" title="tvecs.preprocessor.hccorpus_preprocessor"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tvecs.preprocessor.hccorpus_preprocessor</span></code></a>.</p>
+<dl class="py class">
+<dt id="tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor">
+<em class="property">class </em><code class="sig-prename descclassname">tests.test_hccorpus_preprocessor.</code><code class="sig-name descname">TestHcCorpusPreprocessor</code><a class="reference internal" href="../_modules/tests/test_hccorpus_preprocessor.html#TestHcCorpusPreprocessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Unit Testing for module <a class="reference internal" href="../_dev_docs/tvecs.preprocessor.html#module-tvecs.preprocessor.hccorpus_preprocessor" title="tvecs.preprocessor.hccorpus_preprocessor"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tvecs.preprocessor.hccorpus_preprocessor</span></code></a>.</p>
+<dl class="simple">
+<dt>Test Cases considered for the following functions</dt><dd><ul class="simple">
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">HcCorpusPreprocessor._extract_corpus_data()</span></code></p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">HcCorpusPreprocessor._clean_word()</span></code></p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">HcCorpusPreprocessor._tokenize_sentences()</span></code></p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">HcCorpusPreprocessor._tokenize_words()</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../_dev_docs/tvecs.preprocessor.html#module-tvecs.preprocessor.base_preprocessor" title="tvecs.preprocessor.base_preprocessor"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tvecs.preprocessor.base_preprocessor</span></code></a></p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">pytest</span></code></p></li>
+</ul>
+</div>
+<dl class="py method">
+<dt id="tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.setup_class">
+<code class="sig-name descname">setup_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_hccorpus_preprocessor.html#TestHcCorpusPreprocessor.setup_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.setup_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup Unit Testing for <code class="xref py py-class docutils literal notranslate"><span class="pre">HcCorpusPreprocessor</span></code>.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : H</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 01</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Create an instance of class HcCorpusPreprocessor.</div>
+<div class="line-block">
+<div class="line">Tests <code class="xref py py-class docutils literal notranslate"><span class="pre">HcCorpusPreprocessor</span></code>.</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : BaseProcessor exists.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : corpus_fname, corpus_dir_path, need_preprocessing</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> :</div>
+<div class="line-block">
+<div class="line">corpus_fname=’test_hccorpus_corpus’,</div>
+<div class="line">corpus_dir_path=’tests/resources’,</div>
+<div class="line">need_preprocessing=True</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Expected Result</em> : Instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">HcCorpusPreprocessor</span></code> created</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : Instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">HcCorpusPreprocessor</span></code> created</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+<dl class="simple">
+<dt>API Documentation:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param cls</dt>
+<dd class="field-odd"><p>Class level scope</p>
+</dd>
+<dt class="field-even">type cls</dt>
+<dd class="field-even"><p><a class="reference internal" href="#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor" title="tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TestHcCorpusPreprocessor</span></code></a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.teardown_class">
+<code class="sig-name descname">teardown_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_hccorpus_preprocessor.html#TestHcCorpusPreprocessor.teardown_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.teardown_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete temp files generated for tests.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : H</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 02</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Delete the generated preprocessed file.</div>
+<div class="line-block">
+<div class="line">test_hccorpus_corpus_processed to remove file.</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : Preprocessed test_hccorpus_corpus_processed</div>
+<div class="line-block">
+<div class="line">file exists in the specified path.</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Test Parameters</em> : Preprocessed file path.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : path=’tests/resources/test_hccorpus_corpus_processed’</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : Preprocessed file</div>
+<div class="line-block">
+<div class="line">test_hccorpus_corpus_processed is deleted.</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Actual Result</em> : Preprocessed file</div>
+<div class="line-block">
+<div class="line">test_hccorpus_corpus_processed is deleted.</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+<dl class="simple">
+<dt>API Documentation:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param cls</dt>
+<dd class="field-odd"><p>Class level scope</p>
+</dd>
+<dt class="field-even">type cls</dt>
+<dd class="field-even"><p><a class="reference internal" href="#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor" title="tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TestHcCorpusPreprocessor</span></code></a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_english_clean_word">
+<code class="sig-name descname">test_english_clean_word</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_hccorpus_preprocessor.html#TestHcCorpusPreprocessor.test_english_clean_word"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_english_clean_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test clean word functionality for english.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : H</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 12</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure that the word level clean functionality</div>
+<div class="line-block">
+<div class="line">works for English as expected.</div>
+<div class="line">Tests <code class="xref py py-func docutils literal notranslate"><span class="pre">HcCorpusPreprocessor._clean_word()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : <code class="xref py py-class docutils literal notranslate"><span class="pre">HcCorpusPreprocessor</span></code> class instance exists</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : data, which is in English</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : data = [</div>
+<div class="line-block">
+<div class="line">‘Typed’, ‘essays’, ‘are’, ‘preferred’, ‘but’,</div>
+<div class="line">‘this’, ‘is’, ‘not’, ‘essential.’, “you’ll”,</div>
+<div class="line">“tables’”, ‘ice-cream’, u”they’re”</div>
+</div>
+<div class="line">]</div>
+<div class="line"><em>Expected Result</em> : [</div>
+<div class="line-block">
+<div class="line">[‘typed’], [‘essays’], [‘are’], [‘preferred’],</div>
+<div class="line">[‘but’], [‘this’], [‘is’], [‘not’], [‘essential’],</div>
+<div class="line">[‘you’], [‘tables’], [‘ice’, ‘cream’], [u”they”]</div>
+</div>
+<div class="line">]</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em>: [</div>
+<div class="line-block">
+<div class="line">[‘typed’], [‘essays’], [‘are’], [‘preferred’],</div>
+<div class="line">[‘but’], [‘this’], [‘is’], [‘not’], [‘essential’],</div>
+<div class="line">[‘you’], [‘tables’], [‘ice’, ‘cream’], [u”they”]</div>
+</div>
+<div class="line">]</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status: Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_english_tokenize_sentences">
+<code class="sig-name descname">test_english_tokenize_sentences</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_hccorpus_preprocessor.html#TestHcCorpusPreprocessor.test_english_tokenize_sentences"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_english_tokenize_sentences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure sentence tokenize works as expected.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : H</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 08</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure that the sentence tokenize functionality</div>
+<div class="line-block">
+<div class="line">for English works as expected.</div>
+<div class="line">Test <code class="xref py py-func docutils literal notranslate"><span class="pre">HcCorpusPreprocessor._tokenize_sentences()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : <code class="xref py py-class docutils literal notranslate"><span class="pre">HcCorpusPreprocessor</span></code> instance must exist.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : data, which is in English.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : data = ‘We love you Mr. Brown.. If I were a bear,’</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : [‘We love you Mr. Brown..’, ‘If I were a bear,’]</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : [‘We love you Mr. Brown..’, ‘If I were a bear,’]</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status: Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_extract_corpus_data">
+<code class="sig-name descname">test_extract_corpus_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_hccorpus_preprocessor.html#TestHcCorpusPreprocessor.test_extract_corpus_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_extract_corpus_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure functionality is implemented.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : H</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 07</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure preprocessor can extract required corpus</div>
+<div class="line-block">
+<div class="line">and remove unnecessary data.</div>
+<div class="line">Test</div>
+<div class="line"><code class="xref py py-func docutils literal notranslate"><span class="pre">HcCorpusPreprocessor._extract_corpus_data()</span></code>.</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : <code class="xref py py-class docutils literal notranslate"><span class="pre">HcCorpusPreprocessor</span></code> class instance exists</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : data passed to function.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : data = ‘blogspot.com    2011/10/01      3       0       ‘         |                      ‘We love you Mr. Brown.’         |    ‘blogspot.com    2012/01/01      3       0       If I were a bear,’</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : ‘We love you Mr. Brown.. If I were a bear,’</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : ‘We love you Mr. Brown.. If I were a bear,’</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_hindi_clean_word">
+<code class="sig-name descname">test_hindi_clean_word</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_hccorpus_preprocessor.html#TestHcCorpusPreprocessor.test_hindi_clean_word"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_hindi_clean_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test clean word functionality for hindi.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : H</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 11</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure that the word level clean functionality</div>
+<div class="line-block">
+<div class="line">works for Hindi as expected.</div>
+<div class="line">Tests <code class="xref py py-func docutils literal notranslate"><span class="pre">HcCorpusPreprocessor._clean_word()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : <code class="xref py py-class docutils literal notranslate"><span class="pre">HcCorpusPreprocessor</span></code> class instance exists</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : data, which is in Hindi</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : data = [</div>
+<div class="line-block">
+<div class="line">u’मैं’, u’आसपास’, u’बिखरे’, u’पड़े’, u’कंकड़-पत्थर,’,</div>
+<div class="line">u’चोंच’, u’से’, u’ला-लाकर’, u’घड़े’, u’में!’,</div>
+<div class="line">u’Bleh’, u’डालने’, u’लगा’, u’बस.’, u’क्या’, u’था’, u’!’</div>
+</div>
+<div class="line">]</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : [</div>
+<div class="line-block">
+<div class="line">[u’मैं’], [u’आसपास’], [u’बिखरे’], [u’पड़े’], [u’कंकड़’, u’पत्थर’],</div>
+<div class="line">[u’चोंच’], [u’से’], [u’ला’, u’लाकर’], [u’घड़े’],</div>
+<div class="line">[u’में’], [], [u’डालने’], [u’लगा’], [u’बस’],</div>
+<div class="line">[u’क्या’], [u’था’], []</div>
+</div>
+<div class="line">]</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : [</div>
+<div class="line-block">
+<div class="line">[u’मैं’], [u’आसपास’], [u’बिखरे’], [u’पड़े’],</div>
+<div class="line">[u’कंकड़’, u’पत्थर’], [u’चोंच’], [u’से’],</div>
+<div class="line">[u’ला’, u’लाकर’], [u’घड़े’], [u’में’], [], [u’डालने’], [u’लगा’],</div>
+<div class="line">[u’बस’], [u’क्या’], [u’था’], []</div>
+</div>
+<div class="line">]</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status: Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_hindi_tokenize_sentences">
+<code class="sig-name descname">test_hindi_tokenize_sentences</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_hccorpus_preprocessor.html#TestHcCorpusPreprocessor.test_hindi_tokenize_sentences"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_hindi_tokenize_sentences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure tokenize sentences works for hindi corpus.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : E</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 09</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure that the sentence tokenize functionality</div>
+<div class="line-block">
+<div class="line">works for Hindi as expected as expected.</div>
+<div class="line">Test <code class="xref py py-func docutils literal notranslate"><span class="pre">HcCorpusPreprocessor._tokenize_sentences()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : HcCorpisCorpusPreprocessor class instance exists</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : data, which is in Hindi</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : data = u”ये कहानी तो मेरे को मेरे”         |       u” नाना ने सुनाई थी. गरमी का मौसम था …..”         |       u” सभी नदियाँ, तालाब , कुँए सूख गये थे.”         |       u” पानी का नामोनिशान तक ना था.”         |       u” तेज धूप से मुझे बहुत प्यास लग गयी थी ,”         |       u” पानी की तलाश में इधर-उधर उड़ता रहा .”         |       u” थक-हार कर एक पेड़ पर जा बैठा तो मुझे”         |       u” एक घड़ा दिखाई दिया .”         |       u” घड़े में पानी बहुत नीचे था और मेरी चोंच”         |       u” पानी तक नहीं पहुँच पा रही थी .”         |       u” मैं आसपास बिखरे पड़े कंकड़-पत्थर चोंच से”         |       u” ला-लाकर घड़े में डालने लगा बस क्या था !”         |       u” पानी धीरे-धीरे घड़े के मुँह तक आ गया । मैंने”         |       u” पानी पीकर अपनी प्यास बुझायी और उड़ गया .”</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : [</div>
+<div class="line-block">
+<div class="line">u’ये कहानी तो मेरे को मेरे नाना ने सुनाई थी.’,</div>
+<div class="line">u’गरमी का मौसम था ….. सभी नदियाँ, तालाब , कुँए सूख गये थे.’,</div>
+<div class="line">u’पानी का नामोनिशान तक ना था.’,</div>
+<div class="line">u’तेज धूप से मुझे बहुत प्यास लग गयी थी ,’         |    u’ पानी की तलाश में इधर-उधर उड़ता रहा .’,</div>
+<div class="line">u’थक-हार कर एक पेड़ पर जा बैठा तो मुझे एक घड़ा दिखाई दिया .’,</div>
+<div class="line">u’घड़े में पानी बहुत नीचे था और मेरी चोंच पानी’         |    u’ तक नहीं पहुँच पा रही थी .’,</div>
+<div class="line">u’मैं आसपास बिखरे पड़े कंकड़-पत्थर चोंच से ला-लाकर’         |    u’ घड़े में डालने लगा बस क्या था !’,</div>
+<div class="line">u’पानी धीरे-धीरे घड़े के मुँह तक आ गया’,</div>
+<div class="line">u’मैंने पानी पीकर अपनी प्यास बुझायी और उड़ गया .’</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Actual Result</em> : [</div>
+<div class="line-block">
+<div class="line">u’ये कहानी तो मेरे को मेरे नाना ने सुनाई थी.’,</div>
+<div class="line">u’गरमी का मौसम था ….. सभी नदियाँ, तालाब , कुँए सूख गये थे.’,</div>
+<div class="line">u’पानी का नामोनिशान तक ना था.’,</div>
+<div class="line">u’तेज धूप से मुझे बहुत प्यास लग गयी थी ,’         |    u’ पानी की तलाश में इधर-उधर उड़ता रहा .’,</div>
+<div class="line">u’थक-हार कर एक पेड़ पर जा बैठा तो मुझे एक घड़ा दिखाई दिया .’,</div>
+<div class="line">u’घड़े में पानी बहुत नीचे था और मेरी चोंच’         |    u’ पानी तक नहीं पहुँच पा रही थी .’,</div>
+<div class="line">u’मैं आसपास बिखरे पड़े कंकड़-पत्थर चोंच से ला-लाकर घड़े’         |    u’ में डालने लगा बस क्या था !’,</div>
+<div class="line">u’पानी धीरे-धीरे घड़े के मुँह तक आ गया’,</div>
+<div class="line">u’मैंने पानी पीकर अपनी प्यास बुझायी और उड़ गया .’</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><strong>Status: Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_implement_clean_word">
+<code class="sig-name descname">test_implement_clean_word</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_hccorpus_preprocessor.html#TestHcCorpusPreprocessor.test_implement_clean_word"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_implement_clean_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure functionality is implemented.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : H</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 04</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure that the word level clean functionality</div>
+<div class="line-block">
+<div class="line">is implemented in the class.</div>
+<div class="line">Tests <code class="xref py py-func docutils literal notranslate"><span class="pre">HcCorpusPreprocessor._clean_word()</span></code>.</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : <code class="xref py py-class docutils literal notranslate"><span class="pre">HcCorpusPreprocessor</span></code> instance exists.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : word passed to function.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : word=’’</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : NotImplementedError exception is not raised.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : NotImplementedError exception is not raised.</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_implement_extract_corpus_data">
+<code class="sig-name descname">test_implement_extract_corpus_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_hccorpus_preprocessor.html#TestHcCorpusPreprocessor.test_implement_extract_corpus_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_implement_extract_corpus_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure functionality is implemented.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : H</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 03</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure the corpus data extract functionality</div>
+<div class="line-block">
+<div class="line">is implemented in the class.</div>
+<div class="line">Test</div>
+<div class="line"><code class="xref py py-func docutils literal notranslate"><span class="pre">HcCorpusPreprocessor._extract_corpus_data()</span></code>.</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : <code class="xref py py-class docutils literal notranslate"><span class="pre">HcCorpusPreprocessor</span></code> instance exists.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : data passed to function.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : data=’’</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : NotImplementedError exception is not raised.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : NotImplementedError exception is not raised.</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_implement_tokenize_sentences">
+<code class="sig-name descname">test_implement_tokenize_sentences</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_hccorpus_preprocessor.html#TestHcCorpusPreprocessor.test_implement_tokenize_sentences"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_implement_tokenize_sentences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure functionality is implemented.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : H</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 05</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure that the sentence tokenize functionality</div>
+<div class="line-block">
+<div class="line">is implemented in the class.</div>
+<div class="line">Test <code class="xref py py-func docutils literal notranslate"><span class="pre">HcCorpusPreprocessor._tokenize_sentences()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : HcCorpusPreprocessor class instance exists.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : data passed to function.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : data=’’</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : NotImplementedError exception is not raised.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : NotImplementedError exception is not raised.</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_implement_tokenize_words">
+<code class="sig-name descname">test_implement_tokenize_words</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_hccorpus_preprocessor.html#TestHcCorpusPreprocessor.test_implement_tokenize_words"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_implement_tokenize_words" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure functionality is implemented.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : H</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 06</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure that the word tokenize functionality</div>
+<div class="line-block">
+<div class="line">is implemented in the class.</div>
+<div class="line">Tests <code class="xref py py-func docutils literal notranslate"><span class="pre">HcCorpusPreprocessor._tokenize_words()</span></code>.</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : <code class="xref py py-class docutils literal notranslate"><span class="pre">HcCorpusPreprocessor</span></code> class instance exists</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : sentence passed to function.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : sentence=’’</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : NotImplementedError exception is not raised.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : NotImplementedError exception is not raised.</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_tokenize_words">
+<code class="sig-name descname">test_tokenize_words</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_hccorpus_preprocessor.html#TestHcCorpusPreprocessor.test_tokenize_words"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_hccorpus_preprocessor.TestHcCorpusPreprocessor.test_tokenize_words" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test tokenize word functionality.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : H</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 10</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure that the word tokenize functionality</div>
+<div class="line-block">
+<div class="line">works as expected.</div>
+<div class="line">Tests <code class="xref py py-func docutils literal notranslate"><span class="pre">HcCorpusPreprocessor._tokenize_words()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : <code class="xref py py-class docutils literal notranslate"><span class="pre">HcCorpusPreprocessor</span></code> instance must exist.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : data, which is in Hindi</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : data = u’मैं आसपास बिखरे पड़े कंकड़-पत्थर चोंच से’                                u’ ला-लाकर घड़े में डालने लगा बस क्या था !’</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : [</div>
+<div class="line-block">
+<div class="line">u”मैं”, u”आसपास”, u”बिखरे”, u”पड़े”, u”कंकड़-पत्थर”,</div>
+<div class="line">u”चोंच”, u”से”, u”ला-लाकर”,</div>
+<div class="line">u”घड़े”, u”में”, u”डालने”, u”लगा”, u”बस”, u”क्या”, u”था”, u”!”</div>
+</div>
+<div class="line">]</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : [</div>
+<div class="line-block">
+<div class="line">u”मैं”, u”आसपास”, u”बिखरे”, u”पड़े”, u”कंकड़-पत्थर”,</div>
+<div class="line">u”चोंच”, u”से”, u”ला-लाकर”,</div>
+<div class="line">u”घड़े”, u”में”, u”डालने”, u”लगा”, u”बस”, u”क्या”, u”था”, u”!”</div>
+</div>
+<div class="line">]</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tests.test_leipzig_preprocessor">
+<span id="tests-test-leipzig-preprocessor-module"></span><h2>tests.test_leipzig_preprocessor module<a class="headerlink" href="#module-tests.test_leipzig_preprocessor" title="Permalink to this headline">¶</a></h2>
+<p>Unit Test Cases for <a class="reference internal" href="../_dev_docs/tvecs.preprocessor.html#module-tvecs.preprocessor.leipzig_preprocessor" title="tvecs.preprocessor.leipzig_preprocessor"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tvecs.preprocessor.leipzig_preprocessor</span></code></a>.</p>
+<dl class="py class">
+<dt id="tests.test_leipzig_preprocessor.TestLeipzigPreprocessor">
+<em class="property">class </em><code class="sig-prename descclassname">tests.test_leipzig_preprocessor.</code><code class="sig-name descname">TestLeipzigPreprocessor</code><a class="reference internal" href="../_modules/tests/test_leipzig_preprocessor.html#TestLeipzigPreprocessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_leipzig_preprocessor.TestLeipzigPreprocessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Unit Testing for module <a class="reference internal" href="../_dev_docs/tvecs.preprocessor.html#module-tvecs.preprocessor.leipzig_preprocessor" title="tvecs.preprocessor.leipzig_preprocessor"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tvecs.preprocessor.leipzig_preprocessor</span></code></a>.</p>
+<dl class="simple">
+<dt>Test Cases considered for the following functions</dt><dd><ul class="simple">
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">LeipzigPreprocessor._clean_word()</span></code></p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">LeipzigPreprocessor._tokenize_words()</span></code></p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">LeipzigPreprocessor._tokenize_sentences()</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../_dev_docs/tvecs.preprocessor.html#module-tvecs.preprocessor.base_preprocessor" title="tvecs.preprocessor.base_preprocessor"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tvecs.preprocessor.base_preprocessor</span></code></a></p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">pytest</span></code></p></li>
+</ul>
+</div>
+<dl class="py method">
+<dt id="tests.test_leipzig_preprocessor.TestLeipzigPreprocessor.setup_class">
+<code class="sig-name descname">setup_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_leipzig_preprocessor.html#TestLeipzigPreprocessor.setup_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_leipzig_preprocessor.TestLeipzigPreprocessor.setup_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup Unit Testing for <code class="xref py py-class docutils literal notranslate"><span class="pre">LeipzigPreprocessor</span></code>.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : L</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 01</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Create an instance of class LeipzigPreprocessor.</div>
+<div class="line-block">
+<div class="line">Tests <code class="xref py py-class docutils literal notranslate"><span class="pre">LeipzigPreprocessor</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : BaseProcessor exists</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : corpus_fname, corpus_dir_path</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> :</div>
+<div class="line-block">
+<div class="line">corpus_fname=’test_leipzig_corpus’,</div>
+<div class="line">corpus_dir_path=’tests/resources’</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Expected Result</em> : Instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">LeipzigPreprocessor</span></code> created</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : Instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">LeipzigPreprocessor</span></code> created</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+<dl class="simple">
+<dt>API Documentation:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param cls</dt>
+<dd class="field-odd"><p>Class level scope</p>
+</dd>
+<dt class="field-even">type cls</dt>
+<dd class="field-even"><p><a class="reference internal" href="#tests.test_leipzig_preprocessor.TestLeipzigPreprocessor" title="tests.test_leipzig_preprocessor.TestLeipzigPreprocessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TestLeipzigPreprocessor</span></code></a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_leipzig_preprocessor.TestLeipzigPreprocessor.teardown_class">
+<code class="sig-name descname">teardown_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_leipzig_preprocessor.html#TestLeipzigPreprocessor.teardown_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_leipzig_preprocessor.TestLeipzigPreprocessor.teardown_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete temp files generated for tests.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : L</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 02</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Delete the generated preprocessed file</div>
+<div class="line-block">
+<div class="line">test_leipzig_corpus_processed to remove residual file.</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : Preprocessed test_leipzig_corpus_processed</div>
+<div class="line-block">
+<div class="line">file exists in the specified path.</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Test Parameters</em> : Preprocessed file path.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : path=’tests/resources/test_leipzig_corpus_processed’</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : Preprocessed file</div>
+<div class="line-block">
+<div class="line">test_leipzig_corpus_processed is deleted.</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Actual Result</em> : Preprocessed file</div>
+<div class="line-block">
+<div class="line">test_leipzig_corpus_processed is deleted.</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+<dl class="simple">
+<dt>API Documentation:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param cls</dt>
+<dd class="field-odd"><p>Class level scope</p>
+</dd>
+<dt class="field-even">type cls</dt>
+<dd class="field-even"><p><a class="reference internal" href="#tests.test_leipzig_preprocessor.TestLeipzigPreprocessor" title="tests.test_leipzig_preprocessor.TestLeipzigPreprocessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TestLeipzigPreprocessor</span></code></a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_leipzig_preprocessor.TestLeipzigPreprocessor.test_english_clean_word">
+<code class="sig-name descname">test_english_clean_word</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_leipzig_preprocessor.html#TestLeipzigPreprocessor.test_english_clean_word"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_leipzig_preprocessor.TestLeipzigPreprocessor.test_english_clean_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test clean word functionality for english.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : L</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 07</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure that the word level clean functionality</div>
+<div class="line-block">
+<div class="line">works for English.</div>
+<div class="line">-bringing to lower case</div>
+<div class="line">-removing punctuation, special characters and digits</div>
+<div class="line">-special handling of apostrophes and hyphen</div>
+<div class="line">Tests <code class="xref py py-func docutils literal notranslate"><span class="pre">LeipzigPreprocessor._clean_word()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : LeipzigPreprocessor class instance exists</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : data, which is in English</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : data = [</div>
+<div class="line-block">
+<div class="line">‘Typed’, ‘essays’, ‘are’, ‘preferred’, ‘but’,</div>
+<div class="line">‘this’, ‘is’, ‘not’, ‘essential.’, “you’ll”,</div>
+<div class="line">“tables’”, ‘ice-cream’, u”they’re”</div>
+</div>
+<div class="line">]</div>
+<div class="line"><em>Expected Result</em> : [</div>
+<div class="line-block">
+<div class="line">[‘typed’], [‘essays’], [‘are’], [‘preferred’],</div>
+<div class="line">[‘but’], [‘this’], [‘is’], [‘not’], [‘essential’],</div>
+<div class="line">[‘you’], [‘tables’], [‘ice’, ‘cream’], [u”they”]</div>
+</div>
+<div class="line">]</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em>: [</div>
+<div class="line-block">
+<div class="line">[‘typed’], [‘essays’], [‘are’], [‘preferred’],</div>
+<div class="line">[‘but’], [‘this’], [‘is’], [‘not’], [‘essential’],</div>
+<div class="line">[‘you’], [‘tables’], [‘ice’, ‘cream’], [u”they”]</div>
+</div>
+<div class="line">]</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status: Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_leipzig_preprocessor.TestLeipzigPreprocessor.test_hindi_clean_word">
+<code class="sig-name descname">test_hindi_clean_word</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_leipzig_preprocessor.html#TestLeipzigPreprocessor.test_hindi_clean_word"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_leipzig_preprocessor.TestLeipzigPreprocessor.test_hindi_clean_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test clean word functionality for hindi.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : L</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 06</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure that the word level clean functionality</div>
+<div class="line-block">
+<div class="line-block">
+<div class="line">works for Hindi.</div>
+</div>
+<div class="line">-bringing to lower case</div>
+<div class="line">-removing punctuation, special characters and digits</div>
+<div class="line">Tests <code class="xref py py-func docutils literal notranslate"><span class="pre">LeipzigPreprocessor._clean_word()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : LeipzigPreprocessor class instance exists</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : data, which is in Hindi</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : data = [</div>
+<div class="line-block">
+<div class="line">u’मैं’, u’आसपास’, u’बिखरे’, u’पड़े’, u’कंकड़-पत्थर,’,</div>
+<div class="line">u’चोंच’, u’से’, u’ला-लाकर’, u’घड़े’, u’में!’,</div>
+<div class="line">u’Bleh’, u’डालने’, u’लगा’, u’बस.’, u’क्या’, u’था’, u’!’</div>
+</div>
+<div class="line">]</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : [</div>
+<div class="line-block">
+<div class="line">[u’मैं’], [u’आसपास’], [u’बिखरे’], [u’पड़े’], [u’कंकड़’, u’पत्थर’],</div>
+<div class="line">[u’चोंच’], [u’से’], [u’ला’, u’लाकर’], [u’घड़े’],</div>
+<div class="line">[u’में’], [], [u’डालने’], [u’लगा’], [u’बस’],</div>
+<div class="line">[u’क्या’], [u’था’], []</div>
+</div>
+<div class="line">]</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : [</div>
+<div class="line-block">
+<div class="line">[u’मैं’], [u’आसपास’], [u’बिखरे’], [u’पड़े’],</div>
+<div class="line">[u’कंकड़’, u’पत्थर’], [u’चोंच’], [u’से’],</div>
+<div class="line">[u’ला’, u’लाकर’], [u’घड़े’], [u’में’], [], [u’डालने’], [u’लगा’],</div>
+<div class="line">[u’बस’], [u’क्या’], [u’था’], []</div>
+</div>
+<div class="line">]</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status: Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_leipzig_preprocessor.TestLeipzigPreprocessor.test_implement_clean_word">
+<code class="sig-name descname">test_implement_clean_word</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_leipzig_preprocessor.html#TestLeipzigPreprocessor.test_implement_clean_word"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_leipzig_preprocessor.TestLeipzigPreprocessor.test_implement_clean_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure functionality is implemented.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : L</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 03</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure that the word level clean functionality</div>
+<div class="line-block">
+<div class="line">is implemented in the class.</div>
+<div class="line">Tests <code class="xref py py-func docutils literal notranslate"><span class="pre">LeipzigPreprocessor._clean_word()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : LeipzigPreprocessor class instance exists.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : word passed to function.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : word=’’</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : NotImplementedError exception is not raised.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : NotImplementedError exception is not raised.</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_leipzig_preprocessor.TestLeipzigPreprocessor.test_implement_tokenize_words">
+<code class="sig-name descname">test_implement_tokenize_words</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_leipzig_preprocessor.html#TestLeipzigPreprocessor.test_implement_tokenize_words"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_leipzig_preprocessor.TestLeipzigPreprocessor.test_implement_tokenize_words" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure functionality is implemented.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : L</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 04</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure that the word level clean functionality</div>
+<div class="line-block">
+<div class="line">is implemented in the class.</div>
+<div class="line">Tests <code class="xref py py-func docutils literal notranslate"><span class="pre">LeipzigPreprocessor._tokenize_words()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : LeipzigPreprocessor class instance exists.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : sentence passed to function.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : sentence=’’</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : NotImplementedError exception is not raised.</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : NotImplementedError exception is not raised.</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_leipzig_preprocessor.TestLeipzigPreprocessor.test_tokenize_words">
+<code class="sig-name descname">test_tokenize_words</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_leipzig_preprocessor.html#TestLeipzigPreprocessor.test_tokenize_words"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_leipzig_preprocessor.TestLeipzigPreprocessor.test_tokenize_words" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test tokenize word functionality.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : L</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 05</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Ensure that the word level clean functionality</div>
+<div class="line-block">
+<div class="line">for Hindi words.</div>
+<div class="line">Tests <code class="xref py py-func docutils literal notranslate"><span class="pre">LeipzigPreprocessor._tokenize_words()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : LeipzigPreprocessor class instance must exist</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : data, which is in Hindi</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : data = u’मैं आसपास बिखरे पड़े कंकड़-पत्थर चोंच से’                                u’ ला-लाकर घड़े में डालने लगा बस क्या था !’</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : [</div>
+<div class="line-block">
+<div class="line">u”मैं”, u”आसपास”, u”बिखरे”, u”पड़े”, u”कंकड़-पत्थर”,</div>
+<div class="line">u”चोंच”, u”से”, u”ला-लाकर”,</div>
+<div class="line">u”घड़े”, u”में”, u”डालने”, u”लगा”, u”बस”, u”क्या”, u”था”, u”!”</div>
+</div>
+<div class="line">]</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : [</div>
+<div class="line-block">
+<div class="line">u”मैं”, u”आसपास”, u”बिखरे”, u”पड़े”, u”कंकड़-पत्थर”,</div>
+<div class="line">u”चोंच”, u”से”, u”ला-लाकर”,</div>
+<div class="line">u”घड़े”, u”में”, u”डालने”, u”लगा”, u”बस”, u”क्या”, u”था”, u”!”</div>
+</div>
+<div class="line">]</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tests.test_vector_space_mapper">
+<span id="tests-test-vector-space-mapper-module"></span><h2>tests.test_vector_space_mapper module<a class="headerlink" href="#module-tests.test_vector_space_mapper" title="Permalink to this headline">¶</a></h2>
+<p>Unit Test Cases for <a class="reference internal" href="../_dev_docs/tvecs.vector_space_mapper.html#module-tvecs.vector_space_mapper.vector_space_mapper" title="tvecs.vector_space_mapper.vector_space_mapper"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tvecs.vector_space_mapper.vector_space_mapper</span></code></a>.</p>
+<dl class="py class">
+<dt id="tests.test_vector_space_mapper.TestVectorSpaceMapper">
+<em class="property">class </em><code class="sig-prename descclassname">tests.test_vector_space_mapper.</code><code class="sig-name descname">TestVectorSpaceMapper</code><a class="reference internal" href="../_modules/tests/test_vector_space_mapper.html#TestVectorSpaceMapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_vector_space_mapper.TestVectorSpaceMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Unit Testing for <a class="reference internal" href="../_dev_docs/tvecs.vector_space_mapper.html#module-tvecs.vector_space_mapper.vector_space_mapper" title="tvecs.vector_space_mapper.vector_space_mapper"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tvecs.vector_space_mapper.vector_space_mapper</span></code></a>.</p>
+<dl class="simple">
+<dt>Test Cases considered for the following functions</dt><dd><ul class="simple">
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">VectorSpaceMapper.extract_vectors_and_words()</span></code></p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">VectorSpaceMapper._predict_vec_from_word()</span></code></p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">VectorSpaceMapper._predict_vec_from_vec()</span></code></p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">VectorSpaceMapper.get_recommendations_from_vec()</span></code></p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">VectorSpaceMapper.get_recommendations_from_word()</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../_dev_docs/tvecs.vector_space_mapper.html#module-tvecs.vector_space_mapper.vector_space_mapper" title="tvecs.vector_space_mapper.vector_space_mapper"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tvecs.vector_space_mapper.vector_space_mapper</span></code></a></p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">pytest</span></code></p></li>
+<li><p><a class="reference internal" href="../_dev_docs/tvecs.model_generator.html#module-tvecs.model_generator.model_generator" title="tvecs.model_generator.model_generator"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tvecs.model_generator.model_generator</span></code></a></p></li>
+</ul>
+</div>
+<dl class="py method">
+<dt id="tests.test_vector_space_mapper.TestVectorSpaceMapper.setup_class">
+<code class="sig-name descname">setup_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_vector_space_mapper.html#TestVectorSpaceMapper.setup_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_vector_space_mapper.TestVectorSpaceMapper.setup_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup Unit Testing for <code class="xref py py-class docutils literal notranslate"><span class="pre">VectorSpaceMapper</span></code>.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : V</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 01</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Create an instance of</div>
+<div class="line-block">
+<div class="line"><a class="reference internal" href="../_dev_docs/tvecs.vector_space_mapper.html#module-tvecs.vector_space_mapper.vector_space_mapper" title="tvecs.vector_space_mapper.vector_space_mapper"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tvecs.vector_space_mapper.vector_space_mapper</span></code></a>.</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : Corpus data for both languages</div>
+<div class="line-block">
+<div class="line">and bilingual dictionary exists.</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Test Parameters</em> : model_1, model_2, bilingual_dict</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : model_1 = English, model_2 = Hindi, bilingual_dict =</div>
+<div class="line-block">
+<div class="line">‘data/bilingual_dictionary/english_hindi_train_bd’</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Expected Result</em> : Vector Space Mapping created</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : Vector Space Mapping created</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Learns transformation between two models</dt><dd><ul>
+<li><p><a class="reference internal" href="../_dev_docs/tvecs.model_generator.html#module-tvecs.model_generator.model_generator" title="tvecs.model_generator.model_generator"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tvecs.model_generator.model_generator</span></code></a></p></li>
+<li><p><a class="reference internal" href="../_dev_docs/tvecs.model_generator.html#module-tvecs.model_generator.model_generator" title="tvecs.model_generator.model_generator"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tvecs.model_generator.model_generator</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_vector_space_mapper.TestVectorSpaceMapper.teardown_class">
+<code class="sig-name descname">teardown_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_vector_space_mapper.html#TestVectorSpaceMapper.teardown_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_vector_space_mapper.TestVectorSpaceMapper.teardown_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete temp files generated for tests.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : V</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 02</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Delete models after construction to remove</div>
+<div class="line-block">
+<div class="line">residual of setup_test [Test Case Number 01]</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : model1 and model2 exist</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : model1 and model2 file paths</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> :</div>
+<div class="line-block">
+<div class="line">model1 file path = ‘tests/resources/model1’</div>
+<div class="line">model2 file path = ‘tests/resources/model2’</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Expected Result</em> : Models deleted</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : Models deleted</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_vector_space_mapper.TestVectorSpaceMapper.test_english_extract_vectors_and_words">
+<code class="sig-name descname">test_english_extract_vectors_and_words</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_vector_space_mapper.html#TestVectorSpaceMapper.test_english_extract_vectors_and_words"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_vector_space_mapper.TestVectorSpaceMapper.test_english_extract_vectors_and_words" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure valid data structure from extract_vectors_and_words for english.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : V</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 03</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Verify the data structure for the</div>
+<div class="line-block">
+<div class="line">response of the function for English model.</div>
+<div class="line">Test</div>
+<div class="line"><code class="xref py py-func docutils literal notranslate"><span class="pre">VectorSpaceMapper._extract_vectors_and_words()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : The English model exists</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : model_1 and expected_list[keys]</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : model_1 is English model, expected_list[keys] = {</div>
+<div class="line-block">
+<div class="line-block">
+<div class="line">u’has’, u’have’, u’u0915u093e’</div>
+</div>
+<div class="line">}</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Expected Result</em> : Data structure consists of 1 vector</div>
+<div class="line-block">
+<div class="line">of 100 dimensions if word exists in model, else None</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Actual Result</em> : Data structure consists of 1 vector</div>
+<div class="line-block">
+<div class="line">of 100 dimensions if word exists in model, else None</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_vector_space_mapper.TestVectorSpaceMapper.test_get_recommendations_from_vec">
+<code class="sig-name descname">test_get_recommendations_from_vec</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_vector_space_mapper.html#TestVectorSpaceMapper.test_get_recommendations_from_vec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_vector_space_mapper.TestVectorSpaceMapper.test_get_recommendations_from_vec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure valid types from get_recommmendations_from_vec.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : V</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 11</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Verify the response type of the word and distance</div>
+<div class="line-block">
+<div class="line">returned from the function.</div>
+<div class="line">Test</div>
+<div class="line"><code class="xref py py-func docutils literal notranslate"><span class="pre">VectorSpaceMapper.get_recommendations_from_vec()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : English and Hindi models exist</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : vector passed to get_recommendations_from_vec</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : vector = obj.model_1[‘has’]</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : word_type is unicode, and dist_type is float</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : word_type is unicode, and dist_type is float</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_vector_space_mapper.TestVectorSpaceMapper.test_get_recommendations_from_vec_and_word_match">
+<code class="sig-name descname">test_get_recommendations_from_vec_and_word_match</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_vector_space_mapper.html#TestVectorSpaceMapper.test_get_recommendations_from_vec_and_word_match"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_vector_space_mapper.TestVectorSpaceMapper.test_get_recommendations_from_vec_and_word_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure valid recommendations obtained.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : V</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 12</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Verify the results from both functions match.</div>
+<div class="line-block">
+<div class="line">Test following functions:</div>
+<div class="line-block">
+<div class="line">- <code class="xref py py-func docutils literal notranslate"><span class="pre">VectorSpaceMapper.get_recommendations_from_vec()</span></code></div>
+<div class="line">- <code class="xref py py-func docutils literal notranslate"><span class="pre">VectorSpaceMapper.get_recommendations_from_word()</span></code></div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="line"><em>Preconditions</em> : English and Hindi models exist</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : word passed to get_recommendations_from_word, and</div>
+<div class="line-block">
+<div class="line">vector passed to get_recommendations_from_vec</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Test Data</em> : word = ‘has’, vector = obj.model_1[‘has’]</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : Recommendations match</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : Recommendations match</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_vector_space_mapper.TestVectorSpaceMapper.test_get_recommendations_from_word">
+<code class="sig-name descname">test_get_recommendations_from_word</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_vector_space_mapper.html#TestVectorSpaceMapper.test_get_recommendations_from_word"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_vector_space_mapper.TestVectorSpaceMapper.test_get_recommendations_from_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure valid types from get_recommendations_from_word.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : V</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 10</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Verify the response type of the word and distance</div>
+<div class="line-block">
+<div class="line">returned from the function.</div>
+<div class="line">Test</div>
+<div class="line"><code class="xref py py-func docutils literal notranslate"><span class="pre">VectorSpaceMapper.get_recommendations_from_word()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : English and Hindi models exist</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : word passed to get_recommendations_from_word</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : word = ‘has’</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : word_type is unicode, and dist_type is float</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : word_type is unicode, and dist_type is float</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_vector_space_mapper.TestVectorSpaceMapper.test_hindi_extract_vectors_and_words">
+<code class="sig-name descname">test_hindi_extract_vectors_and_words</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_vector_space_mapper.html#TestVectorSpaceMapper.test_hindi_extract_vectors_and_words"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_vector_space_mapper.TestVectorSpaceMapper.test_hindi_extract_vectors_and_words" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure valid data structure from extract_vectors_and_words for hindi.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : V</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 04</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Verify the data structure for the response of the</div>
+<div class="line-block">
+<div class="line">function for Hindi model.</div>
+<div class="line">Test</div>
+<div class="line"><code class="xref py py-func docutils literal notranslate"><span class="pre">VectorSpaceMapper._extract_vectors_and_words()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : The Hindi model exists</div>
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : model_2 and expected_list[keys]</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : model_2 is Hindi model, expected_list[keys] = {</div>
+<div class="line-block">
+<div class="line-block">
+<div class="line">u’u0915u093e’, u’u0925u0940’, u’english’</div>
+</div>
+<div class="line">}</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Expected Result</em> : Data structure consists of 1 vector</div>
+<div class="line-block">
+<div class="line">of 100 dimensions if word exists in model, else None</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Actual Result</em> : Data structure consists of 1 vector</div>
+<div class="line-block">
+<div class="line">of 100 dimensions if word exists in model, else None</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_vector_space_mapper.TestVectorSpaceMapper.test_num_recom_from_get_recommendations_from_vec">
+<code class="sig-name descname">test_num_recom_from_get_recommendations_from_vec</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_vector_space_mapper.html#TestVectorSpaceMapper.test_num_recom_from_get_recommendations_from_vec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_vector_space_mapper.TestVectorSpaceMapper.test_num_recom_from_get_recommendations_from_vec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure valid num of recommendations from get_recommendations_from_vec.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : V</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 09</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Verify number of recommendations conform to the</div>
+<div class="line-block">
+<div class="line">number of recommendations requested.</div>
+<div class="line">Test</div>
+<div class="line"><code class="xref py py-func docutils literal notranslate"><span class="pre">VectorSpaceMapper.get_recommendations_from_vec()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : English and Hindi models exist</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : num_recommendations</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : num_recommendations = random.randint(1,10)</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : The number of recommendations returned is equal</div>
+<div class="line-block">
+<div class="line">to the number of recommendations requested.</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Actual Result</em> : The number of recommendations returned is equal</div>
+<div class="line-block">
+<div class="line">to the number of recommendations requested.</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_vector_space_mapper.TestVectorSpaceMapper.test_num_recom_from_get_recommendations_from_word">
+<code class="sig-name descname">test_num_recom_from_get_recommendations_from_word</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_vector_space_mapper.html#TestVectorSpaceMapper.test_num_recom_from_get_recommendations_from_word"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_vector_space_mapper.TestVectorSpaceMapper.test_num_recom_from_get_recommendations_from_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate num of recommendations from get_recommendations_from_word.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : V</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 08</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Verify number of recommendations conform to the</div>
+<div class="line-block">
+<div class="line">number of recommendations requested.</div>
+<div class="line">Test</div>
+<div class="line"><code class="xref py py-func docutils literal notranslate"><span class="pre">VectorSpaceMapper.get_recommendations_from_word()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : English and Hindi models exist</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : num_recommendations</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : num_recommendations = random.randint(1,10)</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : The number of recommendations returned is equal</div>
+<div class="line-block">
+<div class="line">to the number of recommendations requested.</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Actual Result</em> : The number of recommendations returned is equal</div>
+<div class="line-block">
+<div class="line">to the number of recommendations requested.</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_vector_space_mapper.TestVectorSpaceMapper.test_predict_vec_from_vec">
+<code class="sig-name descname">test_predict_vec_from_vec</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_vector_space_mapper.html#TestVectorSpaceMapper.test_predict_vec_from_vec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_vector_space_mapper.TestVectorSpaceMapper.test_predict_vec_from_vec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure valid data structure from predict_vec_from_vec.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : V</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 06</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Verify the data structure for the response</div>
+<div class="line-block">
+<div class="line">of the function given a vector.</div>
+<div class="line">Test <code class="xref py py-func docutils literal notranslate"><span class="pre">VectorSpaceMapper._predict_vec_from_vec()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : English model exists</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : vector passed to _predict_vec_from_vec</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : vector = obj.model_1[‘has’]</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : Data structure consists of 1 vector of</div>
+<div class="line-block">
+<div class="line">100 dimensions if word exists in model, else None</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Actual Result</em> : Data structure consists of 1 vector of</div>
+<div class="line-block">
+<div class="line">100 dimensions if word exists in model, else None</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_vector_space_mapper.TestVectorSpaceMapper.test_predict_vec_from_word">
+<code class="sig-name descname">test_predict_vec_from_word</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_vector_space_mapper.html#TestVectorSpaceMapper.test_predict_vec_from_word"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_vector_space_mapper.TestVectorSpaceMapper.test_predict_vec_from_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure valid data structure from predict_vec_from_word.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : V</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 05</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Verify the data structure for the response of the</div>
+<div class="line-block">
+<div class="line">function given a word.</div>
+<div class="line">Test <code class="xref py py-func docutils literal notranslate"><span class="pre">VectorSpaceMapper._predict_vec_from_word()</span></code></div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Preconditions</em> : English model exists</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : word passed to _predict_vec_from_word</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Data</em> : word = u’has’</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : Data structure consists of 1 vector of</div>
+<div class="line-block">
+<div class="line">100 dimensions if word exists in model, else None</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Actual Result</em> : Data structure consists of 1 vector of</div>
+<div class="line-block">
+<div class="line">100 dimensions if word exists in model, else None</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tests.test_vector_space_mapper.TestVectorSpaceMapper.test_predict_vec_from_word_and_vec_match">
+<code class="sig-name descname">test_predict_vec_from_word_and_vec_match</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tests/test_vector_space_mapper.html#TestVectorSpaceMapper.test_predict_vec_from_word_and_vec_match"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.test_vector_space_mapper.TestVectorSpaceMapper.test_predict_vec_from_word_and_vec_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate output of predict_vec_from_word.</p>
+<div class="line-block">
+<div class="line"><em>Test Suite ID</em> : V</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Case Number</em> : 07</div>
+<div class="line"><br /></div>
+<div class="line"><em>Description</em> : Verify both functions provide same predictions.</div>
+<div class="line-block">
+<div class="line">Test following functions:</div>
+<div class="line-block">
+<div class="line">- <code class="xref py py-func docutils literal notranslate"><span class="pre">VectorSpaceMapper._predict_vec_from_vec()</span></code></div>
+<div class="line">- <code class="xref py py-func docutils literal notranslate"><span class="pre">VectorSpaceMapper._predict_vec_from_word()</span></code></div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="line"><em>Preconditions</em> : English model exists</div>
+<div class="line"><br /></div>
+<div class="line"><em>Test Parameters</em> : vector passed to _predict_vec_from_vec,</div>
+<div class="line-block">
+<div class="line">word passed to _predict_vec_from_word</div>
+<div class="line"><br /></div>
+</div>
+<div class="line"><em>Test Data</em> : vector = obj.model_1[‘has’], word = ‘has’</div>
+<div class="line"><br /></div>
+<div class="line"><em>Expected Result</em> : Vector prediction matches</div>
+<div class="line"><br /></div>
+<div class="line"><em>Actual Result</em> : Vector prediction matches</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Status : Pass</strong></div>
+<div class="line"><br /></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tests">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-tests" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="modules.html" class="btn btn-neutral float-left" title="tests" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2016, Kshitij Karthick, Ravi Kumar L, Prateeksha, Prarthana Sannamani
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

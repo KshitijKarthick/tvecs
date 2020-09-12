@@ -1,0 +1,45 @@
+tests package
+=============
+
+Submodules
+----------
+
+tests.test\_emille\_preprocessor module
+---------------------------------------
+
+.. automodule:: tests.test_emille_preprocessor
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+tests.test\_hccorpus\_preprocessor module
+-----------------------------------------
+
+.. automodule:: tests.test_hccorpus_preprocessor
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+tests.test\_leipzig\_preprocessor module
+----------------------------------------
+
+.. automodule:: tests.test_leipzig_preprocessor
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+tests.test\_vector\_space\_mapper module
+----------------------------------------
+
+.. automodule:: tests.test_vector_space_mapper
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: tests
+   :members:
+   :undoc-members:
+   :show-inheritance:

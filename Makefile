@@ -5,7 +5,7 @@
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 PAPER         =
-BUILDDIR      = documentation
+BUILDDIR      = _documentation
 SPHINXAPIDOC  = sphinx-apidoc
 SPHINXAPIDOCDIR = _dev_docs
 SPHINXAPIDOCTESTDIR = _test_docs
@@ -68,6 +68,7 @@ html:
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 	mv $(BUILDDIR)/html docs
+	rm -r _dev_docs _test_docs $(BUILDDIR)
 
 .PHONY: dirhtml
 dirhtml:

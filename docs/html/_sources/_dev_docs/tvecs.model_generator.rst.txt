@@ -1,0 +1,21 @@
+tvecs.model\_generator package
+==============================
+
+Submodules
+----------
+
+tvecs.model\_generator.model\_generator module
+----------------------------------------------
+
+.. automodule:: tvecs.model_generator.model_generator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: tvecs.model_generator
+   :members:
+   :undoc-members:
+   :show-inheritance:

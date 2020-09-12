@@ -1,0 +1,332 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>tvecs.preprocessor.yandex_api &mdash; T-Vecs 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> T-Vecs
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Usage Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html">T-Vecs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_dev_docs/modules.html">tvecs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Testing Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_test_docs/modules.html">tests</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">T-Vecs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>tvecs.preprocessor.yandex_api</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for tvecs.preprocessor.yandex_api</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python2.7</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Utilise Yandex Translation Service.</span>
+
+<span class="sd">- Obtain bilingual semantic human score.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">codecs</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="kn">from</span> <span class="nn">tvecs.logger</span> <span class="kn">import</span> <span class="n">init_logger</span> <span class="k">as</span> <span class="n">log</span>
+
+
+<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">initialise</span><span class="p">(</span><span class="s1">&#39;TVecs.Yandex&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="get_valid_translation"><a class="viewcode-back" href="../../../_dev_docs/tvecs.preprocessor.html#tvecs.preprocessor.yandex_api.get_valid_translation">[docs]</a><span class="k">def</span> <span class="nf">get_valid_translation</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">from_to</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Ensure the translation is valid.</span>
+
+<span class="sd">    Return only single word translations.</span>
+<span class="sd">    If multiple words translations, return None.</span>
+
+<span class="sd">    API Documentation</span>
+<span class="sd">        :param word: word to be translated</span>
+<span class="sd">        :param from_to: language codes pair representing the src/target lang</span>
+<span class="sd">        :type from_to: String</span>
+<span class="sd">        :type word: String</span>
+<span class="sd">        :return: translated word</span>
+<span class="sd">        :rtype: :class:`String`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tr_word_2</span> <span class="o">=</span> <span class="n">get_translation</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">from_to</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tr_word_2</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">tr_word_2</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+        <span class="s1">&#39;Word: </span><span class="si">%s</span><span class="s1"> Options: </span><span class="si">%s</span><span class="s1"> Translation: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">word</span><span class="p">,</span> <span class="n">from_to</span><span class="p">,</span> <span class="n">tr_word_2</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">tr_word_2</span></div>
+
+
+<div class="viewcode-block" id="get_translation"><a class="viewcode-back" href="../../../_dev_docs/tvecs.preprocessor.html#tvecs.preprocessor.yandex_api.get_translation">[docs]</a><span class="k">def</span> <span class="nf">get_translation</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">from_to</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Obtain translation of specified word from Yandex.</span>
+
+<span class="sd">    API Documentation</span>
+<span class="sd">        :param word: word to be translated</span>
+<span class="sd">        :param from_to: language codes pair representing the src/target lang</span>
+<span class="sd">        :type from_to: String</span>
+<span class="sd">        :type word: String</span>
+<span class="sd">        :return: translated word</span>
+<span class="sd">        :rtype: :class:`String`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">base_url</span> <span class="o">=</span> <span class="s1">&#39;https://translate.yandex.net/api/v1.5/tr.json/translate&#39;</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;lang&#39;</span><span class="p">:</span> <span class="n">from_to</span><span class="p">,</span>
+        <span class="s1">&#39;key&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;Enter Key Here&gt;&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">word</span>
+    <span class="p">}</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">base_url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="ow">is</span> <span class="mi">200</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)[</span><span class="s2">&quot;text&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="yandex_api"><a class="viewcode-back" href="../../../_dev_docs/tvecs.preprocessor.html#tvecs.preprocessor.yandex_api.yandex_api">[docs]</a><span class="k">def</span> <span class="nf">yandex_api</span><span class="p">(</span><span class="n">lang_translate</span><span class="p">,</span> <span class="n">input_score_path</span><span class="p">,</span> <span class="n">output_score_path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Utilise Yandex Translation Service, obtain bilingual semantic human score.</span>
+
+<span class="sd">    - WordSim score, translated on one column using Yandex.</span>
+<span class="sd">    - Yandex Api Key, lang for translation needs to be provided</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">output_data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="s2">&quot;Input Score Path: </span><span class="si">%s</span><span class="s2"> Output Score Path: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">input_score_path</span><span class="p">,</span>
+        <span class="n">output_score_path</span>
+    <span class="p">)</span>
+    <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">input_score_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">output_score_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">word_1</span><span class="p">,</span> <span class="n">word_2</span><span class="p">,</span> <span class="n">score</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                <span class="n">tr_word_2</span> <span class="o">=</span> <span class="n">get_valid_translation</span><span class="p">(</span><span class="n">word_2</span><span class="p">,</span> <span class="n">lang_translate</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">tr_word_2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">output_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                            <span class="n">word_1</span><span class="p">,</span>
+                            <span class="n">tr_word_2</span><span class="p">,</span>
+                            <span class="n">score</span>
+                        <span class="p">))</span>
+                    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                        <span class="k">pass</span>
+            <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_data</span><span class="p">))</span></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">set_logger_normal</span><span class="p">(</span><span class="n">LOGGER</span><span class="p">)</span>
+    <span class="n">dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;evaluate&#39;</span>
+    <span class="p">)</span>
+    <span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;EN-MC-30.txt&#39;</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;EN-RG-65.txt&#39;</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;wordsim_relatedness_goldstandard.txt&#39;</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;MEN_dataset_natural_form_full&#39;</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Mtruk.txt&#39;</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">)</span>
+    <span class="p">]</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">dataset_fname</span><span class="p">,</span> <span class="n">dataset_dir</span><span class="p">)</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">:</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Processing </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">dataset_fname</span><span class="p">)</span>
+        <span class="n">yandex_api</span><span class="p">(</span>
+            <span class="n">lang_translate</span><span class="o">=</span><span class="s1">&#39;en-hi&#39;</span><span class="p">,</span>
+            <span class="n">input_score_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">dataset_dir</span><span class="p">,</span> <span class="n">dataset_fname</span>
+            <span class="p">),</span>
+            <span class="n">output_score_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">dataset_dir</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_translate&#39;</span> <span class="o">%</span> <span class="n">dataset_fname</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2016, Kshitij Karthick, Ravi Kumar L, Prateeksha, Prarthana Sannamani
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

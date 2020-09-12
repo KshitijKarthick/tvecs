@@ -1,0 +1,509 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>T-Vecs &mdash; T-Vecs 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="tvecs" href="_dev_docs/modules.html" />
+    <link rel="prev" title="Welcome to T-Vecs’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> T-Vecs
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Usage Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">T-Vecs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setup-development-environment">Setup Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-as-a-package">Install as a Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data">Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#corpus-download-details">Corpus Download details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bilingual-dictionary-details">Bilingual Dictionary details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#evaluation-dataset-details">Evaluation Dataset details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ensure-model-is-downloaded-and-extracted-in-the-t-vex-directory">Ensure Model is downloaded and extracted in the t-vex directory</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#usage-details">Usage Details</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#t-vecs-driver-module-cmd-line-args">T-Vecs Driver Module Cmd Line Args</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#config-file-format">Config File Format</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#execution-building">Execution &amp; Building</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#obtain-recommendations">Obtain Recommendations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#visualisation-of-vector-space">Visualisation of vector space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#execution-of-individual-modules">Execution of Individual Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#execution-of-unit-tests">Execution of Unit Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#generate-documentation">Generate Documentation</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Development Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="_dev_docs/modules.html">tvecs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Testing Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="_test_docs/modules.html">tests</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">T-Vecs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>T-Vecs</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/README.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <a class="reference external image-reference" href="https://travis-ci.org/KshitijKarthick/tvecs"><img alt="https://travis-ci.org/KshitijKarthick/tvecs.svg?branch=master" class="align-right" src="https://travis-ci.org/KshitijKarthick/tvecs.svg?branch=master" /></a>
+<div class="section" id="t-vecs">
+<h1>T-Vecs<a class="headerlink" href="#t-vecs" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Python 2.7 setup and installed</p></li>
+<li><p>Pip setup and installed</p></li>
+<li><p>Ensure all dependencies of requirements.txt are satisfied</p></li>
+<li><p>Download nltk_data using nltk.download() -&gt; only tokenizers required</p></li>
+<li><p>Download corpus and extract in specified directory</p></li>
+</ul>
+</div>
+<div class="section" id="setup-development-environment">
+<h2>Setup Development Environment<a class="headerlink" href="#setup-development-environment" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">KshitijKarthick</span><span class="o">/</span><span class="n">tvecs</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">tvecs</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+<span class="c1"># Only Model needs to be downloaded and extracted in the t-vex directory</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-as-a-package">
+<h2>Install as a Package<a class="headerlink" href="#install-as-a-package" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install package</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">KshitijKarthick</span><span class="o">/</span><span class="n">tvecs</span><span class="o">.</span><span class="n">git</span>
+
+<span class="c1"># Usage from cmd line without recommendations menu</span>
+<span class="n">tvecs</span> <span class="o">-</span><span class="n">c</span> <span class="o">./</span><span class="n">config</span><span class="o">.</span><span class="n">json</span>
+
+<span class="c1"># Usage from cmd line with recommendations menu</span>
+<span class="n">tvecs</span> <span class="o">-</span><span class="n">c</span> <span class="o">./</span><span class="n">config</span><span class="o">.</span><span class="n">json</span> <span class="o">-</span><span class="n">r</span>
+
+<span class="c1"># Usage without config file, with models, without recommendations menu</span>
+<span class="n">tvecs</span> <span class="o">-</span><span class="n">l1</span> <span class="n">english</span> <span class="o">-</span><span class="n">l2</span> <span class="n">hindi</span> <span class="o">-</span><span class="n">m1</span> <span class="o">./</span><span class="n">data</span><span class="o">/</span><span class="n">models</span><span class="o">/</span><span class="n">t</span><span class="o">-</span><span class="n">vex</span><span class="o">-</span><span class="n">english</span><span class="o">-</span><span class="n">models</span> <span class="o">-</span><span class="n">m2</span> <span class="o">./</span><span class="n">data</span><span class="o">/</span><span class="n">models</span><span class="o">/</span><span class="n">t</span><span class="o">-</span><span class="n">vex</span><span class="o">-</span><span class="n">hindi</span><span class="o">-</span><span class="n">models</span>
+
+<span class="c1"># Usage without config file, with models, with recommendations menu</span>
+<span class="n">tvecs</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">l1</span> <span class="n">english</span> <span class="o">-</span><span class="n">l2</span> <span class="n">hindi</span> <span class="o">-</span><span class="n">m1</span> <span class="o">./</span><span class="n">data</span><span class="o">/</span><span class="n">models</span><span class="o">/</span><span class="n">t</span><span class="o">-</span><span class="n">vex</span><span class="o">-</span><span class="n">english</span><span class="o">-</span><span class="n">models</span> <span class="o">-</span><span class="n">m2</span> <span class="o">./</span><span class="n">data</span><span class="o">/</span><span class="n">models</span><span class="o">/</span><span class="n">t</span><span class="o">-</span><span class="n">vex</span><span class="o">-</span><span class="n">hindi</span><span class="o">-</span><span class="n">models</span>
+
+<span class="c1"># Usage from inside python as a library</span>
+<span class="kn">import</span> <span class="nn">tvecs.vector_space_mapper.vector_space_mapper</span> <span class="k">as</span> <span class="nn">vm</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="data">
+<h2>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="corpus-download-details">
+<h3>Corpus Download details<a class="headerlink" href="#corpus-download-details" title="Permalink to this headline">¶</a></h3>
+<p>We are focusing on [English, Hindi]
+other possible prospects we could look into Kannada, Tamil languages</p>
+<dl class="simple">
+<dt>Sources</dt><dd><ul class="simple">
+<li><p>HcCorpora <a class="reference external" href="http://www.corpora.heliohost.org/download.html">http://www.corpora.heliohost.org/download.html</a></p></li>
+<li><p>Emille Corpora <a class="reference external" href="http://www.emille.lancs.ac.uk/">http://www.emille.lancs.ac.uk/</a></p></li>
+<li><p>Leipzig Corpora <a class="reference external" href="http://corpora.uni-leipzig.de/">http://corpora.uni-leipzig.de/</a></p></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="bilingual-dictionary-details">
+<h3>Bilingual Dictionary details<a class="headerlink" href="#bilingual-dictionary-details" title="Permalink to this headline">¶</a></h3>
+<p>Provided in the repository, data/bilingual_dictionary.
+Compiled using the following sources.</p>
+<dl class="simple">
+<dt>Credits</dt><dd><ul class="simple">
+<li><p>Shabdakosh <a class="reference external" href="http://www.shabdkosh.com/content/category/downloads/">http://www.shabdkosh.com/content/category/downloads/</a></p></li>
+<li><p>Dicts Corpora <a class="reference external" href="http://dicts.info/dictlist1.php?l=Hindi">http://dicts.info/dictlist1.php?l=Hindi</a></p></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="evaluation-dataset-details">
+<h3>Evaluation Dataset details<a class="headerlink" href="#evaluation-dataset-details" title="Permalink to this headline">¶</a></h3>
+<p>Human relatedness judgement score datasets provided in data/evaluate</p>
+<dl class="simple">
+<dt>Credits</dt><dd><ul class="simple">
+<li><p>wordsim_relatedness_goldstandard</p></li>
+<li><p>MEN_dataset_natural_form_full</p></li>
+<li><p>Mturk_287</p></li>
+<li><p>Mturk_771</p></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="ensure-model-is-downloaded-and-extracted-in-the-t-vex-directory">
+<h3>Ensure Model is downloaded and extracted in the t-vex directory<a class="headerlink" href="#ensure-model-is-downloaded-and-extracted-in-the-t-vex-directory" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>data/corpus -&gt; corpus</p></li>
+<li><p>data/models -&gt; models</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="usage-details">
+<h2>Usage Details<a class="headerlink" href="#usage-details" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="t-vecs-driver-module-cmd-line-args">
+<h3>T-Vecs Driver Module Cmd Line Args<a class="headerlink" href="#t-vecs-driver-module-cmd-line-args" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m tvecs --help
+
+usage: __main__.py [-h] [-v] [-s] [-i ITER] [-m1 MODEL1] [-m2 MODEL2]
+               [-l1 LANGUAGE1] [-l2 LANGUAGE2] [-c CONFIG]
+               [-b BILINGUAL_DICT] [-r]
+
+Script used to generate models
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -v, --verbose         increase output verbosity
+  -s, --silent          silence all logging
+  -i ITER, --iter ITER  number of Word2Vec iterations
+  -m1 MODEL1, --model1 MODEL1
+                        pre-computed model file path
+  -m2 MODEL2, --model2 MODEL2
+                        pre-computed model file path
+  -l1 LANGUAGE1, --language1 LANGUAGE1
+                        language name of model 1/ text 1
+  -l2 LANGUAGE2, --l2 LANGUAGE2
+                        language name of model 2/ text 2
+  -c CONFIG, --config CONFIG
+                        config file path
+  -b BILINGUAL_DICT, --bilingual BILINGUAL_DICT
+                        bilingual dictionary path
+  -r, --recommendations
+                        provide recommendations
+</pre></div>
+</div>
+</div>
+<div class="section" id="config-file-format">
+<h3>Config File Format<a class="headerlink" href="#config-file-format" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>See config.json in the repository for example.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="execution-building">
+<h2>Execution &amp; Building<a class="headerlink" href="#execution-building" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Preprocessing, Model Generation, Bilingual Generation, Vector Space Mapping between two languages english hindi from the corpus using the config file</span>
+
+<span class="n">python</span> <span class="o">-</span><span class="n">im</span> <span class="n">tvecs</span> <span class="o">-</span><span class="n">c</span> <span class="n">config</span><span class="o">.</span><span class="n">json</span>
+
+<span class="c1"># [ utilise the dictionary tvex_calls which contains results of every step performed ]</span>
+
+<span class="c1"># Bilingual generation, Vector space mapping between two languages english hindi providing the models</span>
+
+<span class="n">python</span> <span class="o">-</span><span class="n">im</span> <span class="n">tvecs</span> <span class="o">-</span><span class="n">l1</span> <span class="n">english</span> <span class="o">-</span><span class="n">l2</span> <span class="n">hindi</span> <span class="o">-</span><span class="n">m1</span> <span class="o">./</span><span class="n">data</span><span class="o">/</span><span class="n">models</span><span class="o">/</span><span class="n">t</span><span class="o">-</span><span class="n">vex</span><span class="o">-</span><span class="n">english</span><span class="o">-</span><span class="n">model</span> <span class="o">-</span><span class="n">m2</span> <span class="o">./</span><span class="n">data</span><span class="o">/</span><span class="n">models</span><span class="o">/</span><span class="n">t</span><span class="o">-</span><span class="n">vex</span><span class="o">-</span><span class="n">hindi</span><span class="o">-</span><span class="n">model</span> <span class="o">-</span><span class="n">b</span> <span class="o">./</span><span class="n">data</span><span class="o">/</span><span class="n">bilingual_dictionary</span><span class="o">/</span><span class="n">english_hindi_train</span>
+
+<span class="n">python</span> <span class="o">-</span><span class="n">im</span> <span class="n">tvecs</span> <span class="o">-</span><span class="n">c</span> <span class="n">config</span><span class="o">.</span><span class="n">json</span>
+
+<span class="c1"># [ utilise the dictionary tvex_calls which contains results of every step performed ]</span>
+</pre></div>
+</div>
+<div class="section" id="obtain-recommendations">
+<h3>Obtain Recommendations<a class="headerlink" href="#obtain-recommendations" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Provide Recommendations using config file
+python -m tvecs -c ./config.json -r
+
+# Provide Recommendations using cmd line params
+python2 -m tvecs -l1 english -l2 hindi -m1 ./data/models/t-vex-english-model -m2 ./data/models/t-vex-hindi-model -b ./data/bilingual_dictionary/english_hindi_train_bd -r
+
+# Output for recommendations
+
+Enter your Choice:
+1&gt; Recommendation
+2&gt; Exit
+
+Choice: 1
+Enter word in Language english: examination
+
+Word    =&gt;  Score
+
+जाँच    =&gt;  0.643208742142
+नियुक्ति    =&gt;  0.640852451324
+जांच    =&gt;  0.638412773609
+अध्ययन  =&gt;  0.638307392597
+विवेचना =&gt;  0.638229370117
+मंत्रणा =&gt;  0.634038448334
+पुनर्मूल्यांकन  =&gt;  0.627283990383
+अध्‍ययन =&gt;  0.624040842056
+निरीक्षण    =&gt;  0.623490035534
+जाच =&gt;  0.619904220104
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="visualisation-of-vector-space">
+<h2>Visualisation of vector space<a class="headerlink" href="#visualisation-of-vector-space" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">tvecs</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">server</span>
+<span class="p">[</span> <span class="n">Open</span> <span class="n">browser</span> <span class="n">to</span> <span class="n">localhost</span><span class="p">:</span><span class="mi">5000</span> <span class="k">for</span> <span class="n">visualization</span> <span class="p">]</span>
+<span class="p">[</span> <span class="n">Ensure</span> <span class="n">model</span> <span class="n">generation</span> <span class="ow">is</span> <span class="n">completed</span> <span class="n">before</span> <span class="n">running</span> <span class="n">visualization</span> <span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="execution-of-individual-modules">
+<h2>Execution of Individual Modules<a class="headerlink" href="#execution-of-individual-modules" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># bilingual dictionary generation -&gt; clustering vectors from trained model</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">tvecs</span><span class="o">.</span><span class="n">bilingual_generator</span><span class="o">.</span><span class="n">clustering</span>
+
+<span class="c1"># model generation</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">tvecs</span><span class="o">.</span><span class="n">model_generator</span><span class="o">.</span><span class="n">model_generation</span>
+
+<span class="c1"># vector space mapping [ utilise the object vm to obtain recommendations</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">tvecs</span><span class="o">.</span><span class="n">vector_space_mapper</span><span class="o">.</span><span class="n">vector_space_mapper</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="execution-of-unit-tests">
+<h2>Execution of Unit Tests<a class="headerlink" href="#execution-of-unit-tests" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run all unit tests</span>
+<span class="n">py</span><span class="o">.</span><span class="n">test</span>
+
+<span class="c1"># Run individual module tests seperately</span>
+<span class="n">py</span><span class="o">.</span><span class="n">test</span> <span class="n">tests</span><span class="o">/</span><span class="n">test_emille_preprocessor</span><span class="o">.</span><span class="n">py</span>
+<span class="n">py</span><span class="o">.</span><span class="n">test</span> <span class="n">tests</span><span class="o">/</span><span class="n">test_leipzig_preprocessor</span><span class="o">.</span><span class="n">py</span>
+<span class="n">py</span><span class="o">.</span><span class="n">test</span> <span class="n">tests</span><span class="o">/</span><span class="n">test_hccorpus_preprocessor</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="generate-documentation">
+<h2>Generate Documentation<a class="headerlink" href="#generate-documentation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Generate HTML Documentation
+make html
+cd documentation/html &amp;&amp; python -m SimpleHTTPServer
+# [ Open browser to localhost:8000 for visualization ]
+
+# Generate Man Pages
+make man
+cd documentation/man &amp;&amp; man -l tvecs.1
+
+
+# Other Makefile options
+make
+
+Please use `make &lt;target&gt;&#39; where &lt;target&gt; is one of
+html       to make standalone HTML files
+dirhtml    to make HTML files named index.html in directories
+singlehtml to make a single large HTML file
+pickle     to make pickle files
+json       to make JSON files
+htmlhelp   to make HTML files and a HTML help project
+qthelp     to make HTML files and a qthelp project
+applehelp  to make an Apple Help Book
+devhelp    to make HTML files and a Devhelp project
+epub       to make an epub
+epub3      to make an epub3
+latex      to make LaTeX files, you can set PAPER=a4 or PAPER=letter
+latexpdf   to make LaTeX files and run them through pdflatex
+latexpdfja to make LaTeX files and run them through platex/dvipdfmx
+text       to make text files
+man        to make manual pages
+texinfo    to make Texinfo files
+info       to make Texinfo files and run them through makeinfo
+gettext    to make PO message catalogs
+changes    to make an overview of all changed/added/deprecated items
+xml        to make Docutils-native XML files
+pseudoxml  to make pseudoxml-XML files for display purposes
+linkcheck  to check all external links for integrity
+doctest    to run all doctests embedded in the documentation (if enabled)
+coverage   to run coverage check of the documentation (if enabled)
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="_dev_docs/modules.html" class="btn btn-neutral float-right" title="tvecs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to T-Vecs’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2016, Kshitij Karthick, Ravi Kumar L, Prateeksha, Prarthana Sannamani
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

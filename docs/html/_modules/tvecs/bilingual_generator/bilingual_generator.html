@@ -1,0 +1,328 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>tvecs.bilingual_generator.bilingual_generator &mdash; T-Vecs 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> T-Vecs
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Usage Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html">T-Vecs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_dev_docs/modules.html">tvecs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Testing Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_test_docs/modules.html">tests</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">T-Vecs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>tvecs.bilingual_generator.bilingual_generator</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for tvecs.bilingual_generator.bilingual_generator</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python2.7</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;Module used to generate bilingual dictionary.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">codecs</span>
+<span class="kn">from</span> <span class="nn">gensim.models</span> <span class="kn">import</span> <span class="n">Word2Vec</span>
+
+<span class="kn">from</span> <span class="nn">tvecs.bilingual_generator</span> <span class="kn">import</span> <span class="n">cluster</span> <span class="k">as</span> <span class="n">cl</span>
+<span class="kn">from</span> <span class="nn">tvecs.logger</span> <span class="kn">import</span> <span class="n">init_logger</span> <span class="k">as</span> <span class="n">log</span>
+
+
+<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">initialise</span><span class="p">(</span><span class="s1">&#39;TVecs.BilingualDictionary&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="load_bilingual_dictionary"><a class="viewcode-back" href="../../../_dev_docs/tvecs.bilingual_generator.html#tvecs.bilingual_generator.bilingual_generator.load_bilingual_dictionary">[docs]</a><span class="k">def</span> <span class="nf">load_bilingual_dictionary</span><span class="p">(</span><span class="n">bilingual_dictionary_path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load bilingual dictionary from the specified bilingual_dictionary_path.</span>
+
+<span class="sd">    API Documentation</span>
+<span class="sd">        :param bilingual_dictionary_path: Path for Bilingual Dictionary.</span>
+<span class="sd">        :param encoding: Encoding of the bilingual dictionary.</span>
+<span class="sd">        :type bilingual_dictionary_path: :class:`String`</span>
+<span class="sd">        :type encoding: :class:`String`</span>
+<span class="sd">        :return: Bilingual Dictionary loaded.</span>
+<span class="sd">        :rtype: :class:`List`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="s1">&#39;Loading Bilingual Dictionary: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">bilingual_dictionary_path</span>
+    <span class="p">)</span>
+    <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>
+        <span class="n">bilingual_dictionary_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span>
+    <span class="p">)</span> <span class="k">as</span> <span class="n">bilingual_dict_file</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">bilingual_dict_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">bilingual_dict</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">data</span>
+        <span class="p">]</span>
+    <span class="k">return</span> <span class="n">bilingual_dict</span></div>
+
+
+<div class="viewcode-block" id="build_sparse_bilingual_dictionary"><a class="viewcode-back" href="../../../_dev_docs/tvecs.bilingual_generator.html#tvecs.bilingual_generator.bilingual_generator.build_sparse_bilingual_dictionary">[docs]</a><span class="k">def</span> <span class="nf">build_sparse_bilingual_dictionary</span><span class="p">(</span>
+        <span class="n">bilingual_dictionary_path</span><span class="p">,</span>
+        <span class="n">model</span><span class="p">,</span>
+        <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span>
+        <span class="n">output_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;bilingual_dictionary&#39;</span><span class="p">),</span>
+        <span class="n">output_fname</span><span class="o">=</span><span class="s2">&quot;sparse_bd&quot;</span><span class="p">,</span>
+        <span class="n">topn</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span>
+        <span class="n">sample_size</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create Sparse Bilingual Dictionary.</span>
+
+<span class="sd">    - Cluster pre-existing Bilingual Dictionary and sample from the same.</span>
+
+<span class="sd">    API Documentation</span>
+<span class="sd">        :param bilingual_dictionary_path: Path for Bilingual Dictionary.</span>
+<span class="sd">        :param model: Word2Vec Model for obtaining vectors.</span>
+<span class="sd">        :param encoding: Encoding of the bilingual dictionary.</span>
+<span class="sd">        :param output_fname: Output Filename for sparse bilingual dictionary.</span>
+<span class="sd">        :param output_path: Output file path for bilingual dictionary.</span>
+<span class="sd">        :param topn: Number of words considered from bilingual dictionary.</span>
+<span class="sd">        :param sample_size: Number of samples from each cluster.</span>
+<span class="sd">        :type bilingual_dictionary_path: :class:`String`</span>
+<span class="sd">        :type encoding: :class:`String`</span>
+<span class="sd">        :type model: &#39;mod&#39;`gensim.models.Word2Vec`.</span>
+<span class="sd">        :type output_fname: :class:`String`</span>
+<span class="sd">        :type output_path: :class:`String`</span>
+<span class="sd">        :type topn: :class:`Integer`</span>
+<span class="sd">        :type sample_size: :class:`Integer`</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        * :mod:`tvecs.bilingual_generator.clustering`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="s1">&#39;Building Bilingual Dictionary from: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">bilingual_dictionary_path</span>
+    <span class="p">)</span>
+    <span class="n">bilingual_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">load_bilingual_dictionary</span><span class="p">(</span>
+        <span class="n">bilingual_dictionary_path</span><span class="o">=</span><span class="n">bilingual_dictionary_path</span><span class="p">,</span>
+        <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span>
+    <span class="p">))</span>
+    <span class="n">word_list</span> <span class="o">=</span> <span class="n">bilingual_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()[:</span><span class="n">topn</span><span class="p">]</span>
+    <span class="n">clusters</span> <span class="o">=</span> <span class="n">cl</span><span class="o">.</span><span class="n">build_clusters</span><span class="p">(</span>
+        <span class="n">entire_word_list</span><span class="o">=</span><span class="n">word_list</span><span class="p">,</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">model</span>
+    <span class="p">)</span>
+    <span class="n">subset_of_clusters</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="n">sample_size</span><span class="p">)</span> <span class="k">for</span> <span class="n">cluster</span> <span class="ow">in</span> <span class="n">clusters</span>
+    <span class="p">]</span>
+    <span class="n">sparse_bilingual_dict</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
+        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="n">word</span><span class="p">,</span> <span class="n">bilingual_dict</span><span class="p">[</span><span class="n">word</span><span class="p">]</span>
+        <span class="p">)</span> <span class="k">for</span> <span class="n">cluster</span> <span class="ow">in</span> <span class="n">subset_of_clusters</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">cluster</span>
+    <span class="p">])</span>
+    <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">output_fname</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span>
+    <span class="p">)</span> <span class="k">as</span> <span class="n">sparse_bd</span><span class="p">:</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s1">&#39;Save the Bilingual Dictionary: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">output_path</span><span class="p">,</span> <span class="n">output_fname</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">sparse_bd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">sparse_bilingual_dict</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">set_logger_normal</span><span class="p">(</span><span class="n">LOGGER</span><span class="p">)</span>
+    <span class="n">MODEL</span> <span class="o">=</span> <span class="n">Word2Vec</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;models&#39;</span><span class="p">,</span> <span class="s1">&#39;t-vex-english-model&#39;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">build_sparse_bilingual_dictionary</span><span class="p">(</span>
+        <span class="n">bilingual_dictionary_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;bilingual_dictionary&#39;</span><span class="p">,</span> <span class="s1">&#39;english_hindi_train_bd&#39;</span>
+        <span class="p">),</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2016, Kshitij Karthick, Ravi Kumar L, Prateeksha, Prarthana Sannamani
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
