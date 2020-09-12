@@ -17,7 +17,7 @@ from tvecs.logger import init_logger as log
 LOGGER = log.initialise('TVecs.Preprocessor')
 
 
-class BasePreprocessor(object):
+class BasePreprocessor(metaclass=ABCMeta):
     """
     Abstract Base Class with basic preprocessor functionality.
 
@@ -188,6 +188,7 @@ class BasePreprocessor(object):
         """Iterator provided for get_preprocessed_text."""
         for tokenized_sentence in self.get_preprocessed_text():
             yield tokenized_sentence
+
 
 if __name__ == '__main__':
     log.set_logger_normal(LOGGER)

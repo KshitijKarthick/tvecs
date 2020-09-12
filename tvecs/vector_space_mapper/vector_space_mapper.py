@@ -86,7 +86,7 @@ class VectorSpaceMapper(object):
         vector_list = []
         for word in word_list:
             try:
-                vec = model[word]
+                vec = model.wv[word]
             except KeyError:
                 vec = None
             vector_list.append(vec)
@@ -104,7 +104,7 @@ class VectorSpaceMapper(object):
         self.lt.fit(self.vector_1_list, self.vector_2_list)
 
     def _predict_vec_from_word(self, word):
-        return self._predict_vec_from_vec(self.model_1[word])
+        return self._predict_vec_from_vec(self.model_1.wv[word])
 
     def _predict_vec_from_vec(self, vector):
         return self.lt.predict(vector.reshape(1, -1))[0]
@@ -126,7 +126,7 @@ class VectorSpaceMapper(object):
         """
         if self.lt is not None:
             try:
-                data = self.model_2.most_similar(
+                data = self.model_2.wv.most_similar(
                     positive=[
                         self._predict_vec_from_vec(vector)
                     ],
@@ -166,7 +166,7 @@ class VectorSpaceMapper(object):
             pass
         if self.lt is not None:
             try:
-                data = self.model_2.most_similar(
+                data = self.model_2.wv.most_similar(
                     positive=[
                         self._predict_vec_from_word(word)
                     ],
@@ -201,7 +201,7 @@ class VectorSpaceMapper(object):
         """
         try:
             vec_1 = self._predict_vec_from_word(word_1)
-            vec_2 = self.model_2[word_2]
+            vec_2 = self.model_2.wv[word_2]
             return 1 - dist.cosine(vec_1, vec_2)
         except KeyError:
             return None
@@ -231,8 +231,8 @@ class VectorSpaceMapper(object):
             word_2 = tup[1]
             try:
                 pr_vector_1 = self._predict_vec_from_word(word_1)
-                vector_1 = self.model_1[word_1]
-                vector_2 = self.model_2[word_2]
+                vector_1 = self.model_1.wv[word_1]
+                vector_2 = self.model_2.wv[word_2]
                 expected.append(vector_1)
                 actual.append(vector_2)
                 expected_with_tr.append(pr_vector_1)

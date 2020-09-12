@@ -1,4 +1,4 @@
-Sphinx == 1.4
-sphinxcontrib-seqdiag == 0.8.5
-sphinxcontrib-actdiag == 0.8.5
-sphinx-rtd-theme == 0.1.9
+Sphinx
+sphinxcontrib-seqdiag
+sphinxcontrib-actdiag
+sphinx-rtd-theme

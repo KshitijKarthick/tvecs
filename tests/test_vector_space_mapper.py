@@ -313,7 +313,7 @@ class TestVectorSpaceMapper:
         obj = self.__class__.testing_obj
         expected_shape = (100,)
         result_shape = obj._predict_vec_from_vec(
-            obj.model_1['has']
+            obj.model_1.wv['has']
         ).shape
         assert_err_msg = "_predict_vec_from_vec failed [ Data Structure test ]"
         assert expected_shape == result_shape, assert_err_msg
@@ -347,7 +347,7 @@ class TestVectorSpaceMapper:
         """
         obj = self.__class__.testing_obj
         result = obj._predict_vec_from_vec(
-            obj.model_1['has']
+            obj.model_1.wv['has']
         )
         expected = obj._predict_vec_from_word('has')
         assert_err_msg = "Recommendations from _predict_vec_from_vec"\
@@ -423,7 +423,7 @@ class TestVectorSpaceMapper:
         obj = self.__class__.testing_obj
         num_recommendations = random.randint(1, 10)
         result = obj.get_recommendations_from_vec(
-            obj.model_1['has'], topn=num_recommendations
+            obj.model_1.wv['has'], topn=num_recommendations
         )
         assert_err_msg = "_get_recommendations_from_word returned"\
             "wrong number of recommendations"
@@ -458,7 +458,7 @@ class TestVectorSpaceMapper:
         """
         obj = self.__class__.testing_obj
         result = obj.get_recommendations_from_word('has')
-        word_type, dist_type = (unicode, float)
+        word_type, dist_type = (str, float)
         assert_err_msg = "_get_recommendations_from_word" \
             "returned wrong type"
         for word, dist in result:
@@ -494,8 +494,8 @@ class TestVectorSpaceMapper:
 
         """
         obj = self.__class__.testing_obj
-        result = obj.get_recommendations_from_vec(obj.model_1['has'])
-        word_type, dist_type = (unicode, float)
+        result = obj.get_recommendations_from_vec(obj.model_1.wv['has'])
+        word_type, dist_type = (str, float)
         assert_err_msg = "_get_recommendations_from_word"\
             "returned wrong type"
         for word, dist in result:
@@ -533,7 +533,7 @@ class TestVectorSpaceMapper:
         """
         obj = self.__class__.testing_obj
         result = dict(obj.get_recommendations_from_word('has'))
-        expected = dict(obj.get_recommendations_from_vec(obj.model_1['has']))
+        expected = dict(obj.get_recommendations_from_vec(obj.model_1.wv['has']))
         assert_err_msg = "_get_recommendations_from_vec do not match"\
             "_get_recommendations_from_word"
         for word, dist in expected.items():
