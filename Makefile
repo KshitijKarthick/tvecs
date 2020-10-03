@@ -67,6 +67,7 @@ html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
+	rm -r docs
 	mv $(BUILDDIR)/html docs
 	rm -r _dev_docs _test_docs $(BUILDDIR)
 
