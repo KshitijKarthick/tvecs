@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tvecs.preprocessor.yandex_api &mdash; T-Vecs 1 documentation</title>
+  <title>tvecs.preprocessor.yandex_api &mdash; T-Vecs 2 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                1
+                2
               </div>
             
           
@@ -176,7 +176,7 @@
 <span class="kn">from</span> <span class="nn">tvecs.logger</span> <span class="kn">import</span> <span class="n">init_logger</span> <span class="k">as</span> <span class="n">log</span>
 
 
-<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">initialise</span><span class="p">(</span><span class="s1">&#39;TVecs.Yandex&#39;</span><span class="p">)</span>
+<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">initialise</span><span class="p">(</span><span class="s2">&quot;TVecs.Yandex&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="get_valid_translation"><a class="viewcode-back" href="../../../_dev_docs/tvecs.preprocessor.html#tvecs.preprocessor.yandex_api.get_valid_translation">[docs]</a><span class="k">def</span> <span class="nf">get_valid_translation</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">from_to</span><span class="p">):</span>
@@ -197,9 +197,7 @@
     <span class="n">tr_word_2</span> <span class="o">=</span> <span class="n">get_translation</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">from_to</span><span class="p">)</span>
     <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tr_word_2</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">tr_word_2</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-        <span class="s1">&#39;Word: </span><span class="si">%s</span><span class="s1"> Options: </span><span class="si">%s</span><span class="s1"> Translation: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">word</span><span class="p">,</span> <span class="n">from_to</span><span class="p">,</span> <span class="n">tr_word_2</span>
-    <span class="p">)</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Word: </span><span class="si">%s</span><span class="s2"> Options: </span><span class="si">%s</span><span class="s2"> Translation: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">word</span><span class="p">,</span> <span class="n">from_to</span><span class="p">,</span> <span class="n">tr_word_2</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">tr_word_2</span></div>
 
 
@@ -215,12 +213,8 @@
 <span class="sd">        :return: translated word</span>
 <span class="sd">        :rtype: :class:`String`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">base_url</span> <span class="o">=</span> <span class="s1">&#39;https://translate.yandex.net/api/v1.5/tr.json/translate&#39;</span>
-    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;lang&#39;</span><span class="p">:</span> <span class="n">from_to</span><span class="p">,</span>
-        <span class="s1">&#39;key&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;Enter Key Here&gt;&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">word</span>
-    <span class="p">}</span>
+    <span class="n">base_url</span> <span class="o">=</span> <span class="s2">&quot;https://translate.yandex.net/api/v1.5/tr.json/translate&quot;</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="n">from_to</span><span class="p">,</span> <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;Enter Key Here&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">word</span><span class="p">}</span>
     <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">base_url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="ow">is</span> <span class="mi">200</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)[</span><span class="s2">&quot;text&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
@@ -239,47 +233,38 @@
     <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
         <span class="s2">&quot;Input Score Path: </span><span class="si">%s</span><span class="s2"> Output Score Path: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
         <span class="n">input_score_path</span><span class="p">,</span>
-        <span class="n">output_score_path</span>
+        <span class="n">output_score_path</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">input_score_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-        <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">output_score_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">input_score_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">output_score_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
                 <span class="n">word_1</span><span class="p">,</span> <span class="n">word_2</span><span class="p">,</span> <span class="n">score</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
                 <span class="n">tr_word_2</span> <span class="o">=</span> <span class="n">get_valid_translation</span><span class="p">(</span><span class="n">word_2</span><span class="p">,</span> <span class="n">lang_translate</span><span class="p">)</span>
 
                 <span class="k">if</span> <span class="n">tr_word_2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="k">try</span><span class="p">:</span>
-                        <span class="n">output_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
-                            <span class="n">word_1</span><span class="p">,</span>
-                            <span class="n">tr_word_2</span><span class="p">,</span>
-                            <span class="n">score</span>
-                        <span class="p">))</span>
+                        <span class="n">output_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">word_1</span><span class="p">,</span> <span class="n">tr_word_2</span><span class="p">,</span> <span class="n">score</span><span class="p">))</span>
                     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
                         <span class="k">pass</span>
             <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_data</span><span class="p">))</span></div>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">log</span><span class="o">.</span><span class="n">set_logger_normal</span><span class="p">(</span><span class="n">LOGGER</span><span class="p">)</span>
-    <span class="n">dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-        <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;evaluate&#39;</span>
-    <span class="p">)</span>
+    <span class="n">dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;evaluate&quot;</span><span class="p">)</span>
     <span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">(</span><span class="s1">&#39;EN-MC-30.txt&#39;</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;EN-RG-65.txt&#39;</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;wordsim_relatedness_goldstandard.txt&#39;</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;MEN_dataset_natural_form_full&#39;</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;Mtruk.txt&#39;</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">)</span>
+        <span class="p">(</span><span class="s2">&quot;EN-MC-30.txt&quot;</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;EN-RG-65.txt&quot;</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;wordsim_relatedness_goldstandard.txt&quot;</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;MEN_dataset_natural_form_full&quot;</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Mtruk.txt&quot;</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">),</span>
     <span class="p">]</span>
     <span class="k">for</span> <span class="p">(</span><span class="n">dataset_fname</span><span class="p">,</span> <span class="n">dataset_dir</span><span class="p">)</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">:</span>
         <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Processing </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">dataset_fname</span><span class="p">)</span>
         <span class="n">yandex_api</span><span class="p">(</span>
-            <span class="n">lang_translate</span><span class="o">=</span><span class="s1">&#39;en-hi&#39;</span><span class="p">,</span>
-            <span class="n">input_score_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="n">dataset_dir</span><span class="p">,</span> <span class="n">dataset_fname</span>
-            <span class="p">),</span>
-            <span class="n">output_score_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="n">dataset_dir</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_translate&#39;</span> <span class="o">%</span> <span class="n">dataset_fname</span>
-            <span class="p">)</span>
+            <span class="n">lang_translate</span><span class="o">=</span><span class="s2">&quot;en-hi&quot;</span><span class="p">,</span>
+            <span class="n">input_score_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dataset_dir</span><span class="p">,</span> <span class="n">dataset_fname</span><span class="p">),</span>
+            <span class="n">output_score_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dataset_dir</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_translate&quot;</span> <span class="o">%</span> <span class="n">dataset_fname</span><span class="p">),</span>
         <span class="p">)</span>
 </pre></div>
 

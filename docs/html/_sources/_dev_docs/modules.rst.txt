@@ -1,7 +1,0 @@
-tvecs
-=====
-
-.. toctree::
-   :maxdepth: 4
-
-   tvecs

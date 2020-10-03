@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tvecs.evaluation.evaluation &mdash; T-Vecs 1 documentation</title>
+  <title>tvecs.evaluation.evaluation &mdash; T-Vecs 2 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                1
+                2
               </div>
             
           
@@ -172,7 +172,7 @@
 <span class="kn">from</span> <span class="nn">tvecs.bilingual_generator</span> <span class="kn">import</span> <span class="n">bilingual_generator</span> <span class="k">as</span> <span class="n">bg</span>
 <span class="kn">from</span> <span class="nn">tvecs.vector_space_mapper.vector_space_mapper</span> <span class="kn">import</span> <span class="n">VectorSpaceMapper</span>
 
-<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">initialise</span><span class="p">(</span><span class="s1">&#39;TVecs.Evaluation&#39;</span><span class="p">)</span>
+<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">initialise</span><span class="p">(</span><span class="s2">&quot;TVecs.Evaluation&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="extract_correlation_coefficient"><a class="viewcode-back" href="../../../_dev_docs/tvecs.evaluation.html#tvecs.evaluation.evaluation.extract_correlation_coefficient">[docs]</a><span class="k">def</span> <span class="nf">extract_correlation_coefficient</span><span class="p">(</span><span class="n">score_data_path</span><span class="p">,</span> <span class="n">vsm</span><span class="p">):</span>
@@ -187,26 +187,25 @@
 <span class="sd">        :return: Returns (Correlation coefficient, P-Value)</span>
 <span class="sd">        :rtype: :class:`Tuple(Float, Float)`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-        <span class="s1">&#39;Extracting Human Score from score data path: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">score_data_path</span>
-    <span class="p">)</span>
-    <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">score_data_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">score_file</span><span class="p">:</span>
-        <span class="n">human_score</span><span class="p">,</span> <span class="n">calculated_score</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">[</span>
-            <span class="p">[</span>
-                <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">],</span> <span class="n">vsm</span><span class="o">.</span><span class="n">obtain_cosine_similarity</span><span class="p">(</span>
-                    <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
-                <span class="p">)</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Extracting Human Score from score data path: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">score_data_path</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">score_data_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">score_file</span><span class="p">:</span>
+        <span class="n">human_score</span><span class="p">,</span> <span class="n">calculated_score</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span>
+            <span class="o">*</span><span class="p">[</span>
+                <span class="p">[</span>
+                    <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">],</span>
+                    <span class="n">vsm</span><span class="o">.</span><span class="n">obtain_cosine_similarity</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]),</span>
+                <span class="p">]</span>
+                <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">score_file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
             <span class="p">]</span>
-            <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">score_file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
-        <span class="p">])</span>
-        <span class="n">human_score</span><span class="p">,</span> <span class="n">calculated_score</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">[[</span>
-            <span class="nb">float</span><span class="p">(</span><span class="n">hs</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">cs</span><span class="p">)</span>
-        <span class="p">]</span> <span class="k">for</span> <span class="n">hs</span><span class="p">,</span> <span class="n">cs</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
-            <span class="n">human_score</span><span class="p">,</span> <span class="n">calculated_score</span>
-        <span class="p">)</span> <span class="k">if</span> <span class="n">hs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">cs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">get_correlation_coefficient</span><span class="p">(</span>
-            <span class="nb">list</span><span class="p">(</span><span class="n">human_score</span><span class="p">),</span> <span class="nb">list</span><span class="p">(</span><span class="n">calculated_score</span><span class="p">)</span>
-        <span class="p">)</span></div>
+        <span class="p">)</span>
+        <span class="n">human_score</span><span class="p">,</span> <span class="n">calculated_score</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span>
+            <span class="o">*</span><span class="p">[</span>
+                <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">hs</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">cs</span><span class="p">)]</span>
+                <span class="k">for</span> <span class="n">hs</span><span class="p">,</span> <span class="n">cs</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">human_score</span><span class="p">,</span> <span class="n">calculated_score</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">hs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">cs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">get_correlation_coefficient</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">human_score</span><span class="p">),</span> <span class="nb">list</span><span class="p">(</span><span class="n">calculated_score</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="get_correlation_coefficient"><a class="viewcode-back" href="../../../_dev_docs/tvecs.evaluation.html#tvecs.evaluation.evaluation.get_correlation_coefficient">[docs]</a><span class="k">def</span> <span class="nf">get_correlation_coefficient</span><span class="p">(</span><span class="n">human_score</span><span class="p">,</span> <span class="n">calculated_score</span><span class="p">):</span>
@@ -235,7 +234,7 @@
 <span class="sd">    .. seealso::</span>
 <span class="sd">        * :mod:`scipy.stats`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Computing Correlation Coefficient b/w human, t-vecs score&#39;</span><span class="p">)</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Computing Correlation Coefficient b/w human, t-vecs score&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pearsonr</span><span class="p">(</span><span class="n">human_score</span><span class="p">,</span> <span class="n">calculated_score</span><span class="p">)</span></div>
 
 
@@ -248,22 +247,18 @@
     <span class="n">tvecs_vm</span><span class="o">.</span><span class="n">map_vector_spaces</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">tvecs_vm</span>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">log</span><span class="o">.</span><span class="n">set_logger_normal</span><span class="p">(</span><span class="n">LOGGER</span><span class="p">)</span>
     <span class="n">EVAL_DATASET</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;Wordsim-253-REL&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;evaluate&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;wordsim_relatedness_goldstandard.txt_translate&#39;</span>
+        <span class="s2">&quot;Wordsim-253-REL&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;evaluate&quot;</span><span class="p">,</span> <span class="s2">&quot;wordsim_relatedness_goldstandard.txt_translate&quot;</span>
         <span class="p">),</span>
-        <span class="s1">&#39;MEN&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;evaluate&#39;</span><span class="p">,</span> <span class="s1">&#39;MEN_dataset_natural_form_full_translate&#39;</span>
+        <span class="s2">&quot;MEN&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;evaluate&quot;</span><span class="p">,</span> <span class="s2">&quot;MEN_dataset_natural_form_full_translate&quot;</span>
         <span class="p">),</span>
-        <span class="s1">&#39;MTurk-287&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;evaluate&#39;</span><span class="p">,</span> <span class="s1">&#39;Mturk_287.txt_translate&#39;</span>
-        <span class="p">),</span>
-        <span class="s1">&#39;MTurk-771&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;evaluate&#39;</span><span class="p">,</span> <span class="s1">&#39;MTURK-771.csv_translate&#39;</span>
-        <span class="p">)</span>
+        <span class="s2">&quot;MTurk-287&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;evaluate&quot;</span><span class="p">,</span> <span class="s2">&quot;Mturk_287.txt_translate&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;MTurk-771&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;evaluate&quot;</span><span class="p">,</span> <span class="s2">&quot;MTURK-771.csv_translate&quot;</span><span class="p">),</span>
     <span class="p">}</span>
     <span class="k">for</span> <span class="n">DATASET</span> <span class="ow">in</span> <span class="n">EVAL_DATASET</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
@@ -273,20 +268,17 @@
         <span class="n">CORRELATION_SCORE</span><span class="p">,</span> <span class="n">P_VALUE</span> <span class="o">=</span> <span class="n">extract_correlation_coefficient</span><span class="p">(</span>
             <span class="n">score_data_path</span><span class="o">=</span><span class="n">EVAL_DATASET</span><span class="p">[</span><span class="n">DATASET</span><span class="p">],</span>
             <span class="n">vsm</span><span class="o">=</span><span class="n">_load_vector_space_mapper</span><span class="p">(</span>
-                <span class="n">model_1_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                    <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;models&#39;</span><span class="p">,</span> <span class="s1">&#39;t-vex-english-model&#39;</span>
-                <span class="p">),</span>
-                <span class="n">model_2_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                    <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;models&#39;</span><span class="p">,</span> <span class="s1">&#39;t-vex-hindi-model&#39;</span>
-                <span class="p">),</span>
+                <span class="n">model_1_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;models&quot;</span><span class="p">,</span> <span class="s2">&quot;t-vex-english-model&quot;</span><span class="p">),</span>
+                <span class="n">model_2_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;models&quot;</span><span class="p">,</span> <span class="s2">&quot;t-vex-hindi-model&quot;</span><span class="p">),</span>
                 <span class="n">bilingual_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                    <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;bilingual_dictionary&#39;</span><span class="p">,</span> <span class="s1">&#39;english_hindi_train_bd&#39;</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
+                    <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;bilingual_dictionary&quot;</span><span class="p">,</span> <span class="s2">&quot;english_hindi_train_bd&quot;</span>
+                <span class="p">),</span>
+            <span class="p">),</span>
         <span class="p">)</span>
         <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
             <span class="s2">&quot;Correlation Score obtained: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">P-Value obtained: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">CORRELATION_SCORE</span><span class="p">,</span> <span class="n">P_VALUE</span>
+            <span class="n">CORRELATION_SCORE</span><span class="p">,</span>
+            <span class="n">P_VALUE</span><span class="p">,</span>
         <span class="p">)</span>
 </pre></div>
 

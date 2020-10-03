@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tvecs.preprocessor.emille_preprocessor &mdash; T-Vecs 1 documentation</title>
+  <title>tvecs.preprocessor.emille_preprocessor &mdash; T-Vecs 2 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                1
+                2
               </div>
             
           
@@ -171,7 +171,7 @@
 <span class="kn">from</span> <span class="nn">tvecs.preprocessor.base_preprocessor</span> <span class="kn">import</span> <span class="n">BasePreprocessor</span>
 <span class="kn">from</span> <span class="nn">tvecs.logger</span> <span class="kn">import</span> <span class="n">init_logger</span> <span class="k">as</span> <span class="n">log</span>
 
-<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">initialise</span><span class="p">(</span><span class="s1">&#39;TVecs.Preprocessor&#39;</span><span class="p">)</span>
+<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">initialise</span><span class="p">(</span><span class="s2">&quot;TVecs.Preprocessor&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="EmilleCorpusPreprocessor"><a class="viewcode-back" href="../../../_dev_docs/tvecs.preprocessor.html#tvecs.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor">[docs]</a><span class="k">class</span> <span class="nc">EmilleCorpusPreprocessor</span><span class="p">(</span><span class="n">BasePreprocessor</span><span class="p">):</span>
@@ -212,40 +212,40 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">corpus_fname</span><span class="p">,</span>
-        <span class="n">corpus_dir_path</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span>
-        <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span>
-        <span class="n">language</span><span class="o">=</span><span class="s1">&#39;english&#39;</span><span class="p">,</span>
+        <span class="n">corpus_dir_path</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
+        <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span>
+        <span class="n">language</span><span class="o">=</span><span class="s2">&quot;english&quot;</span><span class="p">,</span>
         <span class="n">need_preprocessing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">limit</span><span class="o">=</span><span class="kc">None</span>
+        <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Constructor which initializes the BasePreprocessor constructor.&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">LOGGER</span>
         <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">initialise</span><span class="p">(</span><span class="s1">&#39;T-Vecs.Preprocessor&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">initialise</span><span class="p">(</span><span class="s2">&quot;T-Vecs.Preprocessor&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">=</span> <span class="n">language</span>
         <span class="c1"># If language is not specified, regex pattern for split is default &#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lang_split_sent</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lang_split_sent</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="sa">u</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="c1"># Specify language specific split regex pattern</span>
         <span class="n">lang_split_sent</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="p">(</span><span class="s1">&#39;hindi&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;[।]&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;hindi&quot;</span><span class="p">,</span> <span class="sa">u</span><span class="s2">&quot;[।]&quot;</span><span class="p">),</span>
         <span class="p">]</span>
         <span class="c1"># Store language specific regex pattern in the defaultdict</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">lang_split_sent</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">lang_split_sent</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;EmilleCorpusPreprocessor utilised&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;EmilleCorpusPreprocessor utilised&quot;</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">EmilleCorpusPreprocessor</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">corpus_fname</span><span class="p">,</span>
             <span class="n">corpus_dir_path</span><span class="o">=</span><span class="n">corpus_dir_path</span><span class="p">,</span>
             <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span>
             <span class="n">need_preprocessing</span><span class="o">=</span><span class="n">need_preprocessing</span><span class="p">,</span>
-            <span class="n">limit</span><span class="o">=</span><span class="n">limit</span>
+            <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span>
         <span class="p">)</span>
 
 <div class="viewcode-block" id="EmilleCorpusPreprocessor._extract_corpus_data"><a class="viewcode-back" href="../../../_dev_docs/tvecs.preprocessor.html#tvecs.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._extract_corpus_data">[docs]</a>    <span class="k">def</span> <span class="nf">_extract_corpus_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Extract contents of the &#39;p&#39; tags which contain the body.&quot;&quot;&quot;</span>
         <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;html5lib&quot;</span><span class="p">)</span>
-        <span class="n">ptags</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">)</span>
+        <span class="n">ptags</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">)</span>
         <span class="n">content</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ptags</span><span class="p">)):</span>
             <span class="n">content</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;. &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">ptags</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">strings</span><span class="p">)))</span>
@@ -268,12 +268,8 @@
         <span class="k">if</span> <span class="n">selected_word</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">word</span> <span class="o">=</span> <span class="n">selected_word</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
         <span class="c1"># Handle Pair words ice-cream =&gt; ice cream</span>
-        <span class="n">word</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">repl</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="n">word</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
-            <span class="n">pattern</span><span class="o">=</span><span class="n">regex</span><span class="p">,</span>
-            <span class="n">repl</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
-            <span class="n">string</span><span class="o">=</span><span class="n">word</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span></div>
+        <span class="n">word</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">repl</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="n">word</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="n">regex</span><span class="p">,</span> <span class="n">repl</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="n">word</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="EmilleCorpusPreprocessor._tokenize_sentences"><a class="viewcode-back" href="../../../_dev_docs/tvecs.preprocessor.html#tvecs.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor._tokenize_sentences">[docs]</a>    <span class="k">def</span> <span class="nf">_tokenize_sentences</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -298,9 +294,10 @@
         <span class="sd">&quot;&quot;&quot;Tokenize Words from sentences.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">sentence</span><span class="o">.</span><span class="n">split</span><span class="p">()</span></div></div>
 
+
 <span class="n">BasePreprocessor</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">EmilleCorpusPreprocessor</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">log</span><span class="o">.</span><span class="n">set_logger_normal</span><span class="p">(</span><span class="n">LOGGER</span><span class="p">)</span>
 </pre></div>
 
