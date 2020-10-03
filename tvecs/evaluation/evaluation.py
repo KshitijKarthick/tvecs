@@ -10,7 +10,7 @@ from tvecs.logger import init_logger as log
 from tvecs.bilingual_generator import bilingual_generator as bg
 from tvecs.vector_space_mapper.vector_space_mapper import VectorSpaceMapper
 
-LOGGER = log.initialise('TVecs.Evaluation')
+LOGGER = log.initialise("TVecs.Evaluation")
 
 
 def extract_correlation_coefficient(score_data_path, vsm):
@@ -25,26 +25,25 @@ def extract_correlation_coefficient(score_data_path, vsm):
         :return: Returns (Correlation coefficient, P-Value)
         :rtype: :class:`Tuple(Float, Float)`
     """
-    LOGGER.info(
-        'Extracting Human Score from score data path: %s', score_data_path
-    )
-    with codecs.open(score_data_path, 'r', encoding='utf-8') as score_file:
-        human_score, calculated_score = zip(*[
-            [
-                data.split()[2], vsm.obtain_cosine_similarity(
-                    data.split()[0], data.split()[1]
-                )
+    LOGGER.info("Extracting Human Score from score data path: %s", score_data_path)
+    with codecs.open(score_data_path, "r", encoding="utf-8") as score_file:
+        human_score, calculated_score = zip(
+            *[
+                [
+                    data.split()[2],
+                    vsm.obtain_cosine_similarity(data.split()[0], data.split()[1]),
+                ]
+                for data in score_file.readlines()
             ]
-            for data in score_file.readlines()
-        ])
-        human_score, calculated_score = zip(*[[
-            float(hs), float(cs)
-        ] for hs, cs in zip(
-            human_score, calculated_score
-        ) if hs is not None and cs is not None])
-        return get_correlation_coefficient(
-            list(human_score), list(calculated_score)
         )
+        human_score, calculated_score = zip(
+            *[
+                [float(hs), float(cs)]
+                for hs, cs in zip(human_score, calculated_score)
+                if hs is not None and cs is not None
+            ]
+        )
+        return get_correlation_coefficient(list(human_score), list(calculated_score))
 
 
 def get_correlation_coefficient(human_score, calculated_score):
@@ -73,7 +72,7 @@ def get_correlation_coefficient(human_score, calculated_score):
     .. seealso::
         * :mod:`scipy.stats`
     """
-    LOGGER.info('Computing Correlation Coefficient b/w human, t-vecs score')
+    LOGGER.info("Computing Correlation Coefficient b/w human, t-vecs score")
     return pearsonr(human_score, calculated_score)
 
 
@@ -86,22 +85,18 @@ def _load_vector_space_mapper(model_1_path, model_2_path, bilingual_path):
     tvecs_vm.map_vector_spaces()
     return tvecs_vm
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     log.set_logger_normal(LOGGER)
     EVAL_DATASET = {
-        'Wordsim-253-REL': os.path.join(
-            'data', 'evaluate',
-            'wordsim_relatedness_goldstandard.txt_translate'
+        "Wordsim-253-REL": os.path.join(
+            "data", "evaluate", "wordsim_relatedness_goldstandard.txt_translate"
         ),
-        'MEN': os.path.join(
-            'data', 'evaluate', 'MEN_dataset_natural_form_full_translate'
+        "MEN": os.path.join(
+            "data", "evaluate", "MEN_dataset_natural_form_full_translate"
         ),
-        'MTurk-287': os.path.join(
-            'data', 'evaluate', 'Mturk_287.txt_translate'
-        ),
-        'MTurk-771': os.path.join(
-            'data', 'evaluate', 'MTURK-771.csv_translate'
-        )
+        "MTurk-287": os.path.join("data", "evaluate", "Mturk_287.txt_translate"),
+        "MTurk-771": os.path.join("data", "evaluate", "MTURK-771.csv_translate"),
     }
     for DATASET in EVAL_DATASET.keys():
         LOGGER.info(
@@ -111,18 +106,15 @@ if __name__ == '__main__':
         CORRELATION_SCORE, P_VALUE = extract_correlation_coefficient(
             score_data_path=EVAL_DATASET[DATASET],
             vsm=_load_vector_space_mapper(
-                model_1_path=os.path.join(
-                    'data', 'models', 't-vex-english-model'
-                ),
-                model_2_path=os.path.join(
-                    'data', 'models', 't-vex-hindi-model'
-                ),
+                model_1_path=os.path.join("data", "models", "t-vex-english-model"),
+                model_2_path=os.path.join("data", "models", "t-vex-hindi-model"),
                 bilingual_path=os.path.join(
-                    'data', 'bilingual_dictionary', 'english_hindi_train_bd'
-                )
-            )
+                    "data", "bilingual_dictionary", "english_hindi_train_bd"
+                ),
+            ),
         )
         LOGGER.info(
             "Correlation Score obtained: %s\nP-Value obtained: %s",
-            CORRELATION_SCORE, P_VALUE
+            CORRELATION_SCORE,
+            P_VALUE,
         )

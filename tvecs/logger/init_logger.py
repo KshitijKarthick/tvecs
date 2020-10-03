@@ -16,8 +16,7 @@ def initialise(handler_name):
         * :mod:`logging`
     """
     logging.basicConfig(
-        stream=sys.stdout,
-        format='%(asctime)s-%(levelname)s-%(name)s-%(message)s'
+        stream=sys.stdout, format="%(asctime)s-%(levelname)s-%(name)s-%(message)s"
     )
     logger = logging.getLogger(handler_name)
     return logger

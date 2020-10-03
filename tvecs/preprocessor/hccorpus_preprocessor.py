@@ -8,7 +8,7 @@ from nltk.tokenize import sent_tokenize
 from tvecs.preprocessor.base_preprocessor import BasePreprocessor
 from tvecs.logger import init_logger as log
 
-LOGGER = log.initialise('TVecs.Preprocessor')
+LOGGER = log.initialise("TVecs.Preprocessor")
 
 
 class HcCorpusPreprocessor(BasePreprocessor):
@@ -48,42 +48,42 @@ class HcCorpusPreprocessor(BasePreprocessor):
     def __init__(
         self,
         corpus_fname,
-        corpus_dir_path='.',
-        encoding='utf-8',
+        corpus_dir_path=".",
+        encoding="utf-8",
         need_preprocessing=False,
-        language='english',
-        limit=None
+        language="english",
+        limit=None,
     ):
         """Constructor which initializes the BasePreprocessor constructor."""
         try:
             self.logger = LOGGER
         except NameError:
-            self.logger = log.initialise('T-Vecs.Preprocessor')
+            self.logger = log.initialise("T-Vecs.Preprocessor")
         self.language = language
         # If language is not specified, regex pattern for split is default ''
-        self.lang_split_sent = defaultdict(lambda: u'')
+        self.lang_split_sent = defaultdict(lambda: u"")
         # Specify language specific split regex pattern
         lang_split_sent = [
-            ('hindi', u'[।]'),
+            ("hindi", u"[।]"),
         ]
         # Store language specific regex pattern in the defaultdict
         for k, v in lang_split_sent:
             self.lang_split_sent[k] = v
-        self.logger.info('HcCorpusPreprocessor utilised')
+        self.logger.info("HcCorpusPreprocessor utilised")
         super(HcCorpusPreprocessor, self).__init__(
             corpus_fname,
             corpus_dir_path=corpus_dir_path,
             encoding=encoding,
             need_preprocessing=need_preprocessing,
-            limit=limit
+            limit=limit,
         )
 
     def _extract_corpus_data(self, data):
         """Extract 4th column of corpus which contains the body."""
-        line_split_list = data.split('\n')
+        line_split_list = data.split("\n")
         corpus_data = []
         for i in range(len(line_split_list)):
-            tab_split_list = line_split_list[i].split('\t')
+            tab_split_list = line_split_list[i].split("\t")
             for j in range(len(tab_split_list)):
                 if j % 4 == 0 and j != 0:
                     corpus_data.append(tab_split_list[j].strip())
@@ -108,12 +108,8 @@ class HcCorpusPreprocessor(BasePreprocessor):
         if selected_word is not None:
             word = selected_word.groups()[0]
         # Handle Pair words ice-cream => ice cream
-        word = re.sub(pattern="-", repl=' ', string=word)
-        return re.sub(
-            pattern=regex,
-            repl='',
-            string=word.lower()
-        ).strip().split()
+        word = re.sub(pattern="-", repl=" ", string=word)
+        return re.sub(pattern=regex, repl="", string=word.lower()).strip().split()
 
     def _tokenize_sentences(self, data):
         """
@@ -138,7 +134,8 @@ class HcCorpusPreprocessor(BasePreprocessor):
         """Tokenize Words from sentences."""
         return sentence.split()
 
+
 BasePreprocessor.register(HcCorpusPreprocessor)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     log.set_logger_normal(LOGGER)
