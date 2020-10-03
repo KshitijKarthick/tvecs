@@ -1,0 +1,17 @@
+version: '3'
+services:
+  tvecs_app_server:
+    networks:
+    - web
+    build: .
+    image: tvecs
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.app-server-tvecs.rule=Host(`tvecs.kshitijkarthick.me`, `tvecs.kshitij.cc`)"
+      - "traefik.http.routers.app-server-tvecs.tls=true"
+      - "traefik.http.routers.app-server-tvecs.entrypoints=websecure"
+      - "traefik.http.routers.app-server-tvecs.tls.certresolver=myresolver"
+networks:
+  web:
+    external: true
