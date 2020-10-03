@@ -2,3 +2,4 @@ Sphinx
 sphinxcontrib-seqdiag
 sphinxcontrib-actdiag
 sphinx-rtd-theme
+black
