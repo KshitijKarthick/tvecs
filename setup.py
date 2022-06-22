@@ -34,7 +34,7 @@ setup(
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
     install_requires=[
-        'numpy==1.19.2',
+        'numpy==1.22.0',
         'CherryPy==18.6.0',
         'gensim==3.8.3',
         'Jinja2',
