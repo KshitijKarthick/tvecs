@@ -1,6 +1,0 @@
-<map id="inheritanced8a97490d4" name="inheritanced8a97490d4">
-<area shape="rect" id="node1" href="_dev_docs/tvecs.preprocessor.html#tvecs.preprocessor.base_preprocessor.BasePreprocessor" target="_top" title="Abstract Base Class with basic preprocessor functionality." alt="" coords="5,55,144,80"/>
-<area shape="rect" id="node2" href="_dev_docs/tvecs.preprocessor.html#tvecs.preprocessor.emille_preprocessor.EmilleCorpusPreprocessor" target="_top" title="Emille Corpus Preprocessor which preprocesses the EMILLE Corpus." alt="" coords="192,5,384,31"/>
-<area shape="rect" id="node3" href="_dev_docs/tvecs.preprocessor.html#tvecs.preprocessor.hccorpus_preprocessor.HcCorpusPreprocessor" target="_top" title="Hc&#45;Corpus Preprocessor which preprocesses the Hc&#45;Corpus." alt="" coords="204,55,372,80"/>
-<area shape="rect" id="node4" href="_dev_docs/tvecs.preprocessor.html#tvecs.preprocessor.leipzig_preprocessor.LeipzigPreprocessor" target="_top" title="Leipzig Preprocessor which preprocesses the Leipzig&#45;Corpus." alt="" coords="212,104,364,129"/>
-</map>

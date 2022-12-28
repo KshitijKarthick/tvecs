@@ -6,7 +6,7 @@ from sklearn.cluster import AffinityPropagation
 
 from tvecs.logger import init_logger as log
 
-LOGGER = log.initialise('TVecs.Clustering')
+LOGGER = log.initialise("TVecs.Clustering")
 
 
 def build_clusters(entire_word_list, model, damping_factor=0.5):
@@ -33,30 +33,19 @@ def build_clusters(entire_word_list, model, damping_factor=0.5):
     word_list = vocab_dict.keys()
     vector_list = vocab_dict.values()
     LOGGER.info(
-        'Clustering Using AffinityPropagation'
-        'with %s Damping Factor', damping_factor
+        "Clustering Using AffinityPropagation" "with %s Damping Factor", damping_factor
     )
-    af_cluster = AffinityPropagation(
-        damping=damping_factor
-    ).fit_predict(vector_list)
+    af_cluster = AffinityPropagation(damping=damping_factor).fit_predict(vector_list)
     clusters = [[] for word in word_list]
     for i, word in enumerate(word_list):
         clusters[af_cluster[i]].append(word)
-    clusters = [
-        cluster for cluster in clusters if len(cluster) > 0
-    ]
-    LOGGER.info(
-        'Generated %s number of clusters', len(clusters)
-    )
+    clusters = [cluster for cluster in clusters if len(cluster) > 0]
+    LOGGER.info("Generated %s number of clusters", len(clusters))
     return clusters
 
 
 def write_clusters(
-        word_list,
-        model,
-        encoding='utf-8',
-        output_path=".",
-        output_fname="clusters.json"
+    word_list, model, encoding="utf-8", output_path=".", output_fname="clusters.json"
 ):
     """
     Write Clusters to the specified file as JSON.
@@ -75,14 +64,11 @@ def write_clusters(
     """
     clusters = build_clusters(entire_word_list=word_list, model=model)
     with codecs.open(
-        os.path.join(output_path, output_fname), 'w', encoding=encoding
+        os.path.join(output_path, output_fname), "w", encoding=encoding
     ) as cluster_file:
-        LOGGER.info(
-            'Saving the clusters: %s', os.path.join(
-                output_path, output_fname
-            )
-        )
+        LOGGER.info("Saving the clusters: %s", os.path.join(output_path, output_fname))
         json.dump(clusters, cluster_file)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     log.set_logger_normal(LOGGER)

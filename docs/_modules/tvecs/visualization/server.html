@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tvecs.visualization.server &mdash; T-Vecs 1 documentation</title>
+  <title>tvecs.visualization.server &mdash; T-Vecs 2 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                1
+                2
               </div>
             
           
@@ -191,62 +191,66 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initialization the Language and Model.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;english&#39;</span><span class="p">:</span> <span class="n">Server</span><span class="o">.</span><span class="n">_load_model</span><span class="p">(</span><span class="s1">&#39;english&#39;</span><span class="p">),</span>
-            <span class="s1">&#39;hindi&#39;</span><span class="p">:</span> <span class="n">Server</span><span class="o">.</span><span class="n">_load_model</span><span class="p">(</span><span class="s1">&#39;hindi&#39;</span><span class="p">)</span>
+            <span class="s2">&quot;english&quot;</span><span class="p">:</span> <span class="n">Server</span><span class="o">.</span><span class="n">_load_model</span><span class="p">(</span><span class="s2">&quot;english&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;hindi&quot;</span><span class="p">:</span> <span class="n">Server</span><span class="o">.</span><span class="n">_load_model</span><span class="p">(</span><span class="s2">&quot;hindi&quot;</span><span class="p">),</span>
         <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cross_lang_vm</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="p">(</span><span class="s1">&#39;english&#39;</span><span class="p">,</span> <span class="s1">&#39;hindi&#39;</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_vector_space_mapper</span><span class="p">(</span>
-                <span class="s1">&#39;english&#39;</span><span class="p">,</span> <span class="s1">&#39;hindi&#39;</span>
-            <span class="p">),</span>
-            <span class="p">(</span><span class="s1">&#39;hindi&#39;</span><span class="p">,</span> <span class="s1">&#39;english&#39;</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_vector_space_mapper</span><span class="p">(</span>
-                <span class="s1">&#39;hindi&#39;</span><span class="p">,</span> <span class="s1">&#39;english&#39;</span>
-            <span class="p">)</span>
+            <span class="p">(</span><span class="s2">&quot;english&quot;</span><span class="p">,</span> <span class="s2">&quot;hindi&quot;</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_vector_space_mapper</span><span class="p">(</span><span class="s2">&quot;english&quot;</span><span class="p">,</span> <span class="s2">&quot;hindi&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;hindi&quot;</span><span class="p">,</span> <span class="s2">&quot;english&quot;</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_vector_space_mapper</span><span class="p">(</span><span class="s2">&quot;hindi&quot;</span><span class="p">,</span> <span class="s2">&quot;english&quot;</span><span class="p">),</span>
         <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cache_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="s1">&#39;tvecs&#39;</span><span class="p">,</span> <span class="s1">&#39;visualization&#39;</span><span class="p">,</span> <span class="s1">&#39;cached_dictionary&#39;</span>
+            <span class="s2">&quot;tvecs&quot;</span><span class="p">,</span> <span class="s2">&quot;visualization&quot;</span><span class="p">,</span> <span class="s2">&quot;cached_dictionary&quot;</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_file_path</span><span class="p">):</span>
-            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">({},</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">cache_file_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span>
-            <span class="p">))</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">({},</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_file_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cached_dictionary</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cached_dictionary</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Server.index"><a class="viewcode-back" href="../../../_dev_docs/tvecs.visualization.html#tvecs.visualization.server.Server.index">[docs]</a>    <span class="nd">@cherrypy</span><span class="o">.</span><span class="n">expose</span>
     <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Semantic spac visualization html returned.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">serve_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="s1">&#39;tvecs&#39;</span><span class="p">,</span> <span class="s1">&#39;visualization&#39;</span><span class="p">,</span> <span class="s1">&#39;static&#39;</span><span class="p">,</span> <span class="s1">&#39;index.html&#39;</span>
-        <span class="p">)))</span></div>
+        <span class="k">return</span> <span class="n">serve_file</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;tvecs&quot;</span><span class="p">,</span> <span class="s2">&quot;visualization&quot;</span><span class="p">,</span> <span class="s2">&quot;static&quot;</span><span class="p">,</span> <span class="s2">&quot;index.html&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Server.multivariate_analysis"><a class="viewcode-back" href="../../../_dev_docs/tvecs.visualization.html#tvecs.visualization.server.Server.multivariate_analysis">[docs]</a>    <span class="nd">@cherrypy</span><span class="o">.</span><span class="n">expose</span>
     <span class="k">def</span> <span class="nf">multivariate_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Parallel Coordinates for multivariate analysis html page return.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">serve_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="s1">&#39;tvecs&#39;</span><span class="p">,</span> <span class="s1">&#39;visualization&#39;</span><span class="p">,</span> <span class="s1">&#39;static&#39;</span><span class="p">,</span> <span class="s1">&#39;multivariate.html&#39;</span><span class="p">)</span>
-        <span class="p">))</span></div>
+        <span class="k">return</span> <span class="n">serve_file</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;tvecs&quot;</span><span class="p">,</span> <span class="s2">&quot;visualization&quot;</span><span class="p">,</span> <span class="s2">&quot;static&quot;</span><span class="p">,</span> <span class="s2">&quot;multivariate.html&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Server.cross_lingual"><a class="viewcode-back" href="../../../_dev_docs/tvecs.visualization.html#tvecs.visualization.server.Server.cross_lingual">[docs]</a>    <span class="nd">@cherrypy</span><span class="o">.</span><span class="n">expose</span>
     <span class="k">def</span> <span class="nf">cross_lingual</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Cross Lingual recommender html returned.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">serve_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="s1">&#39;tvecs&#39;</span><span class="p">,</span> <span class="s1">&#39;visualization&#39;</span><span class="p">,</span> <span class="s1">&#39;static&#39;</span><span class="p">,</span> <span class="s1">&#39;cross_lingual.html&#39;</span><span class="p">)</span>
-        <span class="p">))</span></div>
+        <span class="k">return</span> <span class="n">serve_file</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;tvecs&quot;</span><span class="p">,</span> <span class="s2">&quot;visualization&quot;</span><span class="p">,</span> <span class="s2">&quot;static&quot;</span><span class="p">,</span> <span class="s2">&quot;cross_lingual.html&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Server.distances"><a class="viewcode-back" href="../../../_dev_docs/tvecs.visualization.html#tvecs.visualization.server.Server.distances">[docs]</a>    <span class="nd">@cherrypy</span><span class="o">.</span><span class="n">expose</span>
     <span class="k">def</span> <span class="nf">distances</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Visualization with distances html returned.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">serve_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="s1">&#39;tvecs&#39;</span><span class="p">,</span> <span class="s1">&#39;visualization&#39;</span><span class="p">,</span> <span class="s1">&#39;static&#39;</span><span class="p">,</span> <span class="s1">&#39;distances.html&#39;</span><span class="p">)</span>
-        <span class="p">))</span></div>
+        <span class="k">return</span> <span class="n">serve_file</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;tvecs&quot;</span><span class="p">,</span> <span class="s2">&quot;visualization&quot;</span><span class="p">,</span> <span class="s2">&quot;static&quot;</span><span class="p">,</span> <span class="s2">&quot;distances.html&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Server.lingual_semantics"><a class="viewcode-back" href="../../../_dev_docs/tvecs.visualization.html#tvecs.visualization.server.Server.lingual_semantics">[docs]</a>    <span class="nd">@cherrypy</span><span class="o">.</span><span class="n">expose</span>
     <span class="k">def</span> <span class="nf">lingual_semantics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Semantically related words in same language returned.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">serve_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="s1">&#39;tvecs&#39;</span><span class="p">,</span> <span class="s1">&#39;visualization&#39;</span><span class="p">,</span> <span class="s1">&#39;static&#39;</span><span class="p">,</span> <span class="s1">&#39;intra_language.html&#39;</span><span class="p">)</span>
-        <span class="p">))</span></div>
+        <span class="k">return</span> <span class="n">serve_file</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;tvecs&quot;</span><span class="p">,</span> <span class="s2">&quot;visualization&quot;</span><span class="p">,</span> <span class="s2">&quot;static&quot;</span><span class="p">,</span> <span class="s2">&quot;intra_language.html&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Server.retrieve_meaning"><a class="viewcode-back" href="../../../_dev_docs/tvecs.visualization.html#tvecs.visualization.server.Server.retrieve_meaning">[docs]</a>    <span class="k">def</span> <span class="nf">retrieve_meaning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">language</span><span class="p">,</span> <span class="n">word</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -266,22 +270,21 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">PyDictionary</span> <span class="kn">import</span> <span class="n">PyDictionary</span>
+
         <span class="n">cherrypy</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;Access-Control-Allow-Origin&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span>
         <span class="n">word</span> <span class="o">=</span> <span class="n">word</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
         <span class="n">trword</span> <span class="o">=</span> <span class="n">word</span>
         <span class="k">if</span> <span class="n">word</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cached_dictionary</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cached_dictionary</span><span class="p">[</span><span class="n">word</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">language</span> <span class="o">==</span> <span class="s1">&#39;hindi&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;hindi&quot;</span><span class="p">:</span>
                 <span class="n">trword</span> <span class="o">=</span> <span class="n">yandex</span><span class="o">.</span><span class="n">get_translation</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="s2">&quot;hi-en&quot;</span><span class="p">)</span>
 
             <span class="n">dictionary</span> <span class="o">=</span> <span class="n">PyDictionary</span><span class="p">(</span><span class="n">trword</span><span class="p">)</span>
             <span class="n">meanings</span> <span class="o">=</span> <span class="p">[</span><span class="n">trword</span><span class="p">,</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">meaning</span><span class="p">(</span><span class="n">trword</span><span class="p">)]</span>
             <span class="k">if</span> <span class="n">meanings</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">cached_dictionary</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">=</span> <span class="n">meanings</span>
-                <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">cache_file_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span>
-                <span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_file_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cached_dictionary</span><span class="p">))</span>
             <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">meanings</span><span class="p">)</span></div>
 
@@ -319,13 +322,7 @@
             <span class="n">similarity</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">obtain_cosine_similarity</span><span class="p">(</span><span class="n">word1</span><span class="p">,</span> <span class="n">word2</span><span class="p">)</span>
 
         <span class="n">distance</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">similarity</span> <span class="k">if</span> <span class="n">similarity</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
-            <span class="p">{</span>
-                <span class="s1">&#39;word1&#39;</span><span class="p">:</span> <span class="n">word1</span><span class="p">,</span>
-                <span class="s1">&#39;word2&#39;</span><span class="p">:</span> <span class="n">word2</span><span class="p">,</span>
-                <span class="s1">&#39;distance&#39;</span><span class="p">:</span> <span class="n">distance</span>
-            <span class="p">}</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s2">&quot;word1&quot;</span><span class="p">:</span> <span class="n">word1</span><span class="p">,</span> <span class="s2">&quot;word2&quot;</span><span class="p">:</span> <span class="n">word2</span><span class="p">,</span> <span class="s2">&quot;distance&quot;</span><span class="p">:</span> <span class="n">distance</span><span class="p">})</span></div>
 
 <div class="viewcode-block" id="Server.retrieve_recommendations"><a class="viewcode-back" href="../../../_dev_docs/tvecs.visualization.html#tvecs.visualization.server.Server.retrieve_recommendations">[docs]</a>    <span class="nd">@cherrypy</span><span class="o">.</span><span class="n">expose</span>
     <span class="k">def</span> <span class="nf">retrieve_recommendations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">language</span><span class="p">,</span> <span class="n">word</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
@@ -351,21 +348,13 @@
         <span class="n">cherrypy</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;Access-Control-Allow-Origin&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span>
         <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">language</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">Server</span><span class="o">.</span><span class="n">_recommend</span><span class="p">(</span>
-                <span class="n">word</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">limit</span><span class="p">),</span> <span class="n">fn</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">most_similar</span>
-            <span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">Server</span><span class="o">.</span><span class="n">_recommend</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">limit</span><span class="p">),</span> <span class="n">fn</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">most_similar</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span></div>
 
 <div class="viewcode-block" id="Server.get_cross_lingual_recommendations"><a class="viewcode-back" href="../../../_dev_docs/tvecs.visualization.html#tvecs.visualization.server.Server.get_cross_lingual_recommendations">[docs]</a>    <span class="nd">@cherrypy</span><span class="o">.</span><span class="n">expose</span>
-    <span class="k">def</span> <span class="nf">get_cross_lingual_recommendations</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">lang1</span><span class="p">,</span>
-        <span class="n">lang2</span><span class="p">,</span>
-        <span class="n">word</span><span class="p">,</span>
-        <span class="n">topn</span><span class="o">=</span><span class="mi">10</span>
-    <span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_cross_lingual_recommendations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang1</span><span class="p">,</span> <span class="n">lang2</span><span class="p">,</span> <span class="n">word</span><span class="p">,</span> <span class="n">topn</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provide cross lingual recommendations.</span>
 
@@ -390,9 +379,7 @@
         <span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">vm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">result_vec</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span>
-                <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="p">[</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span class="n">lang1</span><span class="p">][</span><span class="n">word</span><span class="p">]</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">sentence</span>
-                <span class="p">]</span>
+                <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span class="n">lang1</span><span class="p">][</span><span class="n">word</span><span class="p">]</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">]</span>
             <span class="p">)</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">Server</span><span class="o">.</span><span class="n">_recommend</span><span class="p">(</span>
                 <span class="n">result_vec</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">topn</span><span class="p">),</span> <span class="n">fn</span><span class="o">=</span><span class="n">vm</span><span class="o">.</span><span class="n">get_recommendations_from_vec</span>
@@ -421,16 +408,13 @@
         <span class="n">vm</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>
             <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;bilingual_dictionary&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_train_bd&#39;</span> <span class="o">%</span> <span class="p">(</span>
-                    <span class="n">lang1</span><span class="p">,</span> <span class="n">lang2</span>
-                <span class="p">)</span>
-            <span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span>
+                <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;bilingual_dictionary&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_</span><span class="si">%s</span><span class="s2">_train_bd&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">lang1</span><span class="p">,</span> <span class="n">lang2</span><span class="p">)</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;r&quot;</span><span class="p">,</span>
+            <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span>
         <span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-            <span class="n">bilingual_dict</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
-                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">data</span>
-            <span class="p">]</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">bilingual_dict</span> <span class="o">=</span> <span class="p">[(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
             <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">lang1</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">lang2</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
             <span class="p">):</span>
@@ -448,12 +432,7 @@
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="n">vec_list</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">vec_list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">([</span>
-                <span class="p">{</span>
-                    <span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="n">tup</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                    <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="n">tup</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-                <span class="p">}</span> <span class="k">for</span> <span class="n">tup</span> <span class="ow">in</span> <span class="n">vec_list</span>
-            <span class="p">])</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">([{</span><span class="s2">&quot;word&quot;</span><span class="p">:</span> <span class="n">tup</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="n">tup</span><span class="p">[</span><span class="mi">1</span><span class="p">]}</span> <span class="k">for</span> <span class="n">tup</span> <span class="ow">in</span> <span class="n">vec_list</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span>
@@ -462,76 +441,80 @@
     <span class="k">def</span> <span class="nf">_load_model</span><span class="p">(</span><span class="n">language</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Used to load Word2Vec Model.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Word2Vec</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;models&#39;</span><span class="p">,</span> <span class="s1">&#39;t-vex-</span><span class="si">%s</span><span class="s1">-model&#39;</span> <span class="o">%</span> <span class="n">language</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;models&quot;</span><span class="p">,</span> <span class="s2">&quot;t-vex-</span><span class="si">%s</span><span class="s2">-model&quot;</span> <span class="o">%</span> <span class="n">language</span><span class="p">)</span>
         <span class="p">)</span></div>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Setting up the Server with Specified Configuration&quot;&quot;&quot;</span>
-    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
-      <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Obtain Server Configuration&#39;</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Obtain Server Configuration&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-c&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--config&quot;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;config&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Config File Path&quot;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;tvecs&quot;</span><span class="p">,</span> <span class="s2">&quot;visualization&quot;</span><span class="p">,</span> <span class="s2">&quot;server.conf&quot;</span><span class="p">),</span>
     <span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-      <span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="s1">&#39;--config&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;config&#39;</span><span class="p">,</span>
-      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Config File Path&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
-      <span class="n">default</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;tvecs&#39;</span><span class="p">,</span> <span class="s1">&#39;visualization&#39;</span><span class="p">,</span> <span class="s1">&#39;server.conf&#39;</span><span class="p">)</span>
+        <span class="s2">&quot;-p&quot;</span><span class="p">,</span> <span class="s2">&quot;--port&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;port&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Port&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-      <span class="s1">&#39;-p&#39;</span><span class="p">,</span> <span class="s1">&#39;--port&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;port&#39;</span><span class="p">,</span>
-      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Port&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span>
-    <span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-      <span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="s1">&#39;--host&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;host&#39;</span><span class="p">,</span>
-      <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Host Name&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span>
+        <span class="s2">&quot;-s&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--host&quot;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;host&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Host Name&quot;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
     <span class="n">server_config</span> <span class="o">=</span> <span class="n">configparser</span><span class="o">.</span><span class="n">RawConfigParser</span><span class="p">()</span>
-    <span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span><span class="n">loader</span><span class="o">=</span><span class="n">FileSystemLoader</span><span class="p">(</span><span class="s1">&#39;static&#39;</span><span class="p">))</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span><span class="n">loader</span><span class="o">=</span><span class="n">FileSystemLoader</span><span class="p">(</span><span class="s2">&quot;static&quot;</span><span class="p">))</span>
     <span class="n">conf</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;/&#39;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">&#39;tools.staticdir.root&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+        <span class="s2">&quot;/&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;tools.staticdir.root&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())},</span>
+        <span class="s2">&quot;/js&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;tools.staticdir.on&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;tools.staticdir.dir&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="s2">&quot;tvecs&quot;</span><span class="p">,</span> <span class="s2">&quot;visualization&quot;</span><span class="p">,</span> <span class="s2">&quot;static&quot;</span><span class="p">,</span> <span class="s2">&quot;js&quot;</span>
+            <span class="p">),</span>
         <span class="p">},</span>
-        <span class="s1">&#39;/js&#39;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">&#39;tools.staticdir.on&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="s1">&#39;tools.staticdir.dir&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="s1">&#39;tvecs&#39;</span><span class="p">,</span> <span class="s1">&#39;visualization&#39;</span><span class="p">,</span> <span class="s1">&#39;static&#39;</span><span class="p">,</span> <span class="s1">&#39;js&#39;</span>
-            <span class="p">)</span>
+        <span class="s2">&quot;/css&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;tools.staticdir.on&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;tools.staticdir.dir&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="s2">&quot;tvecs&quot;</span><span class="p">,</span> <span class="s2">&quot;visualization&quot;</span><span class="p">,</span> <span class="s2">&quot;static&quot;</span><span class="p">,</span> <span class="s2">&quot;css&quot;</span>
+            <span class="p">),</span>
         <span class="p">},</span>
-        <span class="s1">&#39;/css&#39;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">&#39;tools.staticdir.on&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="s1">&#39;tools.staticdir.dir&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="s1">&#39;tvecs&#39;</span><span class="p">,</span> <span class="s1">&#39;visualization&#39;</span><span class="p">,</span> <span class="s1">&#39;static&#39;</span><span class="p">,</span> <span class="s1">&#39;css&#39;</span>
-            <span class="p">)</span>
+        <span class="s2">&quot;/images&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;tools.staticdir.on&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;tools.staticdir.dir&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="s2">&quot;tvecs&quot;</span><span class="p">,</span> <span class="s2">&quot;visualization&quot;</span><span class="p">,</span> <span class="s2">&quot;static&quot;</span><span class="p">,</span> <span class="s2">&quot;images&quot;</span>
+            <span class="p">),</span>
         <span class="p">},</span>
-        <span class="s1">&#39;/images&#39;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">&#39;tools.staticdir.on&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="s1">&#39;tools.staticdir.dir&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="s1">&#39;tvecs&#39;</span><span class="p">,</span> <span class="s1">&#39;visualization&#39;</span><span class="p">,</span> <span class="s1">&#39;static&#39;</span><span class="p">,</span> <span class="s1">&#39;images&#39;</span>
-            <span class="p">)</span>
+        <span class="s2">&quot;/resources&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;tools.staticdir.on&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;tools.staticdir.dir&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="s2">&quot;tvecs&quot;</span><span class="p">,</span> <span class="s2">&quot;visualization&quot;</span><span class="p">,</span> <span class="s2">&quot;static&quot;</span><span class="p">,</span> <span class="s2">&quot;resources&quot;</span>
+            <span class="p">),</span>
         <span class="p">},</span>
-        <span class="s1">&#39;/resources&#39;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">&#39;tools.staticdir.on&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="s1">&#39;tools.staticdir.dir&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="s1">&#39;tvecs&#39;</span><span class="p">,</span> <span class="s1">&#39;visualization&#39;</span><span class="p">,</span> <span class="s1">&#39;static&#39;</span><span class="p">,</span> <span class="s1">&#39;resources&#39;</span>
-            <span class="p">)</span>
-        <span class="p">}</span>
     <span class="p">}</span>
     <span class="n">server_port</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">port</span>
     <span class="n">server_host</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">host</span>
     <span class="n">server_config</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">port</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-      <span class="n">server_port</span> <span class="o">=</span> <span class="n">server_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Server&#39;</span><span class="p">,</span> <span class="s1">&#39;port&#39;</span><span class="p">)</span>
+        <span class="n">server_port</span> <span class="o">=</span> <span class="n">server_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Server&quot;</span><span class="p">,</span> <span class="s2">&quot;port&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">host</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-      <span class="n">server_host</span> <span class="o">=</span> <span class="n">server_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Server&#39;</span><span class="p">,</span> <span class="s1">&#39;host&#39;</span><span class="p">)</span>
-    <span class="n">thread_pool</span> <span class="o">=</span> <span class="n">server_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Server&#39;</span><span class="p">,</span> <span class="s1">&#39;thread_pool&#39;</span><span class="p">)</span>
-    <span class="n">queue_size</span> <span class="o">=</span> <span class="n">server_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Server&#39;</span><span class="p">,</span> <span class="s1">&#39;queue_size&#39;</span><span class="p">)</span>
-    <span class="n">cherrypy</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;server.socket_host&#39;</span><span class="p">:</span> <span class="n">server_host</span><span class="p">})</span>
-    <span class="n">cherrypy</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;server.thread_pool&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">thread_pool</span><span class="p">)})</span>
-    <span class="n">cherrypy</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;server.socket_queue_size&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">queue_size</span><span class="p">)})</span>
-    <span class="n">cherrypy</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;server.socket_port&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;PORT&#39;</span><span class="p">,</span> <span class="n">server_port</span><span class="p">)</span>
-    <span class="p">)})</span>
-    <span class="n">cherrypy</span><span class="o">.</span><span class="n">quickstart</span><span class="p">(</span><span class="n">Server</span><span class="p">(),</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">conf</span><span class="p">)</span>
+        <span class="n">server_host</span> <span class="o">=</span> <span class="n">server_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Server&quot;</span><span class="p">,</span> <span class="s2">&quot;host&quot;</span><span class="p">)</span>
+    <span class="n">thread_pool</span> <span class="o">=</span> <span class="n">server_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Server&quot;</span><span class="p">,</span> <span class="s2">&quot;thread_pool&quot;</span><span class="p">)</span>
+    <span class="n">queue_size</span> <span class="o">=</span> <span class="n">server_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Server&quot;</span><span class="p">,</span> <span class="s2">&quot;queue_size&quot;</span><span class="p">)</span>
+    <span class="n">cherrypy</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;server.socket_host&quot;</span><span class="p">:</span> <span class="n">server_host</span><span class="p">})</span>
+    <span class="n">cherrypy</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;server.thread_pool&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">thread_pool</span><span class="p">)})</span>
+    <span class="n">cherrypy</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;server.socket_queue_size&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">queue_size</span><span class="p">)})</span>
+    <span class="n">cherrypy</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+        <span class="p">{</span><span class="s2">&quot;server.socket_port&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PORT&quot;</span><span class="p">,</span> <span class="n">server_port</span><span class="p">))}</span>
+    <span class="p">)</span>
+    <span class="n">cherrypy</span><span class="o">.</span><span class="n">quickstart</span><span class="p">(</span><span class="n">Server</span><span class="p">(),</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">conf</span><span class="p">)</span>
 </pre></div>
 
            </div>

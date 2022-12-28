@@ -29,62 +29,66 @@ class Server(object):
     def __init__(self):
         """Initialization the Language and Model."""
         self.model = {
-            'english': Server._load_model('english'),
-            'hindi': Server._load_model('hindi')
+            "english": Server._load_model("english"),
+            "hindi": Server._load_model("hindi"),
         }
         self.cross_lang_vm = {
-            ('english', 'hindi'): self._create_vector_space_mapper(
-                'english', 'hindi'
-            ),
-            ('hindi', 'english'): self._create_vector_space_mapper(
-                'hindi', 'english'
-            )
+            ("english", "hindi"): self._create_vector_space_mapper("english", "hindi"),
+            ("hindi", "english"): self._create_vector_space_mapper("hindi", "english"),
         }
         self.cache_file_path = os.path.join(
-            'tvecs', 'visualization', 'cached_dictionary'
+            "tvecs", "visualization", "cached_dictionary"
         )
         if not os.path.exists(self.cache_file_path):
-            json.dump({}, codecs.open(
-                self.cache_file_path, 'w', encoding='utf-8'
-            ))
+            json.dump({}, codecs.open(self.cache_file_path, "w", encoding="utf-8"))
             self.cached_dictionary = {}
-        with codecs.open(self.cache_file_path, 'r', encoding='utf-8') as f:
+        with codecs.open(self.cache_file_path, "r", encoding="utf-8") as f:
             self.cached_dictionary = json.load(f)
 
     @cherrypy.expose
     def index(self):
         """Semantic spac visualization html returned."""
-        return serve_file(os.path.abspath(os.path.join(
-            'tvecs', 'visualization', 'static', 'index.html'
-        )))
+        return serve_file(
+            os.path.abspath(
+                os.path.join("tvecs", "visualization", "static", "index.html")
+            )
+        )
 
     @cherrypy.expose
     def multivariate_analysis(self):
         """Parallel Coordinates for multivariate analysis html page return."""
-        return serve_file(os.path.abspath(os.path.join(
-            'tvecs', 'visualization', 'static', 'multivariate.html')
-        ))
+        return serve_file(
+            os.path.abspath(
+                os.path.join("tvecs", "visualization", "static", "multivariate.html")
+            )
+        )
 
     @cherrypy.expose
     def cross_lingual(self):
         """Cross Lingual recommender html returned."""
-        return serve_file(os.path.abspath(os.path.join(
-            'tvecs', 'visualization', 'static', 'cross_lingual.html')
-        ))
+        return serve_file(
+            os.path.abspath(
+                os.path.join("tvecs", "visualization", "static", "cross_lingual.html")
+            )
+        )
 
     @cherrypy.expose
     def distances(self):
         """Visualization with distances html returned."""
-        return serve_file(os.path.abspath(os.path.join(
-            'tvecs', 'visualization', 'static', 'distances.html')
-        ))
+        return serve_file(
+            os.path.abspath(
+                os.path.join("tvecs", "visualization", "static", "distances.html")
+            )
+        )
 
     @cherrypy.expose
     def lingual_semantics(self):
         """Semantically related words in same language returned."""
-        return serve_file(os.path.abspath(os.path.join(
-            'tvecs', 'visualization', 'static', 'intra_language.html')
-        ))
+        return serve_file(
+            os.path.abspath(
+                os.path.join("tvecs", "visualization", "static", "intra_language.html")
+            )
+        )
 
     def retrieve_meaning(self, language, word):
         """
@@ -104,22 +108,21 @@ class Server(object):
 
         """
         from PyDictionary import PyDictionary
+
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
         word = word.lower()
         trword = word
         if word in self.cached_dictionary:
             return json.dumps(self.cached_dictionary[word])
         else:
-            if language == 'hindi':
+            if language == "hindi":
                 trword = yandex.get_translation(word, "hi-en")
 
             dictionary = PyDictionary(trword)
             meanings = [trword, dictionary.meaning(trword)]
             if meanings[1]:
                 self.cached_dictionary[word] = meanings
-                with codecs.open(
-                    self.cache_file_path, 'w', encoding='utf-8'
-                ) as f:
+                with codecs.open(self.cache_file_path, "w", encoding="utf-8") as f:
                     f.write(json.dumps(self.cached_dictionary))
             return json.dumps(meanings)
 
@@ -157,13 +160,7 @@ class Server(object):
             similarity = vm.obtain_cosine_similarity(word1, word2)
 
         distance = 1 - similarity if similarity is not None else None
-        return json.dumps(
-            {
-                'word1': word1,
-                'word2': word2,
-                'distance': distance
-            }
-        )
+        return json.dumps({"word1": word1, "word2": word2, "distance": distance})
 
     @cherrypy.expose
     def retrieve_recommendations(self, language, word, limit=10):
@@ -189,21 +186,13 @@ class Server(object):
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
         model = self.model.get(language)
         if model is not None:
-            data = Server._recommend(
-                word, int(limit), fn=model.most_similar
-            )
+            data = Server._recommend(word, int(limit), fn=model.most_similar)
         else:
             data = json.dumps(None)
         return data
 
     @cherrypy.expose
-    def get_cross_lingual_recommendations(
-        self,
-        lang1,
-        lang2,
-        word,
-        topn=10
-    ):
+    def get_cross_lingual_recommendations(self, lang1, lang2, word, topn=10):
         """
         Provide cross lingual recommendations.
 
@@ -228,9 +217,7 @@ class Server(object):
         data = None
         if vm is not None:
             result_vec = reduce(
-                lambda x, y: x + y, [
-                    self.model[lang1][word] for word in sentence
-                ]
+                lambda x, y: x + y, [self.model[lang1][word] for word in sentence]
             )
             data = Server._recommend(
                 result_vec, int(topn), fn=vm.get_recommendations_from_vec
@@ -259,16 +246,13 @@ class Server(object):
         vm = None
         with codecs.open(
             os.path.join(
-                'data', 'bilingual_dictionary', '%s_%s_train_bd' % (
-                    lang1, lang2
-                )
-            ), 'r', encoding='utf-8'
+                "data", "bilingual_dictionary", "%s_%s_train_bd" % (lang1, lang2)
+            ),
+            "r",
+            encoding="utf-8",
         ) as file:
-            data = file.read().split('\n')
-            bilingual_dict = [
-                (line.split(' ')[0], line.split(' ')[1])
-                for line in data
-            ]
+            data = file.read().split("\n")
+            bilingual_dict = [(line.split(" ")[0], line.split(" ")[1]) for line in data]
             if (self.model.get(lang1) is not None) and (
                 self.model.get(lang2) is not None
             ):
@@ -286,12 +270,7 @@ class Server(object):
         except KeyError:
             vec_list = None
         if vec_list is not None:
-            data = json.dumps([
-                {
-                    'word': tup[0],
-                    'weight': tup[1]
-                } for tup in vec_list
-            ])
+            data = json.dumps([{"word": tup[0], "weight": tup[1]} for tup in vec_list])
         else:
             data = json.dumps(None)
         return data
@@ -300,73 +279,77 @@ class Server(object):
     def _load_model(language):
         """Used to load Word2Vec Model."""
         return Word2Vec.load(
-            os.path.join('data', 'models', 't-vex-%s-model' % language)
+            os.path.join("data", "models", "t-vex-%s-model" % language)
         )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     """Setting up the Server with Specified Configuration"""
-    parser = argparse.ArgumentParser(
-      description='Obtain Server Configuration'
+    parser = argparse.ArgumentParser(description="Obtain Server Configuration")
+    parser.add_argument(
+        "-c",
+        "--config",
+        dest="config",
+        help="Config File Path",
+        action="store",
+        type=str,
+        default=os.path.join("tvecs", "visualization", "server.conf"),
     )
     parser.add_argument(
-      '-c', '--config', dest='config',
-      help='Config File Path', action='store', type=str,
-      default=os.path.join('tvecs', 'visualization', 'server.conf')
+        "-p", "--port", dest="port", help="Port", action="store", type=int, default=None
     )
     parser.add_argument(
-      '-p', '--port', dest='port',
-      help='Port', action='store', type=int, default=None
-    )
-    parser.add_argument(
-      '-s', '--host', dest='host',
-      help='Host Name', action='store', type=str, default=None
+        "-s",
+        "--host",
+        dest="host",
+        help="Host Name",
+        action="store",
+        type=str,
+        default=None,
     )
     args = parser.parse_args()
     server_config = configparser.RawConfigParser()
-    env = Environment(loader=FileSystemLoader('static'))
+    env = Environment(loader=FileSystemLoader("static"))
     conf = {
-        '/': {
-            'tools.staticdir.root': os.path.abspath(os.getcwd())
+        "/": {"tools.staticdir.root": os.path.abspath(os.getcwd())},
+        "/js": {
+            "tools.staticdir.on": True,
+            "tools.staticdir.dir": os.path.join(
+                "tvecs", "visualization", "static", "js"
+            ),
         },
-        '/js': {
-            'tools.staticdir.on': True,
-            'tools.staticdir.dir': os.path.join(
-                'tvecs', 'visualization', 'static', 'js'
-            )
+        "/css": {
+            "tools.staticdir.on": True,
+            "tools.staticdir.dir": os.path.join(
+                "tvecs", "visualization", "static", "css"
+            ),
         },
-        '/css': {
-            'tools.staticdir.on': True,
-            'tools.staticdir.dir': os.path.join(
-                'tvecs', 'visualization', 'static', 'css'
-            )
+        "/images": {
+            "tools.staticdir.on": True,
+            "tools.staticdir.dir": os.path.join(
+                "tvecs", "visualization", "static", "images"
+            ),
         },
-        '/images': {
-            'tools.staticdir.on': True,
-            'tools.staticdir.dir': os.path.join(
-                'tvecs', 'visualization', 'static', 'images'
-            )
+        "/resources": {
+            "tools.staticdir.on": True,
+            "tools.staticdir.dir": os.path.join(
+                "tvecs", "visualization", "static", "resources"
+            ),
         },
-        '/resources': {
-            'tools.staticdir.on': True,
-            'tools.staticdir.dir': os.path.join(
-                'tvecs', 'visualization', 'static', 'resources'
-            )
-        }
     }
     server_port = args.port
     server_host = args.host
     server_config.read(args.config)
     if args.port is None:
-      server_port = server_config.get('Server', 'port')
+        server_port = server_config.get("Server", "port")
     if args.host is None:
-      server_host = server_config.get('Server', 'host')
-    thread_pool = server_config.get('Server', 'thread_pool')
-    queue_size = server_config.get('Server', 'queue_size')
-    cherrypy.config.update({'server.socket_host': server_host})
-    cherrypy.config.update({'server.thread_pool': int(thread_pool)})
-    cherrypy.config.update({'server.socket_queue_size': int(queue_size)})
-    cherrypy.config.update({'server.socket_port': int(
-        os.environ.get('PORT', server_port)
-    )})
-    cherrypy.quickstart(Server(), '/', conf)
+        server_host = server_config.get("Server", "host")
+    thread_pool = server_config.get("Server", "thread_pool")
+    queue_size = server_config.get("Server", "queue_size")
+    cherrypy.config.update({"server.socket_host": server_host})
+    cherrypy.config.update({"server.thread_pool": int(thread_pool)})
+    cherrypy.config.update({"server.socket_queue_size": int(queue_size)})
+    cherrypy.config.update(
+        {"server.socket_port": int(os.environ.get("PORT", server_port))}
+    )
+    cherrypy.quickstart(Server(), "/", conf)

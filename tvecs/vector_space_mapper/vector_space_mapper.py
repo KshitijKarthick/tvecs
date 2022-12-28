@@ -12,7 +12,7 @@ from sklearn import metrics
 from tvecs.bilingual_generator import bilingual_generator as bg
 from tvecs.logger import init_logger as log
 
-LOGGER = log.initialise('TVecs.VectorSpaceMapper')
+LOGGER = log.initialise("TVecs.VectorSpaceMapper")
 
 
 class VectorSpaceMapper(object):
@@ -44,38 +44,48 @@ class VectorSpaceMapper(object):
 
     """
 
-    def __init__(self, model_1, model_2, bilingual_dict, encoding='utf-8'):
+    def __init__(self, model_1, model_2, bilingual_dict, encoding="utf-8"):
         """Constructor initialization for the vector space mapper."""
         try:
             self.logger = LOGGER
         except NameError:
-            self.logger = log.initialise('T-Vecs.VectorSpaceMapper')
+            self.logger = log.initialise("T-Vecs.VectorSpaceMapper")
         self.model_1 = model_1
         self.model_2 = model_2
         self.encoding = encoding
         self.lt = None
         self.bilingual_dict = bilingual_dict
         bilingual_dict = dict(bilingual_dict)
-        self.logger.debug('Extracting vocabulary and vector list from model 1')
+        self.logger.debug("Extracting vocabulary and vector list from model 1")
         self.vector_1_list, self.word_1_list = self._extract_vectors_and_words(
             self.model_1, bilingual_dict.keys()
         )
-        self.logger.debug('Extracting vocabulary and vector list from model 2')
+        self.logger.debug("Extracting vocabulary and vector list from model 2")
         (
-            self.vector_2_list, self.word_2_list
+            self.vector_2_list,
+            self.word_2_list,
         ) = VectorSpaceMapper._extract_vectors_and_words(
             self.model_2, bilingual_dict.values()
         )
         # Remove corresponding elements if any vectors were missing from models
         # across both languages
-        (self.vector_1_list, self.word_1_list, self.vector_2_list,
-            self.word_2_list) = zip(*[
-                (self.vector_1_list[index], self.word_1_list[index],
-                    self.vector_2_list[index], self.word_2_list[index])
+        (
+            self.vector_1_list,
+            self.word_1_list,
+            self.vector_2_list,
+            self.word_2_list,
+        ) = zip(
+            *[
+                (
+                    self.vector_1_list[index],
+                    self.word_1_list[index],
+                    self.vector_2_list[index],
+                    self.word_2_list[index],
+                )
                 for index in range(len(self.vector_1_list))
                 if (
-                    (self.vector_1_list[index] is not None) and (
-                        self.vector_2_list[index] is not None)
+                    (self.vector_1_list[index] is not None)
+                    and (self.vector_2_list[index] is not None)
                 )
             ]
         )
@@ -99,7 +109,7 @@ class VectorSpaceMapper(object):
         - Semantic embeddings obtained from vector space of corresponding
             bilingual words of the same language.
         """
-        self.logger.info('Learning transformation between Vector Spaces.')
+        self.logger.info("Learning transformation between Vector Spaces.")
         self.lt = RidgeCV()
         self.lt.fit(self.vector_1_list, self.vector_2_list)
 
@@ -127,15 +137,12 @@ class VectorSpaceMapper(object):
         if self.lt is not None:
             try:
                 data = self.model_2.wv.most_similar(
-                    positive=[
-                        self._predict_vec_from_vec(vector)
-                    ],
-                    topn=topn
+                    positive=[self._predict_vec_from_vec(vector)], topn=topn
                 )
             except KeyError:
                 data = None
         else:
-            logging.error('First Map Vector Spaces')
+            logging.error("First Map Vector Spaces")
             data = None
         return data
 
@@ -167,15 +174,12 @@ class VectorSpaceMapper(object):
         if self.lt is not None:
             try:
                 data = self.model_2.wv.most_similar(
-                    positive=[
-                        self._predict_vec_from_word(word)
-                    ],
-                    topn=topn
+                    positive=[self._predict_vec_from_word(word)], topn=topn
                 )
             except KeyError:
                 data = None
         else:
-            logging.error('First Map Vector Spaces')
+            logging.error("First Map Vector Spaces")
             data = None
         if pretty_print is True and data is not None:
             print("\n%s\t=>\t%s\n" % ("Word", "Score"))
@@ -206,7 +210,10 @@ class VectorSpaceMapper(object):
         except KeyError:
             return None
 
-    def obtain_mean_square_error_from_dataset(self, dataset_path, ):
+    def obtain_mean_square_error_from_dataset(
+        self,
+        dataset_path,
+    ):
         """
         Obtain Mean Square Error from bilingual dataset.
 
@@ -216,9 +223,7 @@ class VectorSpaceMapper(object):
             :return: %% of reduction of Mean Square Error after transformation.
             :rtype: :class:`Float`
         """
-        self.logger.info(
-            'Obtain mean square error from dataset: %s', dataset_path
-        )
+        self.logger.info("Obtain mean square error from dataset: %s", dataset_path)
         bilingual_dictionary = bg.load_bilingual_dictionary(dataset_path)
         avg = 0.0
         count = 0.0
@@ -240,48 +245,39 @@ class VectorSpaceMapper(object):
             except KeyError:
                 pass
         score = metrics.mean_squared_error(expected, actual)
-        score_with_tr = metrics.mean_squared_error(
-            expected_with_tr, actual_with_tr
+        score_with_tr = metrics.mean_squared_error(expected_with_tr, actual_with_tr)
+        self.logger.info(
+            "Mean Square Error for Dataset without transformation: %s", score
         )
         self.logger.info(
-            'Mean Square Error for Dataset without transformation: %s', score
-        )
-        self.logger.info(
-            'Mean Square Error for Dataset'
-            ' with transformation: %s', score_with_tr
+            "Mean Square Error for Dataset" " with transformation: %s", score_with_tr
         )
         error_reduction = ((score - score_with_tr) / score) * 100
         self.logger.info(
-            'Reduction in Mean Square Error'
-            ' with transformation: %s %%', error_reduction
+            "Reduction in Mean Square Error" " with transformation: %s %%",
+            error_reduction,
         )
         return error_reduction
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     log.set_logger_normal(LOGGER)
-    model_1 = Word2Vec.load(
-        os.path.join('data', 'models', 't-vex-english-model')
-    )
-    model_2 = Word2Vec.load(
-        os.path.join('data', 'models', 't-vex-hindi-model')
-    )
+    model_1 = Word2Vec.load(os.path.join("data", "models", "t-vex-english-model"))
+    model_2 = Word2Vec.load(os.path.join("data", "models", "t-vex-hindi-model"))
     bilingual_dict = bg.load_bilingual_dictionary(
-        os.path.join(
-            'data', 'bilingual_dictionary', 'english_hindi_train_bd'
-        )
+        os.path.join("data", "bilingual_dictionary", "english_hindi_train_bd")
     )
     vm = VectorSpaceMapper(model_1, model_2, bilingual_dict)
     vm.map_vector_spaces()
-    LOGGER.info(
-        'Evaluation of Testing Dataset'
+    LOGGER.info("Evaluation of Testing Dataset")
+    vm.obtain_mean_square_error_from_dataset(
+        dataset_path=os.path.join(
+            "data", "bilingual_dictionary", "english_hindi_test_bd"
+        )
     )
-    vm.obtain_mean_square_error_from_dataset(dataset_path=os.path.join(
-        'data', 'bilingual_dictionary', 'english_hindi_test_bd'
-    ))
-    LOGGER.info(
-        'Evaluation of Training Dataset'
+    LOGGER.info("Evaluation of Training Dataset")
+    vm.obtain_mean_square_error_from_dataset(
+        dataset_path=os.path.join(
+            "data", "bilingual_dictionary", "english_hindi_train_bd"
+        )
     )
-    vm.obtain_mean_square_error_from_dataset(dataset_path=os.path.join(
-        'data', 'bilingual_dictionary', 'english_hindi_train_bd'
-    ))

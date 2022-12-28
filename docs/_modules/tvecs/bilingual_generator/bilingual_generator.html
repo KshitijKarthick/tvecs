@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tvecs.bilingual_generator.bilingual_generator &mdash; T-Vecs 1 documentation</title>
+  <title>tvecs.bilingual_generator.bilingual_generator &mdash; T-Vecs 2 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                1
+                2
               </div>
             
           
@@ -173,10 +173,10 @@
 <span class="kn">from</span> <span class="nn">tvecs.logger</span> <span class="kn">import</span> <span class="n">init_logger</span> <span class="k">as</span> <span class="n">log</span>
 
 
-<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">initialise</span><span class="p">(</span><span class="s1">&#39;TVecs.BilingualDictionary&#39;</span><span class="p">)</span>
+<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">initialise</span><span class="p">(</span><span class="s2">&quot;TVecs.BilingualDictionary&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="load_bilingual_dictionary"><a class="viewcode-back" href="../../../_dev_docs/tvecs.bilingual_generator.html#tvecs.bilingual_generator.bilingual_generator.load_bilingual_dictionary">[docs]</a><span class="k">def</span> <span class="nf">load_bilingual_dictionary</span><span class="p">(</span><span class="n">bilingual_dictionary_path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="load_bilingual_dictionary"><a class="viewcode-back" href="../../../_dev_docs/tvecs.bilingual_generator.html#tvecs.bilingual_generator.bilingual_generator.load_bilingual_dictionary">[docs]</a><span class="k">def</span> <span class="nf">load_bilingual_dictionary</span><span class="p">(</span><span class="n">bilingual_dictionary_path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load bilingual dictionary from the specified bilingual_dictionary_path.</span>
 
@@ -188,28 +188,23 @@
 <span class="sd">        :return: Bilingual Dictionary loaded.</span>
 <span class="sd">        :rtype: :class:`List`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-        <span class="s1">&#39;Loading Bilingual Dictionary: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">bilingual_dictionary_path</span>
-    <span class="p">)</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Loading Bilingual Dictionary: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">bilingual_dictionary_path</span><span class="p">)</span>
     <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>
-        <span class="n">bilingual_dictionary_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span>
+        <span class="n">bilingual_dictionary_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span>
     <span class="p">)</span> <span class="k">as</span> <span class="n">bilingual_dict_file</span><span class="p">:</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">bilingual_dict_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="n">bilingual_dict</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
-            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">data</span>
-        <span class="p">]</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">bilingual_dict_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">bilingual_dict</span> <span class="o">=</span> <span class="p">[(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">bilingual_dict</span></div>
 
 
 <div class="viewcode-block" id="build_sparse_bilingual_dictionary"><a class="viewcode-back" href="../../../_dev_docs/tvecs.bilingual_generator.html#tvecs.bilingual_generator.bilingual_generator.build_sparse_bilingual_dictionary">[docs]</a><span class="k">def</span> <span class="nf">build_sparse_bilingual_dictionary</span><span class="p">(</span>
-        <span class="n">bilingual_dictionary_path</span><span class="p">,</span>
-        <span class="n">model</span><span class="p">,</span>
-        <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span>
-        <span class="n">output_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;bilingual_dictionary&#39;</span><span class="p">),</span>
-        <span class="n">output_fname</span><span class="o">=</span><span class="s2">&quot;sparse_bd&quot;</span><span class="p">,</span>
-        <span class="n">topn</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span>
-        <span class="n">sample_size</span><span class="o">=</span><span class="mi">1</span>
+    <span class="n">bilingual_dictionary_path</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">,</span>
+    <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;bilingual_dictionary&quot;</span><span class="p">),</span>
+    <span class="n">output_fname</span><span class="o">=</span><span class="s2">&quot;sparse_bd&quot;</span><span class="p">,</span>
+    <span class="n">topn</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span>
+    <span class="n">sample_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create Sparse Bilingual Dictionary.</span>
@@ -235,45 +230,37 @@
 <span class="sd">    .. seealso::</span>
 <span class="sd">        * :mod:`tvecs.bilingual_generator.clustering`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-        <span class="s1">&#39;Building Bilingual Dictionary from: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">bilingual_dictionary_path</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Building Bilingual Dictionary from: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">bilingual_dictionary_path</span><span class="p">)</span>
+    <span class="n">bilingual_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">load_bilingual_dictionary</span><span class="p">(</span>
+            <span class="n">bilingual_dictionary_path</span><span class="o">=</span><span class="n">bilingual_dictionary_path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span>
+        <span class="p">)</span>
     <span class="p">)</span>
-    <span class="n">bilingual_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">load_bilingual_dictionary</span><span class="p">(</span>
-        <span class="n">bilingual_dictionary_path</span><span class="o">=</span><span class="n">bilingual_dictionary_path</span><span class="p">,</span>
-        <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span>
-    <span class="p">))</span>
     <span class="n">word_list</span> <span class="o">=</span> <span class="n">bilingual_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()[:</span><span class="n">topn</span><span class="p">]</span>
-    <span class="n">clusters</span> <span class="o">=</span> <span class="n">cl</span><span class="o">.</span><span class="n">build_clusters</span><span class="p">(</span>
-        <span class="n">entire_word_list</span><span class="o">=</span><span class="n">word_list</span><span class="p">,</span>
-        <span class="n">model</span><span class="o">=</span><span class="n">model</span>
+    <span class="n">clusters</span> <span class="o">=</span> <span class="n">cl</span><span class="o">.</span><span class="n">build_clusters</span><span class="p">(</span><span class="n">entire_word_list</span><span class="o">=</span><span class="n">word_list</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">subset_of_clusters</span> <span class="o">=</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="n">sample_size</span><span class="p">)</span> <span class="k">for</span> <span class="n">cluster</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">]</span>
+    <span class="n">sparse_bilingual_dict</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">bilingual_dict</span><span class="p">[</span><span class="n">word</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">cluster</span> <span class="ow">in</span> <span class="n">subset_of_clusters</span>
+            <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">cluster</span>
+        <span class="p">]</span>
     <span class="p">)</span>
-    <span class="n">subset_of_clusters</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="n">sample_size</span><span class="p">)</span> <span class="k">for</span> <span class="n">cluster</span> <span class="ow">in</span> <span class="n">clusters</span>
-    <span class="p">]</span>
-    <span class="n">sparse_bilingual_dict</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
-        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
-            <span class="n">word</span><span class="p">,</span> <span class="n">bilingual_dict</span><span class="p">[</span><span class="n">word</span><span class="p">]</span>
-        <span class="p">)</span> <span class="k">for</span> <span class="n">cluster</span> <span class="ow">in</span> <span class="n">subset_of_clusters</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">cluster</span>
-    <span class="p">])</span>
     <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">output_fname</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">output_fname</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span>
     <span class="p">)</span> <span class="k">as</span> <span class="n">sparse_bd</span><span class="p">:</span>
         <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="s1">&#39;Save the Bilingual Dictionary: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="n">output_path</span><span class="p">,</span> <span class="n">output_fname</span>
-            <span class="p">)</span>
+            <span class="s2">&quot;Save the Bilingual Dictionary: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">output_fname</span><span class="p">)</span>
         <span class="p">)</span>
         <span class="n">sparse_bd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">sparse_bilingual_dict</span><span class="p">)</span></div>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">log</span><span class="o">.</span><span class="n">set_logger_normal</span><span class="p">(</span><span class="n">LOGGER</span><span class="p">)</span>
-    <span class="n">MODEL</span> <span class="o">=</span> <span class="n">Word2Vec</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;models&#39;</span><span class="p">,</span> <span class="s1">&#39;t-vex-english-model&#39;</span><span class="p">)</span>
-    <span class="p">)</span>
+    <span class="n">MODEL</span> <span class="o">=</span> <span class="n">Word2Vec</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;models&quot;</span><span class="p">,</span> <span class="s2">&quot;t-vex-english-model&quot;</span><span class="p">))</span>
     <span class="n">build_sparse_bilingual_dictionary</span><span class="p">(</span>
         <span class="n">bilingual_dictionary_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;bilingual_dictionary&#39;</span><span class="p">,</span> <span class="s1">&#39;english_hindi_train_bd&#39;</span>
+            <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;bilingual_dictionary&quot;</span><span class="p">,</span> <span class="s2">&quot;english_hindi_train_bd&quot;</span>
         <span class="p">),</span>
         <span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span>
     <span class="p">)</span>

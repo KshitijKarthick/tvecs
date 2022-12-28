@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tvecs.preprocessor.base_preprocessor &mdash; T-Vecs 1 documentation</title>
+  <title>tvecs.preprocessor.base_preprocessor &mdash; T-Vecs 2 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                1
+                2
               </div>
             
           
@@ -176,7 +176,7 @@
 
 <span class="kn">from</span> <span class="nn">tvecs.logger</span> <span class="kn">import</span> <span class="n">init_logger</span> <span class="k">as</span> <span class="n">log</span>
 
-<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">initialise</span><span class="p">(</span><span class="s1">&#39;TVecs.Preprocessor&#39;</span><span class="p">)</span>
+<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">initialise</span><span class="p">(</span><span class="s2">&quot;TVecs.Preprocessor&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="BasePreprocessor"><a class="viewcode-back" href="../../../_dev_docs/tvecs.preprocessor.html#tvecs.preprocessor.base_preprocessor.BasePreprocessor">[docs]</a><span class="k">class</span> <span class="nc">BasePreprocessor</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
@@ -213,51 +213,42 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">corpus_fname</span><span class="p">,</span>
-        <span class="n">corpus_dir_path</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span>
-        <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span>
+        <span class="n">corpus_dir_path</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
+        <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span>
         <span class="n">need_preprocessing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">limit</span><span class="o">=</span><span class="kc">None</span>
+        <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Constructor initialization for BasePreprocessor.&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">LOGGER</span>
         <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">initialise</span><span class="p">(</span><span class="s1">&#39;T-Vecs.Preprocessor&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">initialise</span><span class="p">(</span><span class="s2">&quot;T-Vecs.Preprocessor&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">limit</span> <span class="o">=</span> <span class="n">limit</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">corpus_fname</span> <span class="o">=</span> <span class="n">corpus_fname</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">corpus_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="n">corpus_dir_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">corpus_fname</span>
-        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">corpus_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">corpus_dir_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">corpus_fname</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="n">encoding</span>
         <span class="k">if</span> <span class="n">need_preprocessing</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">preprocessed_corpus_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="n">corpus_dir_path</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.preprocessed&#39;</span> <span class="o">%</span> <span class="n">corpus_fname</span>
+                <span class="n">corpus_dir_path</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.preprocessed&quot;</span> <span class="o">%</span> <span class="n">corpus_fname</span>
             <span class="p">)</span>
             <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">preprocessed_corpus_path</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-                <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">corpus_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">encoding</span>
-                <span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Extracting Corpus Data&#39;</span><span class="p">)</span>
+                <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">corpus_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Extracting Corpus Data&quot;</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_save_preprocessed_data</span><span class="p">(</span>
-                        <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_extract_corpus_data</span><span class="p">(</span>
-                            <span class="n">data</span><span class="o">=</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-                        <span class="p">),</span>
-                        <span class="n">output_fpath</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">preprocessed_corpus_path</span>
+                        <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_extract_corpus_data</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()),</span>
+                        <span class="n">output_fpath</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">preprocessed_corpus_path</span><span class="p">,</span>
                     <span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Saved Intermediate Preprocessed File&#39;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Saved Intermediate Preprocessed File&quot;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                    <span class="s1">&#39;Preprocessed Corpus found: </span><span class="si">%s</span><span class="s1">.preprocessed&#39;</span><span class="p">,</span> <span class="n">corpus_fname</span>
+                    <span class="s2">&quot;Preprocessed Corpus found: </span><span class="si">%s</span><span class="s2">.preprocessed&quot;</span><span class="p">,</span> <span class="n">corpus_fname</span>
                 <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">preprocessed_corpus_fname</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.preprocessed&#39;</span> <span class="o">%</span> <span class="n">corpus_fname</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">preprocessed_corpus_fname</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.preprocessed&quot;</span> <span class="o">%</span> <span class="n">corpus_fname</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Utilising Preprocessed Corpus: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">corpus_fname</span>
-            <span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Utilising Preprocessed Corpus: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">corpus_fname</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">preprocessed_corpus_fname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">corpus_fname</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">preprocessed_corpus_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="n">corpus_dir_path</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">preprocessed_corpus_fname</span>
+                <span class="n">corpus_dir_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessed_corpus_fname</span>
             <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_save_preprocessed_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">output_fpath</span><span class="p">):</span>
@@ -273,12 +264,10 @@
 <span class="sd">            :type data: :class:`String`</span>
 <span class="sd">            :type output_fpath: :class:`String`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">output_fpath</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">output_fpath</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Tokenizing Corpus into Sentences&quot;</span><span class="p">)</span>
             <span class="n">sentence_tokenized</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tokenize_sentences</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-            <span class="n">sentence_tokenized</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="s1">&#39;</span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">sentence</span> <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentence_tokenized</span>
-            <span class="p">)</span>
+            <span class="n">sentence_tokenized</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">sentence</span> <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentence_tokenized</span><span class="p">)</span>
             <span class="n">file</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">sentence_tokenized</span><span class="p">)</span>
 
 <div class="viewcode-block" id="BasePreprocessor._extract_corpus_data"><a class="viewcode-back" href="../../../_dev_docs/tvecs.preprocessor.html#tvecs.preprocessor.base_preprocessor.BasePreprocessor._extract_corpus_data">[docs]</a>    <span class="nd">@abstractmethod</span>
@@ -288,9 +277,7 @@
 
 <span class="sd">        - Executed only if need_preprocessing is set to True</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-            <span class="s2">&quot;Base Class _extract_corpus_data() not implemented&quot;</span>
-        <span class="p">)</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Base Class _extract_corpus_data() not implemented&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="BasePreprocessor._clean_word"><a class="viewcode-back" href="../../../_dev_docs/tvecs.preprocessor.html#tvecs.preprocessor.base_preprocessor.BasePreprocessor._clean_word">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">_clean_word</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">word</span><span class="p">):</span>
@@ -299,23 +286,17 @@
 
 <span class="sd">        - Called by __iter__() which returns list of words.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-            <span class="s2">&quot;Base Class _clean_data() not implemented&quot;</span>
-        <span class="p">)</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Base Class _clean_data() not implemented&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="BasePreprocessor._tokenize_sentences"><a class="viewcode-back" href="../../../_dev_docs/tvecs.preprocessor.html#tvecs.preprocessor.base_preprocessor.BasePreprocessor._tokenize_sentences">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">_tokenize_sentences</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Function to tokenize corpus data into sentences.&quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-            <span class="s2">&quot;Base Class _tokenize_sentences() not implemented&quot;</span>
-        <span class="p">)</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Base Class _tokenize_sentences() not implemented&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="BasePreprocessor._tokenize_words"><a class="viewcode-back" href="../../../_dev_docs/tvecs.preprocessor.html#tvecs.preprocessor.base_preprocessor.BasePreprocessor._tokenize_words">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">_tokenize_words</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sentence</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Function to tokenize sentences into words.&quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-            <span class="s2">&quot;Base Class _tokenize_words() not implemented&quot;</span>
-        <span class="p">)</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Base Class _tokenize_words() not implemented&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="BasePreprocessor.get_preprocessed_text"><a class="viewcode-back" href="../../../_dev_docs/tvecs.preprocessor.html#tvecs.preprocessor.base_preprocessor.BasePreprocessor.get_preprocessed_text">[docs]</a>    <span class="k">def</span> <span class="nf">get_preprocessed_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -329,16 +310,12 @@
             <span class="n">limit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">limit</span>
         <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">fileinput</span><span class="o">.</span><span class="n">input</span><span class="p">(</span>
             <span class="n">files</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">preprocessed_corpus_path</span><span class="p">],</span>
-            <span class="n">openhook</span><span class="o">=</span><span class="n">fileinput</span><span class="o">.</span><span class="n">hook_encoded</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span>
+            <span class="n">openhook</span><span class="o">=</span><span class="n">fileinput</span><span class="o">.</span><span class="n">hook_encoded</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="p">),</span>
         <span class="p">):</span>
-            <span class="n">word_list</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_clean_word</span><span class="p">(</span>
-                    <span class="n">word</span>
-                <span class="p">)</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tokenize_words</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
-            <span class="p">))</span>
-            <span class="n">word_list</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">word_list</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="mi">0</span>
-            <span class="p">]</span>
+            <span class="n">word_list</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span>
+                <span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clean_word</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tokenize_words</span><span class="p">(</span><span class="n">sentence</span><span class="p">))</span>
+            <span class="p">)</span>
+            <span class="n">word_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">word_list</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="mi">0</span><span class="p">]</span>
             <span class="n">count</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">word_list</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">limit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">count</span> <span class="o">&gt;=</span> <span class="n">limit</span><span class="p">:</span>
                 <span class="n">fileinput</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
@@ -352,7 +329,7 @@
             <span class="k">yield</span> <span class="n">tokenized_sentence</span></div>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">log</span><span class="o">.</span><span class="n">set_logger_normal</span><span class="p">(</span><span class="n">LOGGER</span><span class="p">)</span>
 </pre></div>
 

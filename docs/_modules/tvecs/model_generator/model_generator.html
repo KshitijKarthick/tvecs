@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tvecs.model_generator.model_generator &mdash; T-Vecs 1 documentation</title>
+  <title>tvecs.model_generator.model_generator &mdash; T-Vecs 2 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                1
+                2
               </div>
             
           
@@ -179,18 +179,18 @@
 <span class="kn">from</span> <span class="nn">tvecs.preprocessor.emille_preprocessor</span> <span class="kn">import</span> <span class="n">EmilleCorpusPreprocessor</span>
 <span class="kn">from</span> <span class="nn">tvecs.preprocessor.leipzig_preprocessor</span> <span class="kn">import</span> <span class="n">LeipzigPreprocessor</span>
 
-<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">initialise</span><span class="p">(</span><span class="s1">&#39;TVecs.ModelGeneration&#39;</span><span class="p">)</span>
+<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">initialise</span><span class="p">(</span><span class="s2">&quot;TVecs.ModelGeneration&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="generate_model"><a class="viewcode-back" href="../../../_dev_docs/tvecs.model_generator.html#tvecs.model_generator.model_generator.generate_model">[docs]</a><span class="k">def</span> <span class="nf">generate_model</span><span class="p">(</span>
-        <span class="n">preprocessor_type</span><span class="p">,</span>
-        <span class="n">language</span><span class="p">,</span>
-        <span class="n">corpus_fname</span><span class="p">,</span>
-        <span class="n">corpus_dir_path</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span>
-        <span class="n">output_fname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">output_dir_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;models&#39;</span><span class="p">),</span>
-        <span class="n">need_preprocessing</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">iterations</span><span class="o">=</span><span class="mi">5</span>
+    <span class="n">preprocessor_type</span><span class="p">,</span>
+    <span class="n">language</span><span class="p">,</span>
+    <span class="n">corpus_fname</span><span class="p">,</span>
+    <span class="n">corpus_dir_path</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
+    <span class="n">output_fname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">output_dir_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;models&quot;</span><span class="p">),</span>
+    <span class="n">need_preprocessing</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">iterations</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function used to preprocess and generate models.</span>
@@ -218,7 +218,7 @@
 <span class="sd">        :return: Constructed Model based on the provided specifications.</span>
 <span class="sd">        :rtype: :mod:`gensim.models.Word2Vec`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Constructing Preprocessor Object&#39;</span><span class="p">)</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Constructing Preprocessor Object&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">preprocessor_type</span> <span class="o">==</span> <span class="n">HcCorpusPreprocessor</span><span class="o">.</span><span class="vm">__name__</span><span class="p">:</span>
         <span class="n">preprocessor_cl</span> <span class="o">=</span> <span class="n">HcCorpusPreprocessor</span>
     <span class="k">elif</span> <span class="n">preprocessor_type</span> <span class="o">==</span> <span class="n">LeipzigPreprocessor</span><span class="o">.</span><span class="vm">__name__</span><span class="p">:</span>
@@ -231,23 +231,19 @@
         <span class="n">corpus_fname</span><span class="o">=</span><span class="n">corpus_fname</span><span class="p">,</span>
         <span class="n">corpus_dir_path</span><span class="o">=</span><span class="n">corpus_dir_path</span><span class="p">,</span>
         <span class="n">need_preprocessing</span><span class="o">=</span><span class="n">need_preprocessing</span><span class="p">,</span>
-        <span class="n">language</span><span class="o">=</span><span class="n">language</span>
+        <span class="n">language</span><span class="o">=</span><span class="n">language</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">construct_model</span><span class="p">(</span>
         <span class="n">preprocessed_corpus</span><span class="o">=</span><span class="n">preprocessor_obj</span><span class="p">,</span>
         <span class="n">language</span><span class="o">=</span><span class="n">language</span><span class="p">,</span>
         <span class="n">output_dir_path</span><span class="o">=</span><span class="n">output_dir_path</span><span class="p">,</span>
         <span class="n">iterations</span><span class="o">=</span><span class="n">iterations</span><span class="p">,</span>
-        <span class="n">output_fname</span><span class="o">=</span><span class="n">output_fname</span>
+        <span class="n">output_fname</span><span class="o">=</span><span class="n">output_fname</span><span class="p">,</span>
     <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="construct_model"><a class="viewcode-back" href="../../../_dev_docs/tvecs.model_generator.html#tvecs.model_generator.model_generator.construct_model">[docs]</a><span class="k">def</span> <span class="nf">construct_model</span><span class="p">(</span>
-        <span class="n">preprocessed_corpus</span><span class="p">,</span>
-        <span class="n">language</span><span class="p">,</span>
-        <span class="n">output_dir_path</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
-        <span class="n">output_fname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">iterations</span><span class="o">=</span><span class="mi">5</span>
+    <span class="n">preprocessed_corpus</span><span class="p">,</span> <span class="n">language</span><span class="p">,</span> <span class="n">output_dir_path</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">output_fname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">5</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Construct Model given the preprocessed corpus.</span>
@@ -274,14 +270,12 @@
 <span class="sd">        * :mod:`gensim.models.Word2Vec`</span>
 <span class="sd">        * :mod:`tvecs.preprocessor.base_preprocessor`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Generating Model&#39;</span><span class="p">)</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Generating Model&quot;</span><span class="p">)</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">gensim</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Word2Vec</span><span class="p">(</span><span class="n">preprocessed_corpus</span><span class="p">,</span> <span class="nb">iter</span><span class="o">=</span><span class="n">iterations</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">output_dir_path</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_dir_path</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">output_fname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">output_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="n">output_dir_path</span><span class="p">,</span> <span class="s1">&#39;t-vex-</span><span class="si">%s</span><span class="s1">-model&#39;</span> <span class="o">%</span> <span class="n">language</span>
-        <span class="p">)</span>
+        <span class="n">output_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir_path</span><span class="p">,</span> <span class="s2">&quot;t-vex-</span><span class="si">%s</span><span class="s2">-model&quot;</span> <span class="o">%</span> <span class="n">language</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">output_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir_path</span><span class="p">,</span> <span class="n">output_fname</span><span class="p">)</span>
     <span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
@@ -289,21 +283,21 @@
     <span class="k">return</span> <span class="n">model</span></div>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">log</span><span class="o">.</span><span class="n">set_logger_normal</span><span class="p">(</span><span class="n">LOGGER</span><span class="p">)</span>
     <span class="n">generate_model</span><span class="p">(</span>
-        <span class="n">language</span><span class="o">=</span><span class="s1">&#39;hindi&#39;</span><span class="p">,</span>
-        <span class="n">corpus_fname</span><span class="o">=</span><span class="s1">&#39;all.txt&#39;</span><span class="p">,</span>
-        <span class="n">corpus_dir_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;corpus&#39;</span><span class="p">,</span> <span class="s1">&#39;Hindi&#39;</span><span class="p">),</span>
+        <span class="n">language</span><span class="o">=</span><span class="s2">&quot;hindi&quot;</span><span class="p">,</span>
+        <span class="n">corpus_fname</span><span class="o">=</span><span class="s2">&quot;all.txt&quot;</span><span class="p">,</span>
+        <span class="n">corpus_dir_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;corpus&quot;</span><span class="p">,</span> <span class="s2">&quot;Hindi&quot;</span><span class="p">),</span>
         <span class="n">need_preprocessing</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">iterations</span><span class="o">=</span><span class="mi">5</span>
+        <span class="n">iterations</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">generate_model</span><span class="p">(</span>
-        <span class="n">language</span><span class="o">=</span><span class="s1">&#39;english&#39;</span><span class="p">,</span>
-        <span class="n">corpus_fname</span><span class="o">=</span><span class="s1">&#39;all.txt&#39;</span><span class="p">,</span>
-        <span class="n">corpus_dir_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;corpus&#39;</span><span class="p">,</span> <span class="s1">&#39;English&#39;</span><span class="p">),</span>
+        <span class="n">language</span><span class="o">=</span><span class="s2">&quot;english&quot;</span><span class="p">,</span>
+        <span class="n">corpus_fname</span><span class="o">=</span><span class="s2">&quot;all.txt&quot;</span><span class="p">,</span>
+        <span class="n">corpus_dir_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;corpus&quot;</span><span class="p">,</span> <span class="s2">&quot;English&quot;</span><span class="p">),</span>
         <span class="n">need_preprocessing</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">iterations</span><span class="o">=</span><span class="mi">5</span>
+        <span class="n">iterations</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
     <span class="p">)</span>
 </pre></div>
 
