@@ -1,12 +1,12 @@
 FROM ubuntu:latest
 
 # Install python and pip using miniconda
-RUN apt-get -qq update && apt-get -qq -y install curl bzip2 wget \
-    && curl -sSL https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh \
+RUN apt-get -qq update && apt-get -qq -y install bzip2 wget zip \
+    && wget -q https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh \
     && bash /tmp/miniconda.sh -bfp /usr/local \
     && rm -rf /tmp/miniconda.sh \
-    && conda install -y python=3.6 \
     && conda update conda \
+    && conda create -n env python=3.6 \
     && apt-get -qq -y remove curl bzip2 \
     && apt-get -qq -y autoremove \
     && apt-get autoclean \
@@ -20,14 +20,16 @@ RUN mkdir -p /tvecs/data/bilingual_dictionary \
 
 # Download models
 RUN mkdir -p /tvecs/data/models \
-    && wget -q https://www.dropbox.com/s/a6mh6f073czk0vg/t-vex-english-model?dl=1 -O /tvecs/data/models/t-vex-english-model \
-    && wget -q https://www.dropbox.com/s/wouwsdwuobcvs0b/t-vex-hindi-model?dl=1 -O /tvecs/data/models/t-vex-hindi-model
+    && wget -q https://www.dropbox.com/s/roms89xbngg1sn4/t-vex-models.zip?dl=1 -O /tvecs/data/models/t-vex-models.zip \
+    && unzip /tvecs/data/models/t-vex-models.zip -d /tvecs/data/models/ \
+    && apt-get -qq -y remove unzip
 
 # Install python dependencies
+SHELL ["conda", "run", "-n", "env", "/bin/bash", "-c"]
 COPY requirements.txt requirements-test.txt /tvecs/
-RUN pip3 install wheel \
-    && pip3 install -r /tvecs/requirements.txt \
-    && pip3 install -r /tvecs/requirements-test.txt \
+RUN pip install wheel \
+    && pip install -r /tvecs/requirements.txt \
+    && pip install -r /tvecs/requirements-test.txt \
     && mkdir -p tvecs/data/models
 
 # Download nltk data for tokenizing
@@ -45,4 +47,5 @@ WORKDIR /tvecs
 EXPOSE 5000
 
 # Run the app.
-CMD ["python3", "-m", "tvecs.visualization.server"]
+CMD ["conda", "run", "--no-capture-output", "-n", "env", "python", "-m", "tvecs.visualization.server"]
+
