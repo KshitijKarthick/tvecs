@@ -39,7 +39,7 @@ setup(
         'gensim==3.8.3',
         'Jinja2',
         'nltk==3.5',
-        'scipy==1.5.2',
+        'scipy==1.10.0',
         'regex',
         'scikit-learn == 0.23.2',
         'html5lib',
