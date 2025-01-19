@@ -6,7 +6,7 @@ RUN apt-get -qq update && apt-get -qq -y install bzip2 wget zip \
     && bash /tmp/miniconda.sh -bfp /usr/local \
     && rm -rf /tmp/miniconda.sh \
     && conda update conda \
-    && conda create -n env python=3.6 \
+    && conda create -n env python=3.7 \
     && apt-get -qq -y remove curl bzip2 \
     && apt-get -qq -y autoremove \
     && apt-get autoclean \
